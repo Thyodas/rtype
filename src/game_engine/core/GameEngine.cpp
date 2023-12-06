@@ -8,8 +8,13 @@
 #include "GameEngine.hpp"
 
 namespace engine {
+
+    Engine *Engine::engine = nullptr;
+    std::mutex Engine::_mutex;
+
     void Engine::init()
     {
+        _window.setFPS(60);
         _coordinator.init();
 
         _coordinator.registerComponent<ecs::components::physics::transform_t>();
@@ -26,8 +31,8 @@ namespace engine {
         signatureBehaviour.set(_coordinator.getComponentType<ecs::components::physics::transform_t>());
         signatureBehaviour.set(_coordinator.getComponentType<std::shared_ptr<ecs::components::behaviour::Behaviour>>());
         ecs::Signature signatureCollider;
-        signaturePhysics.set(_coordinator.getComponentType<ecs::components::physics::transform_t>());
-        signaturePhysics.set(_coordinator.getComponentType<ecs::components::physics::collider_t>());
+        signatureCollider.set(_coordinator.getComponentType<ecs::components::physics::transform_t>());
+        signatureCollider.set(_coordinator.getComponentType<ecs::components::physics::collider_t>());
 
         _physicSystem = _coordinator.registerSystem<ecs::system::PhysicsSystem>();
         _coordinator.setSystemSignature<ecs::system::PhysicsSystem>(signaturePhysics);
@@ -52,7 +57,44 @@ namespace engine {
     void Engine::run(void) {
         _behaviourSystem->handleBehaviours(_coordinator);
         _collisionDetectionSystem->detectCollision(_coordinator);
-        //_physicSystem->updatePosition(_coordinator);
+        _physicSystem->updatePosition(_coordinator);
         _renderSystem->render(_coordinator);
+    }
+
+    void initEngine()
+    {
+        Engine::getInstance()->init();
+    }
+
+    void runEngine()
+    {
+        Engine::getInstance()->run();
+    }
+
+    ecs::Entity createCube(
+        Vector3 pos,
+        float width,
+        float height,
+        float length,
+        Color color,
+        bool toggleWire,
+        Color wireColor
+        )
+    {
+        auto cube = std::make_shared<ecs::components::Cube>(width, height, length, toggleWire, color, wireColor);
+        ecs::components::physics::transform_t transf = {pos, {0}, {0}};
+        ecs::components::render::render_t render = {ecs::components::ShapeType::CUBE, true, cube};
+        ecs::components::physics::collider_t collider = {ecs::components::ShapeType::CUBE, ecs::components::physics::CollisionType::COLLIDE, cube};
+        ecs::Entity entity = Engine::getInstance()->addEntity(transf, render);
+        Engine::getInstance()->addComponent<ecs::components::physics::collider_t>(entity, collider);
+        return entity;
+    }
+
+    void attachBehavior(
+        ecs::Entity entity,
+        std::shared_ptr<ecs::components::behaviour::Behaviour> behaviour
+        )
+    {
+        Engine::getInstance()->addComponent<std::shared_ptr<ecs::components::behaviour::Behaviour>>(entity, behaviour);;
     }
 }

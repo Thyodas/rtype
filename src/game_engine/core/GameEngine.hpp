@@ -8,6 +8,7 @@
 #pragma once
 
 #include "game_engine/ecs/Coordinator.hpp"
+#include "core/window/Window.hpp"
 #include "game_engine/ecs/systems/Physics.hpp"
 #include "game_engine/ecs/systems/Behaviour.hpp"
 #include "game_engine/ecs/components/Physics.hpp"
@@ -16,13 +17,11 @@
 #include "game_engine/ecs/systems/Render.hpp"
 #include "game_engine/ecs/Entity.hpp"
 #include <memory>
+#include <mutex>
 
 namespace engine {
     class Engine {
         public:
-            Engine() {};
-            ~Engine() {};
-
             void init();
 
             ecs::Entity addEntity(ecs::components::physics::transform_t transf = {{0, 1, 0}, {0}, {0}},
@@ -42,5 +41,32 @@ namespace engine {
             std::shared_ptr<ecs::system::RenderSystem> _renderSystem;
             std::shared_ptr<ecs::system::BehaviourSystem> _behaviourSystem;
             std::shared_ptr<ecs::system::ColisionDetectionSystem> _collisionDetectionSystem;
+
+            core::Window _window{};
+
+
+        private:
+            static Engine *engine;
+            static std::mutex _mutex;
+
+        protected:
+            Engine() {};
+            ~Engine() {};
+
+        public:
+            Engine(Engine &other) = delete;
+            void operator=(const Engine &) = delete;
+
+            static Engine *getInstance() {
+                std::lock_guard<std::mutex> lock(_mutex);
+                if (engine == nullptr)
+                    engine = new Engine;
+                return engine;
+            };
     };
+
+    void initEngine();
+    void runEngine();
+    ecs::Entity createCube(Vector3 pos, float width, float height, float length, Color color = RED, bool toggleWire = false, Color wireColor = BLACK);
+    void attachBehavior(ecs::Entity entity, std::shared_ptr<ecs::components::behaviour::Behaviour> behaviour);
 }
