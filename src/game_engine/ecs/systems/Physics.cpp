@@ -46,10 +46,12 @@ namespace ecs {
         }
 
         void ColisionDetectionSystem::detectCollision(ecs::Coordinator &coord) {
-            for (auto it1 = _entities.begin(); it1 != _entities.end(); ++it1) {
+            for (auto it1 = _entities.begin(); it1 != _entities.end(); it1++) {
                 auto& transf1 = coord.getComponent<components::physics::transform_t>(*it1);
                 auto& collider1 = coord.getComponent<components::physics::collider_t>(*it1);
-                for (auto it2 = ++it1; it2 != _entities.end(); ++it2) {
+                for (auto it2 = it1; it2 != _entities.end();) {
+                    it2++;
+                    if (it2 == _entities.end()) break;
                     auto& transf2 = coord.getComponent<components::physics::transform_t>(*it2);
                     auto& collider2 = coord.getComponent<components::physics::collider_t>(*it2);
                     if (collider1.shapeType == ecs::components::ShapeType::SPHERE || collider2.shapeType == ecs::components::ShapeType::SPHERE) {
@@ -63,7 +65,6 @@ namespace ecs {
                     }
                 }
             }
-                
         }
     }
 }
