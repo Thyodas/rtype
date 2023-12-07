@@ -8,6 +8,7 @@
 #include "game_engine/ecs/components/Physics.hpp"
 #include "game_engine/ecs/systems/Physics.hpp"
 #include "game_engine/ecs/Coordinator.hpp"
+#include "../../core/event/CollisionEvent.hpp"
 
 #include <algorithm>
 #include <iostream>
@@ -59,9 +60,10 @@ namespace ecs {
                     } else {
                         bool colliding = CheckCollisionBoxes(collider1.data->getBoundingBox(transf1.pos), collider2.data->getBoundingBox(transf2.pos));
                         if (colliding) {
-                            std::cout << "collision detected" << std::endl;
-                        } else
-                            std::cout << "no collision detected" << std::endl;
+                            coord.emitEvent<CollisionEvent>(CollisionEvent(*it1, *it2));
+                        } else {
+                            //std::cout << "no collision detected" << std::endl;
+                        }
                     }
                 }
             }

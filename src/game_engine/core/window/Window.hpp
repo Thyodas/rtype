@@ -5,6 +5,8 @@
 ** Window.hpp
 */
 
+#pragma once
+
 #include "raylib.h"
 #include "common/math/vectors/Vec2.hpp"
 #include <iostream>

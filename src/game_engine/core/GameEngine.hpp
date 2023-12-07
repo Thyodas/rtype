@@ -8,7 +8,7 @@
 #pragma once
 
 #include "game_engine/ecs/Coordinator.hpp"
-#include "core/window/Window.hpp"
+#include "window/Window.hpp"
 #include "game_engine/ecs/systems/Physics.hpp"
 #include "game_engine/ecs/systems/Behaviour.hpp"
 #include "game_engine/ecs/components/Physics.hpp"
@@ -33,6 +33,11 @@ namespace engine {
                 _coordinator.addComponent<T>(entity, component);
             }
 
+            bool isWindowOpen(void)
+            {
+                return _window.isOpen();
+            }
+
             void run();
 
         private:
@@ -40,7 +45,9 @@ namespace engine {
             std::shared_ptr<ecs::system::PhysicsSystem> _physicSystem;
             std::shared_ptr<ecs::system::RenderSystem> _renderSystem;
             std::shared_ptr<ecs::system::BehaviourSystem> _behaviourSystem;
+            ecs::system::CollisionResponse _collisionResponseSystem;
             std::shared_ptr<ecs::system::ColisionDetectionSystem> _collisionDetectionSystem;
+
 
             core::Window _window{};
 
@@ -50,7 +57,7 @@ namespace engine {
             static std::mutex _mutex;
 
         protected:
-            Engine() {};
+            Engine() : _collisionResponseSystem(_coordinator) {};
             ~Engine() {};
 
         public:
@@ -69,4 +76,5 @@ namespace engine {
     void runEngine();
     ecs::Entity createCube(Vector3 pos, float width, float height, float length, Color color = RED, bool toggleWire = false, Color wireColor = BLACK);
     void attachBehavior(ecs::Entity entity, std::shared_ptr<ecs::components::behaviour::Behaviour> behaviour);
+    bool isWindowOpen(void);
 }

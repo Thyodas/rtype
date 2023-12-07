@@ -10,6 +10,7 @@
 #include <memory>
 
 #include "System.hpp"
+#include "event/Event.hpp"
 
 namespace ecs {
     /**
@@ -134,9 +135,28 @@ namespace ecs {
             void setSystemSignature(Signature signature) {
                 _systemManager->setSignature<T>(signature);
             }
+
+            template<typename T>
+            void registerListener(std::function<void(const T&)> listener)
+            {
+                _eventManager.registerListener<T>(listener);
+            }
+
+            template <typename T>
+            void emitEvent(const T& event)
+            {
+                _eventManager.emitEvent<T>(event);
+            }
+
+            void dispatchEvents()
+            {
+                _eventManager.dispatchEvents();
+            }
+
         private:
             std::unique_ptr<components::ComponentManager> _componentManager;
             std::unique_ptr<EntityManager> _entityManager;
             std::unique_ptr<system::SystemManager> _systemManager;
+            ecs::event::EventManager _eventManager;
     };
 }

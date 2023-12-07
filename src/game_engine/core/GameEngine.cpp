@@ -58,7 +58,14 @@ namespace engine {
         _behaviourSystem->handleBehaviours(_coordinator);
         _collisionDetectionSystem->detectCollision(_coordinator);
         _physicSystem->updatePosition(_coordinator);
+        BeginDrawing();
+        _window.clear(BLACK);
+        BeginMode3D(_window.getCamera());
         _renderSystem->render(_coordinator);
+        DrawGrid(20, 1.0f);
+        EndMode3D();
+        EndDrawing();
+        _coordinator.dispatchEvents();
     }
 
     void initEngine()
@@ -96,5 +103,10 @@ namespace engine {
         )
     {
         Engine::getInstance()->addComponent<std::shared_ptr<ecs::components::behaviour::Behaviour>>(entity, behaviour);;
+    }
+
+    bool isWindowOpen(void)
+    {
+        return Engine::getInstance()->isWindowOpen();
     }
 }
