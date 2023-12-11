@@ -10,7 +10,7 @@
 #include "../Coordinator.hpp"
 #include "../System.hpp"
 #include "../components/Physics.hpp"
-#include "../../../../src/game_engine/core/event/CollisionEvent.hpp"
+#include "game_engine/core/event/CollisionEvent.hpp"
 
 namespace ecs {
     namespace system {
@@ -113,7 +113,6 @@ namespace ecs {
                 }
                 CollisionResponse(ecs::Coordinator &coord) : _coord(coord) {
                     _coord.registerListener<CollisionEvent>([this](const CollisionEvent &event) {
-                        std::cout << "collision between " << event.entity1 << " and " << event.entity2 << std::endl;
                         auto &transf = _coord.getComponent<ecs::components::physics::transform_t>(event.entity1);
                         Vector3 displacementVector = getCollisionResponse(event);
                         transf.pos.x += displacementVector.x;

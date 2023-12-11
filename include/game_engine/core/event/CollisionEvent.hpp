@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "game_engine/ecs/event/Event.hpp"
+#include "./Event.hpp"
 #include "game_engine/ecs/Entity.hpp"
 
 class CollisionEvent : public ecs::event::IEvent {

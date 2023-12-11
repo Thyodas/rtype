@@ -10,7 +10,7 @@
 #include <memory>
 
 #include "System.hpp"
-#include "event/Event.hpp"
+#include "../core/event/Event.hpp"
 
 namespace ecs {
     /**

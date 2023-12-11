@@ -8,7 +8,7 @@
 #include "game_engine/ecs/components/Physics.hpp"
 #include "game_engine/ecs/systems/Physics.hpp"
 #include "game_engine/ecs/Coordinator.hpp"
-#include "../../core/event/CollisionEvent.hpp"
+#include "game_engine/core/event/CollisionEvent.hpp"
 
 #include <algorithm>
 #include <iostream>

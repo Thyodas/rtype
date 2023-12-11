@@ -5,7 +5,7 @@
 ** GameEngine.cpp
 */
 
-#include "GameEngine.hpp"
+#include "game_engine/GameEngine.hpp"
 #include "raymath.h"
 
 namespace engine {

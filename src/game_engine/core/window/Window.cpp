@@ -5,7 +5,7 @@
 ** Window.cpp
 */
 
-#include "Window.hpp"
+#include "game_engine/core/Window.hpp"
 
 namespace engine {
     namespace core {

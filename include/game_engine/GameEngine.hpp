@@ -8,8 +8,8 @@
 #pragma once
 
 #include "game_engine/ecs/Coordinator.hpp"
-#include "window/Window.hpp"
-#include "game_engine/ecs/systems/Physics.hpp"
+#include "core/Window.hpp"
+#include "./ecs/systems/Physics.hpp"
 #include "game_engine/ecs/systems/Behaviour.hpp"
 #include "game_engine/ecs/components/Physics.hpp"
 #include "game_engine/ecs/components/Render.hpp"
@@ -18,6 +18,7 @@
 #include "game_engine/ecs/Entity.hpp"
 #include <memory>
 #include <mutex>
+#include <functional>
 
 namespace engine {
     class Engine {
@@ -36,6 +37,12 @@ namespace engine {
             template<typename T>
             T &getComponent(ecs::Entity entity) {
                 return _coordinator.getComponent<T>(entity);
+            }
+
+            template<typename T>
+            void registerListener(std::function<void(const T&)> listener)
+            {
+                _coordinator.registerListener<T>(listener);
             }
 
             bool isWindowOpen(void)
@@ -84,4 +91,10 @@ namespace engine {
     void attachBehavior(ecs::Entity entity, std::shared_ptr<ecs::components::behaviour::Behaviour> behaviour);
     bool isWindowOpen(void);
     void setRotation(ecs::Entity entity, Vector3 rotation);
+
+    template<typename T>
+    void registerListener(std::function<void(const T&)> listener)
+    {
+        Engine::getInstance()->registerListener<T>(listener);
+    }
 }

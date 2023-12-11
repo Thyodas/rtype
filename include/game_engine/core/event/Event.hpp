@@ -24,6 +24,12 @@ namespace ecs {
         class EventManager {
             public:
                 template<typename T>
+                std::function<void(const T&)> &on(void)
+                {
+                    return _listeners[typeid(T)].emplace_back();
+                }
+
+                template<typename T>
                 void registerListener(std::function<void(const T&)> listener)
                 {
                     _listeners[typeid(T)].push_back(
@@ -50,6 +56,8 @@ namespace ecs {
                         _eventQueue.pop();
                     }
                 }
+
+
             
             private:
                 std::unordered_map<std::type_index, std::vector<std::function<void(const IEvent&)>>> _listeners;
