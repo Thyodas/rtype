@@ -19,6 +19,17 @@ namespace ecs {
             float deltaTime = 0.016f;
             for (auto const &entity : _entities) {
                 auto& transf = coord.getComponent<components::physics::transform_t>(entity);
+                auto& body = coord.getComponent<components::physics::rigidBody_t>(entity);
+
+                transf.pos.x += body.velocity.x;
+                body.velocity.x = 0;
+
+                transf.pos.y += body.velocity.y;
+                body.velocity.y = 0;
+
+                transf.pos.z += body.velocity.z;
+                body.velocity.z = 0;
+
 
                 // transf.vel.x += transf.acc.x * deltaTime;
                 // transf.vel.y += transf.acc.y * deltaTime;
@@ -58,9 +69,11 @@ namespace ecs {
                     if (collider1.shapeType == ecs::components::ShapeType::SPHERE || collider2.shapeType == ecs::components::ShapeType::SPHERE) {
                         
                     } else {
-                        bool colliding = CheckCollisionBoxes(collider1.data->getBoundingBox(transf1.pos), collider2.data->getBoundingBox(transf2.pos));
+                        BoundingBox box1 = collider1.data->getBoundingBox(transf1.pos);
+                        BoundingBox box2 = collider2.data->getBoundingBox(transf2.pos);
+                        bool colliding = CheckCollisionBoxes(box1, box2);
                         if (colliding) {
-                            coord.emitEvent<CollisionEvent>(CollisionEvent(*it1, *it2));
+                            coord.emitEvent<CollisionEvent>(CollisionEvent(*it1, box1, collider1.data->getModel().transform, *it2, box2, collider2.data->getModel().transform));
                         } else {
                             //std::cout << "no collision detected" << std::endl;
                         }

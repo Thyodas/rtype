@@ -14,22 +14,33 @@
 
 class input : public ecs::components::behaviour::Behaviour {
     public:
-        void update(ecs::components::physics::transform_t &transf) override {
+        void update(
+            ecs::components::physics::transform_t &transf,
+            ecs::components::physics::rigidBody_t &body
+        ) override {
             if (IsKeyDown(KEY_D)) {
-                transf.pos.x += 0.1f;
-                transf.pos.z -= 0.1f;
+                body.velocity.x += 0.1f;
+                body.velocity.z += -0.1f;
+                // transf.pos.x += 0.1f;
+                // transf.pos.z -= 0.1f;
             }
             if (IsKeyDown(KEY_A)) {
-                transf.pos.x -= 0.1f;
-                transf.pos.z += 0.1f;
+                // transf.pos.x -= 0.1f;
+                // transf.pos.z += 0.1f;
+                body.velocity.x += -0.1f;
+                body.velocity.z += 0.1f;
             }
             if (IsKeyDown(KEY_W)) {
-                transf.pos.x -= 0.2f;
-                transf.pos.z -= 0.2f;
+                body.velocity.x += -0.2f;
+                body.velocity.z += -0.2f;
+                // transf.pos.x -= 0.2f;
+                // transf.pos.z -= 0.2f;
             }
             if (IsKeyDown(KEY_S)) {
-                transf.pos.x += 0.2f;
-                transf.pos.z += 0.2f;
+                body.velocity.x += 0.2f;
+                body.velocity.z += 0.2f;
+                // transf.pos.x += 0.2f;
+                // transf.pos.z += 0.2f;
             }
         };
 };

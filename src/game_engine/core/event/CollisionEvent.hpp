@@ -12,8 +12,25 @@
 
 class CollisionEvent : public ecs::event::IEvent {
     public:
-        CollisionEvent(ecs::Entity ent1, ecs::Entity ent2) : entity1(ent1), entity2(ent2) {
+        CollisionEvent(
+            ecs::Entity ent1,
+            BoundingBox &box1,
+            Matrix &rotate1,
+            ecs::Entity ent2,
+            BoundingBox &box2,
+            Matrix &rotate2
+        ) :
+            entity1(ent1),
+            box1(box1),
+            rotate1(rotate1),
+            entity2(ent2),
+            box2(box2),
+            rotate2(rotate2) {
         }
         ecs::Entity entity1;
+        BoundingBox box1;
+        Matrix rotate1;
         ecs::Entity entity2;
+        BoundingBox box2;
+        Matrix rotate2;
 };
