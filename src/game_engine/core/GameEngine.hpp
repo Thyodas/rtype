@@ -80,6 +80,7 @@ namespace engine {
     void initEngine();
     void runEngine();
     ecs::Entity createCube(Vector3 pos, float width, float height, float length, Color color = RED, bool toggleWire = false, Color wireColor = BLACK);
+    ecs::Entity createModel3D(const char *filename, Vector3 pos, Color color = WHITE);
     void attachBehavior(ecs::Entity entity, std::shared_ptr<ecs::components::behaviour::Behaviour> behaviour);
     bool isWindowOpen(void);
     void setRotation(ecs::Entity entity, Vector3 rotation);

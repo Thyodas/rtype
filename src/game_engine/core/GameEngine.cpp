@@ -103,6 +103,19 @@ namespace engine {
         return entity;
     }
 
+    ecs::Entity createModel3D(const char *filename, Vector3 pos, Color color)
+    {
+        auto model = std::make_shared<ecs::components::Model3D>(filename, color);
+        ecs::components::physics::transform_t transf = {pos, {0}, {0}};
+        ecs::components::physics::rigidBody_t body = {0.0, {0}, {0}};
+        ecs::components::render::render_t render = {ecs::components::ShapeType::MODEL, true, model};
+        ecs::components::physics::collider_t collider = {ecs::components::ShapeType::MODEL, ecs::components::physics::CollisionType::COLLIDE, model};
+        ecs::Entity entity = Engine::getInstance()->addEntity(transf, render);
+        Engine::getInstance()->addComponent<ecs::components::physics::collider_t>(entity, collider);
+        Engine::getInstance()->addComponent<ecs::components::physics::rigidBody_t>(entity, body);
+        return entity;
+    }
+
     void setRotation(ecs::Entity entity, Vector3 rotation)
     {
         auto transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
