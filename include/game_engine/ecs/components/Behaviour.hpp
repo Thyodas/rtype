@@ -15,9 +15,7 @@ namespace ecs {
         namespace behaviour {
             class Behaviour {
                 public:
-                    virtual void update(physics::transform_t &transf) {
-                        std::cout << "ici" << std::endl;
-                    };
+                    virtual void update(physics::transform_t &transf, physics::rigidBody_t &body) {};
             };
         }
     }

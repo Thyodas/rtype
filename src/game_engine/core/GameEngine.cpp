@@ -22,15 +22,18 @@ namespace engine {
         _coordinator.registerComponent<ecs::components::render::render_t>();
         _coordinator.registerComponent<std::shared_ptr<ecs::components::behaviour::Behaviour>>();
         _coordinator.registerComponent<ecs::components::physics::collider_t>();
+        _coordinator.registerComponent<ecs::components::physics::rigidBody_t>();
 
         ecs::Signature signaturePhysics;
         signaturePhysics.set(_coordinator.getComponentType<ecs::components::physics::transform_t>());
+        signaturePhysics.set(_coordinator.getComponentType<ecs::components::physics::rigidBody_t>());
         ecs::Signature signatureRender;
         signatureRender.set(_coordinator.getComponentType<ecs::components::physics::transform_t>());
         signatureRender.set(_coordinator.getComponentType<ecs::components::render::render_t>());
         ecs::Signature signatureBehaviour;
         signatureBehaviour.set(_coordinator.getComponentType<ecs::components::physics::transform_t>());
         signatureBehaviour.set(_coordinator.getComponentType<std::shared_ptr<ecs::components::behaviour::Behaviour>>());
+        signatureBehaviour.set(_coordinator.getComponentType<ecs::components::physics::rigidBody_t>());
         ecs::Signature signatureCollider;
         signatureCollider.set(_coordinator.getComponentType<ecs::components::physics::transform_t>());
         signatureCollider.set(_coordinator.getComponentType<ecs::components::physics::collider_t>());
@@ -57,8 +60,9 @@ namespace engine {
 
     void Engine::run(void) {
         _behaviourSystem->handleBehaviours(_coordinator);
-        _collisionDetectionSystem->detectCollision(_coordinator);
         _physicSystem->updatePosition(_coordinator);
+        _collisionDetectionSystem->detectCollision(_coordinator);
+        _coordinator.dispatchEvents();
         BeginDrawing();
         _window.clear(BLACK);
         BeginMode3D(_window.getCamera());
@@ -66,7 +70,6 @@ namespace engine {
         DrawGrid(20, 1.0f);
         EndMode3D();
         EndDrawing();
-        _coordinator.dispatchEvents();
     }
 
     void initEngine()
@@ -91,10 +94,12 @@ namespace engine {
     {
         auto cube = std::make_shared<ecs::components::Cube>(width, height, length, toggleWire, color, wireColor);
         ecs::components::physics::transform_t transf = {pos, {0}, {0}};
+        ecs::components::physics::rigidBody_t body = {0.0, {0}, {0}};
         ecs::components::render::render_t render = {ecs::components::ShapeType::CUBE, true, cube};
         ecs::components::physics::collider_t collider = {ecs::components::ShapeType::CUBE, ecs::components::physics::CollisionType::COLLIDE, cube};
         ecs::Entity entity = Engine::getInstance()->addEntity(transf, render);
         Engine::getInstance()->addComponent<ecs::components::physics::collider_t>(entity, collider);
+        Engine::getInstance()->addComponent<ecs::components::physics::rigidBody_t>(entity, body);
         return entity;
     }
 
