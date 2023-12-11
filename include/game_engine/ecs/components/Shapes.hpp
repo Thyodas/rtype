@@ -45,7 +45,10 @@ namespace ecs {
                     return box;
                 };
                 virtual void draw(Vector3 pos) const = 0;
-                virtual Model &getModel() = 0;
+                Model &getModel()
+                {
+                    return _model;
+                }
             protected:
                 Model _model;
         };
@@ -76,10 +79,6 @@ namespace ecs {
                         DrawModelWires(_model, pos, 1, _wireColor);
                 }
 
-                Model &getModel() override
-                {
-                    return _model;
-                }
             private:
                 float _width;
                 float _height;
@@ -87,6 +86,19 @@ namespace ecs {
                 bool _toggleWire;
                 Color _color;
                 Color _wireColor;
+        };
+
+        class Model3D : public IShape {
+            public:
+                Model3D(const char *filename, Color color = WHITE)
+                {
+                    _model = LoadModel(filename);
+                }
+                void draw(Vector3 pos) const override {
+                    DrawModel(_model, pos, 1, _color);
+                }
+            private:
+                Color _color;
         };
     }
 }
