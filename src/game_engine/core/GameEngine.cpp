@@ -6,6 +6,7 @@
 */
 
 #include "GameEngine.hpp"
+#include "raymath.h"
 
 namespace engine {
 
@@ -95,6 +96,14 @@ namespace engine {
         ecs::Entity entity = Engine::getInstance()->addEntity(transf, render);
         Engine::getInstance()->addComponent<ecs::components::physics::collider_t>(entity, collider);
         return entity;
+    }
+
+    void setRotation(ecs::Entity entity, Vector3 rotation)
+    {
+        auto transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
+        auto render = Engine::getInstance()->getComponent<ecs::components::render::render_t>(entity);
+        transform.rotation = rotation;
+        render.data->getModel().transform = MatrixRotateXYZ(rotation);
     }
 
     void attachBehavior(

@@ -33,6 +33,11 @@ namespace engine {
                 _coordinator.addComponent<T>(entity, component);
             }
 
+            template<typename T>
+            T &getComponent(ecs::Entity entity) {
+                return _coordinator.getComponent<T>(entity);
+            }
+
             bool isWindowOpen(void)
             {
                 return _window.isOpen();
@@ -77,4 +82,5 @@ namespace engine {
     ecs::Entity createCube(Vector3 pos, float width, float height, float length, Color color = RED, bool toggleWire = false, Color wireColor = BLACK);
     void attachBehavior(ecs::Entity entity, std::shared_ptr<ecs::components::behaviour::Behaviour> behaviour);
     bool isWindowOpen(void);
+    void setRotation(ecs::Entity entity, Vector3 rotation);
 }
