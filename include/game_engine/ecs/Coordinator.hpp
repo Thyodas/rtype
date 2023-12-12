@@ -154,9 +154,9 @@ namespace ecs {
             }
 
         private:
-            std::unique_ptr<components::ComponentManager> _componentManager;
-            std::unique_ptr<EntityManager> _entityManager;
-            std::unique_ptr<system::SystemManager> _systemManager;
+            std::shared_ptr<components::ComponentManager> _componentManager;
+            std::shared_ptr<EntityManager> _entityManager;
+            std::shared_ptr<system::SystemManager> _systemManager;
             ecs::event::EventManager _eventManager;
     };
 }
