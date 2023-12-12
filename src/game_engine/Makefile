@@ -10,7 +10,7 @@ LDFLAGS = -lraylib
 
 NAME = example_game_engine
 
-SRC_DIR = ./
+SRC_DIR = .
 
 SRC = main.cpp \
       $(SRC_DIR)/core/GameEngine.cpp \
