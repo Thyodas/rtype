@@ -14,11 +14,9 @@ namespace ecs {
     namespace system {
         void BehaviourSystem::handleBehaviours(ecs::Coordinator &coord) {
             for (auto const &entity : _entities) {
-                auto &transf = coord.getComponent<ecs::components::physics::transform_t>(entity);
                 auto &behave = coord.getComponent<std::shared_ptr<ecs::components::behaviour::Behaviour>>(entity);
-                auto &body = coord.getComponent<ecs::components::physics::rigidBody_t>(entity);
 
-                behave->update(transf, body);
+                behave->update();
             }
         }
     }
