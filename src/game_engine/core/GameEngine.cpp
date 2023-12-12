@@ -6,17 +6,19 @@
 */
 
 #include "game_engine/GameEngine.hpp"
+#include "game_engine/ecs/components/Behaviour.hpp"
 #include "raymath.h"
 
+std::shared_ptr<ecs::Coordinator> ecs::components::behaviour::Behaviour::_coord = nullptr;
 namespace engine {
 
     Engine *Engine::engine = nullptr;
     std::mutex Engine::_mutex;
-
     void Engine::init()
     {
         _window.setFPS(60);
         _coordinator.init();
+        ecs::components::behaviour::Behaviour::_coord = std::make_shared<ecs::Coordinator>(_coordinator);
 
         _coordinator.registerComponent<ecs::components::physics::transform_t>();
         _coordinator.registerComponent<ecs::components::render::render_t>();
@@ -31,9 +33,7 @@ namespace engine {
         signatureRender.set(_coordinator.getComponentType<ecs::components::physics::transform_t>());
         signatureRender.set(_coordinator.getComponentType<ecs::components::render::render_t>());
         ecs::Signature signatureBehaviour;
-        signatureBehaviour.set(_coordinator.getComponentType<ecs::components::physics::transform_t>());
         signatureBehaviour.set(_coordinator.getComponentType<std::shared_ptr<ecs::components::behaviour::Behaviour>>());
-        signatureBehaviour.set(_coordinator.getComponentType<ecs::components::physics::rigidBody_t>());
         ecs::Signature signatureCollider;
         signatureCollider.set(_coordinator.getComponentType<ecs::components::physics::transform_t>());
         signatureCollider.set(_coordinator.getComponentType<ecs::components::physics::collider_t>());
@@ -129,7 +129,8 @@ namespace engine {
         std::shared_ptr<ecs::components::behaviour::Behaviour> behaviour
         )
     {
-        Engine::getInstance()->addComponent<std::shared_ptr<ecs::components::behaviour::Behaviour>>(entity, behaviour);;
+        Engine::getInstance()->addComponent<std::shared_ptr<ecs::components::behaviour::Behaviour>>(entity, behaviour);
+        behaviour->setEntity(entity);
     }
 
     bool isWindowOpen(void)

@@ -19,6 +19,7 @@
 #include <memory>
 #include <mutex>
 #include <functional>
+#include <utility>
 
 namespace engine {
     class Engine {
@@ -88,6 +89,11 @@ namespace engine {
     void runEngine();
     ecs::Entity createCube(Vector3 pos, float width, float height, float length, Color color = RED, bool toggleWire = false, Color wireColor = BLACK);
     ecs::Entity createModel3D(const char *filename, Vector3 pos, Color color = WHITE);
+    template<typename T, typename... Args>
+    std::shared_ptr<T> createBehavior(Args&&... args)
+    {
+        return std::make_shared<T>(std::forward<Args>(args)...);
+    }
     void attachBehavior(ecs::Entity entity, std::shared_ptr<ecs::components::behaviour::Behaviour> behaviour);
     bool isWindowOpen(void);
     void setRotation(ecs::Entity entity, Vector3 rotation);
