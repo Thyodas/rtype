@@ -10,6 +10,7 @@
 #include "raymath.h"
 
 std::shared_ptr<ecs::Coordinator> ecs::components::behaviour::Behaviour::_coord = nullptr;
+std::shared_ptr<ecs::Coordinator> ecs::system::System::_coord = nullptr;
 namespace engine {
 
     Engine *Engine::engine = nullptr;
@@ -17,63 +18,66 @@ namespace engine {
     void Engine::init()
     {
         _window.setFPS(60);
-        _coordinator.init();
-        ecs::components::behaviour::Behaviour::_coord = std::make_shared<ecs::Coordinator>(_coordinator);
+        _coordinator = std::make_shared<ecs::Coordinator>();
+        _coordinator->init();
+        _collisionResponseSystem = std::make_shared<ecs::system::CollisionResponse>(*_coordinator);
+        ecs::components::behaviour::Behaviour::_coord = _coordinator;
+        ecs::system::System::_coord = _coordinator;
 
-        _coordinator.registerComponent<ecs::components::physics::transform_t>();
-        _coordinator.registerComponent<ecs::components::render::render_t>();
-        _coordinator.registerComponent<std::shared_ptr<ecs::components::behaviour::Behaviour>>();
-        _coordinator.registerComponent<ecs::components::physics::collider_t>();
-        _coordinator.registerComponent<ecs::components::physics::rigidBody_t>();
-        _coordinator.registerComponent<ecs::components::animations::animation_t>();
+        _coordinator->registerComponent<ecs::components::physics::transform_t>();
+        _coordinator->registerComponent<ecs::components::render::render_t>();
+        _coordinator->registerComponent<std::shared_ptr<ecs::components::behaviour::Behaviour>>();
+        _coordinator->registerComponent<ecs::components::physics::collider_t>();
+        _coordinator->registerComponent<ecs::components::physics::rigidBody_t>();
+        _coordinator->registerComponent<ecs::components::animations::animation_t>();
 
         ecs::Signature signaturePhysics;
-        signaturePhysics.set(_coordinator.getComponentType<ecs::components::physics::transform_t>());
-        signaturePhysics.set(_coordinator.getComponentType<ecs::components::physics::rigidBody_t>());
+        signaturePhysics.set(_coordinator->getComponentType<ecs::components::physics::transform_t>());
+        signaturePhysics.set(_coordinator->getComponentType<ecs::components::physics::rigidBody_t>());
         ecs::Signature signatureRender;
-        signatureRender.set(_coordinator.getComponentType<ecs::components::physics::transform_t>());
-        signatureRender.set(_coordinator.getComponentType<ecs::components::render::render_t>());
+        signatureRender.set(_coordinator->getComponentType<ecs::components::physics::transform_t>());
+        signatureRender.set(_coordinator->getComponentType<ecs::components::render::render_t>());
         ecs::Signature signatureBehaviour;
-        signatureBehaviour.set(_coordinator.getComponentType<std::shared_ptr<ecs::components::behaviour::Behaviour>>());
+        signatureBehaviour.set(_coordinator->getComponentType<std::shared_ptr<ecs::components::behaviour::Behaviour>>());
         ecs::Signature signatureCollider;
-        signatureCollider.set(_coordinator.getComponentType<ecs::components::physics::transform_t>());
-        signatureCollider.set(_coordinator.getComponentType<ecs::components::physics::collider_t>());
+        signatureCollider.set(_coordinator->getComponentType<ecs::components::physics::transform_t>());
+        signatureCollider.set(_coordinator->getComponentType<ecs::components::physics::collider_t>());
         ecs::Signature signatureAnimations;
-        signatureAnimations.set(_coordinator.getComponentType<ecs::components::animations::animation_t>());
+        signatureAnimations.set(_coordinator->getComponentType<ecs::components::animations::animation_t>());
 
-        _physicSystem = _coordinator.registerSystem<ecs::system::PhysicsSystem>();
-        _coordinator.setSystemSignature<ecs::system::PhysicsSystem>(signaturePhysics);
+        _physicSystem = _coordinator->registerSystem<ecs::system::PhysicsSystem>();
+        _coordinator->setSystemSignature<ecs::system::PhysicsSystem>(signaturePhysics);
 
-        _renderSystem = _coordinator.registerSystem<ecs::system::RenderSystem>();
-        _coordinator.setSystemSignature<ecs::system::RenderSystem>(signatureRender);
+        _renderSystem = _coordinator->registerSystem<ecs::system::RenderSystem>();
+        _coordinator->setSystemSignature<ecs::system::RenderSystem>(signatureRender);
 
-        _behaviourSystem = _coordinator.registerSystem<ecs::system::BehaviourSystem>();
-        _coordinator.setSystemSignature<ecs::system::BehaviourSystem>(signatureBehaviour);
+        _behaviourSystem = _coordinator->registerSystem<ecs::system::BehaviourSystem>();
+        _coordinator->setSystemSignature<ecs::system::BehaviourSystem>(signatureBehaviour);
 
-        _collisionDetectionSystem = _coordinator.registerSystem<ecs::system::ColisionDetectionSystem>();
-        _coordinator.setSystemSignature<ecs::system::ColisionDetectionSystem>(signatureCollider);
+        _collisionDetectionSystem = _coordinator->registerSystem<ecs::system::ColisionDetectionSystem>();
+        _coordinator->setSystemSignature<ecs::system::ColisionDetectionSystem>(signatureCollider);
 
-        _animationSystem = _coordinator.registerSystem<ecs::system::AnimationSystem>();
-        _coordinator.setSystemSignature<ecs::system::AnimationSystem>(signatureAnimations);
+        _animationSystem = _coordinator->registerSystem<ecs::system::AnimationSystem>();
+        _coordinator->setSystemSignature<ecs::system::AnimationSystem>(signatureAnimations);
     }
 
     ecs::Entity Engine::addEntity(ecs::components::physics::transform_t transf, ecs::components::render::render_t render) {
-        ecs::Entity entity = _coordinator.createEntity();
-        _coordinator.addComponent<ecs::components::physics::transform_t>(entity, transf);
-        _coordinator.addComponent<ecs::components::render::render_t>(entity, render);
+        ecs::Entity entity = _coordinator->createEntity();
+        _coordinator->addComponent<ecs::components::physics::transform_t>(entity, transf);
+        _coordinator->addComponent<ecs::components::render::render_t>(entity, render);
         return entity;
     }
 
     void Engine::run(void) {
-        _behaviourSystem->handleBehaviours(_coordinator);
-        _physicSystem->updatePosition(_coordinator);
-        _animationSystem->handleAnimations(_coordinator);
-        _collisionDetectionSystem->detectCollision(_coordinator);
-        _coordinator.dispatchEvents();
+        _behaviourSystem->handleBehaviours();
+        _physicSystem->updatePosition();
+        _animationSystem->handleAnimations();
+        _collisionDetectionSystem->detectCollision();
+        _coordinator->dispatchEvents();
         _window.clear(BLACK);
         BeginDrawing();
         BeginMode3D(_window.getCamera());
-        _renderSystem->render(_coordinator);
+        _renderSystem->render();
         DrawGrid(20, 1.0f);
         EndMode3D();
         EndDrawing();

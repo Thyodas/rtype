@@ -29,9 +29,10 @@ namespace ecs {
             * ComponentManager, and SystemManager.
             */
             void init() {
-                _componentManager = std::make_unique<components::ComponentManager>();
-                _entityManager = std::make_unique<EntityManager>();
-                _systemManager = std::make_unique<system::SystemManager>();
+                _componentManager = std::make_shared<components::ComponentManager>();
+                _entityManager = std::make_shared<EntityManager>();
+                _systemManager = std::make_shared<system::SystemManager>();
+                _eventManager = std::make_shared<ecs::event::EventManager>();
             }
 
             /**
@@ -139,24 +140,24 @@ namespace ecs {
             template<typename T>
             void registerListener(std::function<void(const T&)> listener)
             {
-                _eventManager.registerListener<T>(listener);
+                _eventManager->registerListener<T>(listener);
             }
 
             template <typename T>
             void emitEvent(const T& event)
             {
-                _eventManager.emitEvent<T>(event);
+                _eventManager->emitEvent<T>(event);
             }
 
             void dispatchEvents()
             {
-                _eventManager.dispatchEvents();
+                _eventManager->dispatchEvents();
             }
 
         private:
             std::shared_ptr<components::ComponentManager> _componentManager;
             std::shared_ptr<EntityManager> _entityManager;
             std::shared_ptr<system::SystemManager> _systemManager;
-            ecs::event::EventManager _eventManager;
+            std::shared_ptr<ecs::event::EventManager> _eventManager;
     };
 }

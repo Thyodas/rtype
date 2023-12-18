@@ -16,11 +16,11 @@ namespace ecs {
     namespace system {
         class PhysicsSystem : public System {
             public:
-                void updatePosition(ecs::Coordinator &coord);
+                void updatePosition();
         };
         class ColisionDetectionSystem : public System {
             public:
-                void detectCollision(ecs::Coordinator &coord);
+                void detectCollision();
             private:
                 void detectSphereCollision(ecs::components::physics::collider_t collider1, ecs::components::physics::collider_t collider2);
                 void detectSphereBoxCollision(ecs::components::physics::collider_t collider1, ecs::components::physics::collider_t collider2);

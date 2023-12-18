@@ -18,7 +18,7 @@ namespace ecs {
     namespace system {
         class RenderSystem : public System {
         public:
-            void render(ecs::Coordinator &coord);
+            void render();
         };
     }
 }

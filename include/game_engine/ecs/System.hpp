@@ -16,6 +16,10 @@
 #include "Signature.hpp"
 
 namespace ecs {
+    class Coordinator;
+}
+
+namespace ecs {
     namespace system {
         /**
         * @class System
@@ -28,6 +32,7 @@ namespace ecs {
         class System {
             public:
                 std::set<Entity> _entities;
+                static std::shared_ptr<ecs::Coordinator> _coord;
         };
 
         /**

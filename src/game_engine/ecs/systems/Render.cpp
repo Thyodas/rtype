@@ -13,10 +13,10 @@ extern ecs::Coordinator gCoordinator;
 
 namespace ecs {
     namespace system {
-        void RenderSystem::render(ecs::Coordinator &coord) {
+        void RenderSystem::render() {
             for (auto const &entity : _entities) {
-                auto& transf = coord.getComponent<components::physics::transform_t>(entity);
-                auto& render = coord.getComponent<components::render::render_t>(entity);
+                auto& transf = _coord->getComponent<components::physics::transform_t>(entity);
+                auto& render = _coord->getComponent<components::render::render_t>(entity);
 
                 if (render.isRendered)
                     render.data->draw(transf);

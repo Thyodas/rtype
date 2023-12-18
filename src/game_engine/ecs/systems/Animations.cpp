@@ -10,9 +10,9 @@
 
 namespace ecs {
     namespace system {
-        void AnimationSystem::handleAnimations(ecs::Coordinator &coord) {
+        void AnimationSystem::handleAnimations() {
             for (auto const &entity : _entities) {
-                auto &anim = coord.getComponent<ecs::components::animations::animation_t>(entity);
+                auto &anim = _coord->getComponent<ecs::components::animations::animation_t>(entity);
 
                 anim.animFrameCounter++;
                 UpdateModelAnimation(anim.model, anim.anims[0], anim.animFrameCounter);

@@ -14,7 +14,7 @@ namespace ecs {
     namespace system {
         class BehaviourSystem : public System {
             public:
-                void handleBehaviours(ecs::Coordinator &coord);
+                void handleBehaviours();
         };
     }
 }

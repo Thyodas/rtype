@@ -14,7 +14,7 @@ namespace ecs {
     namespace system {
         class AnimationSystem : public System {
             public:
-                void handleAnimations(ecs::Coordinator &coord);
+                void handleAnimations();
         };
     }
 }

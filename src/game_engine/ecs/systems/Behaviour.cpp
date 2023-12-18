@@ -12,9 +12,9 @@
 
 namespace ecs {
     namespace system {
-        void BehaviourSystem::handleBehaviours(ecs::Coordinator &coord) {
+        void BehaviourSystem::handleBehaviours() {
             for (auto const &entity : _entities) {
-                auto &behave = coord.getComponent<std::shared_ptr<ecs::components::behaviour::Behaviour>>(entity);
+                auto &behave = _coord->getComponent<std::shared_ptr<ecs::components::behaviour::Behaviour>>(entity);
 
                 behave->update();
             }

@@ -34,18 +34,18 @@ namespace engine {
 
             template<typename T>
             void addComponent(ecs::Entity entity, T component) {
-                _coordinator.addComponent<T>(entity, component);
+                _coordinator->addComponent<T>(entity, component);
             }
 
             template<typename T>
             T &getComponent(ecs::Entity entity) {
-                return _coordinator.getComponent<T>(entity);
+                return _coordinator->getComponent<T>(entity);
             }
 
             template<typename T>
             void registerListener(std::function<void(const T&)> listener)
             {
-                _coordinator.registerListener<T>(listener);
+                _coordinator->registerListener<T>(listener);
             }
 
             bool isWindowOpen(void)
@@ -56,12 +56,12 @@ namespace engine {
             void run();
 
         private:
-            ecs::Coordinator _coordinator;
+            std::shared_ptr<ecs::Coordinator> _coordinator;
             std::shared_ptr<ecs::system::PhysicsSystem> _physicSystem;
             std::shared_ptr<ecs::system::RenderSystem> _renderSystem;
             std::shared_ptr<ecs::system::BehaviourSystem> _behaviourSystem;
             std::shared_ptr<ecs::system::AnimationSystem> _animationSystem;
-            ecs::system::CollisionResponse _collisionResponseSystem;
+            std::shared_ptr<ecs::system::CollisionResponse> _collisionResponseSystem;
             std::shared_ptr<ecs::system::ColisionDetectionSystem> _collisionDetectionSystem;
 
 
@@ -73,7 +73,7 @@ namespace engine {
             static std::mutex _mutex;
 
         protected:
-            Engine() : _collisionResponseSystem(_coordinator) {};
+            Engine() {};
             ~Engine() {};
 
         public:
