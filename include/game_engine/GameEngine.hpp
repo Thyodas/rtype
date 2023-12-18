@@ -16,6 +16,8 @@
 #include "game_engine/ecs/components/Behaviour.hpp"
 #include "game_engine/ecs/systems/Render.hpp"
 #include "game_engine/ecs/Entity.hpp"
+#include "game_engine/ecs/components/Animations.hpp"
+#include "game_engine/ecs/systems/Animations.hpp"
 #include <memory>
 #include <mutex>
 #include <functional>
@@ -58,6 +60,7 @@ namespace engine {
             std::shared_ptr<ecs::system::PhysicsSystem> _physicSystem;
             std::shared_ptr<ecs::system::RenderSystem> _renderSystem;
             std::shared_ptr<ecs::system::BehaviourSystem> _behaviourSystem;
+            std::shared_ptr<ecs::system::AnimationSystem> _animationSystem;
             ecs::system::CollisionResponse _collisionResponseSystem;
             std::shared_ptr<ecs::system::ColisionDetectionSystem> _collisionDetectionSystem;
 
@@ -97,6 +100,7 @@ namespace engine {
     void attachBehavior(ecs::Entity entity, std::shared_ptr<ecs::components::behaviour::Behaviour> behaviour);
     bool isWindowOpen(void);
     void setRotation(ecs::Entity entity, Vector3 rotation);
+    void setAnimation(ecs::Entity entity, const char *filename);
 
     template<typename T>
     void registerListener(std::function<void(const T&)> listener)

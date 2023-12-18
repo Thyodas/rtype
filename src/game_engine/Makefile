@@ -18,6 +18,7 @@ SRC = main.cpp \
 	  $(SRC_DIR)/ecs/systems/Render.cpp \
 	  $(SRC_DIR)/ecs/systems/Physics.cpp \
 	  $(SRC_DIR)/ecs/systems/Behaviour.cpp \
+	  $(SRC_DIR)/ecs/systems/Animations.cpp \
 	  $(SRC_DIR)/ecs/Entity.cpp \
 
 OBJ = $(SRC:.cpp=.o)
