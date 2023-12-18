@@ -16,6 +16,14 @@
 
 namespace ecs {
     namespace components {
+        namespace physics {
+            typedef struct transform_s transform_t;
+        }
+    }
+}
+
+namespace ecs {
+    namespace components {
         enum class ShapeType {
             CUBE,
             LINE,
@@ -34,21 +42,9 @@ namespace ecs {
         class IShape {
             public:
                 ~IShape() = default;
-                BoundingBox getBoundingBox(Vector3 pos) const
-                {
-                    BoundingBox box = GetModelBoundingBox(_model);
-                    box.min = Vector3Transform(box.min, _model.transform);
-                    box.max = Vector3Transform(box.max, _model.transform);
-                    Matrix translation = MatrixTranslate(pos.x, pos.y, pos.z);
-                    box.min = Vector3Transform(box.min, translation);
-                    box.max = Vector3Transform(box.max, translation);
-                    return box;
-                };
-                virtual void draw(Vector3 pos) const = 0;
-                Model &getModel()
-                {
-                    return _model;
-                }
+                BoundingBox getBoundingBox(physics::transform_t &transf) const;
+                virtual void draw(physics::transform_t &transf) const = 0;
+                Model &getModel();
             protected:
                 Model _model;
         };
@@ -61,24 +57,8 @@ namespace ecs {
                     float length = 2,
                     bool toggleWire = false,
                     Color color = RED,
-                    Color wireColor = BLACK) :
-                    _width(width),
-                    _height(height),
-                    _length(length),
-                    _toggleWire(toggleWire),
-                    _color(color),
-                    _wireColor(wireColor)
-                {
-                        _model = LoadModelFromMesh(GenMeshCube(_width, _height, _length));
-                }
-                void draw(Vector3 pos) const override
-                {
-                    DrawModel(_model, pos, 1, _color);
-                    DrawBoundingBox(getBoundingBox(pos), WHITE);
-                    if (_toggleWire)
-                        DrawModelWires(_model, pos, 1, _wireColor);
-                }
-
+                    Color wireColor = BLACK);
+                void draw(physics::transform_t &transf) const override;
             private:
                 float _width;
                 float _height;
@@ -90,14 +70,8 @@ namespace ecs {
 
         class Model3D : public IShape {
             public:
-                Model3D(const char *filename, Color color = WHITE)
-                {
-                    _model = LoadModel(filename);
-                    _color = color;
-                }
-                void draw(Vector3 pos) const override {
-                    DrawModel(_model, pos, 1, _color);
-                }
+                Model3D(const char *filename, Color color = WHITE);
+                void draw(physics::transform_t &transf) const override;
             private:
                 Color _color;
         };

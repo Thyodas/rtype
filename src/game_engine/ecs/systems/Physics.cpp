@@ -69,8 +69,8 @@ namespace ecs {
                     if (collider1.shapeType == ecs::components::ShapeType::SPHERE || collider2.shapeType == ecs::components::ShapeType::SPHERE) {
                         
                     } else {
-                        BoundingBox box1 = collider1.data->getBoundingBox(transf1.pos);
-                        BoundingBox box2 = collider2.data->getBoundingBox(transf2.pos);
+                        BoundingBox box1 = collider1.data->getBoundingBox(transf1);
+                        BoundingBox box2 = collider2.data->getBoundingBox(transf2);
                         bool colliding = CheckCollisionBoxes(box1, box2);
                         if (colliding) {
                             coord.emitEvent<CollisionEvent>(CollisionEvent(*it1, box1, collider1.data->getModel().transform, *it2, box2, collider2.data->getModel().transform));

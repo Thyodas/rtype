@@ -15,6 +15,7 @@ SRC_DIR = .
 SRC = main.cpp \
       $(SRC_DIR)/core/GameEngine.cpp \
 	  $(SRC_DIR)/core/window/Window.cpp \
+	  $(SRC_DIR)/ecs/components/Shapes.cpp \
 	  $(SRC_DIR)/ecs/systems/Render.cpp \
 	  $(SRC_DIR)/ecs/systems/Physics.cpp \
 	  $(SRC_DIR)/ecs/systems/Behaviour.cpp \

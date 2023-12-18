@@ -70,7 +70,7 @@ namespace engine {
         _animationSystem->handleAnimations(_coordinator);
         _collisionDetectionSystem->detectCollision(_coordinator);
         _coordinator.dispatchEvents();
-        _window.clear(RAYWHITE);
+        _window.clear(BLACK);
         BeginDrawing();
         BeginMode3D(_window.getCamera());
         _renderSystem->render(_coordinator);
@@ -126,7 +126,7 @@ namespace engine {
     void setAnimation(ecs::Entity entity, const char *filename)
     {
         ecs::components::animations::animation_t anim;
-        auto draw = Engine::getInstance()->getComponent<ecs::components::render::render_t>(entity);
+        auto &draw = Engine::getInstance()->getComponent<ecs::components::render::render_t>(entity);
         anim.animFrameCounter = 0;
         anim.model = draw.data->getModel();
         anim.animsCount = 0;
@@ -136,9 +136,9 @@ namespace engine {
 
     void setRotation(ecs::Entity entity, Vector3 rotation)
     {
-        auto transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
-        auto render = Engine::getInstance()->getComponent<ecs::components::render::render_t>(entity);
-        transform.rotation = rotation;
+        auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
+        auto &render = Engine::getInstance()->getComponent<ecs::components::render::render_t>(entity);
+        transform.rotation = Vector3Add(transform.rotation, rotation);
         render.data->getModel().transform = MatrixRotateXYZ(rotation);
     }
 

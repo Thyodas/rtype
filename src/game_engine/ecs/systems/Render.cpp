@@ -17,10 +17,9 @@ namespace ecs {
             for (auto const &entity : _entities) {
                 auto& transf = coord.getComponent<components::physics::transform_t>(entity);
                 auto& render = coord.getComponent<components::render::render_t>(entity);
-                Vector3 pos = {transf.pos.x, transf.pos.y, transf.pos.z};
 
                 if (render.isRendered)
-                    render.data->draw(pos);
+                    render.data->draw(transf);
             }
         }
     }
