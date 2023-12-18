@@ -93,6 +93,7 @@ namespace ecs {
                 Model3D(const char *filename, Color color = WHITE)
                 {
                     _model = LoadModel(filename);
+                    _color = color;
                 }
                 void draw(Vector3 pos) const override {
                     DrawModel(_model, pos, 1, _color);
