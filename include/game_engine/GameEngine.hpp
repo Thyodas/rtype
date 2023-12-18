@@ -64,9 +64,7 @@ namespace engine {
             std::shared_ptr<ecs::system::CollisionResponse> _collisionResponseSystem;
             std::shared_ptr<ecs::system::ColisionDetectionSystem> _collisionDetectionSystem;
 
-
             core::Window _window{};
-
 
         private:
             static Engine *engine;

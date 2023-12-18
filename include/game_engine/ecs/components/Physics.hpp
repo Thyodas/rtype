@@ -39,6 +39,7 @@ namespace ecs {
                 CollisionType collisionType;
                 std::shared_ptr<IShape> data;
             } collider_t;
+
         }
     }
 }

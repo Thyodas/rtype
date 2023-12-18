@@ -20,6 +20,7 @@ namespace ecs {
                 bool isRendered;
                 std::shared_ptr<components::IShape> data;
             } render_t;
+
         }
     }
 }

@@ -17,10 +17,11 @@
 
 namespace ecs {
     namespace event {
-        class IEvent{
+        class IEvent {
             public:
                 virtual ~IEvent() = default;
         };
+
         class EventManager {
             public:
                 template<typename T>
@@ -45,20 +46,8 @@ namespace ecs {
                     _eventQueue.push(std::make_shared<T>(event));
                 }
 
-                void dispatchEvents()
-                {
-                    while (!_eventQueue.empty()) {
-                        auto& event = _eventQueue.front();
-                        auto& handlers = _listeners[typeid(*event)];
-                        for (auto &handler : handlers) {
-                            handler(*event);
-                        }
-                        _eventQueue.pop();
-                    }
-                }
+                void dispatchEvents();
 
-
-            
             private:
                 std::unordered_map<std::type_index, std::vector<std::function<void(const IEvent&)>>> _listeners;
                 std::queue<std::shared_ptr<IEvent>> _eventQueue;

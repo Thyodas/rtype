@@ -20,10 +20,8 @@ namespace ecs {
             class Behaviour {
                 public:
                     virtual void update(void) = 0;
-                    void setEntity(ecs::Entity entity)
-                    {
-                        _entity = entity;
-                    }
+                    void setEntity(ecs::Entity entity);
+
                     static std::shared_ptr<ecs::Coordinator> _coord;
                 protected:
                     ecs::Entity _entity;

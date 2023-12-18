@@ -28,99 +28,14 @@ namespace ecs {
 
         class CollisionResponse {
             public:
+                CollisionResponse(ecs::Coordinator &coord);
+                Vector3 getCollisionResponse(const CollisionEvent &event);
 
-                float getOverlap(Vector2 a, Vector2 b)
-                {
-                    if (a.x > b.y)
-                        return 0;
-                    if (b.x > a.y)
-                        return 0;
-                    if (a.x > b.x)
-                        return b.y - a.x;
-                    return b.x - a.y;
-                }
-
-                void getCollisionVectors(const Matrix rotate1, const Matrix rotate2, Vector3 *vecs)
-                {
-                    Vector3 x = {1, 0, 0};
-                    Vector3 y = {0, 1, 0};
-                    Vector3 z = {0, 0, 1};
-
-                    vecs[0] = Vector3Transform(x, rotate1);
-                    vecs[1] = Vector3Transform(y, rotate1);
-                    vecs[2] = Vector3Transform(z, rotate1);
-
-                    vecs[3] = Vector3Transform(x, rotate2);
-                    vecs[4] = Vector3Transform(y, rotate2);
-                    vecs[5] = Vector3Transform(z, rotate2);
-
-                    int i = 6;
-                    for (int j = 0; j < 3; ++j) {
-                        for (int k = 3; k < 6; ++k) {
-                            if (Vector3Equals(vecs[j], vecs[k]))
-                                vecs[i] = x;
-                            else
-                                vecs[i] = Vector3Normalize(Vector3CrossProduct(vecs[j], vecs[k]));
-                            i++;
-                        }
-                    }
-                }
-
-                Vector2 getColliderProjectionBounds(const BoundingBox &box, Vector3 vec)
-                {
-                    Vector2 bounds = {0};
-                    Vector3 vertsGlobal[8];
-                    vertsGlobal[0] = (Vector3) { box.min.x, box.min.y, box.min.z };
-                    vertsGlobal[1] = (Vector3) { box.min.x, box.min.y, box.max.z };
-                    vertsGlobal[2] = (Vector3) { box.min.x, box.max.y, box.min.z };
-                    vertsGlobal[3] = (Vector3) { box.min.x, box.max.y, box.max.z };
-                    vertsGlobal[4] = (Vector3) { box.max.x, box.min.y, box.min.z };
-                    vertsGlobal[5] = (Vector3) { box.max.x, box.min.y, box.max.z };
-                    vertsGlobal[6] = (Vector3) { box.max.x, box.max.y, box.min.z };
-                    vertsGlobal[7] = (Vector3) { box.max.x, box.max.y, box.max.z };
-
-                    float proj = Vector3DotProduct(vertsGlobal[0], vec);
-                    bounds.x = bounds.y = proj;
-                    for (int i = 1; i < 8; ++i) {
-                        proj = Vector3DotProduct(vertsGlobal[i], vec);
-                        bounds.x = fmin(bounds.x, proj);
-                        bounds.y = fmax(bounds.y, proj);
-                    }
-                    return bounds;
-                }
-
-                Vector3 getCollisionResponse(const CollisionEvent &event)
-                {
-                    float overlapMin = 100.f;
-                    Vector3 overlapDir = {0};
-
-                    Vector3 testVec[15];
-                    getCollisionVectors(event.rotate1, event.rotate2, testVec);
-                    for (int i = 0; i < 15; ++i) {
-                        Vector2 apro, bpro;
-                        apro = getColliderProjectionBounds(event.box1, testVec[i]);
-                        bpro = getColliderProjectionBounds(event.box2, testVec[i]);
-
-                        float overlap = getOverlap(apro, bpro);
-                        if (overlap == 0)
-                            return Vector3Zero();
-                        if (fabs(overlap) < fabs(overlapMin)) {
-                            overlapMin = overlap;
-                            overlapDir = testVec[i];
-                        }
-                    }
-                    return Vector3Scale(overlapDir, overlapMin);
-                }
-                CollisionResponse(ecs::Coordinator &coord) : _coord(coord) {
-                    _coord.registerListener<CollisionEvent>([this](const CollisionEvent &event) {
-                        auto &transf = _coord.getComponent<ecs::components::physics::transform_t>(event.entity1);
-                        Vector3 displacementVector = getCollisionResponse(event);
-                        transf.pos.x += displacementVector.x;
-                        transf.pos.y += displacementVector.y;
-                        transf.pos.z += displacementVector.z;
-                    });
-                };
             private:
+                float getOverlap(Vector2 a, Vector2 b);
+                void getCollisionVectors(const Matrix rotate1, const Matrix rotate2, Vector3 *vecs);
+                Vector2 getColliderProjectionBounds(const BoundingBox &box, Vector3 vec);
+
                 ecs::Coordinator& _coord;
         };
     }
