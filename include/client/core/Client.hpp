@@ -7,7 +7,12 @@
 
 #pragma once
 
-#include "game_engine/ecs/Components.hpp"
+#include "raylib.h"
+#include "game_engine/core/Window.hpp"
+#include "game_engine/ecs/Coordinator.hpp"
+#include "game_engine/ecs/components/Physics.hpp"
+#include "game_engine/ecs/components/Shapes.hpp"
+#include "game_engine/GameEngine.hpp"
 
 namespace client {
     class Client {
@@ -15,8 +20,10 @@ namespace client {
             Client();
             ~Client();
 
+            void run();
+
         protected:
         private:
             // Liste d'entités
-    }
+    };
 }
