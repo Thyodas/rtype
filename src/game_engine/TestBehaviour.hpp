@@ -9,6 +9,7 @@
 
 #include "game_engine/ecs/components/Behaviour.hpp"
 #include "game_engine/ecs/components/Physics.hpp"
+#include "game_engine/GameEngine.hpp"
 
 #include "raylib.h"
 
@@ -16,6 +17,7 @@ class input : public ecs::components::behaviour::Behaviour {
     public:
         void update(void) override {
             auto &body = _coord->getComponent<ecs::components::physics::rigidBody_t>(_entity);
+            auto &transf = _coord->getComponent<ecs::components::physics::transform_t>(_entity);
             if (IsKeyDown(KEY_D)) {
                 body.velocity.x += 0.1f;
                 body.velocity.z += -0.1f;
@@ -31,6 +33,11 @@ class input : public ecs::components::behaviour::Behaviour {
             if (IsKeyDown(KEY_S)) {
                 body.velocity.x += 0.2f;
                 body.velocity.z += 0.2f;
+            }
+            if (IsKeyReleased(KEY_SPACE)) {
+                Vector3 newRotation = {0};
+                newRotation.x = 10 * M_PI / 180;
+                engine::rotate(_entity, newRotation);
             }
         };
 };

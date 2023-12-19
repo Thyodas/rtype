@@ -138,12 +138,12 @@ namespace engine {
         Engine::getInstance()->addComponent<ecs::components::animations::animation_t>(entity, anim);
     }
 
-    void setRotation(ecs::Entity entity, Vector3 rotation)
+    void rotate(ecs::Entity entity, Vector3 rotation)
     {
         auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
         auto &render = Engine::getInstance()->getComponent<ecs::components::render::render_t>(entity);
         transform.rotation = Vector3Add(transform.rotation, rotation);
-        render.data->getModel().transform = MatrixRotateXYZ(rotation);
+        render.data->getModel().transform = MatrixMultiply(render.data->getModel().transform, MatrixRotateXYZ(rotation));
     }
 
     void attachBehavior(
