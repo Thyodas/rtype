@@ -18,6 +18,7 @@ namespace ecs {
     namespace components {
         namespace physics {
             typedef struct transform_s transform_t;
+            typedef struct collider_s collider_t;
         }
     }
 }
@@ -42,7 +43,7 @@ namespace ecs {
         class IShape {
             public:
                 ~IShape() = default;
-                BoundingBox getBoundingBox(physics::transform_t &transf) const;
+                BoundingBox getBoundingBox(physics::collider_t &collider) const;
                 virtual void draw(physics::transform_t &transf) const = 0;
                 Model &getModel();
             protected:

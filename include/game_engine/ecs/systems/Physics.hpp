@@ -31,10 +31,19 @@ namespace ecs {
                 CollisionResponse(ecs::Coordinator &coord);
                 Vector3 getCollisionResponse(const CollisionEvent &event);
 
+                static void updateColliderGlobalVerts(ecs::components::physics::collider_t &collider);
+
             private:
                 float getOverlap(Vector2 a, Vector2 b);
-                void getCollisionVectors(const Matrix rotate1, const Matrix rotate2, Vector3 *vecs);
-                Vector2 getColliderProjectionBounds(const BoundingBox &box, Vector3 vec);
+                void getCollisionVectors(
+                    ecs::components::physics::collider_t &collider1,
+                    ecs::components::physics::collider_t &collider2,
+                    Vector3 *vecs
+                );
+                Vector2 getColliderProjectionBounds(
+                    ecs::components::physics::collider_t &collider1,
+                    Vector3 vec
+                );
 
                 ecs::Coordinator& _coord;
         };

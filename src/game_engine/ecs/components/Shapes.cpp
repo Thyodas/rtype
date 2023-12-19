@@ -15,9 +15,9 @@ namespace ecs {
             return _model;
         }
 
-        BoundingBox IShape::getBoundingBox(physics::transform_t &transf) const
+        BoundingBox IShape::getBoundingBox(physics::collider_t &collider) const
         {
-            BoundingBox aabb = GetModelBoundingBox(_model);
+            BoundingBox aabb = collider.box;
             Vector3 corners[8] = {
                 aabb.min,
                 {aabb.max.x, aabb.min.y, aabb.min.z},
@@ -29,7 +29,7 @@ namespace ecs {
                 aabb.max
             };
 
-            Matrix transformMatrix = MatrixMultiply(MatrixRotateXYZ(transf.rotation), MatrixTranslate(transf.pos.x, transf.pos.y, transf.pos.z));
+            Matrix transformMatrix = MatrixMultiply(MatrixMultiply(collider.matScale, collider.matRotate), collider.matTranslate);
             for (int i = 0; i < 8; i++) {
                 corners[i] = Vector3Transform(corners[i], transformMatrix);
             }
@@ -65,7 +65,7 @@ namespace ecs {
         void Cube::draw(physics::transform_t &transf) const
         {
             DrawModel(_model, transf.pos, 1, _color);
-            DrawBoundingBox(getBoundingBox(transf), WHITE);
+            //DrawBoundingBox(getBoundingBox(transf), WHITE);
             if (_toggleWire)
                 DrawModelWires(_model, transf.pos, 1, _wireColor);
         }

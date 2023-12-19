@@ -21,7 +21,7 @@ float deg2rad(float angle)
 int main()
 {
     engine::initEngine();
-    ecs::Entity cube = engine::createCube({0, 0, 0}, 4, 4, 4, RED, true);
+    ecs::Entity cube = engine::createCube({0, 2, 0}, 4, 4, 4, RED, true);
     //engine::setRotation(cube, {deg2rad(30), 0, 0});
     //engine::setRotation(cube, {deg2rad(-10), 0, 0});
     auto behave = engine::createBehavior<input>();

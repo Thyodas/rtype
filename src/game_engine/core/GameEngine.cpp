@@ -107,7 +107,18 @@ namespace engine {
         ecs::components::physics::transform_t transf = {pos, {0}, {0}};
         ecs::components::physics::rigidBody_t body = {0.0, {0}, {0}};
         ecs::components::render::render_t render = {ecs::components::ShapeType::CUBE, true, cube};
-        ecs::components::physics::collider_t collider = {ecs::components::ShapeType::CUBE, ecs::components::physics::CollisionType::COLLIDE, cube};
+        ecs::components::physics::collider_t collider = {
+            ecs::components::ShapeType::CUBE,
+            ecs::components::physics::CollisionType::COLLIDE,
+            cube,
+            GetModelBoundingBox(cube->getModel()),
+            {0},
+            MatrixIdentity(),
+            MatrixIdentity(),
+            MatrixIdentity()};
+        Matrix matTranslate = MatrixTranslate(pos.x, pos.y, pos.z);
+        collider.matTranslate = MatrixMultiply(collider.matTranslate, matTranslate);
+        ecs::system::CollisionResponse::updateColliderGlobalVerts(collider);
         ecs::Entity entity = Engine::getInstance()->addEntity(transf, render);
         Engine::getInstance()->addComponent<ecs::components::physics::collider_t>(entity, collider);
         Engine::getInstance()->addComponent<ecs::components::physics::rigidBody_t>(entity, body);
@@ -142,8 +153,24 @@ namespace engine {
     {
         auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
         auto &render = Engine::getInstance()->getComponent<ecs::components::render::render_t>(entity);
+        auto &collider = Engine::getInstance()->getComponent<ecs::components::physics::collider_t>(entity);
         transform.rotation = Vector3Add(transform.rotation, rotation);
-        render.data->getModel().transform = MatrixMultiply(render.data->getModel().transform, MatrixRotateXYZ(rotation));
+        Matrix matTemp = MatrixRotateXYZ(rotation);
+        render.data->getModel().transform = MatrixMultiply(render.data->getModel().transform, matTemp);
+        collider.matRotate = MatrixMultiply(collider.matRotate, matTemp);
+        ecs::system::CollisionResponse::updateColliderGlobalVerts(collider);
+    }
+
+    void scale(ecs::Entity entity, Vector3 scale)
+    {
+        auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
+        auto &render = Engine::getInstance()->getComponent<ecs::components::render::render_t>(entity);
+        auto &collider = Engine::getInstance()->getComponent<ecs::components::physics::collider_t>(entity);
+        transform.scale = Vector3Add(transform.scale, scale);
+        Matrix matTemp = MatrixScale(scale.x, scale.y, scale.z);
+        render.data->getModel().transform = MatrixMultiply(render.data->getModel().transform, matTemp);
+        collider.matScale = MatrixMultiply(collider.matScale, matTemp);
+        ecs::system::CollisionResponse::updateColliderGlobalVerts(collider);
     }
 
     void attachBehavior(

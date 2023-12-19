@@ -98,6 +98,7 @@ namespace engine {
     void attachBehavior(ecs::Entity entity, std::shared_ptr<ecs::components::behaviour::Behaviour> behaviour);
     bool isWindowOpen(void);
     void rotate(ecs::Entity entity, Vector3 rotation);
+    void scale(ecs::Entity entity, Vector3 scale);
     void setAnimation(ecs::Entity entity, const char *filename);
 
     template<typename T>

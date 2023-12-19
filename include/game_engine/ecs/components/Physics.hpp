@@ -38,6 +38,11 @@ namespace ecs {
                 ShapeType shapeType;
                 CollisionType collisionType;
                 std::shared_ptr<IShape> data;
+                BoundingBox box;
+                Vector3 vertsGlobal[8];
+                Matrix matRotate;
+                Matrix matScale;
+                Matrix matTranslate;
             } collider_t;
 
         }
