@@ -12,24 +12,24 @@ int main(int ac, char **av)
 {
     client::Client client;
     client::EntityFactory factory;
-    // ecs::Entity cube = factory.createEntity(client::ObjectType::Model3D, client::ObjectName::RedFighter, {
-    //     {0, 0, 0},
-    //     0,
-    //     0,
-    //     0,
-    //     RED,
-    //     false,
-    //     NULL
-    // });
-    ecs::Entity cube = factory.createEntity(client::ObjectType::Cube, client::ObjectName::None, {
-        {0, 1, 0},
-        4,
-        4,
-        4,
+    ecs::Entity cube = factory.createEntity(client::ObjectType::Model3D, client::ObjectName::RedFighter, {
+        {0, 0, 0},
+        0,
+        0,
+        0,
         RED,
-        true,
+        false,
         RED
     });
+    // ecs::Entity cube = factory.createEntity(client::ObjectType::Cube, client::ObjectName::None, {
+    //     {0, 1, 0},
+    //     4,
+    //     4,
+    //     4,
+    //     RED,
+    //     true,
+    //     RED
+    // });
     // ecs::Entity cube2 = engine::createCube({0, 1, 0}, 4, 4, 4, RED, true);
 
     client.run();
