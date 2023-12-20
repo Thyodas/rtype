@@ -7,10 +7,8 @@
 
 #pragma once
 
-// TODO: replace with own Vector3 / Color
 #include "raymath.h"
 #include "raylib.h"
-//
 
 namespace client {
     struct ObjectParams {
@@ -27,7 +25,8 @@ namespace client {
         DualStriker,
         MicroRecon,
         RedFighter,
-        UltravioletIntruder
+        UltravioletIntruder,
+        None,
     };
 
     enum ObjectType {

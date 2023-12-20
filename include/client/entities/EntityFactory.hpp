@@ -15,9 +15,9 @@
 namespace client {
     class EntityFactory {
         public:
-            std::shared_ptr<ecs::Entity> createEntity(client::ObjectType type, client::ObjectName name, client::ObjectParams params);
-            std::shared_ptr<ecs::Entity> createCube(client::ObjectName name, client::ObjectParams params);
-            std::shared_ptr<ecs::Entity> createObject3D(client::ObjectName name, client::ObjectParams params);
+            ecs::Entity createEntity(client::ObjectType type, client::ObjectName name, client::ObjectParams params);
+            ecs::Entity createCube(client::ObjectName name, client::ObjectParams params);
+            ecs::Entity createObject3D(client::ObjectName name, client::ObjectParams params);
             std::string objectNameToString(client::ObjectName name);
     };
 }

@@ -8,7 +8,7 @@
 #include "client/entities/EntityFactory.hpp"
 #include <string>
 
-std::shared_ptr<ecs::Entity> client::EntityFactory::createEntity(client::ObjectType type, client::ObjectName name, client::ObjectParams params)
+ecs::Entity client::EntityFactory::createEntity(client::ObjectType type, client::ObjectName name, client::ObjectParams params)
 {
     switch (type) {
         case client::ObjectType::Cube:
@@ -16,13 +16,13 @@ std::shared_ptr<ecs::Entity> client::EntityFactory::createEntity(client::ObjectT
         case client::ObjectType::Model3D:
             return createObject3D(name, params);
         default:
-            return nullptr;
+            throw std::invalid_argument("Invalid object type");
     }
 }
 
-std::shared_ptr<ecs::Entity> client::EntityFactory::createCube(client::ObjectName name, client::ObjectParams params)
+ecs::Entity client::EntityFactory::createCube(client::ObjectName name, client::ObjectParams params)
 {
-    return std::make_shared<ecs::Entity>(engine::createCube(
+    return engine::createCube(
         params.pos,
         params.width,
         params.height,
@@ -30,19 +30,19 @@ std::shared_ptr<ecs::Entity> client::EntityFactory::createCube(client::ObjectNam
         params.color,
         params.toggleWire,
         params.wireColor
-    ));
+    );
 }
 
-std::shared_ptr<ecs::Entity> client::EntityFactory::createObject3D(client::ObjectName name, client::ObjectParams params)
+ecs::Entity client::EntityFactory::createObject3D(client::ObjectName name, client::ObjectParams params)
 {
     std::string objectName = this->objectNameToString(name);
     std::string path = "./ressources/client/Objects3D/" + objectName + "/" + objectName + ".obj";
 
-    return std::make_shared<ecs::Entity>(engine::createModel3D(
+    return engine::createModel3D(
         path.c_str(),
         params.pos,
         params.color
-    ));
+    );
 }
 
 std::string client::EntityFactory::objectNameToString(client::ObjectName name)
