@@ -20,10 +20,10 @@ SRC = Main.cpp \
 	  $(SRC_DIR)/core/window/Window.cpp \
 	  $(SRC_DIR)/core/event/Event.cpp \
 	  $(SRC_DIR)/ecs/components/Shapes.cpp \
-	  $(SRC_DIR)/ecs/components/Behavior.cpp \
+	  $(SRC_DIR)/ecs/components/Behaviour.cpp \
 	  $(SRC_DIR)/ecs/systems/Render.cpp \
 	  $(SRC_DIR)/ecs/systems/Physics.cpp \
-	  $(SRC_DIR)/ecs/systems/Behavior.cpp \
+	  $(SRC_DIR)/ecs/systems/Behaviour.cpp \
 	  $(SRC_DIR)/ecs/systems/Animations.cpp \
 	  $(SRC_DIR)/ecs/Entity.cpp \
 

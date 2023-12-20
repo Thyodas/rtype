@@ -43,3 +43,5 @@ robot.glb
 example_game_engine
 
 src/client/main.cpp
+
+src/client/client

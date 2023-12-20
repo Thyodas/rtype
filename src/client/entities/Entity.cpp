@@ -15,19 +15,19 @@ client::Entity::~Entity()
 {
 }
 
-client::behaviors client::Entity::getbehaviors() const
+client::behaviours client::Entity::getbehaviours() const
 {
-    return _behaviors;
+    return _behaviours;
 }
 
-void client::Entity::addBehavior(std::string& name, ecs::components::behavior::Behavior& behavior)
+void client::Entity::addBehaviour(std::string& name, ecs::components::behaviour::Behaviour& behaviour)
 {
-    _behaviors[name] = behavior;
+    _behaviours[name] = &behaviour;
 }
 
-void client::Entity::removeBehavior(std::string& name)
+void client::Entity::removeBehaviour(std::string& name)
 {
-    _behaviors.erase(name);
+    _behaviours.erase(name);
 }
 
 ecs::Entity client::Entity::getId() const

@@ -7,23 +7,24 @@
 
 #pragma once
 
-#include "game_engine/ecs/components/Behavior.hpp"
+#include "game_engine/ecs/components/Behaviour.hpp"
 
+#include <memory>
 #include <unordered_map>
 
 namespace client {
-    using behaviors = std::unordered_map<std::string, ecs::components::behavior::Behavior>;
+    using behaviours = std::unordered_map<std::string, ecs::components::behaviour::Behaviour*>;
 
     class Entity {
         public:
             Entity(ecs::Entity id);
             ~Entity();
-            client::behaviors getbehaviors() const;
-            void addBehavior(std::string& name, ecs::components::behavior::Behavior& behavior);
-            void removeBehavior(std::string& name);
+            client::behaviours getbehaviours() const;
+            void addBehaviour(std::string& name, ecs::components::behaviour::Behaviour& behaviour);
+            void removeBehaviour(std::string& name);
             ecs::Entity getId() const;
         private:
-            client::behaviors _behaviors;
+            client::behaviours _behaviours;
             ecs::Entity _id;
     };
 }

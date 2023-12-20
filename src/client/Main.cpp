@@ -8,8 +8,8 @@
 #include "client/core/Client.hpp"
 #include "client/entities/EntityFactory.hpp"
 
-#include "TestBehavior.hpp"
-#include "MovementBehavior.hpp"
+#include "MovementBehaviour.hpp"
+#include "TestBehaviour.hpp"
 
 int main(int ac, char **av)
 {
@@ -28,17 +28,17 @@ int main(int ac, char **av)
     engine::attachBehavior(cube, behave);
 
 
-    // auto move = engine::createBehavior<movement>();
-    // ecs::Entity gunBullet = factory.createEntity(client::ObjectType::Model3D, client::ObjectName::GunBullet, {
-    //     {0, 0, 0},
-    //     0,
-    //     0,
-    //     0,
-    //     WHITE,
-    //     false,
-    //     WHITE
-    // }, client::ObjectFormat::GLB);
-    // engine::attachBehavior(gunBullet, move);
+    auto move = engine::createBehavior<movement>();
+    ecs::Entity gunBullet = factory.createEntity(client::ObjectType::Model3D, client::ObjectName::GunBullet, {
+        {0, 0, 0},
+        0,
+        0,
+        0,
+        WHITE,
+        false,
+        WHITE
+    }, client::ObjectFormat::GLB);
+    engine::attachBehavior(gunBullet, move);
 
     client.run();
 
