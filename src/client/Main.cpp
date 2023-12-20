@@ -8,6 +8,8 @@
 #include "client/core/Client.hpp"
 #include "client/entities/EntityFactory.hpp"
 
+#include "TestBehaviour.hpp"
+
 int main(int ac, char **av)
 {
     client::Client client;
@@ -17,21 +19,24 @@ int main(int ac, char **av)
         0,
         0,
         0,
-        RED,
+        WHITE,
         false,
-        RED
+        WHITE
     });
-    // ecs::Entity cube = factory.createEntity(client::ObjectType::Cube, client::ObjectName::None, {
-    //     {0, 1, 0},
-    //     4,
-    //     4,
-    //     4,
-    //     RED,
-    //     true,
-    //     RED
-    // });
-    // ecs::Entity cube2 = engine::createCube({0, 1, 0}, 4, 4, 4, RED, true);
+    auto behave = engine::createBehavior<input>();
+    engine::attachBehavior(cube, behave);
+
+    ecs::Entity gunBullet = factory.createEntity(client::ObjectType::Model3D, client::ObjectName::GunBullet, {
+        {0, 0, 0},
+        0,
+        0,
+        0,
+        WHITE,
+        false,
+        WHITE
+    }, client::ObjectFormat::GLB);
 
     client.run();
+
     return 0;
 }

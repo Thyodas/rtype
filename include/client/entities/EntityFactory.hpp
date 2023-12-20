@@ -15,9 +15,24 @@
 namespace client {
     class EntityFactory {
         public:
-            ecs::Entity createEntity(client::ObjectType type, client::ObjectName name, client::ObjectParams params);
-            ecs::Entity createCube(client::ObjectName name, client::ObjectParams params);
-            ecs::Entity createObject3D(client::ObjectName name, client::ObjectParams params);
+            ecs::Entity createEntity(
+                client::ObjectType type,
+                client::ObjectName name,
+                client::ObjectParams params,
+                client::ObjectFormat format = client::ObjectFormat::OBJ
+            );
+        private:
+            ecs::Entity createCube(
+                client::ObjectName name,
+                client::ObjectParams params,
+                client::ObjectFormat format = client::ObjectFormat::OBJ
+            );
+            ecs::Entity createObject3D(
+                client::ObjectName name,
+                client::ObjectParams params,
+                client::ObjectFormat format = client::ObjectFormat::OBJ
+            );
             std::string objectNameToString(client::ObjectName name);
+            std::string objectFormatToString(client::ObjectFormat format);
     };
 }

@@ -26,11 +26,17 @@ namespace client {
         MicroRecon,
         RedFighter,
         UltravioletIntruder,
+        GunBullet,
         None,
     };
 
     enum ObjectType {
         Cube,
         Model3D,
+    };
+
+    enum ObjectFormat {
+        GLB,
+        OBJ,
     };
 }
