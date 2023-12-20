@@ -19,6 +19,8 @@ namespace client {
         Color color;
         bool toggleWire;
         Color wireColor;
+        Vector3 rotation;
+        Vector3 scale;
     };
 
     enum ObjectName {

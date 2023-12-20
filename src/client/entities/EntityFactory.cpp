@@ -31,7 +31,7 @@ ecs::Entity client::EntityFactory::createCube(
     client::ObjectFormat format
 )
 {
-    return engine::createCube(
+    auto shape = engine::createCube(
         params.pos,
         params.width,
         params.height,
@@ -40,6 +40,10 @@ ecs::Entity client::EntityFactory::createCube(
         params.toggleWire,
         params.wireColor
     );
+    engine::rotate(shape, params.rotation);
+    engine::scale(shape, params.scale);
+
+    return shape;
 }
 
 ecs::Entity client::EntityFactory::createObject3D(
@@ -55,11 +59,15 @@ ecs::Entity client::EntityFactory::createObject3D(
     // TO USE IF USING LOCAL MAKEFILE
     std::string path = "../../ressources/client/Objects3D/" + objectName + "/" + objectName + objectFormat;
 
-    return engine::createModel3D(
+    auto shape = engine::createModel3D(
         path.c_str(),
         params.pos,
         params.color
     );
+    engine::rotate(shape, params.rotation);
+    engine::scale(shape, params.scale);
+
+    return shape;
 }
 
 std::string client::EntityFactory::objectNameToString(client::ObjectName name)

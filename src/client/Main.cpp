@@ -22,7 +22,9 @@ int main(int ac, char **av)
         0,
         WHITE,
         false,
-        WHITE
+        WHITE,
+        {0, 0, 0},
+        {1, 1, 1}
     });
     auto behave = engine::createBehavior<input>();
     engine::attachBehavior(cube, behave);
@@ -36,7 +38,9 @@ int main(int ac, char **av)
         0,
         WHITE,
         false,
-        WHITE
+        WHITE,
+        {0, 0, 0},
+        {0.025, 0.025, 0.025}
     }, client::ObjectFormat::GLB);
     engine::attachBehavior(gunBullet, move);
 
