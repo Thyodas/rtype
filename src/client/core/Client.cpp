@@ -7,7 +7,7 @@
 
 #include "client/core/Client.hpp"
 
-client::Client::Client()
+client::Client::Client() : _clock(new Chrono())
 {
     engine::initEngine();
 }
@@ -22,4 +22,5 @@ void client::Client::run()
 
 client::Client::~Client()
 {
+    delete _clock;
 }
