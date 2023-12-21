@@ -10,9 +10,47 @@
 
 #include "MovementBehaviour.hpp"
 #include "TestBehaviour.hpp"
+#include "common/network/network.hpp"
+
+enum class CustomMsgTypes : uint32_t
+{
+    ServerAccept,
+    ServerDeny,
+    ServerPing,
+    MessageAll,
+    ServerMessage,
+};
+
+
+
+class CustomClient : public rtype::net::ClientInterface<CustomMsgTypes>
+{
+    public:
+    void PingServer()
+    {
+        rtype::net::Message<CustomMsgTypes> msg;
+        msg.header.id = CustomMsgTypes::ServerPing;
+
+        // Caution with this...
+        std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
+
+        msg << timeNow;
+        send(msg);
+    }
+
+    void MessageAll()
+    {
+        rtype::net::Message<CustomMsgTypes> msg;
+        msg.header.id = CustomMsgTypes::MessageAll;
+        send(msg);
+    }
+};
 
 int main(int ac, char **av)
 {
+    CustomClient c;
+    c.connect("127.0.0.1", 60000);
+    c.PingServer();
     client::Client client;
     client::EntityFactory factory;
     ecs::Entity cube = factory.createEntity(client::ObjectType::Model3D, client::ObjectName::RedFighter, {
