@@ -173,6 +173,7 @@ namespace rtype::net {
     {
         if (!isConnected())
             return;
+        _messagesOut.waitUntilEmpty();
         asio::post(_asioContext, [this]() {
             _socket.close();
         });

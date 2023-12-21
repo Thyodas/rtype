@@ -17,7 +17,6 @@ namespace rtype::net {
 
             virtual ~ClientInterface();
 
-        public:
             /**
              * @brief Connect to server with hostname/ip-address and port
              * @param host String of hostname/ip-address

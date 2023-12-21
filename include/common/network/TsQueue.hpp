@@ -80,6 +80,11 @@ namespace rtype::net {
              */
             void wait();
 
+            /**
+             * @brief Make thread sleep until Queue is empty
+             */
+            void waitUntilEmpty();
+
         protected:
             std::mutex muxQueue;
             std::deque<T> deqQueue;
@@ -170,6 +175,15 @@ namespace rtype::net {
     void TsQueue<T>::wait()
     {
         while (empty()) {
+            std::unique_lock<std::mutex> ul(muxBlocking);
+            cvBlocking.wait(ul);
+        }
+    }
+
+    template<typename T>
+    void TsQueue<T>::waitUntilEmpty()
+    {
+        while (!empty()) {
             std::unique_lock<std::mutex> ul(muxBlocking);
             cvBlocking.wait(ul);
         }
