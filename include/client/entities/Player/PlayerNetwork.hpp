@@ -2,49 +2,50 @@
 ** EPITECH PROJECT, 2023
 ** client
 ** File description:
-** SpaceshipNetwork.hpp
+** PlayerNetwork.hpp
 */
 
 #pragma once
 
 #include "game_engine/ecs/components/NetworkBehaviour.hpp"
 #include "client/core/NetClient.hpp"
+#include "common/game/NetworkBody.hpp"
 
 namespace client {
 
-    class SpaceshipNetwork : public ecs::components::behaviour::NetworkBehaviour<client::NetClient> {
+    class PlayerNetwork : public ecs::components::behaviour::NetworkBehaviour<client::NetClient> {
         public:
-            explicit SpaceshipNetwork(client::NetClient& networkManager)
+            explicit PlayerNetwork(client::NetClient& networkManager)
                 : NetworkBehaviour(networkManager)
             {
                 _networkManager.registerResponse({
-                    {common::NetworkMessage::ServerPing, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                    {common::NetworkMessage::serverUpdateShipVelocity, [this](rtype::net::Message<common::NetworkMessage> msg) {
                         onUpdateVelocity(msg);
                     }},
                 });
             }
 
-
-
             void onUpdateVelocity(rtype::net::Message<common::NetworkMessage>& msg)
             {
-                // use engine events to register this callback?
-                std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
-                std::chrono::system_clock::time_point timeThen;
-                msg >> timeThen;
+                common::game::netbody::ServerUpdateShipVelocity body;
+                auto &playerBody = _coord->getComponent<ecs::components::physics::rigidBody_t>(_entity);
+                msg >> body;
 
+                auto &netData = _coord->getComponent<ecs::components::network::network_t>(_entity);
 
-                std::cout << "Ping from velocity update: " << std::chrono::duration<double>(timeNow - timeThen).count() << "\n";
+                if (body.entityNetId != netData.entityNetId)
+                    return;
+
+                playerBody.velocity = body.velocity;
             }
 
-            void updateVelocity(const Vector3& velocity) const
+            void updateDirection(const Vector3& direction) const
             {
-                auto &body = _coord->getComponent<ecs::components::physics::rigidBody_t>(_entity);
-                body.velocity.x += velocity.x;
-                body.velocity.y += velocity.y;
-                body.velocity.z += velocity.z;
+                rtype::net::Message<common::NetworkMessage> msg;
 
-                _networkManager.reqPingServer();
+                msg.header.id = common::NetworkMessage::clientUpdatePlayerDirection;
+                msg << direction;
+                _networkManager.send(msg);
             }
 
             Vector3 calculateBulletVelocity(const ecs::components::physics::transform_t& shipTransform, float bulletSpeed)
@@ -77,25 +78,33 @@ namespace client {
 
             void update() override
             {
-                Vector3 velocity = {0};
+                Vector3 direction = {0};
                 if (IsKeyDown(KEY_D)) {
-                    velocity.x += 0.1f;
-                    velocity.z -= 0.1f;
+                    // velocity.x += 0.1f;
+                    // velocity.z -= 0.1f;
+                    direction.x = 1;
+                    direction.z = -1;
                 }
                 if (IsKeyDown(KEY_A)) {
-                    velocity.x -= 0.1f;
-                    velocity.z += 0.1f;
+                    // velocity.x -= 0.1f;
+                    // velocity.z += 0.1f;
+                    direction.x = -1;
+                    direction.z = 1;
                 }
                 if (IsKeyDown(KEY_W)) {
-                    velocity.x -= 0.2f;
-                    velocity.z -= 0.2f;
+                    // velocity.x -= 0.2f;
+                    // velocity.z -= 0.2f;
+                    direction.x = -1;
+                    direction.z = -1;
                 }
                 if (IsKeyDown(KEY_S)) {
-                    velocity.x += 0.2f;
-                    velocity.z += 0.2f;
+                    // velocity.x += 0.2f;
+                    // velocity.z += 0.2f;
+                    direction.x = 1;
+                    direction.z = 1;
                 }
-                if (velocity.x != 0 || velocity.y != 0 || velocity.z != 0)
-                    updateVelocity(velocity);
+                if (direction.x != 0 || direction.y != 0 || direction.z != 0)
+                    updateDirection(direction);
 
                 if (IsKeyDown(KEY_SPACE)) {
                     fireBullet();

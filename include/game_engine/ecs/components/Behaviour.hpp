@@ -22,7 +22,7 @@ namespace ecs {
                     virtual ~Behaviour() = default;
 
                     virtual void update(void) = 0;
-                    void setEntity(ecs::Entity entity);
+                    virtual void setEntity(ecs::Entity entity);
 
                     static std::shared_ptr<ecs::Coordinator> _coord;
                 protected:

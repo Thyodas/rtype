@@ -10,6 +10,8 @@
 #include "common/network/network.hpp"
 
 #include "common/game/NetworkMessage.hpp"
+#include "client/entities/EntityFactory.hpp"
+#include "common/game/NetworkBody.hpp"
 
 namespace client {
 
@@ -25,6 +27,41 @@ namespace client {
 
             msg << timeNow;
             send(msg);
+        }
+
+        void reqClientConnect(std::string name, client::ObjectName shipName)
+        {
+            rtype::net::Message<common::NetworkMessage> msg;
+            msg.header.id = common::NetworkMessage::clientConnect;
+
+            common::game::netbody::ClientConnect body = {
+                .name = name,
+                .shipName = shipName
+            };
+
+            msg << body;
+            send(msg);
+        }
+
+        void resServerFireBullet(rtype::net::Message<common::NetworkMessage>& msg)
+        {
+            common::game::netbody::ServerFireBullet body;
+
+            msg >> body;
+
+            client::EntityFactory factory;
+            ecs::Entity gunBullet = factory.createEntity(client::ObjectType::Model3D, client::ObjectName::GunBullet, {
+                {0, 0, 0},
+                0,
+                0,
+                0,
+                WHITE,
+                false,
+                WHITE,
+                {0, 0, 0},
+                {0.025, 0.025, 0.025}
+            }, client::ObjectFormat::GLB);
+            // engine::attachBehavior(gunBullet, BulletNetwork);
         }
 
         void messageAll()

@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <cstdint>
+
 namespace common {
 
     enum class NetworkMessage : uint32_t {
@@ -16,16 +18,28 @@ namespace common {
         MessageAll,
         ServerMessage,
 
-        clientUpdatePlayerVelocity,
+        clientConnect,
+        clientUpdatePlayerDirection,
         clientPlayerFireBullet,
 
-        serverAllyConnection,
+        serverCreatePlayerShip,
+        serverPlayerTakeDamage,
+        serverPlayerDestroy,
+
+        serverAllyConnect,
+        serverAllyDisconnect,
+        serverAllyTakeDamage,
+        serverAllyDestroy,
 
         serverFireBullet,
         serverDestroyBullet,
 
+        serverUpdateShipVelocity,
+
         serverCreateEnemy,
         serverUpdateEnemyVelocity,
+        serverEnemyTakeDamage,
+        serverDestroyEnemy,
     };
 
 }

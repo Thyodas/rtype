@@ -12,7 +12,7 @@
 #include "../MovementBehaviour.hpp"
 #include "../TestBehaviour.hpp"
 
-#include "client/entities/Spaceship/SpaceshipNetwork.hpp"
+#include "client/entities/Player/PlayerNetwork.hpp"
 
 client::Client::Client() : _clock(new Chrono())
 {
@@ -33,7 +33,7 @@ void client::Client::run()
         {0, 0, 0},
         {1, 1, 1}
     });
-    auto spaceShipNetwork = engine::createBehavior<client::SpaceshipNetwork>(_netClient);
+    auto spaceShipNetwork = engine::createBehavior<client::PlayerNetwork>(_netClient);
     engine::attachBehavior(cube, spaceShipNetwork);
 
 
@@ -51,12 +51,10 @@ void client::Client::run()
     }, client::ObjectFormat::GLB);
     engine::attachBehavior(gunBullet, move);
 
-
-
-
-
-
     _netClient.connect("localhost", 60000);
+
+    _netClient.reqClientConnect("Jean-Baptiste", client::ObjectName::DualStriker);
+
     while (engine::isWindowOpen()) {
         if (!_netClient.isConnected())
             break;

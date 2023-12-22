@@ -8,6 +8,8 @@
 #pragma once
 
 #include "game_engine/ecs/components/Behaviour.hpp"
+#include "game_engine/ecs/components/Network.hpp"
+#include "game_engine/GameEngine.hpp"
 #include "common/network/Client.hpp"
 
 #include <type_traits>
@@ -27,6 +29,14 @@ namespace ecs::components::behaviour
         {
             /*auto &networkManager = reinterpret_cast<rtype::net::ClientInterface<std::any>&>(_networkManager);
             networkManager.*/
+            
+        }
+
+        void setEntity(ecs::Entity entity) override
+        {
+            ecs::components::network::network_t network = {0};
+            engine::Engine::getInstance()->addComponent<ecs::components::network::network_t>(entity, network);
+            Behaviour::setEntity(std::move(entity));
         }
 
         /*template<typename TEvent>

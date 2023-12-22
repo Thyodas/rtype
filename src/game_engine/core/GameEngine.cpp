@@ -35,6 +35,7 @@ namespace engine {
         _coordinator->registerComponent<ecs::components::physics::collider_t>();
         _coordinator->registerComponent<ecs::components::physics::rigidBody_t>();
         _coordinator->registerComponent<ecs::components::animations::animation_t>();
+        _coordinator->registerComponent<ecs::components::network::network_t>();
 
         ecs::Signature signaturePhysics;
         signaturePhysics.set(_coordinator->getComponentType<ecs::components::physics::transform_t>());
