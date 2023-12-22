@@ -62,7 +62,7 @@ namespace ecs {
                         BoundingBox box2 = collider2.data->getBoundingBox(collider2);
                         bool colliding = CheckCollisionBoxes(box1, box2);
                         if (colliding) {
-                            std::cout << "ca collide" << std::endl;
+                            //std::cout << "ca collide" << std::endl;
                             _coord->emitEvent<CollisionEvent>(CollisionEvent(*it1, box1, collider1.data->getModel().transform, *it2, box2, collider2.data->getModel().transform));
                         } else {
                             //std::cout << "no collision detected" << std::endl;
@@ -110,7 +110,7 @@ namespace ecs {
                 bounds.x = fmin(bounds.x, proj);
                 bounds.y = fmax(bounds.y, proj);
             }
-            std::cout << bounds.x << " " << bounds.y <<  std::endl;
+            //std::cout << bounds.x << " " << bounds.y <<  std::endl;
             return bounds;
         }
 

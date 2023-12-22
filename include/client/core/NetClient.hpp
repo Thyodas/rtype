@@ -9,33 +9,35 @@
 
 #include "common/network/network.hpp"
 
-enum class CustomMsgTypes : uint32_t
-{
-    ServerAccept,
-    ServerDeny,
-    ServerPing,
-    MessageAll,
-    ServerMessage,
-};
-
-class NetClient : public rtype::net::ClientInterface<CustomMsgTypes>
-{
-    public:
-    void pingServer()
+namespace client {
+    enum class CustomMsgTypes : uint32_t
     {
-        rtype::net::Message<CustomMsgTypes> msg;
-        msg.header.id = CustomMsgTypes::ServerPing;
+        ServerAccept,
+        ServerDeny,
+        ServerPing,
+        MessageAll,
+        ServerMessage,
+    };
 
-        std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
-
-        msg << timeNow;
-        send(msg);
-    }
-
-    void messageAll()
+    class NetClient : public rtype::net::ClientInterface<CustomMsgTypes>
     {
-        rtype::net::Message<CustomMsgTypes> msg;
-        msg.header.id = CustomMsgTypes::MessageAll;
-        send(msg);
-    }
-};
+        public:
+        void reqPingServer()
+        {
+            rtype::net::Message<CustomMsgTypes> msg;
+            msg.header.id = CustomMsgTypes::ServerPing;
+
+            std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
+
+            msg << timeNow;
+            send(msg);
+        }
+
+        void messageAll()
+        {
+            rtype::net::Message<CustomMsgTypes> msg;
+            msg.header.id = CustomMsgTypes::MessageAll;
+            send(msg);
+        }
+    };
+}

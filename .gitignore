@@ -133,3 +133,5 @@ fabric.properties
 .cmake
 CMakeCache.txt
 cmake_install.cmake
+
+B-CPP-500_rtype.pdf

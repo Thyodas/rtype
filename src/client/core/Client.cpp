@@ -7,6 +7,13 @@
 
 #include "client/core/Client.hpp"
 
+#include "client/entities/EntityFactory.hpp"
+
+#include "../MovementBehaviour.hpp"
+#include "../TestBehaviour.hpp"
+
+#include "client/entities/Spaceship/SpaceshipNetwork.hpp"
+
 client::Client::Client() : _clock(new Chrono())
 {
     engine::initEngine();
@@ -14,6 +21,41 @@ client::Client::Client() : _clock(new Chrono())
 
 void client::Client::run()
 {
+    client::EntityFactory factory;
+    ecs::Entity cube = factory.createEntity(client::ObjectType::Model3D, client::ObjectName::RedFighter, {
+        {0, 0, 0},
+        0,
+        0,
+        0,
+        WHITE,
+        false,
+        WHITE,
+        {0, 0, 0},
+        {1, 1, 1}
+    });
+    auto spaceShipNetwork = engine::createBehavior<client::SpaceshipNetwork>(_netClient);
+    engine::attachBehavior(cube, spaceShipNetwork);
+
+
+    auto move = engine::createBehavior<movement>();
+    ecs::Entity gunBullet = factory.createEntity(client::ObjectType::Model3D, client::ObjectName::GunBullet, {
+        {0, 0, 0},
+        0,
+        0,
+        0,
+        WHITE,
+        false,
+        WHITE,
+        {0, 0, 0},
+        {0.025, 0.025, 0.025}
+    }, client::ObjectFormat::GLB);
+    engine::attachBehavior(gunBullet, move);
+
+
+
+
+
+
     _netClient.connect("localhost", 60000);
     while (engine::isWindowOpen()) {
         if (!_netClient.isConnected())
@@ -46,7 +88,7 @@ void client::Client::run()
                 break;
             }
         }
-        _netClient.pingServer();
+        //_netClient.reqPingServer();
         engine::runEngine();
     }
     _netClient.disconnect();

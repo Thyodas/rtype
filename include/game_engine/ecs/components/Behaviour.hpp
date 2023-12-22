@@ -19,6 +19,8 @@ namespace ecs {
         namespace behaviour {
             class Behaviour {
                 public:
+                    virtual ~Behaviour() = default;
+
                     virtual void update(void) = 0;
                     void setEntity(ecs::Entity entity);
 
