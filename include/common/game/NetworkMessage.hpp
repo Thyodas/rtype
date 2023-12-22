@@ -35,6 +35,7 @@ namespace common {
         serverDestroyBullet,
 
         serverUpdateShipVelocity,
+        serverUpdateShipPosition,
 
         serverCreateEnemy,
         serverUpdateEnemyVelocity,

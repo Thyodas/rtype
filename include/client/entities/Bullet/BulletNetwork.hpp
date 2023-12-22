@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2023
 ** client
 ** File description:
-** EnemyNetwork.hpp
+** BulletNetwork.hpp
 */
 
 #pragma once
@@ -14,24 +14,24 @@
 
 namespace client {
 
-    class EnemyNetwork : public ecs::components::behaviour::NetworkBehaviour<client::NetClient> {
+    class BulletNetwork : public ecs::components::behaviour::NetworkBehaviour<client::NetClient> {
         public:
-            explicit EnemyNetwork(client::NetClient& networkManager)
+            explicit BulletNetwork(client::NetClient& networkManager)
                 : NetworkBehaviour(networkManager)
             {
                 _networkManager.registerResponse({
-                    {common::NetworkMessage::serverUpdateEnemyVelocity, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                    {common::NetworkMessage::serverUpdateBulletVelocity, [this](rtype::net::Message<common::NetworkMessage> msg) {
                         onUpdateVelocity(msg);
                     }},
                 });
                 _networkManager.registerResponse({
-                    {common::NetworkMessage::serverEnemyTakeDamage, [this](rtype::net::Message<common::NetworkMessage> msg) {
-                        onDamageReceive(msg);
+                    {common::NetworkMessage::serverBulletTakeDamage, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                        onUpdateVelocity(msg);
                     }},
                 });
                 _networkManager.registerResponse({
-                    {common::NetworkMessage::serverDestroyEnemy, [this](rtype::net::Message<common::NetworkMessage> msg) {
-                        onDestroy(msg);
+                    {common::NetworkMessage::serverDestroyBullet, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                        onUpdateVelocity(msg);
                     }},
                 });
             }
@@ -39,7 +39,7 @@ namespace client {
             void onUpdateVelocity(rtype::net::Message<common::NetworkMessage>& msg)
             {
                 common::game::netbody::ServerUpdateShipVelocity body;
-                auto &enemyBody = _coord->getComponent<ecs::components::physics::rigidBody_t>(_entity);
+                auto &BulletBody = _coord->getComponent<ecs::components::physics::rigidBody_t>(_entity);
                 msg >> body;
 
                 auto &netData = _coord->getComponent<ecs::components::network::network_t>(_entity);
@@ -47,17 +47,17 @@ namespace client {
                 if (body.entityNetId != netData.entityNetId)
                     return;
 
-                enemyBody.velocity = body.velocity;
+                BulletBody.velocity = body.velocity;
             }
 
             void onDamageReceive(rtype::net::Message<common::NetworkMessage>& msg)
             {
-                std::cout << "Enemy " << _entity << " take damage" << std::endl;
+                std::cout << "Bullet " << _entity << " take damage" << std::endl;
             }
 
             void onDestroy(rtype::net::Message<common::NetworkMessage>& msg)
             {
-                common::game::netbody::ServerDestroyEnemy body;
+                common::game::netbody::ServerDestroyBullet body;
                 msg >> body;
 
                 auto &netData = _coord->getComponent<ecs::components::network::network_t>(_entity);

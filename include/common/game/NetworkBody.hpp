@@ -35,6 +35,7 @@ namespace common::game::netbody {
     // serverDestroyBullet,
 
     // serverUpdateShipVelocity,
+    // serverUpdateShipPosition,
 
     // serverCreateEnemy,
     // serverUpdateEnemyVelocity,
@@ -104,6 +105,11 @@ namespace common::game::netbody {
     struct ServerUpdateShipVelocity {
         uint32_t entityNetId;
         Vector3 velocity;
+    };
+
+    struct ServerUpdateShipPosition {
+        uint32_t entityNetId;
+        Vector3 pos;
     };
 
     struct ServerCreateEnemy {
