@@ -62,9 +62,9 @@ class CustomServer : public rtype::net::ServerInterface<common::NetworkMessage> 
 
                     // Construct a new message and send it to all clients
                     rtype::net::Message<common::NetworkMessage> msg;
-                    msg.header.id = common::NetworkMessage::serverEnemyFireBullet;
+                    msg.header.id = common::NetworkMessage::serverFireBullet;
                     msg << client->getID();
-                    messageAllClients(msg, client);
+                    messageAllClients(msg);
                 }
                 break;
             }
