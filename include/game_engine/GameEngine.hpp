@@ -26,7 +26,7 @@
 namespace engine {
     class Engine {
         public:
-            void init();
+            void init(bool disableRender = false);
 
             ecs::Entity addEntity(ecs::components::physics::transform_t transf = {{0, 1, 0}, {0}, {0}},
                                     ecs::components::render::render_t render = {ecs::components::ShapeType::CUBE, true, std::make_shared<ecs::components::Cube>()}
@@ -50,7 +50,9 @@ namespace engine {
 
             bool isWindowOpen(void)
             {
-                return _window.isOpen();
+                if (_disableRender)
+                    return false;
+                return _window->isOpen();
             }
 
             void run();
@@ -64,7 +66,8 @@ namespace engine {
             std::shared_ptr<ecs::system::CollisionResponse> _collisionResponseSystem;
             std::shared_ptr<ecs::system::ColisionDetectionSystem> _collisionDetectionSystem;
 
-            core::Window _window{};
+            std::shared_ptr<core::Window> _window;
+            bool _disableRender = false;
 
         private:
             static Engine *engine;
@@ -86,7 +89,7 @@ namespace engine {
             };
     };
 
-    void initEngine();
+    void initEngine(bool disableRender = false);
     void runEngine();
     ecs::Entity createCube(Vector3 pos, float width, float height, float length, Color color = RED, bool toggleWire = false, Color wireColor = BLACK);
     ecs::Entity createModel3D(const char *filename, Vector3 pos, Color color = WHITE);

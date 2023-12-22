@@ -9,23 +9,17 @@
 
 #include "common/network/network.hpp"
 
-namespace client {
-    enum class CustomMsgTypes : uint32_t
-    {
-        ServerAccept,
-        ServerDeny,
-        ServerPing,
-        MessageAll,
-        ServerMessage,
-    };
+#include "common/game/NetworkMessage.hpp"
 
-    class NetClient : public rtype::net::ClientInterface<CustomMsgTypes>
+namespace client {
+
+    class NetClient : public rtype::net::ClientInterface<common::NetworkMessage>
     {
         public:
         void reqPingServer()
         {
-            rtype::net::Message<CustomMsgTypes> msg;
-            msg.header.id = CustomMsgTypes::ServerPing;
+            rtype::net::Message<common::NetworkMessage> msg;
+            msg.header.id = common::NetworkMessage::ServerPing;
 
             std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
 
@@ -35,23 +29,23 @@ namespace client {
 
         void messageAll()
         {
-            rtype::net::Message<CustomMsgTypes> msg;
-            msg.header.id = CustomMsgTypes::MessageAll;
+            rtype::net::Message<common::NetworkMessage> msg;
+            msg.header.id = common::NetworkMessage::MessageAll;
             send(msg);
         }
 
-        void registerResponse(CustomMsgTypes id, const std::function<void(rtype::net::Message<CustomMsgTypes>)> func)
+        void registerResponse(common::NetworkMessage id, const std::function<void(rtype::net::Message<common::NetworkMessage>)> func)
         {
             _responses.insert(std::make_pair(id, func));
         }
 
-        void registerResponse(std::vector<std::pair<CustomMsgTypes, std::function<void(rtype::net::Message<CustomMsgTypes>)>>> responses)
+        void registerResponse(std::vector<std::pair<common::NetworkMessage, std::function<void(rtype::net::Message<common::NetworkMessage>)>>> responses)
         {
             for (auto &response : responses)
                 _responses.insert(response);
         }
 
-        void dispatchResponse(rtype::net::Message<CustomMsgTypes>& msg)
+        void dispatchResponse(rtype::net::Message<common::NetworkMessage>& msg)
         {
             const auto &[first, second] = _responses.equal_range(msg.header.id);
             for (auto it = first; it != second; ++it)
@@ -68,6 +62,6 @@ namespace client {
         }
 
         protected:
-            std::unordered_multimap<CustomMsgTypes, std::function<void(rtype::net::Message<CustomMsgTypes>)>> _responses;
+            std::unordered_multimap<common::NetworkMessage, std::function<void(rtype::net::Message<common::NetworkMessage>)>> _responses;
     };
 }
