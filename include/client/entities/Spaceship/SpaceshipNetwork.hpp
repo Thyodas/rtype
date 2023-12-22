@@ -17,12 +17,20 @@ namespace client {
             explicit SpaceshipNetwork(client::NetClient& networkManager)
                 : NetworkBehaviour(networkManager)
             {
-
+                _networkManager.registerResponse({
+                    {CustomMsgTypes::ServerPing, [this](rtype::net::Message<CustomMsgTypes> msg) {
+                        onUpdateVelocity(msg);
+                    }},
+                });
             }
 
-            void onUpdateVelocity(const rtype::net::Message<CustomMsgTypes>& msg) const
+            void onUpdateVelocity(rtype::net::Message<CustomMsgTypes>& msg)
             {
                 // use engine events to register this callback?
+                std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
+                std::chrono::system_clock::time_point timeThen;
+                msg >> timeThen;
+                std::cout << "Ping from velocity update: " << std::chrono::duration<double>(timeNow - timeThen).count() << "\n";
             }
 
             void updateVelocity(const Vector3& velocity) const
