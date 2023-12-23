@@ -1,6 +1,6 @@
 [submodule "vcpkg"]
 	path = vcpkg
 	url = git@github.com:microsoft/vcpkg.git
-[submodule "m_raylib"]
+[submodule "raylib"]
 	path = raylib
 	url = git@github.com:raysan5/raylib.git

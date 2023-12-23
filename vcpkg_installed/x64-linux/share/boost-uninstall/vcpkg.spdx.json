@@ -3,13 +3,13 @@
   "spdxVersion": "SPDX-2.2",
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
-  "documentNamespace": "https://spdx.org/spdxdocs/glfw3-x64-linux-3.3.8#3-f889174f-8d4c-4485-b63d-bfdcc6d079de",
-  "name": "glfw3:x64-linux@3.3.8#3 419d2260a737bdfa9d58a44ee74c38259cab737973d8c0b97b2f65185ed0b973",
+  "documentNamespace": "https://spdx.org/spdxdocs/boost-uninstall-x64-linux-1.83.0-ba213513-d967-4497-a2b1-3dc6731d8b43",
+  "name": "boost-uninstall:x64-linux@1.83.0 c69c7abeb4505137cac27c4083b641cd805410e3ef32d85b42068ec431460ca9",
   "creationInfo": {
     "creators": [
-      "Tool: vcpkg-4c1df40a3c5c5e18de299a99e9accb03c2a82e1e"
+      "Tool: vcpkg-1c9ec1978a6b0c2b39c9e9554a96e3e275f7556e"
     ],
-    "created": "2023-12-08T16:12:00Z"
+    "created": "2023-12-23T21:18:57Z"
   },
   "relationships": [
     {
@@ -55,74 +55,59 @@
   ],
   "packages": [
     {
-      "name": "glfw3",
+      "name": "boost-uninstall",
       "SPDXID": "SPDXRef-port",
-      "versionInfo": "3.3.8#3",
+      "versionInfo": "1.83.0",
       "downloadLocation": "NOASSERTION",
-      "homepage": "https://github.com/glfw/glfw",
-      "licenseConcluded": "Zlib",
+      "licenseConcluded": "MIT",
       "licenseDeclared": "NOASSERTION",
       "copyrightText": "NOASSERTION",
-      "description": "GLFW is a free, Open Source, multi-platform library for OpenGL, OpenGL ES and Vulkan application development. It provides a simple, platform-independent API for creating windows, contexts and surfaces, reading input, handling events, etc.",
+      "description": "Internal vcpkg port used to uninstall Boost",
       "comment": "This is the port (recipe) consumed by vcpkg."
     },
     {
-      "name": "glfw3:x64-linux",
+      "name": "boost-uninstall:x64-linux",
       "SPDXID": "SPDXRef-binary",
-      "versionInfo": "419d2260a737bdfa9d58a44ee74c38259cab737973d8c0b97b2f65185ed0b973",
+      "versionInfo": "c69c7abeb4505137cac27c4083b641cd805410e3ef32d85b42068ec431460ca9",
       "downloadLocation": "NONE",
-      "licenseConcluded": "Zlib",
+      "licenseConcluded": "MIT",
       "licenseDeclared": "NOASSERTION",
       "copyrightText": "NOASSERTION",
       "comment": "This is a binary package built by vcpkg."
-    },
-    {
-      "SPDXID": "SPDXRef-resource-1",
-      "name": "glfw/glfw",
-      "downloadLocation": "git+https://github.com/glfw/glfw@7482de6071d21db77a7236155da44c172a7f6c9e",
-      "licenseConcluded": "NOASSERTION",
-      "licenseDeclared": "NOASSERTION",
-      "copyrightText": "NOASSERTION",
-      "checksums": [
-        {
-          "algorithm": "SHA512",
-          "checksumValue": "ec45b620338cf36a8dbdf7aaf54d7c3a49a1be4ae1a1ef95f1531094fec670870713969bbc23476769d374c7a71d93f6540ab64c46fb5f66f4402bb2d15c7d87"
-        }
-      ]
     }
   ],
   "files": [
     {
-      "fileName": ".//home/retr0/vcpkg/vcpkg_repo/ports/glfw3/fix_win32_dllname.pacth",
+      "fileName": ".//home/retr0/Delivery/B-CPP-500-STG-5-2-rtype-remi.mergen/vcpkg/ports/boost-uninstall/vcpkg.json",
       "SPDXID": "SPDXRef-file-0",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "5263bc10088bac5c52263e82f97ea38fc75ee213efc6df7b3efd52c2ffc15577"
+          "checksumValue": "dba036e2d2c26f092ab253229b3b22dc27a6503180588b6c827a4f20a508d8dd"
         }
       ],
       "licenseConcluded": "NOASSERTION",
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": ".//home/retr0/vcpkg/vcpkg_repo/ports/glfw3/vcpkg.json",
+      "fileName": ".//home/retr0/Delivery/B-CPP-500-STG-5-2-rtype-remi.mergen/vcpkg/ports/boost-uninstall/portfile.cmake",
       "SPDXID": "SPDXRef-file-1",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "33b88127eff714949be9362e5a620cc8907d9a47495ca26cc5a1fd2e0ade84c6"
+          "checksumValue": "312c9bdc0c2c9d16736f0044c35dd05a935ef2c8ed097c6e35dc74e167a2f72e"
         }
       ],
       "licenseConcluded": "NOASSERTION",
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": ".//home/retr0/vcpkg/vcpkg_repo/ports/glfw3/portfile.cmake",
+      "fileName": ".//home/retr0/Delivery/B-CPP-500-STG-5-2-rtype-remi.mergen/vcpkg/ports/boost-uninstall/vcpkg-cmake-wrapper.cmake",
       "SPDXID": "SPDXRef-file-2",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "941d2755bc6c1170e48fe771fff96aff970a191c0a80ab30f338d1dad1131927"
+          "checksumValue": "a8f11f0c7f25e8dd43c241029e1fbed538716ec68d40e54563f575d172926fcd"
         }
       ],
       "licenseConcluded": "NOASSERTION",

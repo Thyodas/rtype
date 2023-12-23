@@ -3,6 +3,9 @@
     {
       "name": "raylib",
       "platform": "(windows & x64 & static)"
+    },
+    {
+      "name": "boost-asio"
     }
   ]
 }
