@@ -155,6 +155,19 @@ namespace engine {
         return entity;
     }
 
+    ecs::Entity createSkybox(const char *filename, Vector3 pos, Color color)
+    {
+        auto model = std::make_shared<ecs::components::Skybox>(filename);
+        ecs::components::physics::transform_t transf = {pos, {0}, {0}};
+        ecs::components::render::render_t render = {ecs::components::ShapeType::MODEL, true, model};
+        ecs::components::physics::rigidBody_t body = {0.0, {0}, {0}};
+        ecs::components::physics::collider_t collider = {ecs::components::ShapeType::MODEL, ecs::components::physics::CollisionType::COLLIDE, model};
+        ecs::Entity entity = Engine::getInstance()->addEntity(transf, render);
+        Engine::getInstance()->addComponent<ecs::components::physics::collider_t>(entity, collider);
+        Engine::getInstance()->addComponent<ecs::components::physics::rigidBody_t>(entity, body);
+        return entity;
+    }
+
     void setAnimation(ecs::Entity entity, const char *filename)
     {
         ecs::components::animations::animation_t anim;

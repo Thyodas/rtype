@@ -103,6 +103,7 @@ namespace engine {
     void runEngine();
     ecs::Entity createCube(Vector3 pos, float width, float height, float length, Color color = RED, bool toggleWire = false, Color wireColor = BLACK);
     ecs::Entity createModel3D(const char *filename, Vector3 pos, Color color = WHITE);
+    ecs::Entity createSkybox(const char *filename, Vector3 pos, Color color = WHITE);
     template<typename T, typename... Args>
     std::shared_ptr<T> createBehavior(Args&&... args)
     {

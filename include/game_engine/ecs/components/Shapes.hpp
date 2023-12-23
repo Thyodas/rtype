@@ -76,5 +76,13 @@ namespace ecs {
             private:
                 Color _color;
         };
+
+        class Skybox : public IShape {
+            public:
+                Skybox(const char *filename);
+                void draw(physics::transform_t &transf) const override;
+            private:
+                Color _color;
+        };
     }
 }

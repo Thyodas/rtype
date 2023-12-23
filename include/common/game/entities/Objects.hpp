@@ -30,16 +30,19 @@ namespace common::game {
         UltravioletIntruder, // --
         GunBullet, // BULLET
         Transtellar, // ENEMY
+        DefaultSkybox,
         None,
     };
 
     enum ObjectType {
         Cube,
         Model3D,
+        SkyBox,
     };
 
     enum ObjectFormat {
         GLB,
         OBJ,
+        PNG,
     };
 }

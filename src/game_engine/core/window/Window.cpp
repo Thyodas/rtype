@@ -13,12 +13,13 @@ namespace engine {
         {
             _width = width;
             _height = height;
-            // _camera.position = (Vector3){ 10.0f, 3.5f, 4.0f };
-             _camera.position = (Vector3){ 10.0f, 10.0f, 0.0f }; // Config to be above the scene
-            _camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };
+            _camera.position = (Vector3){ 10.0f, 10.0f, 10.0f };
             _camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };
+            _camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };
             _camera.fovy = 45.0f;
-            _camera.projection = CAMERA_FREE;
+            _camera.projection = CAMERA_PERSPECTIVE;
+
+
             InitWindow(width, height, name.c_str());
         }
 

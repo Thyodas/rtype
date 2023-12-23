@@ -8,8 +8,7 @@
 #pragma once
 
 #include "game_engine/GameEngine.hpp"
-#include "Objects.hpp"
-
+#include "common/game/entities/Objects.hpp"
 #include <memory>
 
 namespace common::game {
@@ -32,7 +31,12 @@ namespace common::game {
                 ObjectParams params,
                 ObjectFormat format = ObjectFormat::OBJ
             );
-            std::string objectNameToString(ObjectName name);
-            std::string objectFormatToString(ObjectFormat format);
+            ecs::Entity createSkybox(
+                common::game::ObjectName name,
+                common::game::ObjectParams params,
+                common::game::ObjectFormat format = common::game::ObjectFormat::PNG
+            );
+            std::string objectNameToString(common::game::ObjectName name);
+            std::string objectFormatToString(common::game::ObjectFormat format);
     };
 }
