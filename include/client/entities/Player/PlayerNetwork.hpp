@@ -70,7 +70,10 @@ namespace client {
                 rtype::net::Message<common::NetworkMessage> msg;
 
                 msg.header.id = common::NetworkMessage::clientUpdatePlayerDirection;
-                msg << direction;
+                common::game::netbody::ClientUpdatePlayerDirection body = {
+                    direction
+                };
+                msg << body;
                 _networkManager.send(msg);
             }
 

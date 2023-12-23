@@ -106,8 +106,13 @@ namespace rtype::net {
             // Create a boost archive from the stream
             boost::archive::binary_iarchive ia(ss);
 
-            // Deserialize the data from the archive
-            ia >> data;
+            try {
+                // Deserialize the data from the archive
+                ia >> data;
+            } catch (std::exception& e) {
+                // TODO: find a better way of handling this error
+                std::cerr << "ERROR When deserializing data!: " << e.what() << std::endl;
+            }
 
             return msg;
         }
