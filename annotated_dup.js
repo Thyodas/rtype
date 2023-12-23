@@ -6,7 +6,8 @@ var annotated_dup =
       [ "Client", "classclient_1_1_client.html", null ],
       [ "EnemyNetwork", "classclient_1_1_enemy_network.html", null ],
       [ "NetClient", "classclient_1_1_net_client.html", null ],
-      [ "PlayerNetwork", "classclient_1_1_player_network.html", null ]
+      [ "PlayerNetwork", "classclient_1_1_player_network.html", null ],
+      [ "SkyboxBehavior", "classclient_1_1_skybox_behavior.html", null ]
     ] ],
     [ "common", null, [
       [ "game", null, [
@@ -77,7 +78,8 @@ var annotated_dup =
         [ "Cube", "classecs_1_1components_1_1_cube.html", null ],
         [ "IComponentArray", "classecs_1_1components_1_1_i_component_array.html", null ],
         [ "IShape", "classecs_1_1components_1_1_i_shape.html", null ],
-        [ "Model3D", "classecs_1_1components_1_1_model3_d.html", null ]
+        [ "Model3D", "classecs_1_1components_1_1_model3_d.html", null ],
+        [ "Skybox", "classecs_1_1components_1_1_skybox.html", null ]
       ] ],
       [ "event", null, [
         [ "EventManager", "classecs_1_1event_1_1_event_manager.html", null ],

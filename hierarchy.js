@@ -15,6 +15,7 @@ var hierarchy =
       [ "ecs::components::behaviour::NetworkBehaviour< server::NetServer >", "classecs_1_1components_1_1behaviour_1_1_network_behaviour.html", [
         [ "server::PlayerNetwork", "classserver_1_1_player_network.html", null ]
       ] ],
+      [ "client::SkyboxBehavior", "classclient_1_1_skybox_behavior.html", null ],
       [ "ecs::components::behaviour::NetworkBehaviour< NetworkManager >", "classecs_1_1components_1_1behaviour_1_1_network_behaviour.html", null ],
       [ "input", "classinput.html", null ],
       [ "input", "classinput.html", null ],
@@ -56,7 +57,8 @@ var hierarchy =
     ] ],
     [ "ecs::components::IShape", "classecs_1_1components_1_1_i_shape.html", [
       [ "ecs::components::Cube", "classecs_1_1components_1_1_cube.html", null ],
-      [ "ecs::components::Model3D", "classecs_1_1components_1_1_model3_d.html", null ]
+      [ "ecs::components::Model3D", "classecs_1_1components_1_1_model3_d.html", null ],
+      [ "ecs::components::Skybox", "classecs_1_1components_1_1_skybox.html", null ]
     ] ],
     [ "rtype::net::Message< T >", "structrtype_1_1net_1_1_message.html", null ],
     [ "rtype::net::MessageHeader< T >", "structrtype_1_1net_1_1_message_header.html", null ],
