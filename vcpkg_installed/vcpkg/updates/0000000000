@@ -1,9 +1,0 @@
-Package: raylib
-Version: 5.0
-Depends: glfw3, vcpkg-cmake, vcpkg-cmake-config
-Architecture: x64-linux
-Multi-Arch: same
-Abi: 1bfc4f11cc476cbb6c96fe87711374628e6acdf972a158e2c06fe6b294bd6590
-Description: A simple and easy-to-use library to enjoy videogames programming
-Default-Features: use-audio
-Status: purge ok half-installed
