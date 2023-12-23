@@ -143,3 +143,7 @@ B-CPP-500_rtype.pdf
 
 *.cbp
 *.log
+
+# Jetbrains IDEs
+.idea/
+build/

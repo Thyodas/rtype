@@ -1,9 +1,14 @@
-//
-// Created by remim on 12/5/2023.
-//
+/*
+** EPITECH PROJECT, 2023
+** B-CPP-500-STG-5-2-rtype-remi.mergen [WSL: Ubuntu]
+** File description:
+** main
+*/
 
 #include <iostream>
 #include <ostream>
+
+#include "raylib.h"
 
 int main()
 {
