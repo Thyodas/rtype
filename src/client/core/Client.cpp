@@ -14,6 +14,8 @@
 
 #include "client/entities/Player/PlayerNetwork.hpp"
 
+#include "client/entities/Bullet/BulletNetwork.hpp"
+
 client::Client::Client() : _clock(new Chrono())
 {
     engine::initEngine();
@@ -37,7 +39,7 @@ void client::Client::run()
     engine::attachBehavior(cube, spaceShipNetwork);
 
 
-    auto move = engine::createBehavior<movement>();
+    auto move = engine::createBehavior<BulletNetwork>(_netClient);
     ecs::Entity gunBullet = factory.createEntity(client::ObjectType::Model3D, client::ObjectName::GunBullet, {
         {0, 0, 0},
         0,

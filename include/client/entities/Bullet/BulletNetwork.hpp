@@ -11,6 +11,7 @@
 #include "common/game/NetworkBody.hpp"
 #include "client/core/NetClient.hpp"
 #include "game_engine/GameEngine.hpp"
+#include "client/utils/Chrono.hpp"
 
 namespace client {
 
@@ -20,39 +21,30 @@ namespace client {
                 : NetworkBehaviour(networkManager)
             {
                 _networkManager.registerResponse({
-                    {common::NetworkMessage::serverUpdateBulletVelocity, [this](rtype::net::Message<common::NetworkMessage> msg) {
-                        onUpdateVelocity(msg);
-                    }},
-                });
-                _networkManager.registerResponse({
-                    {common::NetworkMessage::serverBulletTakeDamage, [this](rtype::net::Message<common::NetworkMessage> msg) {
-                        onUpdateVelocity(msg);
+                    {common::NetworkMessage::serverFireBullet, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                        onFire(msg);
                     }},
                 });
                 _networkManager.registerResponse({
                     {common::NetworkMessage::serverDestroyBullet, [this](rtype::net::Message<common::NetworkMessage> msg) {
-                        onUpdateVelocity(msg);
+                        onDestroy(msg);
                     }},
                 });
             }
 
-            void onUpdateVelocity(rtype::net::Message<common::NetworkMessage>& msg)
+            // https://www.youtube.com/watch?v=Rd3Uc8Nr0vA
+            void onFire(rtype::net::Message<common::NetworkMessage>& msg)
             {
-                common::game::netbody::ServerUpdateShipVelocity body;
-                auto &BulletBody = _coord->getComponent<ecs::components::physics::rigidBody_t>(_entity);
+                common::game::netbody::ServerFireBullet body;
+                auto &bulletBody = _coord->getComponent<ecs::components::physics::rigidBody_t>(_entity);
                 msg >> body;
 
-                auto &netData = _coord->getComponent<ecs::components::network::network_t>(_entity);
-
-                if (body.entityNetId != netData.entityNetId)
+                if (body.entityNetId != getNetId())
                     return;
 
-                BulletBody.velocity = body.velocity;
-            }
-
-            void onDamageReceive(rtype::net::Message<common::NetworkMessage>& msg)
-            {
-                std::cout << "Bullet " << _entity << " take damage" << std::endl;
+                this->_speed = body.speed;
+                bulletBody.velocity = body.pos;
+                engine::rotate(_entity, body.direction);
             }
 
             void onDestroy(rtype::net::Message<common::NetworkMessage>& msg)
@@ -60,17 +52,22 @@ namespace client {
                 common::game::netbody::ServerDestroyBullet body;
                 msg >> body;
 
-                auto &netData = _coord->getComponent<ecs::components::network::network_t>(_entity);
-
-                if (body.entityNetId != netData.entityNetId)
+                if (body.entityNetId != getNetId())
                     return;
 
-                _coord->destroyEntity(body.entityNetId);
+                _coord->destroyEntity(_entity);
             }
 
             void update() override
             {
-            }
-    };
+                // _speed = 20;
+                if (_speed == -1)
+                    return;
+                auto &bulletBody = _coord->getComponent<ecs::components::physics::rigidBody_t>(_entity);
 
+                bulletBody.velocity.z = -_speed;
+            }
+        private:
+            double _speed = -1;
+    };
 }

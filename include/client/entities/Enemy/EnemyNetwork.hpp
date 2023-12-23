@@ -42,9 +42,7 @@ namespace client {
                 auto &enemyBody = _coord->getComponent<ecs::components::physics::rigidBody_t>(_entity);
                 msg >> body;
 
-                auto &netData = _coord->getComponent<ecs::components::network::network_t>(_entity);
-
-                if (body.entityNetId != netData.entityNetId)
+                if (body.entityNetId != getNetId())
                     return;
 
                 enemyBody.velocity = body.velocity;
@@ -60,12 +58,10 @@ namespace client {
                 common::game::netbody::ServerDestroyEnemy body;
                 msg >> body;
 
-                auto &netData = _coord->getComponent<ecs::components::network::network_t>(_entity);
-
-                if (body.entityNetId != netData.entityNetId)
+                if (body.entityNetId != getNetId())
                     return;
 
-                _coord->destroyEntity(body.entityNetId);
+                _coord->destroyEntity(_entity);
             }
 
             void update() override

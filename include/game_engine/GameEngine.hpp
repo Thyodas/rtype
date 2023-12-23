@@ -19,6 +19,7 @@
 #include "game_engine/ecs/Entity.hpp"
 #include "game_engine/ecs/components/Animations.hpp"
 #include "game_engine/ecs/systems/Animations.hpp"
+#include "common/utils/Chrono.hpp"
 #include <memory>
 #include <mutex>
 #include <functional>
@@ -58,6 +59,11 @@ namespace engine {
 
             void run();
 
+            [[nodiscard]] double getElapsedTime() const
+            {
+                return _chrono.getElapsedTime();
+            }
+
         private:
             std::shared_ptr<ecs::Coordinator> _coordinator;
             std::shared_ptr<ecs::system::PhysicsSystem> _physicSystem;
@@ -69,6 +75,8 @@ namespace engine {
 
             std::shared_ptr<core::Window> _window;
             bool _disableRender = false;
+
+            common::utils::Chrono _chrono;
 
         private:
             static Engine *engine;

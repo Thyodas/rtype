@@ -27,6 +27,7 @@ namespace ecs {
                 float mass;
                 Vector3 velocity;
                 Vector3 force;
+                double velocityLastUpdate;
             } rigidBody_t;
 
             enum class CollisionType {

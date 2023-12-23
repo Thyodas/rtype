@@ -12,7 +12,7 @@
 
 #define NANO_TO_MILLI 1'000'000.0
 
-namespace client {
+namespace common::utils {
     class Chrono : public IClock {
         public:
             Chrono() { restart(); };

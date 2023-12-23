@@ -9,6 +9,7 @@
 #include "game_engine/ecs/systems/Physics.hpp"
 #include "game_engine/ecs/Coordinator.hpp"
 #include "game_engine/core/event/CollisionEvent.hpp"
+#include "game_engine/GameEngine.hpp"
 
 #include <algorithm>
 #include <iostream>
@@ -21,17 +22,22 @@ namespace ecs {
                 auto& body = _coord->getComponent<components::physics::rigidBody_t>(entity);
                 auto &collider = _coord->getComponent<components::physics::collider_t>(entity);
 
-                transf.pos.x += body.velocity.x;
+                double elapsedTime = engine::Engine::getInstance()->getElapsedTime() / 1000.0;
+                elapsedTime -= body.velocityLastUpdate;
+                std::cout << elapsedTime << std::endl;
+
+                transf.pos.x += body.velocity.x * elapsedTime;
                 body.velocity.x = 0;
 
-                transf.pos.y += body.velocity.y;
+                transf.pos.y += body.velocity.y * elapsedTime;
                 body.velocity.y = 0;
 
-                transf.pos.z += body.velocity.z;
+                transf.pos.z += body.velocity.z * elapsedTime;
                 body.velocity.z = 0;
                 Matrix translate = MatrixTranslate(transf.pos.x, transf.pos.y, transf.pos.z);
                 collider.matTranslate = translate;
                 CollisionResponse::updateColliderGlobalVerts(collider);
+                body.velocityLastUpdate = engine::Engine::getInstance()->getElapsedTime() / 1000.0;
             }
         }
 

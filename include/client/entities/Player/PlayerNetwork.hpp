@@ -31,9 +31,7 @@ namespace client {
                 auto &playerBody = _coord->getComponent<ecs::components::physics::rigidBody_t>(_entity);
                 msg >> body;
 
-                auto &netData = _coord->getComponent<ecs::components::network::network_t>(_entity);
-
-                if (body.entityNetId != netData.entityNetId)
+                if (body.entityNetId != getNetId())
                     return;
 
                 playerBody.velocity = body.velocity;

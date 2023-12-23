@@ -7,7 +7,7 @@
 
 #pragma once
 
-namespace client {
+namespace common::utils {
     class IClock {
         public:
             virtual ~IClock() = default;

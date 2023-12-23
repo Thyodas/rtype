@@ -29,7 +29,6 @@ namespace ecs::components::behaviour
         {
             /*auto &networkManager = reinterpret_cast<rtype::net::ClientInterface<std::any>&>(_networkManager);
             networkManager.*/
-            
         }
 
         void setEntity(ecs::Entity entity) override
@@ -37,6 +36,13 @@ namespace ecs::components::behaviour
             ecs::components::network::network_t network = {0};
             engine::Engine::getInstance()->addComponent<ecs::components::network::network_t>(entity, network);
             Behaviour::setEntity(std::move(entity));
+        }
+
+
+        [[nodiscard]] uint32_t getNetId() const
+        {
+            auto &netData = _coord->getComponent<ecs::components::network::network_t>(_entity);
+            return netData.entityNetId;
         }
 
         /*template<typename TEvent>
