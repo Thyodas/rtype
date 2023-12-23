@@ -4,6 +4,7 @@ project(server)
 
 set(SRCS
     Main.cpp
+    core/Server.cpp
     ../common/network/Server.cpp
     ../game_engine/core/GameEngine.cpp
     ../game_engine/core/window/Window.cpp

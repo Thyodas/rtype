@@ -1,3 +1,8 @@
+src/server/server
+src/server/Makefile
+src/client/client
+src/client/Makefile
+
 # Prerequisites
 *.d
 
@@ -135,3 +140,6 @@ CMakeCache.txt
 cmake_install.cmake
 
 B-CPP-500_rtype.pdf
+
+*.cbp
+*.log
