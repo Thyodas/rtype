@@ -8,7 +8,7 @@
 #pragma once
 
 #include "raylib.h"
-#include "client/entities/Objects.hpp"
+#include "common/game/entities/Objects.hpp"
 
 namespace boost::serialization {
 
@@ -64,7 +64,7 @@ namespace common::game::netbody {
 
     struct ClientConnect {
         std::string name;
-        client::ObjectName shipName;
+        common::game::ObjectName shipName;
 
         template<class Archive>
         void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
@@ -93,7 +93,7 @@ namespace common::game::netbody {
 
     struct ServerCreatePlayerShip {
         uint32_t entityNetId;
-        client::ObjectName shipName;
+        common::game::ObjectName shipName;
         Vector3 pos;
 
         template<class Archive>
@@ -123,7 +123,7 @@ namespace common::game::netbody {
     struct ServerAllyConnect {
         uint32_t entityNetId;
         std::string name;
-        client::ObjectName shipName;
+        common::game::ObjectName shipName;
         Vector3 pos;
 
         template<class Archive>
@@ -213,7 +213,7 @@ namespace common::game::netbody {
     struct ServerCreateEnemy {
         uint32_t entityNetId;
         std::string name;
-        client::ObjectName shipName;
+        common::game::ObjectName shipName;
         Vector3 pos;
 
         template<class Archive>

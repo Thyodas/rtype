@@ -14,20 +14,45 @@
 #include "game_engine/GameEngine.hpp"
 
 #include "common/game/NetworkMessage.hpp"
+#include "common/game/NetworkBody.hpp"
 
 namespace server {
     class NetServer : public rtype::net::ServerInterface<common::NetworkMessage> {
         public:
             NetServer(uint16_t nPort) : rtype::net::ServerInterface<common::NetworkMessage>(nPort)
             {
+                registerResponse({
+                    {
+                        common::NetworkMessage::ServerPing,
+                        [this](std::shared_ptr<rtype::net::Connection<common::NetworkMessage>> client, rtype::net::Message<common::NetworkMessage> msg) {
+                           resPingServer(client, msg);
+                       }
+                    },
+                    {
+                        common::NetworkMessage::clientConnect,
+                        [this](std::shared_ptr<rtype::net::Connection<common::NetworkMessage>> client, rtype::net::Message<common::NetworkMessage> msg) {
+                            resClientConnect(client, msg);
+                        }
+                    },
+                });
             }
 
         protected:
+
+            void resPingServer(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, const rtype::net::Message<common::NetworkMessage>& msg);
+            void resClientConnect(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, rtype::net::Message<common::NetworkMessage>& msg);
+
+            void reqServerCreatePlayerShip(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, ecs::Entity ship);
+
+            void allServerAllyConnect(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, ecs::Entity ship);
+
+
+
             bool onClientConnect(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>> client) override
             {
                 rtype::net::Message<common::NetworkMessage> msg;
                 msg.header.id = common::NetworkMessage::ServerAccept;
-                client->send(msg);
+                messageClient(client, msg);
                 return true;
             }
 
@@ -42,36 +67,6 @@ namespace server {
                 rtype::net::Message<common::NetworkMessage>& msg) override
             {
                 dispatchResponse(client, msg);
-                switch (msg.header.id) {
-                    case common::NetworkMessage::ServerPing: {
-                        std::cout << "[" << client->getID() << "]: Server Ping\n";
-
-                        // Simply bounce message back to client
-                        client->send(msg);
-                    }
-                    break;
-
-                    case common::NetworkMessage::MessageAll: {
-                        std::cout << "[" << client->getID() << "]: Message All\n";
-
-                        // Construct a new message and send it to all clients
-                        rtype::net::Message<common::NetworkMessage> msg;
-                        msg.header.id = common::NetworkMessage::ServerMessage;
-                        msg << client->getID();
-                        messageAllClients(msg, client);
-                    }
-                    break;
-                    case common::NetworkMessage::clientPlayerFireBullet: {
-                        std::cout << "[" << client->getID() << "]: Player Fire Bullet\n";
-
-                        // Construct a new message and send it to all clients
-                        rtype::net::Message<common::NetworkMessage> msg;
-                        msg.header.id = common::NetworkMessage::serverFireBullet;
-                        msg << client->getID();
-                        messageAllClients(msg);
-                    }
-                    break;
-                }
             }
 
             using ResponseFunction = std::function<void(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>> client, rtype::net::Message<common::NetworkMessage> msg)>;

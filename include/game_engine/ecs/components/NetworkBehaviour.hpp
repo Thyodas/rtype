@@ -25,7 +25,7 @@ namespace ecs::components::behaviour
     template<typename NetworkManager>
     class NetworkBehaviour : public Behaviour {
         public:
-        explicit NetworkBehaviour(NetworkManager& networkManager) : _networkManager(networkManager)
+        explicit NetworkBehaviour(NetworkManager& networkManager, uint32_t entityNetId = 0, uint32_t connectionId = 0) : _networkManager(networkManager)
         {
             /*auto &networkManager = reinterpret_cast<rtype::net::ClientInterface<std::any>&>(_networkManager);
             networkManager.*/

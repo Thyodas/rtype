@@ -89,6 +89,7 @@ namespace rtype::net {
             TsQueue<OwnedMessage<T>> m_qMessagesIn;
 
             std::deque<std::shared_ptr<Connection<T>>> m_deqConnections;
+            std::unordered_map<uint32_t, std::shared_ptr<Connection<T>>> m_mapConnections;
 
             asio::io_context m_asioContext;
             std::thread m_threadContext;
@@ -160,8 +161,11 @@ namespace rtype::net {
 
                 if (onClientConnect(newconn)) {
                     m_deqConnections.push_back(std::move(newconn));
+                    m_mapConnections.emplace(nIDCounter, m_deqConnections.back());
 
-                    m_deqConnections.back()->connectToClient(nIDCounter++);
+                    m_deqConnections.back()->connectToClient(nIDCounter);
+
+                    nIDCounter++;
 
                     std::cout << "[" << m_deqConnections.back()->getID() << "] Connection Approved\n";
                 } else {
@@ -177,8 +181,9 @@ namespace rtype::net {
         if (!client || !client->isConnected()) {
             onClientDisconnect(client);
 
+            if (client)
+                m_mapConnections.erase(client->getID());
             client.reset();
-
             m_deqConnections.erase(
                 std::remove(m_deqConnections.begin(), m_deqConnections.end(), client), m_deqConnections.end());
             return;
@@ -194,20 +199,25 @@ namespace rtype::net {
         for (auto& client: m_deqConnections) {
             if (!client || !client->isConnected()) {
                 onClientDisconnect(client);
+
+                if (client)
+                    m_mapConnections.erase(client->getID());
                 client.reset();
 
                 bInvalidClientExists = true;
+                continue;
             }
             if (client != pIgnoreClient)
                 client->send(msg);
         }
 
-        if (bInvalidClientExists)
+        if (bInvalidClientExists) {
             m_deqConnections.erase(
                 std::remove(m_deqConnections.begin(),
                     m_deqConnections.end(),
                     nullptr),
                 m_deqConnections.end());
+        }
     }
 
     template<typename T>

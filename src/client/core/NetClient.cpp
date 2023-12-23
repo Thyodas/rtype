@@ -17,8 +17,8 @@ namespace client {
     {
         common::game::netbody::ServerFireBullet body;
         msg >> body;
-        client::EntityFactory factory;
-        ecs::Entity gunBullet = factory.createEntity(client::ObjectType::Model3D, client::ObjectName::GunBullet, {
+        common::game::EntityFactory factory;
+        ecs::Entity gunBullet = factory.createEntity(common::game::ObjectType::Model3D, common::game::ObjectName::GunBullet, {
             body.pos,
             0,
             0,
@@ -28,7 +28,7 @@ namespace client {
             WHITE,
             {0, 0, 0},
             {0.025, 0.025, 0.025}
-        }, client::ObjectFormat::GLB);
+        }, common::game::ObjectFormat::GLB);
         auto behave = engine::createBehavior<client::BulletNetwork>(*this);
         engine::attachBehavior(gunBullet, behave);
     }
@@ -39,8 +39,8 @@ namespace client {
 
             msg >> body;
 
-            client::EntityFactory factory;
-            ecs::Entity cube = factory.createEntity(client::ObjectType::Model3D, body.shipName, {
+            common::game::EntityFactory factory;
+            ecs::Entity cube = factory.createEntity(common::game::ObjectType::Model3D, body.shipName, {
                 body.pos,
                 0,
                 0,
@@ -61,8 +61,8 @@ namespace client {
 
             msg >> body;
 
-            client::EntityFactory factory;
-            ecs::Entity cube = factory.createEntity(client::ObjectType::Model3D, body.shipName, {
+            common::game::EntityFactory factory;
+            ecs::Entity cube = factory.createEntity(common::game::ObjectType::Model3D, body.shipName, {
                 body.pos,
                 0,
                 0,
@@ -83,8 +83,8 @@ namespace client {
 
             msg >> body;
 
-            client::EntityFactory factory;
-            ecs::Entity cube = factory.createEntity(client::ObjectType::Model3D, body.shipName, {
+            common::game::EntityFactory factory;
+            ecs::Entity cube = factory.createEntity(common::game::ObjectType::Model3D, body.shipName, {
                 body.pos,
                 0,
                 0,

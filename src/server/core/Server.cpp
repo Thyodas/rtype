@@ -17,7 +17,7 @@ void server::Server::run()
 {
     _netServer.start();
 
-    engine::initEngine(true);
+    engine::initEngine();
 
     while (true) {
         _netServer.update(-1, true);
