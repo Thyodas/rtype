@@ -16,7 +16,7 @@
 
 #include "client/entities/Bullet/BulletNetwork.hpp"
 
-client::Client::Client() : _clock(new Chrono())
+client::Client::Client()
 {
     engine::initEngine();
 }
@@ -69,5 +69,4 @@ void client::Client::run()
 
 client::Client::~Client()
 {
-    delete _clock;
 }

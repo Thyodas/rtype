@@ -17,7 +17,6 @@
 #include <vector>
 
 #include "client/entities/Entity.hpp"
-#include "client/utils/Chrono.hpp"
 #include "client/core/NetClient.hpp"
 
 namespace client {
@@ -29,7 +28,6 @@ namespace client {
             void run();
         private:
             std::vector<client::Entity> _entities;
-            client::IClock *_clock;
             NetClient _netClient;
 
     };
