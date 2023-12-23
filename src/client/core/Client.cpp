@@ -67,20 +67,20 @@ void client::Client::run()
     }, common::game::ObjectFormat::PNG);
     engine::attachBehavior(skyBox, skyBehavior);
 
-    // _netClient.connect("localhost", 60000);
+    _netClient.connect("localhost", 60000);
 
-    // _netClient.reqPingServer();
-    // _netClient.reqClientConnect("Jean-Baptiste", common::game::ObjectName::DualStriker);
-    // _netClient.reqPingServer();
+    _netClient.reqPingServer();
+    _netClient.reqClientConnect("Jean-Baptiste", common::game::ObjectName::DualStriker);
+    _netClient.reqPingServer();
 
     while (engine::isWindowOpen()) {
-        // if (!_netClient.isConnected())
-            // break;
-        // _netClient.dispatchAllResponses();
-        // _netClient.reqPingServer();
+        if (!_netClient.isConnected())
+            break;
+        _netClient.dispatchAllResponses();
+        _netClient.reqPingServer();
         engine::runEngine();
     }
-    // _netClient.disconnect();
+    _netClient.disconnect();
 }
 
 client::Client::~Client()
