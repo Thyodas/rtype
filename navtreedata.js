@@ -25,15 +25,30 @@
 var NAVTREE =
 [
   [ "Arcade", "index.html", [
-    [ "Game Engine ECS Documentation", "game_engine_ecs_readme.html", null ],
-    [ "Common ECS Documentation", "common_ecs_readme.html", null ],
-    [ "Pull Request Template", "pull_request_template.html", null ]
+    [ "ECS", "ecs_readme.html", null ],
+    [ "Pull Request Template", "pull_request_template.html", null ],
+    [ "Network", "network_readme.html", null ],
+    [ "Classes", "annotated.html", [
+      [ "Class List", "annotated.html", "annotated_dup" ],
+      [ "Class Index", "classes.html", null ],
+      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
+      [ "Class Members", "functions.html", [
+        [ "All", "functions.html", null ],
+        [ "Functions", "functions_func.html", null ],
+        [ "Variables", "functions_vars.html", null ],
+        [ "Related Functions", "functions_rela.html", null ]
+      ] ]
+    ] ],
+    [ "Files", "files.html", [
+      [ "File List", "files.html", "files_dup" ]
+    ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"common_ecs_readme.html"
+"_chrono_8hpp_source.html",
+"server_2entities_2_enemy_2_enemy_network_8hpp_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
