@@ -1,5 +1,5 @@
 Epitech STRASBOURG                                                 Mehdy Morvan
-Request for Comments: 0042                                       Guillaume Hein
+Request for Comments: 0001                                       Guillaume Hein
 Category: Informational                                             Rémi MERGEN
                                                                   Jean Cardonne
                                                   Nathan De Balthasar de Gachéo
@@ -27,7 +27,7 @@ Table of Contents
 
 DI VENANZIO                     Informational                          [Page 1]
 
-RFC 0042                         Instruction                      December 2023
+RFC 0001                         Instruction                      December 2023
 
 1. Introduction
 
