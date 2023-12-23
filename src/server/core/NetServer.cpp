@@ -46,44 +46,6 @@ namespace server {
         allServerAllyConnect(client, playerShip);
     }
 
-    void NetServer::resClientUpdatePlayerDirection(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, rtype::net::Message<common::NetworkMessage>& msg)
-    {
-        common::game::netbody::ClientUpdatePlayerDirection body;
-        msg >> body;
-
-        ecs::Entity player = body.entityNetId;
-
-        if (body.direction.x > 0) {
-            engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity.x += 1;
-        } else if (body.direction.x < 0) {
-            engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity.x -= 1;
-        }
-        if (body.direction.y > 0) {
-            engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity.y += 1;
-        } else if (body.direction.y < 0) {
-            engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity.y -= 1;
-        }
-        if (body.direction.z > 0) {
-            engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity.z += 1;
-        } else if (body.direction.z < 0) {
-            engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity.z -= 1;
-        }
-
-        rtype::net::Message<common::NetworkMessage> msg2;
-        msg.header.id = common::NetworkMessage::serverUpdateShipPosition;
-
-        common::game::netbody::ServerUpdateShipPosition body2 = {
-            .entityNetId = player,
-            .pos = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity,
-        };
-
-        msg2 << body2;
-
-        std::cout << "[" << client->getID() << "]: Client Update Player Direction " << std::endl;
-
-        messageAllClients(msg2, client);
-    }
-
     void NetServer::reqServerCreatePlayerShip(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client,
         ecs::Entity ship)
     {
@@ -127,5 +89,19 @@ namespace server {
         messageAllClients(msg, client);
 
     }
-}
 
+    void NetServer::allServerUpdatePlayerShipPosition(ecs::Entity ship, Vector3 pos)
+    {
+        rtype::net::Message<common::NetworkMessage> msg;
+        msg.header.id = common::NetworkMessage::serverUpdateShipPosition;
+
+        common::game::netbody::ServerUpdateShipPosition body = {
+            .entityNetId = ship,
+            .pos = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(ship).velocity,
+        };
+
+        msg << body;
+
+        messageAllClients(msg);
+    }
+}

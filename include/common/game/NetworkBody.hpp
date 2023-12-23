@@ -74,12 +74,10 @@ namespace common::game::netbody {
     };
 
     struct ClientUpdatePlayerDirection {
-        uint32_t entityNetId;
         Vector3 direction;
 
         template<class Archive>
         void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
-            ar & entityNetId;
             ar & direction;
         }
     };
