@@ -34,6 +34,12 @@ namespace server {
                             resClientConnect(client, msg);
                         }
                     },
+                    {
+                        common::NetworkMessage::clientUpdatePlayerDirection,
+                        [this](std::shared_ptr<rtype::net::Connection<common::NetworkMessage>> client, rtype::net::Message<common::NetworkMessage> msg) {
+                            resClientUpdatePlayerDirection(client, msg);
+                        }
+                    },
                 });
             }
 
@@ -41,6 +47,8 @@ namespace server {
 
             void resPingServer(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, const rtype::net::Message<common::NetworkMessage>& msg);
             void resClientConnect(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, rtype::net::Message<common::NetworkMessage>& msg);
+            void resClientUpdatePlayerDirection(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, rtype::net::Message<common::NetworkMessage>& msg);
+
 
             void reqServerCreatePlayerShip(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, ecs::Entity ship);
 

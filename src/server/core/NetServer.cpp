@@ -15,7 +15,7 @@
 namespace server {
     void NetServer::resPingServer(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, const rtype::net::Message<common::NetworkMessage>& msg)
     {
-        std::cout << "[" << client->getID() << "]: Server Ping\n";
+        // std::cout << "[" << client->getID() << "]: Server Ping\n";
 
         // Simply bounce message back to client
         messageClient(client, msg);
@@ -46,6 +46,14 @@ namespace server {
         std::cout << "[" << client->getID() << "]: Client Connect " << body.name << std::endl;
         reqServerCreatePlayerShip(client, playerShip);
         allServerAllyConnect(client, playerShip);
+    }
+
+    void NetServer::resClientUpdatePlayerDirection(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, rtype::net::Message<common::NetworkMessage>& msg)
+    {
+        common::game::netbody::ClientUpdatePlayerDirection body;
+        msg >> body;
+
+        std::cout << "hello guys" << std::endl;
     }
 
     void NetServer::reqServerCreatePlayerShip(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client,

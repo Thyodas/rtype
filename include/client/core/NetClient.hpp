@@ -50,7 +50,7 @@ namespace client {
             common::game::netbody::PingServer body;
             msg >> body;
 
-            std::cout << "Ping duration: " << engine::Engine::getInstance()->getElapsedTime() - body.timeStart << std::endl;
+            // std::cout << "Ping duration: " << engine::Engine::getInstance()->getElapsedTime() - body.timeStart << std::endl;
 
         }
 
