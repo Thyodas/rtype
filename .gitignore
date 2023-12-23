@@ -147,3 +147,5 @@ B-CPP-500_rtype.pdf
 # Jetbrains IDEs
 .idea/
 build/
+
+vcpkg*/
