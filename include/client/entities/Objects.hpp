@@ -24,11 +24,12 @@ namespace client {
     };
 
     enum class ObjectName : uint32_t {
-        DualStriker,
-        MicroRecon,
-        RedFighter,
-        UltravioletIntruder,
-        GunBullet,
+        DualStriker, // ALLY
+        MicroRecon, // --
+        RedFighter, // --
+        UltravioletIntruder, // --
+        GunBullet, // BULLET
+        Transtellar, // ENEMY
         None,
     };
 

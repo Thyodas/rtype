@@ -78,6 +78,7 @@ std::string client::EntityFactory::objectNameToString(client::ObjectName name)
         case ObjectName::RedFighter:            return "RedFighter";
         case ObjectName::UltravioletIntruder:   return "UltravioletIntruder";
         case ObjectName::GunBullet:             return "GunBullet";
+        case ObjectName::Transtellar:           return "Transtellar";
         default:                    throw std::invalid_argument("Invalid object name");
     }
 }
