@@ -71,9 +71,10 @@ namespace client {
 
                 msg.header.id = common::NetworkMessage::clientUpdatePlayerDirection;
                 common::game::netbody::ClientUpdatePlayerDirection body = {
-                    direction
+                    .entityNetId = getNetId(),
+                    .direction = direction,
                 };
-                msg << body;
+                msg << direction;
                 _networkManager.send(msg);
             }
 

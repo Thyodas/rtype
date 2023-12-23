@@ -41,8 +41,6 @@ namespace server {
         auto behave = engine::createBehavior<server::PlayerNetwork>(*this, playerShip, client->getID());
         engine::attachBehavior(playerShip, behave);
 
-
-
         std::cout << "[" << client->getID() << "]: Client Connect " << body.name << std::endl;
         reqServerCreatePlayerShip(client, playerShip);
         allServerAllyConnect(client, playerShip);
@@ -53,7 +51,37 @@ namespace server {
         common::game::netbody::ClientUpdatePlayerDirection body;
         msg >> body;
 
-        std::cout << "hello guys" << std::endl;
+        ecs::Entity player = body.entityNetId;
+
+        if (body.direction.x > 0) {
+            engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity.x += 1;
+        } else if (body.direction.x < 0) {
+            engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity.x -= 1;
+        }
+        if (body.direction.y > 0) {
+            engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity.y += 1;
+        } else if (body.direction.y < 0) {
+            engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity.y -= 1;
+        }
+        if (body.direction.z > 0) {
+            engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity.z += 1;
+        } else if (body.direction.z < 0) {
+            engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity.z -= 1;
+        }
+
+        rtype::net::Message<common::NetworkMessage> msg2;
+        msg.header.id = common::NetworkMessage::serverUpdateShipPosition;
+
+        common::game::netbody::ServerUpdateShipPosition body2 = {
+            .entityNetId = player,
+            .pos = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity,
+        };
+
+        msg2 << body2;
+
+        std::cout << "[" << client->getID() << "]: Client Update Player Direction " << std::endl;
+
+        messageAllClients(msg2, client);
     }
 
     void NetServer::reqServerCreatePlayerShip(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client,
