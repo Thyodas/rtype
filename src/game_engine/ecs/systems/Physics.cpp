@@ -24,7 +24,6 @@ namespace ecs {
 
                 double elapsedTime = engine::Engine::getInstance()->getElapsedTime() / 1000.0;
                 elapsedTime -= body.velocityLastUpdate;
-                std::cout << elapsedTime << std::endl;
 
                 transf.pos.x += body.velocity.x * elapsedTime;
                 body.velocity.x = 0;

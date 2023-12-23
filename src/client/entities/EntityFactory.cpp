@@ -73,11 +73,11 @@ ecs::Entity client::EntityFactory::createObject3D(
 std::string client::EntityFactory::objectNameToString(client::ObjectName name)
 {
     switch (name) {
-        case DualStriker:           return "DualStriker";
-        case MicroRecon:            return "MicroRecon";
-        case RedFighter:            return "RedFighter";
-        case UltravioletIntruder:   return "UltravioletIntruder";
-        case GunBullet:             return "GunBullet";
+        case ObjectName::DualStriker:           return "DualStriker";
+        case ObjectName::MicroRecon:            return "MicroRecon";
+        case ObjectName::RedFighter:            return "RedFighter";
+        case ObjectName::UltravioletIntruder:   return "UltravioletIntruder";
+        case ObjectName::GunBullet:             return "GunBullet";
         default:                    throw std::invalid_argument("Invalid object name");
     }
 }

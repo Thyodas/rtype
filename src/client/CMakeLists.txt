@@ -7,6 +7,7 @@ set(SRCS
     entities/EntityFactory.cpp
     entities/Entity.cpp
     core/Client.cpp
+    core/NetClient.cpp
     ../game_engine/core/GameEngine.cpp
     ../game_engine/core/window/Window.cpp
     ../game_engine/core/event/Event.cpp

@@ -23,7 +23,7 @@ namespace client {
         Vector3 scale;
     };
 
-    enum ObjectName {
+    enum class ObjectName : uint32_t {
         DualStriker,
         MicroRecon,
         RedFighter,

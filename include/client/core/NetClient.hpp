@@ -13,19 +13,43 @@
 #include "client/entities/EntityFactory.hpp"
 #include "common/game/NetworkBody.hpp"
 
+#include "common/utils/Chrono.hpp"
+#include <chrono>
+
+
 namespace client {
 
     class NetClient : public rtype::net::ClientInterface<common::NetworkMessage>
     {
+        
         public:
+
+        NetClient()
+        {
+            registerResponse(common::NetworkMessage::ServerPing, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                resPingServer(msg);
+            });
+        }
+
+        void resPingServer(rtype::net::Message<common::NetworkMessage>& msg)
+        {
+            common::game::netbody::PingServer body;
+            msg >> body;
+
+            std::cout << "Ping duration: " << engine::Engine::getInstance()->getElapsedTime() - body.timeStart << std::endl;
+
+        }
+
         void reqPingServer()
         {
             rtype::net::Message<common::NetworkMessage> msg;
             msg.header.id = common::NetworkMessage::ServerPing;
 
-            std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
+            common::game::netbody::PingServer body = {
+                engine::Engine::getInstance()->getElapsedTime()
+            };
 
-            msg << timeNow;
+            msg << body;
             send(msg);
         }
 
@@ -35,7 +59,7 @@ namespace client {
             msg.header.id = common::NetworkMessage::clientConnect;
 
             common::game::netbody::ClientConnect body = {
-                .name = name,
+                // .name = name,
                 .shipName = shipName
             };
 
@@ -43,26 +67,10 @@ namespace client {
             send(msg);
         }
 
-        void resServerFireBullet(rtype::net::Message<common::NetworkMessage>& msg)
-        {
-            common::game::netbody::ServerFireBullet body;
-
-            msg >> body;
-
-            client::EntityFactory factory;
-            ecs::Entity gunBullet = factory.createEntity(client::ObjectType::Model3D, client::ObjectName::GunBullet, {
-                {0, 0, 0},
-                0,
-                0,
-                0,
-                WHITE,
-                false,
-                WHITE,
-                {0, 0, 0},
-                {0.025, 0.025, 0.025}
-            }, client::ObjectFormat::GLB);
-            // engine::attachBehavior(gunBullet, BulletNetwork);
-        }
+        void resServerFireBullet(rtype::net::Message<common::NetworkMessage>& msg);
+        void resServerCreatePlayerShip(rtype::net::Message<common::NetworkMessage>& msg);
+        void resServerAllyConnect(rtype::net::Message<common::NetworkMessage>& msg);
+        void resServerCreateEnemy(rtype::net::Message<common::NetworkMessage>& msg);
 
         void messageAll()
         {

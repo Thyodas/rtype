@@ -9,6 +9,11 @@
 
 #include "common.hpp"
 
+#include <boost/serialization/vector.hpp>
+#include <boost/serialization/unique_ptr.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+
 namespace rtype::net {
     /**
      * @brief Message Header is sent at start of all messages. The template allows us
@@ -62,15 +67,24 @@ namespace rtype::net {
          * @return Message<T>& The message with the data pushed
          */
         template<typename DataType>
-        friend Message<T>& operator <<(Message<T>& msg, const DataType& data)
+        friend Message<T>& operator<<(Message<T>& msg, const DataType& data)
         {
-            static_assert(std::is_standard_layout<DataType>::value, "Data is too complex to be pushed into vector");
+            // Create a stream
+            std::stringstream ss;
 
-            size_t i = msg.body.size();
-            msg.body.resize(msg.body.size() + sizeof(DataType));
+            // Create a boost archive from the stream
+            boost::archive::binary_oarchive oa(ss);
 
-            std::memcpy(msg.body.data() + i, &data, sizeof(DataType));
-            msg.header.size = msg.size();
+            // Serialize the data into the archive
+            oa << data;
+
+            // Convert the serialized data to a vector of bytes and append it to the message body
+            std::string s = ss.str();
+            std::vector<uint8_t> bytes(s.begin(), s.end());
+            msg.body.insert(msg.body.end(), bytes.begin(), bytes.end());
+
+            // Update the message header size
+            msg.header.size = msg.body.size();
 
             return msg;
         }
@@ -83,17 +97,25 @@ namespace rtype::net {
          * @return Message<T>&
          */
         template<typename DataType>
-        friend Message<T>& operator >>(Message<T>& msg, DataType& data)
+        friend Message<T>& operator>>(Message<T>& msg, DataType& data)
         {
-            static_assert(std::is_standard_layout<DataType>::value, "Data is too complex to be pulled from vector");
+            // Create a stream from the message body
+            std::string s(msg.body.begin(), msg.body.end());
+            std::stringstream ss(s);
 
-            size_t i = msg.body.size() - sizeof(DataType);
-            std::memcpy(&data, msg.body.data() + i, sizeof(DataType));
+            // Create a boost archive from the stream
+            boost::archive::binary_iarchive ia(ss);
 
-            msg.body.resize(i);
-            msg.header.size = msg.size();
+            // Deserialize the data from the archive
+            ia >> data;
 
             return msg;
+        }
+
+        template<class Archive>
+        void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
+            ar & header;
+            ar & body;
         }
     };
 

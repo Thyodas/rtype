@@ -10,6 +10,17 @@
 #include "raylib.h"
 #include "client/entities/Objects.hpp"
 
+namespace boost::serialization {
+
+    template<class Archive>
+    void serialize(Archive & ar, Vector3 & v, const unsigned int version) {
+        ar & v.x;
+        ar & v.y;
+        ar & v.z;
+    }
+
+} // namespace boost
+
 namespace common::game::netbody {
 
     // ServerAccept,
@@ -42,33 +53,71 @@ namespace common::game::netbody {
     // serverEnemyTakeDamage,
     // serverDestroyEnemy,
 
-    #pragma pack(push, 1)
+    struct PingServer {
+        double timeStart;
+
+        template<class Archive>
+        void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
+            ar & timeStart;
+        }
+    };
 
     struct ClientConnect {
         std::string name;
         client::ObjectName shipName;
+
+        template<class Archive>
+        void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
+            ar & name;
+            ar & shipName;
+        }
     };
 
     struct ClientUpdatePlayerDirection {
         Vector3 direction;
+
+        template<class Archive>
+        void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
+            ar & direction;
+        }
     };
 
     struct ClientPlayerFireBullet {
         Vector3 direction;
+
+        template<class Archive>
+        void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
+            ar & direction;
+        }
     };
 
     struct ServerCreatePlayerShip {
         uint32_t entityNetId;
         client::ObjectName shipName;
         Vector3 pos;
+
+        template<class Archive>
+        void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
+            ar & entityNetId;
+            ar & shipName;
+            ar & pos;
+        }
     };
 
     struct ServerPlayerTakeDamage {
         uint32_t damage;
+
+        template<class Archive>
+        void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
+            ar & damage;
+        }
     };
 
     struct ServerPlayerDestroy {
-
+        template<class Archive>
+        void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
+            // Empty since there are no members
+        }
     };
 
     struct ServerAllyConnect {
@@ -76,19 +125,43 @@ namespace common::game::netbody {
         std::string name;
         client::ObjectName shipName;
         Vector3 pos;
+
+        template<class Archive>
+        void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
+            ar & entityNetId;
+            ar & name;
+            ar & shipName;
+            ar & pos;
+        }
     };
 
     struct ServerAllyDisconnect {
         uint32_t entityNetId;
+
+        template<class Archive>
+        void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
+            ar & entityNetId;
+        }
     };
 
     struct ServerAllyTakeDamage {
         uint32_t entityNetId;
         uint32_t damage;
+
+        template<class Archive>
+        void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
+            ar & entityNetId;
+            ar & damage;
+        }
     };
 
     struct ServerAllyDestroy {
         uint32_t entityNetId;
+
+        template<class Archive>
+        void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
+            ar & entityNetId;
+        }
     };
 
     struct ServerFireBullet {
@@ -96,20 +169,45 @@ namespace common::game::netbody {
         Vector3 pos;
         Vector3 direction;
         double speed;
+
+        template<class Archive>
+        void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
+            ar & entityNetId;
+            ar & pos;
+            ar & direction;
+            ar & speed;
+        }
     };
 
     struct ServerDestroyBullet {
         uint32_t entityNetId;
+
+        template<class Archive>
+        void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
+            ar & entityNetId;
+        }
     };
 
     struct ServerUpdateShipVelocity {
         uint32_t entityNetId;
         Vector3 velocity;
+
+        template<class Archive>
+        void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
+            ar & entityNetId;
+            ar & velocity;
+        }
     };
 
     struct ServerUpdateShipPosition {
         uint32_t entityNetId;
         Vector3 pos;
+
+        template<class Archive>
+        void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
+            ar & entityNetId;
+            ar & pos;
+        }
     };
 
     struct ServerCreateEnemy {
@@ -117,22 +215,45 @@ namespace common::game::netbody {
         std::string name;
         client::ObjectName shipName;
         Vector3 pos;
+
+        template<class Archive>
+        void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
+            ar & entityNetId;
+            ar & name;
+            ar & shipName;
+            ar & pos;
+        }
     };
 
     struct ServerUpdateEnemyVelocity {
         uint32_t entityNetId;
         Vector3 velocity;
+
+        template<class Archive>
+        void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
+            ar & entityNetId;
+            ar & velocity;
+        }
     };
 
     struct ServerEnemyTakeDamage {
         uint32_t entityNetId;
         uint32_t damage;
+
+        template<class Archive>
+        void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
+            ar & entityNetId;
+            ar & damage;
+        }
     };
 
     struct ServerDestroyEnemy {
         uint32_t entityNetId;
-    };
 
-    #pragma pack(pop)
+        template<class Archive>
+        void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
+            ar & entityNetId;
+        }
+    };
 
 }

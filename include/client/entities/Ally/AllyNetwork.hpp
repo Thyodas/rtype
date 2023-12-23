@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2023
 ** client
 ** File description:
-** EnemyNetwork.hpp
+** AllyNetwork.hpp
 */
 
 #pragma once
@@ -13,23 +13,23 @@
 
 namespace client {
 
-    class EnemyNetwork : public ecs::components::behaviour::NetworkBehaviour<client::NetClient> {
+    class AllyNetwork : public ecs::components::behaviour::NetworkBehaviour<client::NetClient> {
         public:
-            explicit EnemyNetwork(client::NetClient& networkManager)
+            explicit AllyNetwork(client::NetClient& networkManager)
                 : NetworkBehaviour(networkManager)
             {
                 _networkManager.registerResponse({
-                    {common::NetworkMessage::serverUpdateEnemyVelocity, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                    {common::NetworkMessage::serverUpdateShipPosition, [this](rtype::net::Message<common::NetworkMessage> msg) {
                         onUpdateVelocity(msg);
                     }},
                 });
                 _networkManager.registerResponse({
-                    {common::NetworkMessage::serverEnemyTakeDamage, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                    {common::NetworkMessage::serverAllyTakeDamage, [this](rtype::net::Message<common::NetworkMessage> msg) {
                         onDamageReceive(msg);
                     }},
                 });
                 _networkManager.registerResponse({
-                    {common::NetworkMessage::serverDestroyEnemy, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                    {common::NetworkMessage::serverAllyDestroy, [this](rtype::net::Message<common::NetworkMessage> msg) {
                         onDestroy(msg);
                     }},
                 });
@@ -38,23 +38,23 @@ namespace client {
             void onUpdateVelocity(rtype::net::Message<common::NetworkMessage>& msg)
             {
                 common::game::netbody::ServerUpdateShipVelocity body;
-                auto &enemyBody = _coord->getComponent<ecs::components::physics::rigidBody_t>(_entity);
+                auto &allyBody = _coord->getComponent<ecs::components::physics::rigidBody_t>(_entity);
                 msg >> body;
 
                 if (body.entityNetId != getNetId())
                     return;
 
-                enemyBody.velocity = body.velocity;
+                allyBody.velocity = body.velocity;
             }
 
             void onDamageReceive(rtype::net::Message<common::NetworkMessage>& msg)
             {
-                std::cout << "Enemy " << _entity << " take damage" << std::endl;
+                std::cout << "Ally " << _entity << " take damage" << std::endl;
             }
 
             void onDestroy(rtype::net::Message<common::NetworkMessage>& msg)
             {
-                common::game::netbody::ServerDestroyEnemy body;
+                common::game::netbody::ServerAllyDestroy body;
                 msg >> body;
 
                 if (body.entityNetId != getNetId())

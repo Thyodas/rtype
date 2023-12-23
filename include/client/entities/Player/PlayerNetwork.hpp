@@ -8,8 +8,8 @@
 #pragma once
 
 #include "game_engine/ecs/components/NetworkBehaviour.hpp"
-#include "client/core/NetClient.hpp"
 #include "common/game/NetworkBody.hpp"
+#include "client/core/NetClient.hpp"
 
 namespace client {
 
@@ -19,7 +19,7 @@ namespace client {
                 : NetworkBehaviour(networkManager)
             {
                 _networkManager.registerResponse({
-                    {common::NetworkMessage::serverUpdateShipVelocity, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                    {common::NetworkMessage::serverUpdateShipPosition, [this](rtype::net::Message<common::NetworkMessage> msg) {
                         onUpdateVelocity(msg);
                     }},
                 });
@@ -27,18 +27,19 @@ namespace client {
 
             void onUpdateVelocity(rtype::net::Message<common::NetworkMessage>& msg)
             {
-                common::game::netbody::ServerUpdateShipVelocity body;
+                common::game::netbody::ServerUpdateShipPosition body;
                 auto &playerBody = _coord->getComponent<ecs::components::physics::rigidBody_t>(_entity);
                 msg >> body;
 
                 if (body.entityNetId != getNetId())
                     return;
 
-                playerBody.velocity = body.velocity;
+                playerBody.velocity = body.pos;
             }
 
             void updateDirection(const Vector3& direction) const
             {
+                _networkManager.reqPingServer();
                 rtype::net::Message<common::NetworkMessage> msg;
 
                 msg.header.id = common::NetworkMessage::clientUpdatePlayerDirection;
