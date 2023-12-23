@@ -36,6 +36,7 @@ namespace engine {
         _coordinator->registerComponent<ecs::components::physics::rigidBody_t>();
         _coordinator->registerComponent<ecs::components::animations::animation_t>();
         _coordinator->registerComponent<ecs::components::network::network_t>();
+        _coordinator->registerComponent<ecs::components::health::health_t>();
 
         ecs::Signature signaturePhysics;
         signaturePhysics.set(_coordinator->getComponentType<ecs::components::physics::transform_t>());
@@ -130,10 +131,12 @@ namespace engine {
             MatrixIdentity()};
         Matrix matTranslate = MatrixTranslate(pos.x, pos.y, pos.z);
         collider.matTranslate = MatrixMultiply(collider.matTranslate, matTranslate);
+        ecs::components::health::health_t health = {0};
         ecs::system::CollisionResponse::updateColliderGlobalVerts(collider);
         ecs::Entity entity = Engine::getInstance()->addEntity(transf, render);
         Engine::getInstance()->addComponent<ecs::components::physics::collider_t>(entity, collider);
         Engine::getInstance()->addComponent<ecs::components::physics::rigidBody_t>(entity, body);
+        Engine::getInstance()->addComponent<ecs::components::health::health_t>(entity, health);
         return entity;
     }
 
@@ -143,10 +146,12 @@ namespace engine {
         ecs::components::physics::transform_t transf = {pos, {0}, {0}};
         ecs::components::physics::rigidBody_t body = {0.0, {0}, {0}};
         ecs::components::render::render_t render = {ecs::components::ShapeType::MODEL, true, model};
+        ecs::components::health::health_t health = {0};
         ecs::components::physics::collider_t collider = {ecs::components::ShapeType::MODEL, ecs::components::physics::CollisionType::COLLIDE, model};
         ecs::Entity entity = Engine::getInstance()->addEntity(transf, render);
         Engine::getInstance()->addComponent<ecs::components::physics::collider_t>(entity, collider);
         Engine::getInstance()->addComponent<ecs::components::physics::rigidBody_t>(entity, body);
+        Engine::getInstance()->addComponent<ecs::components::health::health_t>(entity, health);
         return entity;
     }
 

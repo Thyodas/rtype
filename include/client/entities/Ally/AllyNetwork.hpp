@@ -54,7 +54,14 @@ namespace client {
 
             void onDamageReceive(rtype::net::Message<common::NetworkMessage>& msg)
             {
-                std::cout << "Ally " << _entity << " take damage" << std::endl;
+                auto &allyHealth = _coord->getComponent<ecs::components::health::health_t>(_entity);
+                common::game::netbody::ServerAllyTakeDamage body;
+                msg >> body;
+
+                if (body.entityNetId != getNetId())
+                    return;
+
+                allyHealth.healthPoints -= body.damage;
             }
 
             void onDestroy(rtype::net::Message<common::NetworkMessage>& msg)

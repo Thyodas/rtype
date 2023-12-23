@@ -23,6 +23,16 @@ namespace client {
                         onUpdateVelocity(msg);
                     }},
                 });
+                _networkManager.registerResponse({
+                    {common::NetworkMessage::serverPlayerTakeDamage, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                        onDamageReceive(msg);
+                    }},
+                });
+                _networkManager.registerResponse({
+                    {common::NetworkMessage::serverPlayerDestroy, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                        onDestroy(msg);
+                    }},
+                });
             }
 
             void onUpdateVelocity(rtype::net::Message<common::NetworkMessage>& msg)
@@ -35,6 +45,23 @@ namespace client {
                     return;
 
                 playerBody.velocity = body.pos;
+            }
+
+            void onDamageReceive(rtype::net::Message<common::NetworkMessage>& msg)
+            {
+                auto &allyHealth = _coord->getComponent<ecs::components::health::health_t>(_entity);
+                common::game::netbody::ServerPlayerTakeDamage body;
+                msg >> body;
+
+                allyHealth.healthPoints -= body.damage;
+            }
+
+            void onDestroy(rtype::net::Message<common::NetworkMessage>& msg)
+            {
+                common::game::netbody::ServerPlayerDestroy body;
+                msg >> body;
+
+                _coord->destroyEntity(_entity);
             }
 
             void updateDirection(const Vector3& direction) const
