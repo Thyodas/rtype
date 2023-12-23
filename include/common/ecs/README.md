@@ -1,3 +1,4 @@
+\page common_ecs_readme Common ECS Documentation
 # ECS Design
 
 ## Core concepts

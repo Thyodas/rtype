@@ -1,3 +1,4 @@
+\page game_engine_ecs_readme Game Engine ECS Documentation
 # ECS Design
 
 ## Core concepts
