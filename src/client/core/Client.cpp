@@ -7,7 +7,7 @@
 
 #include "client/core/Client.hpp"
 
-#include "client/entities/EntityFactory.hpp"
+#include "common/game/entities/EntityFactory.hpp"
 
 #include "../MovementBehaviour.hpp"
 #include "../TestBehaviour.hpp"
@@ -23,39 +23,11 @@ client::Client::Client()
 
 void client::Client::run()
 {
-    client::EntityFactory factory;
-    ecs::Entity cube = factory.createEntity(client::ObjectType::Model3D, client::ObjectName::RedFighter, {
-        {0, 0, 0},
-        0,
-        0,
-        0,
-        WHITE,
-        false,
-        WHITE,
-        {0, 0, 0},
-        {1, 1, 1}
-    });
-    auto spaceShipNetwork = engine::createBehavior<client::PlayerNetwork>(_netClient);
-    engine::attachBehavior(cube, spaceShipNetwork);
-
-
-    auto move = engine::createBehavior<BulletNetwork>(_netClient);
-    ecs::Entity gunBullet = factory.createEntity(client::ObjectType::Model3D, client::ObjectName::GunBullet, {
-        {0, 0, 0},
-        0,
-        0,
-        0,
-        WHITE,
-        false,
-        WHITE,
-        {0, 0, 0},
-        {0.025, 0.025, 0.025}
-    }, client::ObjectFormat::GLB);
-    engine::attachBehavior(gunBullet, move);
-
     _netClient.connect("localhost", 60000);
 
-    _netClient.reqClientConnect("Jean-Baptiste", client::ObjectName::DualStriker);
+    _netClient.reqPingServer();
+    _netClient.reqClientConnect("Jean-Baptiste", common::game::ObjectName::DualStriker);
+    _netClient.reqPingServer();
 
     while (engine::isWindowOpen()) {
         if (!_netClient.isConnected())

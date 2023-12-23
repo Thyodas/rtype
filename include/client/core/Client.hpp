@@ -16,7 +16,7 @@
 #include "raylib.h"
 #include <vector>
 
-#include "client/entities/Entity.hpp"
+#include "common/game/entities/Entity.hpp"
 #include "client/core/NetClient.hpp"
 
 namespace client {
@@ -27,7 +27,7 @@ namespace client {
 
             void run();
         private:
-            std::vector<client::Entity> _entities;
+            std::vector<common::game::Entity> _entities;
             NetClient _netClient;
 
     };

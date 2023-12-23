@@ -4,8 +4,8 @@ project(client)
 
 set(SRCS
     Main.cpp
-    entities/EntityFactory.cpp
-    entities/Entity.cpp
+    ../common/game/entities/EntityFactory.cpp
+    ../common/game/entities/Entity.cpp
     core/Client.cpp
     core/NetClient.cpp
     ../game_engine/core/GameEngine.cpp

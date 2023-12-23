@@ -10,7 +10,7 @@
 #include "raymath.h"
 #include "raylib.h"
 
-namespace client {
+namespace common::game {
     struct ObjectParams {
         Vector3 pos;
         float width;

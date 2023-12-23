@@ -10,7 +10,7 @@
 #include "common/network/network.hpp"
 
 #include "common/game/NetworkMessage.hpp"
-#include "client/entities/EntityFactory.hpp"
+#include "common/game/entities/EntityFactory.hpp"
 #include "common/game/NetworkBody.hpp"
 
 #include "common/utils/Chrono.hpp"
@@ -26,8 +26,22 @@ namespace client {
 
         NetClient()
         {
-            registerResponse(common::NetworkMessage::ServerPing, [this](rtype::net::Message<common::NetworkMessage> msg) {
-                resPingServer(msg);
+            registerResponse({
+                {common::NetworkMessage::ServerPing, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                    resPingServer(msg);
+                }},
+                {common::NetworkMessage::serverFireBullet, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                    resServerFireBullet(msg);
+                }},
+                {common::NetworkMessage::serverCreatePlayerShip, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                    resServerCreatePlayerShip(msg);
+                }},
+                {common::NetworkMessage::serverAllyConnect, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                    resServerAllyConnect(msg);
+                }},
+                {common::NetworkMessage::serverCreateEnemy, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                    resServerCreateEnemy(msg);
+                }},
             });
         }
 
@@ -53,13 +67,13 @@ namespace client {
             send(msg);
         }
 
-        void reqClientConnect(std::string name, client::ObjectName shipName)
+        void reqClientConnect(std::string name, common::game::ObjectName shipName)
         {
             rtype::net::Message<common::NetworkMessage> msg;
             msg.header.id = common::NetworkMessage::clientConnect;
 
             common::game::netbody::ClientConnect body = {
-                // .name = name,
+                .name = std::move(name),
                 .shipName = shipName
             };
 

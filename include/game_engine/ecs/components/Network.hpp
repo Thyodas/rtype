@@ -12,6 +12,7 @@ namespace ecs {
         namespace network {
             typedef struct network_s {
                 uint32_t entityNetId;
+                uint32_t connectionId;
             } network_t;
         }
     }
