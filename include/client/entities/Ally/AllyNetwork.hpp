@@ -33,18 +33,23 @@ namespace client {
                         onDestroy(msg);
                     }},
                 });
+                _networkManager.registerResponse({
+                    {common::NetworkMessage::serverAllyDisconnect, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                        onDestroy(msg);
+                    }},
+                });
             }
 
             void onUpdateVelocity(rtype::net::Message<common::NetworkMessage>& msg)
             {
-                common::game::netbody::ServerUpdateShipVelocity body;
+                common::game::netbody::ServerUpdateShipPosition body;
                 auto &allyBody = _coord->getComponent<ecs::components::physics::rigidBody_t>(_entity);
                 msg >> body;
 
                 if (body.entityNetId != getNetId())
                     return;
 
-                allyBody.velocity = body.velocity;
+                allyBody.velocity = body.pos;
             }
 
             void onDamageReceive(rtype::net::Message<common::NetworkMessage>& msg)

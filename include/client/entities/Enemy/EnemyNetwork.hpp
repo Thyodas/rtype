@@ -37,14 +37,14 @@ namespace client {
 
             void onUpdateVelocity(rtype::net::Message<common::NetworkMessage>& msg)
             {
-                common::game::netbody::ServerUpdateShipVelocity body;
+                common::game::netbody::ServerUpdateShipPosition body;
                 auto &enemyBody = _coord->getComponent<ecs::components::physics::rigidBody_t>(_entity);
                 msg >> body;
 
                 if (body.entityNetId != getNetId())
                     return;
 
-                enemyBody.velocity = body.velocity;
+                enemyBody.velocity = body.pos;
             }
 
             void onDamageReceive(rtype::net::Message<common::NetworkMessage>& msg)
