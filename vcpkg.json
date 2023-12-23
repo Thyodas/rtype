@@ -1,5 +1,8 @@
 {
-  // "dependencies": [
-  //   "raylib"
-  // ]
+  "dependencies": [
+    {
+      "name": "raylib",
+      "platform": "(windows & x64 & static)"
+    }
+  ]
 }
