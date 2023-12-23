@@ -25,9 +25,9 @@
 var NAVTREE =
 [
   [ "Arcade", "index.html", [
-    [ "ECS", "ecs_readme.html", null ],
-    [ "Pull Request Template", "pull_request_template.html", null ],
-    [ "Network", "network_readme.html", null ],
+    [ "ECS Documentation", "ecs_parent_page.html", "ecs_parent_page" ],
+    [ "Network Documentation", "github_parent_page.html", "github_parent_page" ],
+    [ "Network Documentation", "network_parent_page.html", "network_parent_page" ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -48,7 +48,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_chrono_8hpp_source.html",
-"server_2entities_2_enemy_2_enemy_network_8hpp_source.html"
+"rfc0001.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
