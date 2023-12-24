@@ -118,6 +118,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>stop</b> ()</td></tr>
 <tr class="memitem:a711ffb01133b9b7c80c7980940f9dacb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrtype_1_1net_1_1_server_interface.html#a711ffb01133b9b7c80c7980940f9dacb">update</a> (size_t nMaxMessages=-1, bool bWait=false)</td></tr>
 <tr class="memdesc:a711ffb01133b9b7c80c7980940f9dacb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the server.  <a href="classrtype_1_1net_1_1_server_interface.html#a711ffb01133b9b7c80c7980940f9dacb">More...</a><br /></td></tr>
 <tr class="separator:a711ffb01133b9b7c80c7980940f9dacb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31ba11c2b6b60dcb8cf783b67077c81a"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classrtype_1_1net_1_1_connection.html">Connection</a>&lt; T &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrtype_1_1net_1_1_server_interface.html#a31ba11c2b6b60dcb8cf783b67077c81a">getConnectionById</a> (uint32_t nID)</td></tr>
+<tr class="memdesc:a31ba11c2b6b60dcb8cf783b67077c81a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get connection object via its network ID.  <a href="classrtype_1_1net_1_1_server_interface.html#a31ba11c2b6b60dcb8cf783b67077c81a">More...</a><br /></td></tr>
+<tr class="separator:a31ba11c2b6b60dcb8cf783b67077c81a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -346,6 +349,35 @@ template&lt;typename T &gt; </div>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a31ba11c2b6b60dcb8cf783b67077c81a" name="a31ba11c2b6b60dcb8cf783b67077c81a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31ba11c2b6b60dcb8cf783b67077c81a">&#9670;&nbsp;</a></span>getConnectionById()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="classrtype_1_1net_1_1_connection.html">Connection</a>&lt; T &gt; &gt; <a class="el" href="classrtype_1_1net_1_1_server_interface.html">rtype::net::ServerInterface</a>&lt; T &gt;::getConnectionById </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>nID</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get connection object via its network ID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nID</td><td>Network ID </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::shared_ptr&lt;Connection&lt;T&gt;&gt; <a class="el" href="classrtype_1_1net_1_1_connection.html">Connection</a> object </dd></dl>
 
 </div>
 </div>

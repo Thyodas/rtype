@@ -7,12 +7,12 @@ var hierarchy =
         [ "client::AllyNetwork", "classclient_1_1_ally_network.html", null ],
         [ "client::AllyNetwork", "classclient_1_1_ally_network.html", null ],
         [ "client::BulletNetwork", "classclient_1_1_bullet_network.html", null ],
-        [ "client::BulletNetwork", "classclient_1_1_bullet_network.html", null ],
         [ "client::EnemyNetwork", "classclient_1_1_enemy_network.html", null ],
         [ "client::EnemyNetwork", "classclient_1_1_enemy_network.html", null ],
         [ "client::PlayerNetwork", "classclient_1_1_player_network.html", null ]
       ] ],
       [ "ecs::components::behaviour::NetworkBehaviour< server::NetServer >", "classecs_1_1components_1_1behaviour_1_1_network_behaviour.html", [
+        [ "server::BulletNetwork", "classserver_1_1_bullet_network.html", null ],
         [ "server::PlayerNetwork", "classserver_1_1_player_network.html", null ]
       ] ],
       [ "client::SkyboxBehavior", "classclient_1_1_skybox_behavior.html", null ],
@@ -35,6 +35,7 @@ var hierarchy =
     [ "ecs::components::ComponentManager", "classecs_1_1components_1_1_component_manager.html", null ],
     [ "ecs::components::controls::controllable_s", "structecs_1_1components_1_1controls_1_1controllable__s.html", null ],
     [ "ecs::Coordinator", "classecs_1_1_coordinator.html", null ],
+    [ "ecs::components::direction::direction_s", "structecs_1_1components_1_1direction_1_1direction__s.html", null ],
     [ "ecs::components::drawable::drawable_sfml_s", "structecs_1_1components_1_1drawable_1_1drawable__sfml__s.html", null ],
     [ "std::enable_shared_from_this", null, [
       [ "rtype::net::Connection< T >", "classrtype_1_1net_1_1_connection.html", null ]
@@ -86,6 +87,7 @@ var hierarchy =
     ] ],
     [ "common::game::netbody::ServerPlayerDestroy", "structcommon_1_1game_1_1netbody_1_1_server_player_destroy.html", null ],
     [ "common::game::netbody::ServerPlayerTakeDamage", "structcommon_1_1game_1_1netbody_1_1_server_player_take_damage.html", null ],
+    [ "common::game::netbody::ServerUpdateBulletPosition", "structcommon_1_1game_1_1netbody_1_1_server_update_bullet_position.html", null ],
     [ "common::game::netbody::ServerUpdateEnemyVelocity", "structcommon_1_1game_1_1netbody_1_1_server_update_enemy_velocity.html", null ],
     [ "common::game::netbody::ServerUpdateShipPosition", "structcommon_1_1game_1_1netbody_1_1_server_update_ship_position.html", null ],
     [ "common::game::netbody::ServerUpdateShipVelocity", "structcommon_1_1game_1_1netbody_1_1_server_update_ship_velocity.html", null ],

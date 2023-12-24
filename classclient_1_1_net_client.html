@@ -86,6 +86,7 @@ $(document).ready(function(){initNavTree('classclient_1_1_net_client.html',''); 
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classclient_1_1_net_client-members.html">List of all members</a>  </div>
@@ -102,6 +103,12 @@ Inheritance diagram for client::NetClient:</div>
   </map>
 </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a6c9bdf466c659b682a2e1b254b6c501f"><td class="memItemLeft" align="right" valign="top"><a id="a6c9bdf466c659b682a2e1b254b6c501f" name="a6c9bdf466c659b682a2e1b254b6c501f"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>ResponseFunction</b> = std::function&lt; void(<a class="el" href="structrtype_1_1net_1_1_message.html">rtype::net::Message</a>&lt; common::NetworkMessage &gt; msg)&gt;</td></tr>
+<tr class="separator:a6c9bdf466c659b682a2e1b254b6c501f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a435d30d0c921a6a1299937252a16ae1d"><td class="memItemLeft" align="right" valign="top"><a id="a435d30d0c921a6a1299937252a16ae1d" name="a435d30d0c921a6a1299937252a16ae1d"></a>
@@ -113,9 +120,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>reqPingServer</b> ()<
 <tr class="memitem:a4f0a38270fbe65774f33204b30ba4422"><td class="memItemLeft" align="right" valign="top"><a id="a4f0a38270fbe65774f33204b30ba4422" name="a4f0a38270fbe65774f33204b30ba4422"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>reqClientConnect</b> (std::string name, common::game::ObjectName shipName)</td></tr>
 <tr class="separator:a4f0a38270fbe65774f33204b30ba4422"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5fdb76b34468c841cb3b6fd4eff210a2"><td class="memItemLeft" align="right" valign="top"><a id="a5fdb76b34468c841cb3b6fd4eff210a2" name="a5fdb76b34468c841cb3b6fd4eff210a2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>resServerFireBullet</b> (<a class="el" href="structrtype_1_1net_1_1_message.html">rtype::net::Message</a>&lt; common::NetworkMessage &gt; &amp;msg)</td></tr>
-<tr class="separator:a5fdb76b34468c841cb3b6fd4eff210a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac159d0cdd03a1e2d8e230cf329243e19"><td class="memItemLeft" align="right" valign="top"><a id="ac159d0cdd03a1e2d8e230cf329243e19" name="ac159d0cdd03a1e2d8e230cf329243e19"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>resServerCreatePlayerShip</b> (<a class="el" href="structrtype_1_1net_1_1_message.html">rtype::net::Message</a>&lt; common::NetworkMessage &gt; &amp;msg)</td></tr>
 <tr class="separator:ac159d0cdd03a1e2d8e230cf329243e19"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,12 +132,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>resServerCreateEnemy<
 <tr class="memitem:a508cffddf0cfe4fd09833b0973e2667d"><td class="memItemLeft" align="right" valign="top"><a id="a508cffddf0cfe4fd09833b0973e2667d" name="a508cffddf0cfe4fd09833b0973e2667d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>messageAll</b> ()</td></tr>
 <tr class="separator:a508cffddf0cfe4fd09833b0973e2667d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e8d349fd530519a9c2ed7380cc9de69"><td class="memItemLeft" align="right" valign="top"><a id="a9e8d349fd530519a9c2ed7380cc9de69" name="a9e8d349fd530519a9c2ed7380cc9de69"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>registerResponse</b> (common::NetworkMessage id, const std::function&lt; void(<a class="el" href="structrtype_1_1net_1_1_message.html">rtype::net::Message</a>&lt; common::NetworkMessage &gt;)&gt; func)</td></tr>
-<tr class="separator:a9e8d349fd530519a9c2ed7380cc9de69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44cf69ac06875dba589c7826045b36ae"><td class="memItemLeft" align="right" valign="top"><a id="a44cf69ac06875dba589c7826045b36ae" name="a44cf69ac06875dba589c7826045b36ae"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>registerResponse</b> (std::vector&lt; std::pair&lt; common::NetworkMessage, std::function&lt; void(<a class="el" href="structrtype_1_1net_1_1_message.html">rtype::net::Message</a>&lt; common::NetworkMessage &gt;)&gt; &gt; &gt; responses)</td></tr>
-<tr class="separator:a44cf69ac06875dba589c7826045b36ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac95c60fc642d19274945e045219cbde1"><td class="memItemLeft" align="right" valign="top"><a id="ac95c60fc642d19274945e045219cbde1" name="ac95c60fc642d19274945e045219cbde1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>registerResponse</b> (common::NetworkMessage id, const ResponseFunction &amp;func)</td></tr>
+<tr class="separator:ac95c60fc642d19274945e045219cbde1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fcb229a9cf91e104faed8618695f9da"><td class="memItemLeft" align="right" valign="top"><a id="a7fcb229a9cf91e104faed8618695f9da" name="a7fcb229a9cf91e104faed8618695f9da"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>registerResponse</b> (std::vector&lt; std::pair&lt; common::NetworkMessage, ResponseFunction &gt; &gt; responses)</td></tr>
+<tr class="separator:a7fcb229a9cf91e104faed8618695f9da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3619df7a4000f366fadea875f413dd83"><td class="memItemLeft" align="right" valign="top"><a id="a3619df7a4000f366fadea875f413dd83" name="a3619df7a4000f366fadea875f413dd83"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>dispatchResponse</b> (<a class="el" href="structrtype_1_1net_1_1_message.html">rtype::net::Message</a>&lt; common::NetworkMessage &gt; &amp;msg)</td></tr>
 <tr class="separator:a3619df7a4000f366fadea875f413dd83"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -160,9 +164,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>disconnect</b> ()</td
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a01855d884b6375324daa87c096464acb"><td class="memItemLeft" align="right" valign="top"><a id="a01855d884b6375324daa87c096464acb" name="a01855d884b6375324daa87c096464acb"></a>
-std::unordered_multimap&lt; common::NetworkMessage, std::function&lt; void(<a class="el" href="structrtype_1_1net_1_1_message.html">rtype::net::Message</a>&lt; common::NetworkMessage &gt;)&gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_responses</b></td></tr>
-<tr class="separator:a01855d884b6375324daa87c096464acb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac50477b0566ab376169bf43bb8952d3a"><td class="memItemLeft" align="right" valign="top"><a id="ac50477b0566ab376169bf43bb8952d3a" name="ac50477b0566ab376169bf43bb8952d3a"></a>
+std::unordered_multimap&lt; common::NetworkMessage, ResponseFunction &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_responses</b></td></tr>
+<tr class="separator:ac50477b0566ab376169bf43bb8952d3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classrtype_1_1net_1_1_client_interface"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classrtype_1_1net_1_1_client_interface')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classrtype_1_1net_1_1_client_interface.html">rtype::net::ClientInterface&lt; common::NetworkMessage &gt;</a></td></tr>
 <tr class="memitem:ac7b7da8bf2fdc7a289004164089d3d10 inherit pro_attribs_classrtype_1_1net_1_1_client_interface"><td class="memItemLeft" align="right" valign="top"><a id="ac7b7da8bf2fdc7a289004164089d3d10" name="ac7b7da8bf2fdc7a289004164089d3d10"></a>
 asio::io_context&#160;</td><td class="memItemRight" valign="bottom"><b>m_context</b></td></tr>

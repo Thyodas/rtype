@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Arcade: include/common/my_raylib.h Source File</title>
+<title>Arcade: common::game::netbody::ServerUpdateBulletPosition Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('my__raylib_8h_source.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('structcommon_1_1game_1_1netbody_1_1_server_update_bullet_position.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -85,29 +85,39 @@ $(document).ready(function(){initNavTree('my__raylib_8h_source.html',''); initRe
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">my_raylib.h</div></div>
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="structcommon_1_1game_1_1netbody_1_1_server_update_bullet_position-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">common::game::netbody::ServerUpdateBulletPosition Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">** EPITECH PROJECT, 2023</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">** B-CPP-500-STG-5-2-rtype-remi.mergen [WSL: Ubuntu]</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">** File description:</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">** my_raylib</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">*/</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#define NOGDI             </span><span class="comment">// Excludes GDI (Graphics Device Interface) definitions</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#define NOUSER            </span><span class="comment">// Excludes User API definitions</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#define WIN32_LEAN_AND_MEAN </span><span class="comment">// Exclude rarely-used stuff from Windows headers</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#define NOGDI               </span><span class="comment">// Exclude GDI definitions</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#define NOUSER              </span><span class="comment">// Exclude User definitions</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;raylib.h&quot;</span></div>
-</div><!-- fragment --></div><!-- contents -->
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a45efdf1c7c722005617a5199bca08c53"><td class="memTemplParams" colspan="2"><a id="a45efdf1c7c722005617a5199bca08c53" name="a45efdf1c7c722005617a5199bca08c53"></a>
+template&lt;class Archive &gt; </td></tr>
+<tr class="memitem:a45efdf1c7c722005617a5199bca08c53"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>serialize</b> (Archive &amp;ar, const unsigned int version)</td></tr>
+<tr class="separator:a45efdf1c7c722005617a5199bca08c53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:ace83bc3410adb820c008a6f9ba4678f2"><td class="memItemLeft" align="right" valign="top"><a id="ace83bc3410adb820c008a6f9ba4678f2" name="ace83bc3410adb820c008a6f9ba4678f2"></a>
+uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>entityNetId</b></td></tr>
+<tr class="separator:ace83bc3410adb820c008a6f9ba4678f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76b91073fa5687b448ecc68cae3906a7"><td class="memItemLeft" align="right" valign="top"><a id="a76b91073fa5687b448ecc68cae3906a7" name="a76b91073fa5687b448ecc68cae3906a7"></a>
+Vector3&#160;</td><td class="memItemRight" valign="bottom"><b>pos</b></td></tr>
+<tr class="separator:a76b91073fa5687b448ecc68cae3906a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/common/game/<a class="el" href="_network_body_8hpp_source.html">NetworkBody.hpp</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_0966d06610f72609fd9aa4979c2b5a92.html">common</a></li><li class="navelem"><b>my_raylib.h</b></li>
+    <li class="navelem"><b>common</b></li><li class="navelem"><b>game</b></li><li class="navelem"><b>netbody</b></li><li class="navelem"><a class="el" href="structcommon_1_1game_1_1netbody_1_1_server_update_bullet_position.html">ServerUpdateBulletPosition</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2 </li>
   </ul>
 </div>

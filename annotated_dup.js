@@ -28,6 +28,7 @@ var annotated_dup =
           [ "ServerFireBullet", "structcommon_1_1game_1_1netbody_1_1_server_fire_bullet.html", null ],
           [ "ServerPlayerDestroy", "structcommon_1_1game_1_1netbody_1_1_server_player_destroy.html", null ],
           [ "ServerPlayerTakeDamage", "structcommon_1_1game_1_1netbody_1_1_server_player_take_damage.html", null ],
+          [ "ServerUpdateBulletPosition", "structcommon_1_1game_1_1netbody_1_1_server_update_bullet_position.html", null ],
           [ "ServerUpdateEnemyVelocity", "structcommon_1_1game_1_1netbody_1_1_server_update_enemy_velocity.html", null ],
           [ "ServerUpdateShipPosition", "structcommon_1_1game_1_1netbody_1_1_server_update_ship_position.html", null ],
           [ "ServerUpdateShipVelocity", "structcommon_1_1game_1_1netbody_1_1_server_update_ship_velocity.html", null ]
@@ -52,6 +53,9 @@ var annotated_dup =
         ] ],
         [ "controls", null, [
           [ "controllable_s", "structecs_1_1components_1_1controls_1_1controllable__s.html", null ]
+        ] ],
+        [ "direction", null, [
+          [ "direction_s", "structecs_1_1components_1_1direction_1_1direction__s.html", null ]
         ] ],
         [ "drawable", null, [
           [ "drawable_sfml_s", "structecs_1_1components_1_1drawable_1_1drawable__sfml__s.html", null ]
@@ -122,6 +126,7 @@ var annotated_dup =
       ] ]
     ] ],
     [ "server", null, [
+      [ "BulletNetwork", "classserver_1_1_bullet_network.html", null ],
       [ "NetServer", "classserver_1_1_net_server.html", "classserver_1_1_net_server" ],
       [ "PlayerNetwork", "classserver_1_1_player_network.html", null ],
       [ "Server", "classserver_1_1_server.html", null ]
