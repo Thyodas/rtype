@@ -34,28 +34,52 @@ namespace server {
                             resClientConnect(client, msg);
                         }
                     },
-                    {
-                        common::NetworkMessage::clientUpdatePlayerDirection,
-                        [this](std::shared_ptr<rtype::net::Connection<common::NetworkMessage>> client, rtype::net::Message<common::NetworkMessage> msg) {
-                            resClientUpdatePlayerDirection(client, msg);
-                        }
-                    },
                 });
             }
 
-        protected:
+
 
             void resPingServer(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, const rtype::net::Message<common::NetworkMessage>& msg);
             void resClientConnect(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, rtype::net::Message<common::NetworkMessage>& msg);
-            void resClientUpdatePlayerDirection(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, rtype::net::Message<common::NetworkMessage>& msg);
 
 
             void reqServerCreatePlayerShip(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, ecs::Entity ship);
 
             void allServerAllyConnect(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, ecs::Entity ship);
+            void allServerUpdateShipPosition(ecs::Entity ship);
+            void allServerFireBullet(ecs::Entity bullet);
+
+            using ResponseFunction = std::function<void(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>> client, rtype::net::Message<common::NetworkMessage> msg)>;
 
 
+            void registerResponse(common::NetworkMessage id, const ResponseFunction& func)
+            {
+                _responses.insert(std::make_pair(id, func));
+            }
 
+            void registerResponse(const std::vector<std::pair<common::NetworkMessage, ResponseFunction>>& responses)
+            {
+                for (auto &response : responses)
+                    _responses.insert(response);
+            }
+
+            void dispatchResponse(const std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, const rtype::net::Message<common::NetworkMessage>& msg)
+            {
+                std::vector<ResponseFunction> functionsToCall;
+
+                {
+                    const auto &[first, second] = _responses.equal_range(msg.header.id);
+                    for (auto it = first; it != second; ++it) {
+                        functionsToCall.push_back(it->second);
+                    }
+                }
+
+                for (auto& func : functionsToCall) {
+                    func(client, msg);
+                }
+            }
+
+        protected:
             bool onClientConnect(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>> client) override
             {
                 rtype::net::Message<common::NetworkMessage> msg;
@@ -75,27 +99,6 @@ namespace server {
                 rtype::net::Message<common::NetworkMessage>& msg) override
             {
                 dispatchResponse(client, msg);
-            }
-
-            using ResponseFunction = std::function<void(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>> client, rtype::net::Message<common::NetworkMessage> msg)>;
-
-
-            void registerResponse(common::NetworkMessage id, const ResponseFunction& func)
-            {
-                _responses.insert(std::make_pair(id, func));
-            }
-
-            void registerResponse(const std::vector<std::pair<common::NetworkMessage, ResponseFunction>>& responses)
-            {
-                for (auto &response : responses)
-                    _responses.insert(response);
-            }
-
-            void dispatchResponse(const std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, const rtype::net::Message<common::NetworkMessage>& msg)
-            {
-                const auto &[first, second] = _responses.equal_range(msg.header.id);
-                for (auto it = first; it != second; ++it)
-                    it->second(client, msg);
             }
 
         protected:

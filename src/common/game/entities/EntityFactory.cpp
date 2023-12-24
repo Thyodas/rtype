@@ -12,18 +12,19 @@ ecs::Entity common::game::EntityFactory::createEntity(
     common::game::ObjectType type,
     common::game::ObjectName name,
     common::game::ObjectParams params,
-    common::game::ObjectFormat format
+    common::game::ObjectFormat format,
+    std::string path
 )
 {
     switch (type) {
         case common::game::ObjectType::Cube:
             return createCube(name, params, format);
         case common::game::ObjectType::Model3D:
-            return createObject3D(name, params, format);
+            return createObject3D(name, params, format, path);
         case common::game::ObjectType::SkyBox:
             return createSkybox(name, params, format);
         default:
-            throw std::invalid_argument("Invalid object type");
+            throw std::invalid_argument("Invalid entity type");
     }
 }
 ecs::Entity common::game::EntityFactory::createCube(
@@ -50,7 +51,8 @@ ecs::Entity common::game::EntityFactory::createCube(
 ecs::Entity common::game::EntityFactory::createObject3D(
     ObjectName name,
     ObjectParams params,
-    ObjectFormat format
+    ObjectFormat format,
+    std::string path
 )
 {
     std::string objectName = this->objectNameToString(name);
@@ -58,10 +60,10 @@ ecs::Entity common::game::EntityFactory::createObject3D(
     // TO USE USING CMAKE (Depending on the path of the executable)
     // std::string path = "./ressources/client/Objects3D/" + objectName + "/" + objectName + objectFormat;
     // TO USE IF USING LOCAL MAKEFILE
-    std::string path = "../../ressources/client/Objects3D/" + objectName + "/" + objectName + objectFormat;
+    std::string assetPath = path + "ressources/client/Objects3D/" + objectName + "/" + objectName + objectFormat;
 
     auto shape = engine::createModel3D(
-        path.c_str(),
+        assetPath.c_str(),
         params.pos,
         params.color
     );
@@ -116,6 +118,6 @@ std::string common::game::EntityFactory::objectFormatToString(common::game::Obje
         case GLB: return ".glb";
         case PNG: return ".png";
         default:
-            throw std::invalid_argument("Invalid object format");
+            throw std::invalid_argument("Invalid format format");
     }
 }

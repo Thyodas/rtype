@@ -33,6 +33,7 @@ namespace common {
 
         serverFireBullet,
         serverDestroyBullet,
+        serverUpdateBulletPosition,
 
         serverUpdateShipVelocity,
         serverUpdateShipPosition,

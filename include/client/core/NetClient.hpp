@@ -21,7 +21,6 @@ namespace client {
 
     class NetClient : public rtype::net::ClientInterface<common::NetworkMessage>
     {
-        
         public:
 
         NetClient()
@@ -29,9 +28,6 @@ namespace client {
             registerResponse({
                 {common::NetworkMessage::ServerPing, [this](rtype::net::Message<common::NetworkMessage> msg) {
                     resPingServer(msg);
-                }},
-                {common::NetworkMessage::serverFireBullet, [this](rtype::net::Message<common::NetworkMessage> msg) {
-                    resServerFireBullet(msg);
                 }},
                 {common::NetworkMessage::serverCreatePlayerShip, [this](rtype::net::Message<common::NetworkMessage> msg) {
                     resServerCreatePlayerShip(msg);
@@ -81,7 +77,6 @@ namespace client {
             send(msg);
         }
 
-        void resServerFireBullet(rtype::net::Message<common::NetworkMessage>& msg);
         void resServerCreatePlayerShip(rtype::net::Message<common::NetworkMessage>& msg);
         void resServerAllyConnect(rtype::net::Message<common::NetworkMessage>& msg);
         void resServerCreateEnemy(rtype::net::Message<common::NetworkMessage>& msg);
@@ -93,12 +88,14 @@ namespace client {
             send(msg);
         }
 
-        void registerResponse(common::NetworkMessage id, const std::function<void(rtype::net::Message<common::NetworkMessage>)> func)
+        using ResponseFunction = std::function<void(rtype::net::Message<common::NetworkMessage> msg)>;
+
+        void registerResponse(common::NetworkMessage id, const ResponseFunction& func)
         {
             _responses.insert(std::make_pair(id, func));
         }
 
-        void registerResponse(std::vector<std::pair<common::NetworkMessage, std::function<void(rtype::net::Message<common::NetworkMessage>)>>> responses)
+        void registerResponse(std::vector<std::pair<common::NetworkMessage, ResponseFunction>> responses)
         {
             for (auto &response : responses)
                 _responses.insert(response);
@@ -106,9 +103,18 @@ namespace client {
 
         void dispatchResponse(rtype::net::Message<common::NetworkMessage>& msg)
         {
-            const auto &[first, second] = _responses.equal_range(msg.header.id);
-            for (auto it = first; it != second; ++it)
-                it->second(msg);
+            std::vector<ResponseFunction> functionsToCall;
+
+            {
+                const auto &[first, second] = _responses.equal_range(msg.header.id);
+                for (auto it = first; it != second; ++it) {
+                    functionsToCall.push_back(it->second);
+                }
+            }
+
+            for (auto& func : functionsToCall) {
+                func(msg);
+            }
         }
 
         void dispatchAllResponses()
@@ -121,6 +127,6 @@ namespace client {
         }
 
         protected:
-            std::unordered_multimap<common::NetworkMessage, std::function<void(rtype::net::Message<common::NetworkMessage>)>> _responses;
+            std::unordered_multimap<common::NetworkMessage, ResponseFunction> _responses;
     };
 }

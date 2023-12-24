@@ -37,6 +37,7 @@ namespace engine {
         _coordinator->registerComponent<ecs::components::animations::animation_t>();
         _coordinator->registerComponent<ecs::components::network::network_t>();
         _coordinator->registerComponent<ecs::components::health::health_t>();
+        _coordinator->registerComponent<ecs::components::direction::direction_t>();
 
         ecs::Signature signaturePhysics;
         signaturePhysics.set(_coordinator->getComponentType<ecs::components::physics::transform_t>());
@@ -91,7 +92,7 @@ namespace engine {
         BeginDrawing();
         BeginMode3D(_window->getCamera());
         _renderSystem->render();
-        DrawGrid(20, 1.0f);
+        //DrawGrid(20, 1.0f);
         EndMode3D();
         EndDrawing();
     }
@@ -152,6 +153,7 @@ namespace engine {
         Engine::getInstance()->addComponent<ecs::components::physics::collider_t>(entity, collider);
         Engine::getInstance()->addComponent<ecs::components::physics::rigidBody_t>(entity, body);
         Engine::getInstance()->addComponent<ecs::components::health::health_t>(entity, health);
+        Engine::getInstance()->addComponent<ecs::components::direction::direction_t>(entity, {0, 0, 0});
         return entity;
     }
 

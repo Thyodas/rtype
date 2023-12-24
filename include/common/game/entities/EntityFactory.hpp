@@ -18,18 +18,20 @@ namespace common::game {
                 ObjectType type,
                 ObjectName name,
                 ObjectParams params,
-                ObjectFormat format = ObjectFormat::OBJ
+                ObjectFormat format = ObjectFormat::OBJ,
+                std::string path = "../../"
             );
         private:
             ecs::Entity createCube(
                 ObjectName name,
                 ObjectParams params,
-                ObjectFormat format = ObjectFormat::OBJ
+                ObjectFormat format
             );
             ecs::Entity createObject3D(
                 ObjectName name,
                 ObjectParams params,
-                ObjectFormat format = ObjectFormat::OBJ
+                ObjectFormat format,
+                std::string path = "../../"
             );
             ecs::Entity createSkybox(
                 common::game::ObjectName name,

@@ -12,6 +12,8 @@
 #include "Message.hpp"
 #include "Connection.hpp"
 
+#include <unordered_map>
+
 namespace rtype::net {
     template<typename T>
     class ServerInterface {
@@ -61,6 +63,13 @@ namespace rtype::net {
              * @param bWait Wait for message to arrive (prevent thread from using all ressources)
              */
             void update(size_t nMaxMessages = -1, bool bWait = false);
+
+            /**
+             * @brief Get connection object via its network ID
+             * @param nID Network ID
+             * @return std::shared_ptr<Connection<T>> Connection object
+             */
+            std::shared_ptr<Connection<T>> getConnectionById(uint32_t nID);
 
         protected:
             // Function to be overriden by subclass
@@ -233,6 +242,15 @@ namespace rtype::net {
 
             nMessageCount++;
         }
+    }
+
+    template<typename T>
+    std::shared_ptr<Connection<T>> ServerInterface<T>::getConnectionById(uint32_t nID)
+    {
+        auto it = m_mapConnections.find(nID);
+        if (it != m_mapConnections.end())
+            return it->second;
+        return nullptr;
     }
 
     template<typename T>

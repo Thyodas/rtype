@@ -74,12 +74,10 @@ namespace common::game::netbody {
     };
 
     struct ClientUpdatePlayerDirection {
-        uint32_t entityNetId;
         Vector3 direction;
 
         template<class Archive>
         void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
-            ar & entityNetId;
             ar & direction;
         }
     };
@@ -187,6 +185,17 @@ namespace common::game::netbody {
         template<class Archive>
         void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
             ar & entityNetId;
+        }
+    };
+
+    struct ServerUpdateBulletPosition {
+        uint32_t entityNetId;
+        Vector3 pos;
+
+        template<class Archive>
+        void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
+            ar & entityNetId;
+            ar & pos;
         }
     };
 
