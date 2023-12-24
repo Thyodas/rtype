@@ -63,13 +63,21 @@ After installing CMake, you can proceed with building the project.
 1. After building, navigate to the build directory.
 2. Run the server executable:
     ```bash
-    ./server
+    cd src/server
+    ../../build/server
     ```
+
+> [!NOTE]
+> On Windows change '/' to '\'.
 
 ### Client
 
 1. After building, navigate to the build directory.
 2. Run the client executable:
     ```bash
-    ./client
+    cd src/client
+    ../../build/client
     ```
+
+> [!NOTE]
+> On Windows change '/' to '\'.
