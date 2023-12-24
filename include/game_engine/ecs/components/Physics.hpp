@@ -7,7 +7,6 @@
 
 #pragma once
 
-#include "common/math/vectors/Vec3.hpp"
 #include "./Shapes.hpp"
 
 #include "raylib.h"
@@ -17,33 +16,59 @@ namespace ecs {
     namespace components {
         namespace physics {
 
+            /**
+             * @struct transform_t
+             * @brief Represents the transformation data of an entity in the game world.
+             *
+             * This struct stores the position, rotation, and scale of an entity, allowing for
+             * manipulation of its physical attributes in the game world.
+             */
             typedef struct transform_s {
-                Vector3 pos;
-                Vector3 rotation;
-                Vector3 scale;
+                Vector3 pos; ///< Position of the entity in 3D space.
+                Vector3 rotation; ///< Rotation of the entity around the x, y, and z axes.
+                Vector3 scale; ///< Scale of the entity in 3D space.
             } transform_t;
 
+            /**
+             * @struct rigidBody_t
+             * @brief Represents the physical properties of an entity, allowing for dynamic movement and interaction.
+             *
+             * This struct stores the mass, velocity, and forces acting on an entity, along with a timestamp
+             * of the last velocity update, facilitating physics-based movement and interactions.
+             */
             typedef struct rigidBody_s {
-                float mass;
-                Vector3 velocity;
-                Vector3 force;
-                double velocityLastUpdate;
+                float mass; ///< Mass of the entity.
+                Vector3 velocity; ///< Current velocity of the entity.
+                Vector3 force; ///< Current force acting on the entity.
+                double velocityLastUpdate; ///< Timestamp of the last velocity update.
             } rigidBody_t;
 
+            /**
+             * @enum CollisionType
+             * @brief Enumerates the types of collision interactions an entity can have.
+             */
             enum class CollisionType {
-                COLLIDE,
-                LOOTABLE,
+                COLLIDE, ///< Standard collision.
+                LOOTABLE, ///< Item can be collected or interacted with.
             };
 
+            /**
+             * @struct collider_t
+             * @brief Represents the collision boundaries and properties of an entity.
+             *
+             * This struct stores information about an entity's collision shape, type, and the actual
+             * data describing the shape. It also includes matrices for rotation, scaling, and translation,
+             * along with a bounding box and global vertices for collision detection.
+             */
             typedef struct collider_s {
-                ShapeType shapeType;
-                CollisionType collisionType;
-                std::shared_ptr<IShape> data;
-                BoundingBox box;
-                Vector3 vertsGlobal[8];
-                Matrix matRotate;
-                Matrix matScale;
-                Matrix matTranslate;
+                ShapeType shapeType; ///< Type of the shape used for collision.
+                CollisionType collisionType; ///< Type of collision interaction.
+                std::shared_ptr<IShape> data; ///< Shared pointer to the shape data.
+                BoundingBox box; ///< Bounding box for collision detection.
+                Vector3 vertsGlobal[8]; ///< Global vertices for the collider.
+                Matrix matRotate; ///< Matrix for rotation transformations.
+                Matrix matScale; ///< Matrix for scaling transformations.
+                Matrix matTranslate; ///< Matrix for translation transformations.
             } collider_t;
 
         }
