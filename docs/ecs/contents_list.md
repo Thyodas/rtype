@@ -1,6 +1,6 @@
-\page ecs_parent_page ECS Documentation
+\page install_parent_page INSTALL Documentation
 
-This is the main page for all ECS-related documentation.
+This is the main page for all Install-related documentation.
 
 Subpages:
-- \subpage ecs_readme
+- \subpage install_readme

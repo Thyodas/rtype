@@ -8,7 +8,7 @@
 #pragma once
 
 #include "raymath.h"
-#include "raylib.h"
+#include "my_raylib.h"
 
 namespace common::game {
     struct ObjectParams {

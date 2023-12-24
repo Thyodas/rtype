@@ -5,7 +5,7 @@
 ** main.cpp
 */
 
-#include "raylib.h"
+#include "my_raylib.h"
 #include "game_engine/core/Window.hpp"
 #include "game_engine/ecs/Coordinator.hpp"
 #include "game_engine/ecs/components/Physics.hpp"
