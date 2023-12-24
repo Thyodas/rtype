@@ -108,56 +108,59 @@ $(document).ready(function(){initNavTree('server_2entities_2_player_2_player_net
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>            <a class="code hl_class" href="classserver_1_1_player_network.html">PlayerNetwork</a>(<a class="code hl_class" href="classserver_1_1_net_server.html">server::NetServer</a>&amp; networkManager, uint32_t entityNetId = 0, uint32_t connectionId = 0)</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>                : NetworkBehaviour(networkManager, entityNetId, connectionId)</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>            {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>                _networkManager.registerResponse({</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>                    {common::NetworkMessage::clientUpdatePlayerDirection, [<span class="keyword">this</span>](<a class="code hl_struct" href="structrtype_1_1net_1_1_message.html">rtype::net::Message&lt;common::NetworkMessage&gt;</a> msg) {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>                        serverClientUpdatePlayerDirection(msg);</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>                    }},</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>                });</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            }</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            <span class="keywordtype">void</span> update()<span class="keyword"> override</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">            </span>{</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            }</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            <span class="keywordtype">void</span> serverClientUpdatePlayerDirection(<a class="code hl_struct" href="structrtype_1_1net_1_1_message.html">rtype::net::Message&lt;common::NetworkMessage&gt;</a>&amp; msg)</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>                <a class="code hl_struct" href="structcommon_1_1game_1_1netbody_1_1_client_update_player_direction.html">common::game::netbody::ClientUpdatePlayerDirection</a> body;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>                msg &gt;&gt; body;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>                ecs::Entity player = getNetId();</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                <span class="keywordflow">if</span> (body.direction.x &gt; 0) {</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                    engine::Engine::getInstance()-&gt;getComponent&lt;<a class="code hl_struct" href="structecs_1_1components_1_1physics_1_1rigid_body__s.html">ecs::components::physics::rigidBody_t</a>&gt;(player).velocity.x += 1;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (body.direction.x &lt; 0) {</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                    engine::Engine::getInstance()-&gt;getComponent&lt;<a class="code hl_struct" href="structecs_1_1components_1_1physics_1_1rigid_body__s.html">ecs::components::physics::rigidBody_t</a>&gt;(player).velocity.x -= 1;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                }</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                <span class="keywordflow">if</span> (body.direction.y &gt; 0) {</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                    engine::Engine::getInstance()-&gt;getComponent&lt;<a class="code hl_struct" href="structecs_1_1components_1_1physics_1_1rigid_body__s.html">ecs::components::physics::rigidBody_t</a>&gt;(player).velocity.y += 1;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (body.direction.y &lt; 0) {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                    engine::Engine::getInstance()-&gt;getComponent&lt;<a class="code hl_struct" href="structecs_1_1components_1_1physics_1_1rigid_body__s.html">ecs::components::physics::rigidBody_t</a>&gt;(player).velocity.y -= 1;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                }</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                <span class="keywordflow">if</span> (body.direction.z &gt; 0) {</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                    engine::Engine::getInstance()-&gt;getComponent&lt;<a class="code hl_struct" href="structecs_1_1components_1_1physics_1_1rigid_body__s.html">ecs::components::physics::rigidBody_t</a>&gt;(player).velocity.z += 1;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (body.direction.z &lt; 0) {</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                    engine::Engine::getInstance()-&gt;getComponent&lt;<a class="code hl_struct" href="structecs_1_1components_1_1physics_1_1rigid_body__s.html">ecs::components::physics::rigidBody_t</a>&gt;(player).velocity.z -= 1;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                }</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>                <a class="code hl_struct" href="structrtype_1_1net_1_1_message.html">rtype::net::Message&lt;common::NetworkMessage&gt;</a> msg2;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                msg.header.id = common::NetworkMessage::serverUpdateShipPosition;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                <a class="code hl_struct" href="structcommon_1_1game_1_1netbody_1_1_server_update_ship_position.html">common::game::netbody::ServerUpdateShipPosition</a> body2 = {</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                    .entityNetId = player,</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                    .pos = engine::Engine::getInstance()-&gt;getComponent&lt;<a class="code hl_struct" href="structecs_1_1components_1_1physics_1_1rigid_body__s.html">ecs::components::physics::rigidBody_t</a>&gt;(player).velocity,</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>                };</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>                common::NetworkMessage::serverUpdateShipPosition,</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>                [<span class="keyword">this</span>](<a class="code hl_struct" href="structrtype_1_1net_1_1_message.html">rtype::net::Message&lt;common::NetworkMessage&gt;</a> msg) {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>                    serverClientUpdatePlayerDirection(msg);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>                };</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            }</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            <span class="keywordtype">void</span> update()<span class="keyword"> override</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">            </span>{</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            }</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            <span class="keywordtype">void</span> serverClientUpdatePlayerDirection(<a class="code hl_struct" href="structrtype_1_1net_1_1_message.html">rtype::net::Message&lt;common::NetworkMessage&gt;</a>&amp; msg)</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                <a class="code hl_struct" href="structcommon_1_1game_1_1netbody_1_1_client_update_player_direction.html">common::game::netbody::ClientUpdatePlayerDirection</a> body;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>                msg &gt;&gt; body;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                ecs::Entity player = getNetId();</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                <span class="keywordflow">if</span> (body.direction.x &gt; 0) {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                    engine::Engine::getInstance()-&gt;getComponent&lt;<a class="code hl_struct" href="structecs_1_1components_1_1physics_1_1rigid_body__s.html">ecs::components::physics::rigidBody_t</a>&gt;(player).velocity.x += 1;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (body.direction.x &lt; 0) {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                    engine::Engine::getInstance()-&gt;getComponent&lt;<a class="code hl_struct" href="structecs_1_1components_1_1physics_1_1rigid_body__s.html">ecs::components::physics::rigidBody_t</a>&gt;(player).velocity.x -= 1;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                }</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                <span class="keywordflow">if</span> (body.direction.y &gt; 0) {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                    engine::Engine::getInstance()-&gt;getComponent&lt;<a class="code hl_struct" href="structecs_1_1components_1_1physics_1_1rigid_body__s.html">ecs::components::physics::rigidBody_t</a>&gt;(player).velocity.y += 1;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (body.direction.y &lt; 0) {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                    engine::Engine::getInstance()-&gt;getComponent&lt;<a class="code hl_struct" href="structecs_1_1components_1_1physics_1_1rigid_body__s.html">ecs::components::physics::rigidBody_t</a>&gt;(player).velocity.y -= 1;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                }</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                <span class="keywordflow">if</span> (body.direction.z &gt; 0) {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                    engine::Engine::getInstance()-&gt;getComponent&lt;<a class="code hl_struct" href="structecs_1_1components_1_1physics_1_1rigid_body__s.html">ecs::components::physics::rigidBody_t</a>&gt;(player).velocity.z += 1;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (body.direction.z &lt; 0) {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                    engine::Engine::getInstance()-&gt;getComponent&lt;<a class="code hl_struct" href="structecs_1_1components_1_1physics_1_1rigid_body__s.html">ecs::components::physics::rigidBody_t</a>&gt;(player).velocity.z -= 1;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                }</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>                <a class="code hl_struct" href="structrtype_1_1net_1_1_message.html">rtype::net::Message&lt;common::NetworkMessage&gt;</a> msg2;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>                msg.header.id = common::NetworkMessage::serverUpdateShipPosition;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                <a class="code hl_struct" href="structcommon_1_1game_1_1netbody_1_1_server_update_ship_position.html">common::game::netbody::ServerUpdateShipPosition</a> body2 = {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                    .entityNetId = player,</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                    .pos = engine::Engine::getInstance()-&gt;getComponent&lt;<a class="code hl_struct" href="structecs_1_1components_1_1physics_1_1rigid_body__s.html">ecs::components::physics::rigidBody_t</a>&gt;(player).velocity,</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                };</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                msg2 &lt;&lt; body2;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                _networkManager.allServerUpdatePlayerShipPosition(player, engine::Engine::getInstance()-&gt;getComponent&lt;<a class="code hl_struct" href="structecs_1_1components_1_1physics_1_1rigid_body__s.html">ecs::components::physics::rigidBody_t</a>&gt;(player).velocity);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            }</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    };</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>}</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                std::cout &lt;&lt; <span class="stringliteral">&quot;test&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                msg2 &lt;&lt; body2;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                _networkManager.<a class="code hl_function" href="classrtype_1_1net_1_1_server_interface.html#ad1d9109ea220ff8dad16f1a67404bdf3">messageAllClients</a>(msg2);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            }</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    };</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>}</div>
 <div class="ttc" id="aclassecs_1_1components_1_1behaviour_1_1_network_behaviour_html"><div class="ttname"><a href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html">ecs::components::behaviour::NetworkBehaviour</a></div><div class="ttdef"><b>Definition:</b> NetworkBehaviour.hpp:26</div></div>
+<div class="ttc" id="aclassrtype_1_1net_1_1_server_interface_html_ad1d9109ea220ff8dad16f1a67404bdf3"><div class="ttname"><a href="classrtype_1_1net_1_1_server_interface.html#ad1d9109ea220ff8dad16f1a67404bdf3">rtype::net::ServerInterface::messageAllClients</a></div><div class="ttdeci">void messageAllClients(const Message&lt; T &gt; &amp;msg, std::shared_ptr&lt; Connection&lt; T &gt; &gt; pIgnoreClient=nullptr)</div><div class="ttdoc">Send a message to all clients.</div><div class="ttdef"><b>Definition:</b> Server.hpp:195</div></div>
 <div class="ttc" id="aclassserver_1_1_net_server_html"><div class="ttname"><a href="classserver_1_1_net_server.html">server::NetServer</a></div><div class="ttdef"><b>Definition:</b> NetServer.hpp:20</div></div>
 <div class="ttc" id="aclassserver_1_1_player_network_html"><div class="ttname"><a href="classserver_1_1_player_network.html">server::PlayerNetwork</a></div><div class="ttdef"><b>Definition:</b> PlayerNetwork.hpp:16</div></div>
 <div class="ttc" id="astructcommon_1_1game_1_1netbody_1_1_client_update_player_direction_html"><div class="ttname"><a href="structcommon_1_1game_1_1netbody_1_1_client_update_player_direction.html">common::game::netbody::ClientUpdatePlayerDirection</a></div><div class="ttdef"><b>Definition:</b> NetworkBody.hpp:76</div></div>
