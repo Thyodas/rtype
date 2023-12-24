@@ -18,11 +18,10 @@ namespace server {
             PlayerNetwork(server::NetServer& networkManager, uint32_t entityNetId = 0, uint32_t connectionId = 0)
                 : NetworkBehaviour(networkManager, entityNetId, connectionId)
             {
-                _networkManager.registerResponse({
-                    {common::NetworkMessage::clientUpdatePlayerDirection, [this](rtype::net::Message<common::NetworkMessage> msg) {
-                        serverClientUpdatePlayerDirection(msg);
-                    }},
-                });
+                common::NetworkMessage::serverUpdateShipPosition,
+                [this](rtype::net::Message<common::NetworkMessage> msg) {
+                    serverClientUpdatePlayerDirection(msg);
+                };
             }
 
             void update() override
@@ -61,8 +60,11 @@ namespace server {
                     .pos = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity,
                 };
 
+
+                std::cout << "test" << std::endl;
+
                 msg2 << body2;
-                _networkManager.allServerUpdatePlayerShipPosition(player, engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity);
+                _networkManager.messageAllClients(msg2);
             }
     };
 
