@@ -25,6 +25,7 @@ namespace ecs {
                 double elapsedTime = engine::Engine::getInstance()->getElapsedTime() / 1000.0;
                 elapsedTime -= body.velocityLastUpdate;
 
+                //std::cout << "vel: " << body.velocity.x << " " << body.velocity.y << " " << body.velocity.z << ", elapsed time: " << elapsedTime << std::endl;
                 transf.pos.x += body.velocity.x * elapsedTime;
 
                 transf.pos.y += body.velocity.y * elapsedTime;
@@ -65,7 +66,7 @@ namespace ecs {
                         bool colliding = CheckCollisionBoxes(box1, box2);
                         if (colliding) {
                             //std::cout << "ca collide" << std::endl;
-                            _coord->emitEvent<CollisionEvent>(CollisionEvent(*it1, box1, collider1.data->getModel().transform, *it2, box2, collider2.data->getModel().transform));
+                            //_coord->emitEvent<CollisionEvent>(CollisionEvent(*it1, box1, collider1.data->getModel().transform, *it2, box2, collider2.data->getModel().transform));
                         } else {
                             //std::cout << "no collision detected" << std::endl;
                         }
@@ -77,9 +78,11 @@ namespace ecs {
         CollisionResponse::CollisionResponse(ecs::Coordinator &coord) : _coord(coord)
         {
             _coord.registerListener<CollisionEvent>([this](const CollisionEvent &event) {
+                return;
                 auto &transf = _coord.getComponent<ecs::components::physics::transform_t>(event.entity1);
                 auto &collider = _coord.getComponent<ecs::components::physics::collider_t>(event.entity1);
                 Vector3 displacementVector = getCollisionResponse(event);
+                std::cout << "colision!" << std::endl;
                 transf.pos.x += displacementVector.x;
                 transf.pos.y += displacementVector.y;
                 transf.pos.z += displacementVector.z;

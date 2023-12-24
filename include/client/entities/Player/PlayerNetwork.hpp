@@ -47,6 +47,7 @@ namespace client {
                 common::game::netbody::ServerFireBullet body;
                 msg >> body;
 
+                std::cout << "bullet pos: " << body.pos.x << " " << body.pos.y << " " << body.pos.z << std::endl;
                 common::game::EntityFactory factory;
                 ecs::Entity gunBullet = factory.createEntity(common::game::ObjectType::Model3D, common::game::ObjectName::GunBullet, {
                     body.pos,
@@ -64,7 +65,7 @@ namespace client {
                 direction.direction = body.direction;
                 auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(gunBullet);
                 // rigidBody.velocity = {0, 0, static_cast<float>(body.speed)};
-                rigidBody.velocity = { 0 };
+                rigidBody.velocity = { 0, 0, 0};
 
                 auto behave = engine::createBehavior<client::BulletNetwork>(_networkManager, body.entityNetId);
                 engine::attachBehavior(gunBullet, behave);
@@ -127,6 +128,7 @@ namespace client {
                 common::game::netbody::ClientPlayerFireBullet body = {
                     .direction = {0, 0, 1},
                 };
+                msg << body;
                 _networkManager.send(msg);
             }
 

@@ -59,11 +59,16 @@ namespace server {
                 common::game::netbody::ClientPlayerFireBullet body;
                 msg >> body;
 
-                auto &transf = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_entity);
+                if (client->getID() != getConnectionId())
+                    return;
 
+                auto &transf = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_entity);
+                auto &collider = engine::Engine::getInstance()->getComponent<ecs::components::physics::collider_t>(_entity);
+
+                Vector3 newPos = {transf.pos.x, transf.pos.y, transf.pos.z + 3};
                 common::game::EntityFactory factory;
                 ecs::Entity gunBullet = factory.createEntity(common::game::ObjectType::Model3D, common::game::ObjectName::GunBullet, {
-                    transf.pos,
+                    newPos,
                     0,
                     0,
                     0,
@@ -73,11 +78,11 @@ namespace server {
                     {0, 0, 0},
                     {0.025, 0.025, 0.025}
                 }, common::game::ObjectFormat::GLB);
-                auto &direction = engine::Engine::getInstance()->getComponent<ecs::components::direction::direction_t>(gunBullet);
-                direction.direction = body.direction;
+                /*auto &direction = engine::Engine::getInstance()->getComponent<ecs::components::direction::direction_t>(gunBullet);
+                direction.direction = body.direction;*/
                 auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(gunBullet);
-                rigidBody.velocity = {0, 0, BULLET_SPEED};
-                auto behave = engine::createBehavior<server::BulletNetwork>(_networkManager, gunBullet);
+                rigidBody.velocity = {0, 0, 1};
+                auto behave = engine::createBehavior<server::BulletNetwork>(_networkManager, gunBullet, client->getID());
                 engine::attachBehavior(gunBullet, behave);
                 _networkManager.allServerFireBullet(gunBullet);
             }
