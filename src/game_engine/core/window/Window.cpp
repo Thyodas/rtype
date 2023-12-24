@@ -109,38 +109,24 @@ namespace engine {
             return _camera;
         }
 
-        void Window::setCameraPosition(float x, float y)
+        void Window::setCameraPosition(Vector3 pos)
         {
-            _camera.position.x = x;
-            _camera.position.y = y;
+            _camera.position = pos;
         }
 
-        void Window::setCameraPosition(Vec2i pos)
+        Vector3 Window::getCameraPosition() const
         {
-            _camera.position.x = pos.x;
-            _camera.position.y = pos.y;
+            return _camera.position;
         }
 
-        Vec2f Window::getCameraPosition() const
+        void Window::setCameraTarget(Vector3 pos)
         {
-            return Vec2f(_camera.position.x, _camera.position.y);
+            _camera.target = pos;
         }
 
-        void Window::setCameraTarget(float x, float y)
+        Vector3 Window::getCameraTarget() const
         {
-            _camera.target.x = x;
-            _camera.target.y = y;
-        }
-
-        void Window::setCameraTarget(Vec2f pos)
-        {
-            _camera.target.x = pos.x;
-            _camera.target.y = pos.y;
-        }
-
-        Vec2f Window::getCameraTarget() const
-        {
-            return Vec2f(_camera.target.x, _camera.target.y);
+            return _camera.target;
         }
 
         void Window::setCameraFov(float fov)
