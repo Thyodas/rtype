@@ -161,3 +161,5 @@ CPackSourceConfig.cmake
 Makefile
 
 server
+
+.vs/

@@ -173,14 +173,14 @@ namespace ecs {
         {
             Matrix matTemp = MatrixMultiply(MatrixMultiply(collider.matScale, collider.matRotate), collider.matTranslate);
             Vector3 vertsLocal[8];
-            vertsLocal[0] = (Vector3) { collider.box.min.x, collider.box.min.y, collider.box.min.z };
-            vertsLocal[1] = (Vector3) { collider.box.min.x, collider.box.min.y, collider.box.max.z };
-            vertsLocal[2] = (Vector3) { collider.box.min.x, collider.box.max.y, collider.box.min.z };
-            vertsLocal[3] = (Vector3) { collider.box.min.x, collider.box.max.y, collider.box.max.z };
-            vertsLocal[4] = (Vector3) { collider.box.max.x, collider.box.min.y, collider.box.min.z };
-            vertsLocal[5] = (Vector3) { collider.box.max.x, collider.box.min.y, collider.box.max.z };
-            vertsLocal[6] = (Vector3) { collider.box.max.x, collider.box.max.y, collider.box.min.z };
-            vertsLocal[7] = (Vector3) { collider.box.max.x, collider.box.max.y, collider.box.max.z };
+            vertsLocal[0] = Vector3 { collider.box.min.x, collider.box.min.y, collider.box.min.z };
+            vertsLocal[1] = Vector3 { collider.box.min.x, collider.box.min.y, collider.box.max.z };
+            vertsLocal[2] = Vector3 { collider.box.min.x, collider.box.max.y, collider.box.min.z };
+            vertsLocal[3] = Vector3 { collider.box.min.x, collider.box.max.y, collider.box.max.z };
+            vertsLocal[4] = Vector3 { collider.box.max.x, collider.box.min.y, collider.box.min.z };
+            vertsLocal[5] = Vector3 { collider.box.max.x, collider.box.min.y, collider.box.max.z };
+            vertsLocal[6] = Vector3 { collider.box.max.x, collider.box.max.y, collider.box.min.z };
+            vertsLocal[7] = Vector3 { collider.box.max.x, collider.box.max.y, collider.box.max.z };
             for (int i = 0; i < 8; ++i)
                 collider.vertsGlobal[i] = Vector3Transform(vertsLocal[i], matTemp);
         }

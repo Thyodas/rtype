@@ -7,11 +7,11 @@
 
 #pragma once
 
+#include "my_raylib.h"
+
 #include "game_engine/ecs/components/Behaviour.hpp"
 #include "game_engine/ecs/components/Physics.hpp"
 #include "game_engine/GameEngine.hpp"
-
-#include "my_raylib.h"
 
 class input : public ecs::components::behaviour::Behaviour {
     public:

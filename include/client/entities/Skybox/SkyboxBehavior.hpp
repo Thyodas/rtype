@@ -48,7 +48,7 @@ namespace client {
                 double now = engine::Engine::getInstance()->getElapsedTime() / 1000;
                 float rotationAngle = rotationSpeed * (float)(now - _lastTime);
 
-                Matrix rotation = MatrixRotateXYZ((Vector3){ 0, DEG2RAD * rotationAngle, 0 });
+                Matrix rotation = MatrixRotateXYZ(Vector3{ 0, DEG2RAD * rotationAngle, 0 });
                 Vector3 test = MatrixToEuler(rotation);
                 engine::rotate(_entity, test);
                 _lastTime = now;

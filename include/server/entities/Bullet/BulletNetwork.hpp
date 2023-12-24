@@ -26,8 +26,9 @@ namespace server {
             {
                 double now = engine::Engine::getInstance()->getElapsedTime() / 1000;
 
-                if (now - _lastUpdate < 1.0 / 60.0)
+                if (now - _lastUpdate < 1.0 / 60) {
                     return;
+                }
 
                 _lastUpdate = now;
 

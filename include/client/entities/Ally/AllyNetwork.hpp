@@ -15,8 +15,8 @@ namespace client {
 
     class AllyNetwork : public ecs::components::behaviour::NetworkBehaviour<client::NetClient> {
         public:
-            explicit AllyNetwork(client::NetClient& networkManager)
-                : NetworkBehaviour(networkManager)
+            explicit AllyNetwork(client::NetClient& networkManager, uint32_t netId = 0)
+                : NetworkBehaviour(networkManager, netId)
             {
                 _networkManager.registerResponse({
                     {common::NetworkMessage::serverUpdateShipPosition, [this](rtype::net::Message<common::NetworkMessage> msg) {
@@ -43,13 +43,13 @@ namespace client {
             void onUpdatePosition(rtype::net::Message<common::NetworkMessage>& msg)
             {
                 common::game::netbody::ServerUpdateShipPosition body;
-                auto &allyBody = _coord->getComponent<ecs::components::physics::rigidBody_t>(_entity);
+                auto &allyBody = _coord->getComponent<ecs::components::physics::transform_t>(_entity);
                 msg >> body;
 
                 if (body.entityNetId != getNetId())
                     return;
 
-                allyBody.velocity = body.pos;
+                allyBody.pos = body.pos;
             }
 
             void onDamageReceive(rtype::net::Message<common::NetworkMessage>& msg)

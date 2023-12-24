@@ -9,11 +9,6 @@
 
 #include "common.hpp"
 
-#include <boost/serialization/vector.hpp>
-#include <boost/serialization/unique_ptr.hpp>
-#include <boost/archive/binary_oarchive.hpp>
-#include <boost/archive/binary_iarchive.hpp>
-
 namespace rtype::net {
     /**
      * @brief Message Header is sent at start of all messages. The template allows us

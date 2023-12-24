@@ -2,7 +2,7 @@
   "dependencies": [
     {
       "name": "raylib",
-      "platform": "(windows & x64 & static)"
+      "platform": "windows"
     },
     {
       "name": "boost-asio"

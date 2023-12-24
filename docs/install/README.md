@@ -40,7 +40,9 @@ After installing CMake, you can proceed with building the project.
 2. Open a command prompt and navigate to the project root directory.
 3. Run the following commands:
    ```bash
+   git submodule init
    git pull --recurse-submodules
+   .\vcpkg\bootstrap-vcpkg.bat
    .\vcpkg\vcpkg integrate install
    cmake -B build
    cmake --build build
@@ -52,6 +54,7 @@ After installing CMake, you can proceed with building the project.
 2. Open a terminal and navigate to the project root directory.
 3. Run the following commands:
     ```bash
+    git submodule init
     git pull --recurse-submodules
     cmake -B build
     cmake --build build

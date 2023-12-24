@@ -35,7 +35,36 @@ namespace server {
                             onPlayerFireBullet(client, msg);
                         }
                     },
+                    {
+                        common::NetworkMessage::clientConnect,
+                        [this](std::shared_ptr<rtype::net::Connection<common::NetworkMessage>> client, rtype::net::Message<common::NetworkMessage> msg) {
+                            onClientConnect(client, msg);
+                        }
+                    },
                 });
+            }
+
+            // Inform new players of this player's position
+            void onClientConnect(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, rtype::net::Message<common::NetworkMessage>& msg)
+            {
+                rtype::net::Message<common::NetworkMessage> resMsg;
+                resMsg.header.id = common::NetworkMessage::serverAllyConnect;
+
+                auto& transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_entity);
+
+                //auto &model = engine::Engine::getInstance()->getComponent<ecs::components::Model3D>(ship);
+
+                common::game::netbody::ServerAllyConnect body = {
+                    .entityNetId = _entity,
+                    .name = "Jean-Michel", // TODO: get name of player
+                    .shipName = common::game::ObjectName::DualStriker, // TODO: get ship name from entity
+                    .pos = transform.pos,
+                };
+
+                resMsg << body;
+
+
+                _networkManager.messageClient(client, resMsg);
             }
 
             void onUpdatePlayerDirection(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, rtype::net::Message<common::NetworkMessage>& msg)

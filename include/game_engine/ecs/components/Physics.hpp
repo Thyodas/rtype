@@ -7,9 +7,10 @@
 
 #pragma once
 
+#include "my_raylib.h"
+
 #include "./Shapes.hpp"
 
-#include "my_raylib.h"
 #include <memory>
 
 namespace ecs {
