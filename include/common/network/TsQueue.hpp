@@ -9,8 +9,6 @@
 
 #include "common.hpp"
 
-#include <boost/lockfree/queue.hpp>
-
 namespace rtype::net {
     template<typename T>
     class TsQueue {

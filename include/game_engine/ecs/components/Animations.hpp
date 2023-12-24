@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "raylib.h"
+#include "my_raylib.h"
 
 namespace ecs {
     namespace components {

@@ -9,7 +9,7 @@
 
 #include "./Shapes.hpp"
 
-#include "raylib.h"
+#include "my_raylib.h"
 #include <memory>
 
 namespace ecs {
