@@ -161,9 +161,9 @@ $(document).ready(function(){initNavTree('client_2entities_2_player_2_player_net
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                msg.header.id = common::NetworkMessage::clientUpdatePlayerDirection;</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                <a class="code hl_struct" href="structcommon_1_1game_1_1netbody_1_1_client_update_player_direction.html">common::game::netbody::ClientUpdatePlayerDirection</a> body = {</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                    .direction = direction,</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                    direction</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                };</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                msg &lt;&lt; direction;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                msg &lt;&lt; body;</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                _networkManager.<a class="code hl_function" href="classrtype_1_1net_1_1_client_interface.html#a7a374a91e92970a6e7e891b385bb4394">send</a>(msg);</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            }</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
@@ -239,7 +239,8 @@ $(document).ready(function(){initNavTree('client_2entities_2_player_2_player_net
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span><span class="comment">                }*/</span></div>
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            }</div>
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    };</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>}</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>}</div>
 <div class="ttc" id="aclassclient_1_1_net_client_html"><div class="ttname"><a href="classclient_1_1_net_client.html">client::NetClient</a></div><div class="ttdef"><b>Definition:</b> NetClient.hpp:23</div></div>
 <div class="ttc" id="aclassclient_1_1_player_network_html"><div class="ttname"><a href="classclient_1_1_player_network.html">client::PlayerNetwork</a></div><div class="ttdef"><b>Definition:</b> PlayerNetwork.hpp:16</div></div>
 <div class="ttc" id="aclassecs_1_1components_1_1behaviour_1_1_network_behaviour_html"><div class="ttname"><a href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html">ecs::components::behaviour::NetworkBehaviour</a></div><div class="ttdef"><b>Definition:</b> NetworkBehaviour.hpp:26</div></div>
