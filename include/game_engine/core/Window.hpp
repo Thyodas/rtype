@@ -8,7 +8,6 @@
 #pragma once
 
 #include "my_raylib.h"
-#include "common/math/vectors/Vec2.hpp"
 #include <iostream>
 
 namespace engine {
