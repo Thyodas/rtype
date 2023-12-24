@@ -91,11 +91,6 @@ $(document).ready(function(){initNavTree('classecs_1_1system_1_1_physics_system.
   <div class="headertitle"><div class="title">ecs::system::PhysicsSystem Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p><a class="el" href="classecs_1_1system_1_1_system.html" title="Base class for systems in an ECS (Entity-Component-System) architecture.">System</a> responsible for updating the positions of entities based on their physical properties.  
- <a href="classecs_1_1system_1_1_physics_system.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="systems_2_physics_8hpp_source.html">Physics.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for ecs::system::PhysicsSystem:</div>
 <div class="dyncontent">
@@ -103,52 +98,34 @@ Inheritance diagram for ecs::system::PhysicsSystem:</div>
   <img src="classecs_1_1system_1_1_physics_system.png" usemap="#ecs::system::PhysicsSystem_map" alt=""/>
   <map id="ecs::system::PhysicsSystem_map" name="ecs::system::PhysicsSystem_map">
 <area href="classecs_1_1system_1_1_system.html" title="Base class for systems in an ECS (Entity-Component-System) architecture." alt="ecs::system::System" shape="rect" coords="0,0,166,24"/>
+<area href="classecs_1_1system_1_1_system.html" title="Base class for systems in an ECS (Entity-Component-System) architecture." alt="ecs::system::System" shape="rect" coords="176,0,342,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7b842d0c7b8a3f61ef886a15870d2694"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classecs_1_1system_1_1_physics_system.html#a7b842d0c7b8a3f61ef886a15870d2694">updatePosition</a> ()</td></tr>
-<tr class="memdesc:a7b842d0c7b8a3f61ef886a15870d2694"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the position of all entities with physics components.  <a href="classecs_1_1system_1_1_physics_system.html#a7b842d0c7b8a3f61ef886a15870d2694">More...</a><br /></td></tr>
+<tr class="memitem:aad57b9be10bb16a112d8cec46f7eed16"><td class="memItemLeft" align="right" valign="top"><a id="aad57b9be10bb16a112d8cec46f7eed16" name="aad57b9be10bb16a112d8cec46f7eed16"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>updatePosition</b> (float dt)</td></tr>
+<tr class="separator:aad57b9be10bb16a112d8cec46f7eed16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b842d0c7b8a3f61ef886a15870d2694"><td class="memItemLeft" align="right" valign="top"><a id="a7b842d0c7b8a3f61ef886a15870d2694" name="a7b842d0c7b8a3f61ef886a15870d2694"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>updatePosition</b> ()</td></tr>
 <tr class="separator:a7b842d0c7b8a3f61ef886a15870d2694"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_attribs_classecs_1_1system_1_1_system"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classecs_1_1system_1_1_system')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classecs_1_1system_1_1_system.html">ecs::system::System</a></td></tr>
-<tr class="memitem:a5f84447b5e26269657b4be579513f865 inherit pub_attribs_classecs_1_1system_1_1_system"><td class="memItemLeft" align="right" valign="top"><a id="a5f84447b5e26269657b4be579513f865" name="a5f84447b5e26269657b4be579513f865"></a>
+<tr class="memitem:a847135f59386967a024af6a3c6c0bdb4 inherit pub_attribs_classecs_1_1system_1_1_system"><td class="memItemLeft" align="right" valign="top"><a id="a847135f59386967a024af6a3c6c0bdb4" name="a847135f59386967a024af6a3c6c0bdb4"></a>
 std::set&lt; Entity &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_entities</b></td></tr>
-<tr class="separator:a5f84447b5e26269657b4be579513f865 inherit pub_attribs_classecs_1_1system_1_1_system"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a847135f59386967a024af6a3c6c0bdb4 inherit pub_attribs_classecs_1_1system_1_1_system"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_attribs_classecs_1_1system_1_1_system"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_classecs_1_1system_1_1_system')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="classecs_1_1system_1_1_system.html">ecs::system::System</a></td></tr>
 <tr class="memitem:a09e0c8c339686e2dc4615bee3de2a256 inherit pub_static_attribs_classecs_1_1system_1_1_system"><td class="memItemLeft" align="right" valign="top"><a id="a09e0c8c339686e2dc4615bee3de2a256" name="a09e0c8c339686e2dc4615bee3de2a256"></a>
 static std::shared_ptr&lt; <a class="el" href="classecs_1_1_coordinator.html">ecs::Coordinator</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_coord</b> = nullptr</td></tr>
 <tr class="separator:a09e0c8c339686e2dc4615bee3de2a256 inherit pub_static_attribs_classecs_1_1system_1_1_system"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p ><a class="el" href="classecs_1_1system_1_1_system.html" title="Base class for systems in an ECS (Entity-Component-System) architecture.">System</a> responsible for updating the positions of entities based on their physical properties. </p>
-<p >Inherits from the base <a class="el" href="classecs_1_1system_1_1_system.html" title="Base class for systems in an ECS (Entity-Component-System) architecture.">System</a> class. This system updates the position of entities in the game world, taking into account their current velocities, forces, and other physical attributes. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a7b842d0c7b8a3f61ef886a15870d2694" name="a7b842d0c7b8a3f61ef886a15870d2694"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b842d0c7b8a3f61ef886a15870d2694">&#9670;&nbsp;</a></span>updatePosition()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ecs::system::PhysicsSystem::updatePosition </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Updates the position of all entities with physics components. </p>
-<p >This method calculates and applies the necessary positional changes to entities based on their physics attributes such as velocity and applied forces. </p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/game_engine/ecs/systems/<a class="el" href="systems_2_physics_8hpp_source.html">Physics.hpp</a></li>
+<li>include/common/ecs/systems/<a class="el" href="common_2ecs_2systems_2_physics_8hpp_source.html">Physics.hpp</a></li>
+<li>include/game_engine/ecs/systems/<a class="el" href="game__engine_2ecs_2systems_2_physics_8hpp_source.html">Physics.hpp</a></li>
+<li>src/common/ecs/systems/Physics.cpp</li>
 <li>src/game_engine/ecs/systems/Physics.cpp</li>
 </ul>
 </div><!-- contents -->

@@ -95,10 +95,33 @@ $(document).ready(function(){initNavTree('classecs_1_1components_1_1_component_m
 <p>Manages the registration and handling of components in an ECS architecture.  
  <a href="classecs_1_1components_1_1_component_manager.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="_components_8hpp_source.html">Components.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="common_2ecs_2_components_8hpp_source.html">Components.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a5024db583b6688e79dfe6ec14bb686c2"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a5024db583b6688e79dfe6ec14bb686c2"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classecs_1_1components_1_1_component_manager.html#a5024db583b6688e79dfe6ec14bb686c2">registerComponent</a> ()</td></tr>
+<tr class="memdesc:a5024db583b6688e79dfe6ec14bb686c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a new component type in the system.  <a href="classecs_1_1components_1_1_component_manager.html#a5024db583b6688e79dfe6ec14bb686c2">More...</a><br /></td></tr>
+<tr class="separator:a5024db583b6688e79dfe6ec14bb686c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab448e9df5707337fdce179d16d25caf7"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ab448e9df5707337fdce179d16d25caf7"><td class="memTemplItemLeft" align="right" valign="top">ComponentType&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classecs_1_1components_1_1_component_manager.html#ab448e9df5707337fdce179d16d25caf7">getComponentType</a> ()</td></tr>
+<tr class="memdesc:ab448e9df5707337fdce179d16d25caf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the ComponentType ID for a specific component type.  <a href="classecs_1_1components_1_1_component_manager.html#ab448e9df5707337fdce179d16d25caf7">More...</a><br /></td></tr>
+<tr class="separator:ab448e9df5707337fdce179d16d25caf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea12a6ad8dc7c941e0d5091365f76b7b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aea12a6ad8dc7c941e0d5091365f76b7b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classecs_1_1components_1_1_component_manager.html#aea12a6ad8dc7c941e0d5091365f76b7b">addComponent</a> (Entity entity, T component)</td></tr>
+<tr class="memdesc:aea12a6ad8dc7c941e0d5091365f76b7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a component of a specific type to an entity.  <a href="classecs_1_1components_1_1_component_manager.html#aea12a6ad8dc7c941e0d5091365f76b7b">More...</a><br /></td></tr>
+<tr class="separator:aea12a6ad8dc7c941e0d5091365f76b7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a878641bd6dea04d5c089a02aeb07bc83"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a878641bd6dea04d5c089a02aeb07bc83"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classecs_1_1components_1_1_component_manager.html#a878641bd6dea04d5c089a02aeb07bc83">removeComponent</a> (Entity entity)</td></tr>
+<tr class="memdesc:a878641bd6dea04d5c089a02aeb07bc83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a component of a specific type from an entity.  <a href="classecs_1_1components_1_1_component_manager.html#a878641bd6dea04d5c089a02aeb07bc83">More...</a><br /></td></tr>
+<tr class="separator:a878641bd6dea04d5c089a02aeb07bc83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac220dd70aabece11f5643983d0cb7845"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ac220dd70aabece11f5643983d0cb7845"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classecs_1_1components_1_1_component_manager.html#ac220dd70aabece11f5643983d0cb7845">getComponent</a> (Entity entity)</td></tr>
+<tr class="memdesc:ac220dd70aabece11f5643983d0cb7845"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a reference to a component of a specific type from an entity.  <a href="classecs_1_1components_1_1_component_manager.html#ac220dd70aabece11f5643983d0cb7845">More...</a><br /></td></tr>
+<tr class="separator:ac220dd70aabece11f5643983d0cb7845"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4184b8522d8c102e2ac51fc2a4282dbd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classecs_1_1components_1_1_component_manager.html#a4184b8522d8c102e2ac51fc2a4282dbd">entityDestroyed</a> (Entity entity)</td></tr>
+<tr class="memdesc:a4184b8522d8c102e2ac51fc2a4282dbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the destruction of an entity by ensuring all associated components are removed.  <a href="classecs_1_1components_1_1_component_manager.html#a4184b8522d8c102e2ac51fc2a4282dbd">More...</a><br /></td></tr>
+<tr class="separator:a4184b8522d8c102e2ac51fc2a4282dbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5024db583b6688e79dfe6ec14bb686c2"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a5024db583b6688e79dfe6ec14bb686c2"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classecs_1_1components_1_1_component_manager.html#a5024db583b6688e79dfe6ec14bb686c2">registerComponent</a> ()</td></tr>
 <tr class="memdesc:a5024db583b6688e79dfe6ec14bb686c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a new component type in the system.  <a href="classecs_1_1components_1_1_component_manager.html#a5024db583b6688e79dfe6ec14bb686c2">More...</a><br /></td></tr>
@@ -128,7 +151,7 @@ Public Member Functions</h2></td></tr>
 <p >The <a class="el" href="classecs_1_1components_1_1_component_manager.html" title="Manages the registration and handling of components in an ECS architecture.">ComponentManager</a> is responsible for managing different types of components in the ECS framework. It allows the registration of component types, adding and removing components to entities, and accessing components of entities. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a5024db583b6688e79dfe6ec14bb686c2" name="a5024db583b6688e79dfe6ec14bb686c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5024db583b6688e79dfe6ec14bb686c2">&#9670;&nbsp;</a></span>registerComponent()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5024db583b6688e79dfe6ec14bb686c2">&#9670;&nbsp;</a></span>registerComponent() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -158,7 +181,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ab448e9df5707337fdce179d16d25caf7" name="ab448e9df5707337fdce179d16d25caf7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab448e9df5707337fdce179d16d25caf7">&#9670;&nbsp;</a></span>getComponentType()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab448e9df5707337fdce179d16d25caf7">&#9670;&nbsp;</a></span>getComponentType() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -188,7 +211,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="aea12a6ad8dc7c941e0d5091365f76b7b" name="aea12a6ad8dc7c941e0d5091365f76b7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea12a6ad8dc7c941e0d5091365f76b7b">&#9670;&nbsp;</a></span>addComponent()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aea12a6ad8dc7c941e0d5091365f76b7b">&#9670;&nbsp;</a></span>addComponent() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -235,7 +258,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a878641bd6dea04d5c089a02aeb07bc83" name="a878641bd6dea04d5c089a02aeb07bc83"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a878641bd6dea04d5c089a02aeb07bc83">&#9670;&nbsp;</a></span>removeComponent()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a878641bd6dea04d5c089a02aeb07bc83">&#9670;&nbsp;</a></span>removeComponent() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -271,7 +294,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ac220dd70aabece11f5643983d0cb7845" name="ac220dd70aabece11f5643983d0cb7845"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac220dd70aabece11f5643983d0cb7845">&#9670;&nbsp;</a></span>getComponent()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac220dd70aabece11f5643983d0cb7845">&#9670;&nbsp;</a></span>getComponent() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -308,7 +331,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a4184b8522d8c102e2ac51fc2a4282dbd" name="a4184b8522d8c102e2ac51fc2a4282dbd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4184b8522d8c102e2ac51fc2a4282dbd">&#9670;&nbsp;</a></span>entityDestroyed()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4184b8522d8c102e2ac51fc2a4282dbd">&#9670;&nbsp;</a></span>entityDestroyed() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -341,8 +364,223 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/game_engine/ecs/<a class="el" href="_components_8hpp_source.html">Components.hpp</a></li>
+<a id="a5024db583b6688e79dfe6ec14bb686c2" name="a5024db583b6688e79dfe6ec14bb686c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5024db583b6688e79dfe6ec14bb686c2">&#9670;&nbsp;</a></span>registerComponent() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ecs::components::ComponentManager::registerComponent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Registers a new component type in the system. </p>
+<p >Each component type is associated with a unique ComponentType ID and a <a class="el" href="classecs_1_1components_1_1_component_array.html">ComponentArray</a> to manage instances of the component. </p>
+
+</div>
+</div>
+<a id="ab448e9df5707337fdce179d16d25caf7" name="ab448e9df5707337fdce179d16d25caf7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab448e9df5707337fdce179d16d25caf7">&#9670;&nbsp;</a></span>getComponentType() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ComponentType ecs::components::ComponentManager::getComponentType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieves the ComponentType ID for a specific component type. </p>
+<dl class="section return"><dt>Returns</dt><dd>ComponentType - The unique ID associated with the component type. </dd></dl>
+
+</div>
+</div>
+<a id="aea12a6ad8dc7c941e0d5091365f76b7b" name="aea12a6ad8dc7c941e0d5091365f76b7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea12a6ad8dc7c941e0d5091365f76b7b">&#9670;&nbsp;</a></span>addComponent() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ecs::components::ComponentManager::addComponent </td>
+          <td>(</td>
+          <td class="paramtype">Entity&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>component</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds a component of a specific type to an entity. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>- The entity to which the component will be added. </td></tr>
+    <tr><td class="paramname">component</td><td>- The component to add to the entity. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a878641bd6dea04d5c089a02aeb07bc83" name="a878641bd6dea04d5c089a02aeb07bc83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a878641bd6dea04d5c089a02aeb07bc83">&#9670;&nbsp;</a></span>removeComponent() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ecs::components::ComponentManager::removeComponent </td>
+          <td>(</td>
+          <td class="paramtype">Entity&#160;</td>
+          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes a component of a specific type from an entity. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>- The entity from which the component will be removed. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac220dd70aabece11f5643983d0cb7845" name="ac220dd70aabece11f5643983d0cb7845"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac220dd70aabece11f5643983d0cb7845">&#9670;&nbsp;</a></span>getComponent() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T &amp; ecs::components::ComponentManager::getComponent </td>
+          <td>(</td>
+          <td class="paramtype">Entity&#160;</td>
+          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieves a reference to a component of a specific type from an entity. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>- The entity whose component is to be retrieved. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>T&amp; - A reference to the requested component. </dd></dl>
+
+</div>
+</div>
+<a id="a4184b8522d8c102e2ac51fc2a4282dbd" name="a4184b8522d8c102e2ac51fc2a4282dbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4184b8522d8c102e2ac51fc2a4282dbd">&#9670;&nbsp;</a></span>entityDestroyed() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ecs::components::ComponentManager::entityDestroyed </td>
+          <td>(</td>
+          <td class="paramtype">Entity&#160;</td>
+          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Handles the destruction of an entity by ensuring all associated components are removed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>- The entity that has been destroyed. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/common/ecs/<a class="el" href="common_2ecs_2_components_8hpp_source.html">Components.hpp</a></li>
+<li>include/game_engine/ecs/<a class="el" href="game__engine_2ecs_2_components_8hpp_source.html">Components.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
