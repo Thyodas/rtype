@@ -1,0 +1,53 @@
+name: Create release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update_release_draft:
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    name: Update release draft
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+      - uses: release-drafter/release-drafter@v5
+        id: create_release
+        with:
+          commitish: main # according to this issue: https://github.com/release-drafter/release-drafter/issues/1125#issuecomment-1471142225
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  execute_tests_build:
+    uses: ./.github/workflows/test-build-old.yaml
+    name: Execute tests and build
+
+  upload_binary:
+    runs-on: ubuntu-latest
+    needs:
+      - update_release_draft
+      - execute_tests_build
+    name: Upload binary to release draft
+    steps:
+      - name: Download Compiled Binary Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: rtype-exe
+
+      - name: Generate Unique Asset Name
+        id: unique-asset-name
+        run: echo "ASSET_NAME=rtype $(TZ=Europe/Paris date +'(%d/%m/%Y %H:%M:%S %Z)').bin" >> $GITHUB_ENV
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.update_release_draft.outputs.upload_url }}
+          asset_path: ./rtype-exe
+          asset_name: ${{ env.ASSET_NAME }}
+          asset_content_type: application/octet-stream

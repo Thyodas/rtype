@@ -149,3 +149,15 @@ B-CPP-500_rtype.pdf
 build/
 
 vcpkg*/
+
+_deps/
+
+client
+
+CPackConfig.cmake
+
+CPackSourceConfig.cmake
+
+Makefile
+
+server
