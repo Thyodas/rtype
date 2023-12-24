@@ -12,6 +12,8 @@
 #include "Message.hpp"
 #include "Connection.hpp"
 
+#include <unordered_map>
+
 namespace rtype::net {
     template<typename T>
     class ServerInterface {

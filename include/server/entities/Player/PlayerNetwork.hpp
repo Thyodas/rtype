@@ -40,29 +40,23 @@ namespace server {
 
                 auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(_entity);
 
-                if (body.direction.x > 0) {
-                    rigidBody.velocity.x = 1 * PLAYER_SPEED;
-                } else if (body.direction.x < 0) {
-                    rigidBody.velocity.x = -1 * PLAYER_SPEED;
-                }
-                if (body.direction.y > 0) {
-                    rigidBody.velocity.y = 1 * PLAYER_SPEED;
-                } else if (body.direction.y < 0) {
-                    rigidBody.velocity.y = -1 * PLAYER_SPEED;
-                }
-                if (body.direction.z > 0) {
-                    rigidBody.velocity.z = 1 * PLAYER_SPEED;
-                } else if (body.direction.z < 0) {
-                    rigidBody.velocity.z = -1 * PLAYER_SPEED;
-                }
-
-                //std::cout << "Player " << getNetId() << " direction: " << rigidBody.velocity.x << ", " << rigidBody.velocity.y << ", " << rigidBody.velocity.z << std::endl;
+                rigidBody.velocity.x = PLAYER_SPEED * std::nearbyintf(std::clamp(body.direction.x, -1.0f, 1.0f));
+                rigidBody.velocity.y = PLAYER_SPEED * std::nearbyintf(std::clamp(body.direction.y, -1.0f, 1.0f));
+                rigidBody.velocity.z = PLAYER_SPEED * std::nearbyintf(std::clamp(body.direction.z, -1.0f, 1.0f));
             }
 
             void update() override
             {
-                _networkManager.allServerUpdateShipPosition(_entity);
+                auto &transf = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_entity);
+
+                if (transf.pos.x != _lastPos.x || transf.pos.y != _lastPos.y || transf.pos.z != _lastPos.z) {
+                    _networkManager.allServerUpdateShipPosition(_entity);
+                    _lastPos = transf.pos;
+                }
             }
+
+        protected:
+            Vector3 _lastPos = {0, 0, 0};
 
 
     };

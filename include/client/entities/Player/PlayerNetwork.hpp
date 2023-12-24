@@ -67,9 +67,11 @@ namespace client {
                 _coord->destroyEntity(_entity);
             }
 
-            void updateDirection(const Vector3& direction) const
+            void updateDirectionOnChange(const Vector3& direction)
             {
-                _networkManager.reqPingServer();
+                if (_lastDirection.x == direction.x && _lastDirection.y == direction.y && _lastDirection.z == direction.z)
+                    return;
+                _lastDirection = direction;
                 rtype::net::Message<common::NetworkMessage> msg;
 
                 msg.header.id = common::NetworkMessage::clientUpdatePlayerDirection;
@@ -77,6 +79,7 @@ namespace client {
                     .direction = direction,
                 };
                 msg << body;
+                std::cout << "move: " << direction.x << direction.y << direction.z  << msg << std::endl;
                 _networkManager.send(msg);
             }
 
@@ -110,7 +113,7 @@ namespace client {
 
             void update() override
             {
-                Vector3 direction = {0};
+                Vector3 direction = {0, 0, 0};
                 if (IsKeyDown(KEY_D)) {
                     // velocity.x += 0.1f;
                     // velocity.z -= 0.1f;
@@ -131,7 +134,7 @@ namespace client {
                     // velocity.z += 0.2f;
                     direction.y = -1;
                 }
-                updateDirection(direction);
+                updateDirectionOnChange(direction);
 
                 if (IsKeyDown(KEY_SPACE)) {
                     fireBullet();
@@ -145,6 +148,10 @@ namespace client {
                     Vector3 scale = {2, 1, 1};
                     engine::scale(_entity, scale);
                 }*/
+
+
             }
+        protected:
+            Vector3 _lastDirection{0, 0, 0};
     };
 }

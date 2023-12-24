@@ -26,13 +26,10 @@ namespace ecs {
                 elapsedTime -= body.velocityLastUpdate;
 
                 transf.pos.x += body.velocity.x * elapsedTime;
-                body.velocity.x = 0;
 
                 transf.pos.y += body.velocity.y * elapsedTime;
-                body.velocity.y = 0;
 
                 transf.pos.z += body.velocity.z * elapsedTime;
-                body.velocity.z = 0;
                 Matrix translate = MatrixTranslate(transf.pos.x, transf.pos.y, transf.pos.z);
                 collider.matTranslate = translate;
                 CollisionResponse::updateColliderGlobalVerts(collider);
