@@ -133,9 +133,9 @@ $(document).ready(function(){initNavTree('_skybox_behavior_8hpp_source.html','')
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                <span class="keywordflow">return</span> euler;</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            }</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            <span class="keywordtype">void</span> update()<span class="keyword"> override</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="classclient_1_1_skybox_behavior.html#aebf68349fc68d6bc81c56ed3ad6ee8ad">   46</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classclient_1_1_skybox_behavior.html#aebf68349fc68d6bc81c56ed3ad6ee8ad">update</a>()<span class="keyword"> override</span></div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">            </span>{</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                <span class="keywordtype">double</span> now = engine::Engine::getInstance()-&gt;getElapsedTime() / 1000;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                <span class="keywordtype">double</span> now = engine::Engine::getInstance()-&gt;<a class="code hl_function" href="classengine_1_1_engine.html#aeef234f6dc764a620ebbeb57924be12a">getElapsedTime</a>() / 1000;</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                <span class="keywordtype">float</span> rotationAngle = rotationSpeed * (float)(now - _lastTime);</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                Matrix rotation = MatrixRotateXYZ((Vector3){ 0, DEG2RAD * rotationAngle, 0 });</div>
@@ -149,7 +149,9 @@ $(document).ready(function(){initNavTree('_skybox_behavior_8hpp_source.html','')
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    };</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
 <div class="ttc" id="aclassclient_1_1_skybox_behavior_html"><div class="ttname"><a href="classclient_1_1_skybox_behavior.html">client::SkyboxBehavior</a></div><div class="ttdef"><b>Definition:</b> SkyboxBehavior.hpp:16</div></div>
-<div class="ttc" id="aclassecs_1_1components_1_1behaviour_1_1_behaviour_html"><div class="ttname"><a href="classecs_1_1components_1_1behaviour_1_1_behaviour.html">ecs::components::behaviour::Behaviour</a></div><div class="ttdef"><b>Definition:</b> Behaviour.hpp:20</div></div>
+<div class="ttc" id="aclassclient_1_1_skybox_behavior_html_aebf68349fc68d6bc81c56ed3ad6ee8ad"><div class="ttname"><a href="classclient_1_1_skybox_behavior.html#aebf68349fc68d6bc81c56ed3ad6ee8ad">client::SkyboxBehavior::update</a></div><div class="ttdeci">void update() override</div><div class="ttdoc">Abstract method to be implemented by derived classes for updating the behaviour.</div><div class="ttdef"><b>Definition:</b> SkyboxBehavior.hpp:46</div></div>
+<div class="ttc" id="aclassecs_1_1components_1_1behaviour_1_1_behaviour_html"><div class="ttname"><a href="classecs_1_1components_1_1behaviour_1_1_behaviour.html">ecs::components::behaviour::Behaviour</a></div><div class="ttdoc">Abstract class representing a behaviour component, akin to Unity's behaviour scripts.</div><div class="ttdef"><b>Definition:</b> Behaviour.hpp:29</div></div>
+<div class="ttc" id="aclassengine_1_1_engine_html_aeef234f6dc764a620ebbeb57924be12a"><div class="ttname"><a href="classengine_1_1_engine.html#aeef234f6dc764a620ebbeb57924be12a">engine::Engine::getElapsedTime</a></div><div class="ttdeci">double getElapsedTime() const</div><div class="ttdoc">Gets the elapsed time since the engine started.</div><div class="ttdef"><b>Definition:</b> GameEngine.hpp:110</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
