@@ -6,6 +6,9 @@
     },
     {
       "name": "boost-asio"
+    },
+    {
+      "name": "boost-serialization"
     }
   ]
 }
