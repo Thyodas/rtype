@@ -16,8 +16,8 @@
 #include "raylib.h"
 #include <vector>
 
-#include "client/entities/Entity.hpp"
-#include "client/utils/Chrono.hpp"
+#include "common/game/entities/Entity.hpp"
+#include "client/core/NetClient.hpp"
 
 namespace client {
     class Client {
@@ -27,7 +27,8 @@ namespace client {
 
             void run();
         private:
-            std::vector<client::Entity> _entities;
-            client::IClock *_clock;
+            std::vector<common::game::Entity> _entities;
+            NetClient _netClient;
+
     };
 }

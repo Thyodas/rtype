@@ -15,9 +15,13 @@ namespace engine {
 
     Engine *Engine::engine = nullptr;
     std::mutex Engine::_mutex;
-    void Engine::init()
+    void Engine::init(bool disableRender)
     {
-        _window.setFPS(60);
+        _disableRender = disableRender;
+        if (!_disableRender) {
+            _window = std::make_shared<core::Window>();
+            _window->setFPS(60);
+        }
         _coordinator = std::make_shared<ecs::Coordinator>();
         _coordinator->init();
         _collisionResponseSystem = std::make_shared<ecs::system::CollisionResponse>(*_coordinator);
@@ -25,18 +29,24 @@ namespace engine {
         ecs::system::System::_coord = _coordinator;
 
         _coordinator->registerComponent<ecs::components::physics::transform_t>();
-        _coordinator->registerComponent<ecs::components::render::render_t>();
+        if (!_disableRender)
+            _coordinator->registerComponent<ecs::components::render::render_t>();
         _coordinator->registerComponent<std::shared_ptr<ecs::components::behaviour::Behaviour>>();
         _coordinator->registerComponent<ecs::components::physics::collider_t>();
         _coordinator->registerComponent<ecs::components::physics::rigidBody_t>();
         _coordinator->registerComponent<ecs::components::animations::animation_t>();
+        _coordinator->registerComponent<ecs::components::network::network_t>();
+        _coordinator->registerComponent<ecs::components::health::health_t>();
+        _coordinator->registerComponent<ecs::components::direction::direction_t>();
 
         ecs::Signature signaturePhysics;
         signaturePhysics.set(_coordinator->getComponentType<ecs::components::physics::transform_t>());
         signaturePhysics.set(_coordinator->getComponentType<ecs::components::physics::rigidBody_t>());
         ecs::Signature signatureRender;
-        signatureRender.set(_coordinator->getComponentType<ecs::components::physics::transform_t>());
-        signatureRender.set(_coordinator->getComponentType<ecs::components::render::render_t>());
+        if (!_disableRender) {
+            signatureRender.set(_coordinator->getComponentType<ecs::components::physics::transform_t>());
+            signatureRender.set(_coordinator->getComponentType<ecs::components::render::render_t>());
+        }
         ecs::Signature signatureBehaviour;
         signatureBehaviour.set(_coordinator->getComponentType<std::shared_ptr<ecs::components::behaviour::Behaviour>>());
         ecs::Signature signatureCollider;
@@ -48,8 +58,10 @@ namespace engine {
         _physicSystem = _coordinator->registerSystem<ecs::system::PhysicsSystem>();
         _coordinator->setSystemSignature<ecs::system::PhysicsSystem>(signaturePhysics);
 
-        _renderSystem = _coordinator->registerSystem<ecs::system::RenderSystem>();
-        _coordinator->setSystemSignature<ecs::system::RenderSystem>(signatureRender);
+        if (!_disableRender) {
+            _renderSystem = _coordinator->registerSystem<ecs::system::RenderSystem>();
+            _coordinator->setSystemSignature<ecs::system::RenderSystem>(signatureRender);
+        }
 
         _behaviourSystem = _coordinator->registerSystem<ecs::system::BehaviourSystem>();
         _coordinator->setSystemSignature<ecs::system::BehaviourSystem>(signatureBehaviour);
@@ -74,18 +86,20 @@ namespace engine {
         _animationSystem->handleAnimations();
         _collisionDetectionSystem->detectCollision();
         _coordinator->dispatchEvents();
-        _window.clear(BLACK);
+        if (_disableRender)
+            return;
+        _window->clear(BLACK);
         BeginDrawing();
-        BeginMode3D(_window.getCamera());
+        BeginMode3D(_window->getCamera());
         _renderSystem->render();
-        DrawGrid(20, 1.0f);
+        //DrawGrid(20, 1.0f);
         EndMode3D();
         EndDrawing();
     }
 
-    void initEngine()
+    void initEngine(bool disableRender)
     {
-        Engine::getInstance()->init();
+        Engine::getInstance()->init(disableRender);
     }
 
     void runEngine()
@@ -118,10 +132,12 @@ namespace engine {
             MatrixIdentity()};
         Matrix matTranslate = MatrixTranslate(pos.x, pos.y, pos.z);
         collider.matTranslate = MatrixMultiply(collider.matTranslate, matTranslate);
+        ecs::components::health::health_t health = {0};
         ecs::system::CollisionResponse::updateColliderGlobalVerts(collider);
         ecs::Entity entity = Engine::getInstance()->addEntity(transf, render);
         Engine::getInstance()->addComponent<ecs::components::physics::collider_t>(entity, collider);
         Engine::getInstance()->addComponent<ecs::components::physics::rigidBody_t>(entity, body);
+        Engine::getInstance()->addComponent<ecs::components::health::health_t>(entity, health);
         return entity;
     }
 
@@ -131,6 +147,22 @@ namespace engine {
         ecs::components::physics::transform_t transf = {pos, {0}, {0}};
         ecs::components::physics::rigidBody_t body = {0.0, {0}, {0}};
         ecs::components::render::render_t render = {ecs::components::ShapeType::MODEL, true, model};
+        ecs::components::health::health_t health = {0};
+        ecs::components::physics::collider_t collider = {ecs::components::ShapeType::MODEL, ecs::components::physics::CollisionType::COLLIDE, model};
+        ecs::Entity entity = Engine::getInstance()->addEntity(transf, render);
+        Engine::getInstance()->addComponent<ecs::components::physics::collider_t>(entity, collider);
+        Engine::getInstance()->addComponent<ecs::components::physics::rigidBody_t>(entity, body);
+        Engine::getInstance()->addComponent<ecs::components::health::health_t>(entity, health);
+        Engine::getInstance()->addComponent<ecs::components::direction::direction_t>(entity, {0, 0, 0});
+        return entity;
+    }
+
+    ecs::Entity createSkybox(const char *filename, Vector3 pos, Color color)
+    {
+        auto model = std::make_shared<ecs::components::Skybox>(filename);
+        ecs::components::physics::transform_t transf = {pos, {0}, {0}};
+        ecs::components::render::render_t render = {ecs::components::ShapeType::MODEL, true, model};
+        ecs::components::physics::rigidBody_t body = {0.0, {0}, {0}};
         ecs::components::physics::collider_t collider = {ecs::components::ShapeType::MODEL, ecs::components::physics::CollisionType::COLLIDE, model};
         ecs::Entity entity = Engine::getInstance()->addEntity(transf, render);
         Engine::getInstance()->addComponent<ecs::components::physics::collider_t>(entity, collider);
@@ -145,7 +177,7 @@ namespace engine {
         anim.animFrameCounter = 0;
         anim.model = draw.data->getModel();
         anim.animsCount = 0;
-        anim.anims = LoadModelAnimations(filename, (int *)&anim.animsCount);
+        anim.anims = LoadModelAnimations(filename, &anim.animsCount);
         Engine::getInstance()->addComponent<ecs::components::animations::animation_t>(entity, anim);
     }
 
