@@ -8,6 +8,7 @@ This document provides an overview of the project and instructions on how to bui
 - [Building the Project](#building-the-project)
   - [Dependencies](#dependencies)
   - [Building on Windows](#building-on-windows)
+    - [Installing CMake on Windows](#installing-cmake-on-windows)
   - [Building on Unix-like Systems](#building-on-unix-like-systems)
 - [Running the Project](#running-the-project)
   - [Server](#server)
@@ -25,15 +26,23 @@ The project relies on the following dependencies:
 
 - [Raylib 5.0](https://www.raylib.com/)
 - [Boost](https://www.boost.org/)
+- [CMake](https://cmake.org/) (for building the project)
 
 ### Building on Windows
 
+#### Installing CMake on Windows
+
+Before building the project, you need to install CMake. Follow the [CMake Installation Guide for Windows](#cmake-installation-guide-for-windows) to install CMake on your Windows machine.
+
+After installing CMake, you can proceed with building the project.
+
 1. Install Visual Studio.
-2. Install vcpkg by following the instructions [here](https://github.com/microsoft/vcpkg).
-3. Open a command prompt and navigate to the project root directory.
-4. Run the following commands:
+2. Open a command prompt and navigate to the project root directory.
+3. Run the following commands:
    ```bash
-   cmake -B build -DCMAKE_TOOLCHAIN_FILE=<path_to_vcpkg>\scripts\buildsystems\vcpkg.cmake
+   git pull --recurse-submodules
+   .\vcpkg\vcpkg integrate install
+   cmake -B build
    cmake --build build
     ```
 
@@ -43,7 +52,8 @@ The project relies on the following dependencies:
 2. Open a terminal and navigate to the project root directory.
 3. Run the following commands:
     ```bash
-    cmake -B build -DCMAKE_TOOLCHAIN_FILE=<path_to_vcpkg>/scripts/buildsystems/vcpkg.cmake
+    git pull --recurse-submodules
+    cmake -B build
     cmake --build build
     ```
 
