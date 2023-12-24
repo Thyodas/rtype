@@ -131,13 +131,14 @@ $(document).ready(function(){initNavTree('server_2entities_2_bullet_2_bullet_net
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                <a class="code hl_struct" href="structrtype_1_1net_1_1_message.html">rtype::net::Message&lt;common::NetworkMessage&gt;</a> msg;</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                msg.header.id = common::NetworkMessage::serverUpdateBulletPosition;</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                msg &lt;&lt; body;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                _networkManager.<a class="code hl_function" href="classrtype_1_1net_1_1_server_interface.html#ad1d9109ea220ff8dad16f1a67404bdf3">messageAllClients</a>(msg);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            }</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <span class="keywordtype">double</span> _lastUpdate = 0;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    };</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                std::cout &lt;&lt; <span class="stringliteral">&quot;Bullet Pos: &quot;</span> &lt;&lt; transform.pos.x &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; transform.pos.y &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; transform.pos.z &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                _networkManager.<a class="code hl_function" href="classrtype_1_1net_1_1_server_interface.html#ad1d9109ea220ff8dad16f1a67404bdf3">messageAllClients</a>(msg);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            }</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            <span class="keywordtype">double</span> _lastUpdate = 0;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    };</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>}</div>
 <div class="ttc" id="aclassecs_1_1components_1_1behaviour_1_1_network_behaviour_html"><div class="ttname"><a href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html">ecs::components::behaviour::NetworkBehaviour</a></div><div class="ttdef"><b>Definition:</b> NetworkBehaviour.hpp:26</div></div>
 <div class="ttc" id="aclassrtype_1_1net_1_1_server_interface_html_ad1d9109ea220ff8dad16f1a67404bdf3"><div class="ttname"><a href="classrtype_1_1net_1_1_server_interface.html#ad1d9109ea220ff8dad16f1a67404bdf3">rtype::net::ServerInterface::messageAllClients</a></div><div class="ttdeci">void messageAllClients(const Message&lt; T &gt; &amp;msg, std::shared_ptr&lt; Connection&lt; T &gt; &gt; pIgnoreClient=nullptr)</div><div class="ttdoc">Send a message to all clients.</div><div class="ttdef"><b>Definition:</b> Server.hpp:204</div></div>
 <div class="ttc" id="aclassserver_1_1_bullet_network_html"><div class="ttname"><a href="classserver_1_1_bullet_network.html">server::BulletNetwork</a></div><div class="ttdef"><b>Definition:</b> BulletNetwork.hpp:18</div></div>
