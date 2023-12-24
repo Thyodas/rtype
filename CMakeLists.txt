@@ -5,10 +5,6 @@ set(CMAKE_CXX_STANDARD 20)
 # PROJECT
 project(client CXX)
 
-# COMPILATION OPTIONS
-set(THREADS_PREFER_PTHREAD_FLAG ON)
-add_compile_options(-Wall -std=c++2a)
-
 # RUNNING VCPKG
 if(WIN32)
     include("${CMAKE_CURRENT_SOURCE_DIR}\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake")
