@@ -95,24 +95,10 @@ $(document).ready(function(){initNavTree('classecs_1_1system_1_1_system_manager.
 <p>Manages systems in the ECS architecture.  
  <a href="classecs_1_1system_1_1_system_manager.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="common_2ecs_2_system_8hpp_source.html">System.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="_system_8hpp_source.html">System.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab56f79ed2c3a4a51be272d865b1be6e8"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ab56f79ed2c3a4a51be272d865b1be6e8"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classecs_1_1system_1_1_system_manager.html#ab56f79ed2c3a4a51be272d865b1be6e8">registerSystem</a> ()</td></tr>
-<tr class="memdesc:ab56f79ed2c3a4a51be272d865b1be6e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a new system of type T in the ECS framework.  <a href="classecs_1_1system_1_1_system_manager.html#ab56f79ed2c3a4a51be272d865b1be6e8">More...</a><br /></td></tr>
-<tr class="separator:ab56f79ed2c3a4a51be272d865b1be6e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a219b5490ced9cca82da0465809e282e8"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a219b5490ced9cca82da0465809e282e8"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classecs_1_1system_1_1_system_manager.html#a219b5490ced9cca82da0465809e282e8">setSignature</a> (Signature signature)</td></tr>
-<tr class="memdesc:a219b5490ced9cca82da0465809e282e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the signature for a system.  <a href="classecs_1_1system_1_1_system_manager.html#a219b5490ced9cca82da0465809e282e8">More...</a><br /></td></tr>
-<tr class="separator:a219b5490ced9cca82da0465809e282e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e1ef9c8ae22af4e0e5653298e1342d1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classecs_1_1system_1_1_system_manager.html#a1e1ef9c8ae22af4e0e5653298e1342d1">entityDestroyed</a> (Entity entity)</td></tr>
-<tr class="memdesc:a1e1ef9c8ae22af4e0e5653298e1342d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the destruction of an entity by removing it from all systems.  <a href="classecs_1_1system_1_1_system_manager.html#a1e1ef9c8ae22af4e0e5653298e1342d1">More...</a><br /></td></tr>
-<tr class="separator:a1e1ef9c8ae22af4e0e5653298e1342d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0914cbe6383074e19d85c7719de5bc46"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classecs_1_1system_1_1_system_manager.html#a0914cbe6383074e19d85c7719de5bc46">entitySignatureChanged</a> (Entity entity, Signature entitySignature)</td></tr>
-<tr class="memdesc:a0914cbe6383074e19d85c7719de5bc46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the systems with an entity when its signature changes.  <a href="classecs_1_1system_1_1_system_manager.html#a0914cbe6383074e19d85c7719de5bc46">More...</a><br /></td></tr>
-<tr class="separator:a0914cbe6383074e19d85c7719de5bc46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab56f79ed2c3a4a51be272d865b1be6e8"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ab56f79ed2c3a4a51be272d865b1be6e8"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classecs_1_1system_1_1_system_manager.html#ab56f79ed2c3a4a51be272d865b1be6e8">registerSystem</a> ()</td></tr>
 <tr class="memdesc:ab56f79ed2c3a4a51be272d865b1be6e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a new system of type T in the ECS framework.  <a href="classecs_1_1system_1_1_system_manager.html#ab56f79ed2c3a4a51be272d865b1be6e8">More...</a><br /></td></tr>
@@ -133,7 +119,7 @@ Public Member Functions</h2></td></tr>
 <p >This class is responsible for registering systems, setting their signatures, and updating systems with relevant entities based on entity signature changes. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ab56f79ed2c3a4a51be272d865b1be6e8" name="ab56f79ed2c3a4a51be272d865b1be6e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab56f79ed2c3a4a51be272d865b1be6e8">&#9670;&nbsp;</a></span>registerSystem() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab56f79ed2c3a4a51be272d865b1be6e8">&#9670;&nbsp;</a></span>registerSystem()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -169,7 +155,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a219b5490ced9cca82da0465809e282e8" name="a219b5490ced9cca82da0465809e282e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a219b5490ced9cca82da0465809e282e8">&#9670;&nbsp;</a></span>setSignature() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a219b5490ced9cca82da0465809e282e8">&#9670;&nbsp;</a></span>setSignature()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -211,7 +197,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a1e1ef9c8ae22af4e0e5653298e1342d1" name="a1e1ef9c8ae22af4e0e5653298e1342d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e1ef9c8ae22af4e0e5653298e1342d1">&#9670;&nbsp;</a></span>entityDestroyed() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e1ef9c8ae22af4e0e5653298e1342d1">&#9670;&nbsp;</a></span>entityDestroyed()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -245,7 +231,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a0914cbe6383074e19d85c7719de5bc46" name="a0914cbe6383074e19d85c7719de5bc46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0914cbe6383074e19d85c7719de5bc46">&#9670;&nbsp;</a></span>entitySignatureChanged() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0914cbe6383074e19d85c7719de5bc46">&#9670;&nbsp;</a></span>entitySignatureChanged()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -289,166 +275,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ab56f79ed2c3a4a51be272d865b1be6e8" name="ab56f79ed2c3a4a51be272d865b1be6e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab56f79ed2c3a4a51be272d865b1be6e8">&#9670;&nbsp;</a></span>registerSystem() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt; T &gt; ecs::system::SystemManager::registerSystem </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Registers a new system of type T in the ECS framework. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>- The type of the system to be registered. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>std::shared_ptr&lt;T&gt; - Shared pointer to the newly registered system. </dd></dl>
-
-</div>
-</div>
-<a id="a219b5490ced9cca82da0465809e282e8" name="a219b5490ced9cca82da0465809e282e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a219b5490ced9cca82da0465809e282e8">&#9670;&nbsp;</a></span>setSignature() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ecs::system::SystemManager::setSignature </td>
-          <td>(</td>
-          <td class="paramtype">Signature&#160;</td>
-          <td class="paramname"><em>signature</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sets the signature for a system. </p>
-<p >The signature determines which entities the system will process based on their component makeup. </p><dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>- The type of the system for which the signature is being set. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">signature</td><td>- The signature to associate with the system. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a1e1ef9c8ae22af4e0e5653298e1342d1" name="a1e1ef9c8ae22af4e0e5653298e1342d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e1ef9c8ae22af4e0e5653298e1342d1">&#9670;&nbsp;</a></span>entityDestroyed() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ecs::system::SystemManager::entityDestroyed </td>
-          <td>(</td>
-          <td class="paramtype">Entity&#160;</td>
-          <td class="paramname"><em>entity</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Handles the destruction of an entity by removing it from all systems. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">entity</td><td>- The ID of the destroyed entity. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a0914cbe6383074e19d85c7719de5bc46" name="a0914cbe6383074e19d85c7719de5bc46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0914cbe6383074e19d85c7719de5bc46">&#9670;&nbsp;</a></span>entitySignatureChanged() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ecs::system::SystemManager::entitySignatureChanged </td>
-          <td>(</td>
-          <td class="paramtype">Entity&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Signature&#160;</td>
-          <td class="paramname"><em>entitySignature</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Updates the systems with an entity when its signature changes. </p>
-<p >This ensures that systems process only relevant entities based on their current components. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">entity</td><td>- The ID of the entity whose signature has changed. </td></tr>
-    <tr><td class="paramname">entitySignature</td><td>- The new signature of the entity. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/common/ecs/<a class="el" href="common_2ecs_2_system_8hpp_source.html">System.hpp</a></li>
-<li>include/game_engine/ecs/<a class="el" href="game__engine_2ecs_2_system_8hpp_source.html">System.hpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/game_engine/ecs/<a class="el" href="_system_8hpp_source.html">System.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

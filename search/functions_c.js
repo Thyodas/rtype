@@ -1,11 +1,10 @@
 var searchData=
 [
-  ['send_0',['send',['../classrtype_1_1net_1_1_client_interface.html#a7a374a91e92970a6e7e891b385bb4394',1,'rtype::net::ClientInterface::send()'],['../classrtype_1_1net_1_1_connection.html#aabe3247c95ff17b98975e428f8f971f7',1,'rtype::net::Connection::send()']]],
-  ['serverinterface_1',['ServerInterface',['../classrtype_1_1net_1_1_server_interface.html#a97d63a6071b67771c93dd529fe8355c9',1,'rtype::net::ServerInterface']]],
-  ['setsignature_2',['setSignature',['../classecs_1_1_entity_manager.html#aff12914e3dc6e93cfc25f87474b6c44d',1,'ecs::EntityManager::setSignature()'],['../classecs_1_1system_1_1_system_manager.html#a219b5490ced9cca82da0465809e282e8',1,'ecs::system::SystemManager::setSignature()'],['../classecs_1_1_entity_manager.html#aff12914e3dc6e93cfc25f87474b6c44d',1,'ecs::EntityManager::setSignature()'],['../classecs_1_1system_1_1_system_manager.html#a219b5490ced9cca82da0465809e282e8',1,'ecs::system::SystemManager::setSignature()']]],
-  ['setsystemsignature_3',['setSystemSignature',['../classecs_1_1_coordinator.html#abfa8b26113c1fdab820d730bc884cd61',1,'ecs::Coordinator::setSystemSignature(Signature signature)'],['../classecs_1_1_coordinator.html#abfa8b26113c1fdab820d730bc884cd61',1,'ecs::Coordinator::setSystemSignature(Signature signature)']]],
-  ['size_4',['size',['../structrtype_1_1net_1_1_message.html#a1a8c183f513d5ce90b43a8cfc9ef4a0f',1,'rtype::net::Message']]],
-  ['start_5',['start',['../classrtype_1_1net_1_1_server_interface.html#abcece60d70c51345a94cc8d1541236ce',1,'rtype::net::ServerInterface']]],
-  ['startlistening_6',['startListening',['../classrtype_1_1net_1_1_connection.html#aa866ed2819eb2de097c186341b048a94',1,'rtype::net::Connection']]],
-  ['stop_7',['stop',['../classrtype_1_1net_1_1_server_interface.html#a63a833cb403a7fe4d1c91494ef4d6d6c',1,'rtype::net::ServerInterface']]]
+  ['registercomponent_0',['registerComponent',['../classecs_1_1components_1_1_component_manager.html#a5024db583b6688e79dfe6ec14bb686c2',1,'ecs::components::ComponentManager::registerComponent()'],['../classecs_1_1_coordinator.html#a83bb9e25266f02529bfead3db3ad336e',1,'ecs::Coordinator::registerComponent()']]],
+  ['registerlistener_1',['registerListener',['../classecs_1_1event_1_1_event_manager.html#a4d8b869fac5ea4d2fad3dbeda459b93b',1,'ecs::event::EventManager::registerListener()'],['../classengine_1_1_engine.html#ac614e22b9ce2e97f9b5b3fdeb82a5d03',1,'engine::Engine::registerListener()']]],
+  ['registersystem_2',['registerSystem',['../classecs_1_1_coordinator.html#a5dfbbc219c959351b5cd1cf3f4a0e4e8',1,'ecs::Coordinator::registerSystem()'],['../classecs_1_1system_1_1_system_manager.html#ab56f79ed2c3a4a51be272d865b1be6e8',1,'ecs::system::SystemManager::registerSystem()']]],
+  ['removecomponent_3',['removeComponent',['../classecs_1_1components_1_1_component_manager.html#a878641bd6dea04d5c089a02aeb07bc83',1,'ecs::components::ComponentManager::removeComponent()'],['../classecs_1_1_coordinator.html#a627903a7b6a351633f4ad59d610e03b5',1,'ecs::Coordinator::removeComponent()']]],
+  ['removedata_4',['removeData',['../classecs_1_1components_1_1_component_array.html#a45c34d28d02745989e46d72476a4989d',1,'ecs::components::ComponentArray']]],
+  ['render_5',['render',['../classecs_1_1system_1_1_render_system.html#a2ada55714c05e0222efbac87646a3604',1,'ecs::system::RenderSystem']]],
+  ['run_6',['run',['../classengine_1_1_engine.html#a26915cb758c2ef7ed6c96d1dfb1e3136',1,'engine::Engine']]]
 ];

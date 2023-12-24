@@ -97,7 +97,7 @@ $(document).ready(function(){initNavTree('components_2_render_8hpp_source.html',
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;my_raylib.h&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;raylib.h&quot;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;Shapes.hpp&quot;</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
@@ -105,16 +105,20 @@ $(document).ready(function(){initNavTree('components_2_render_8hpp_source.html',
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span>ecs {</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">namespace </span>components {</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <span class="keyword">namespace </span>render {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="structecs_1_1components_1_1render_1_1render__s.html">   18</a></span>            <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structecs_1_1components_1_1render_1_1render__s.html">render_s</a> {</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>                ShapeType type;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>                <span class="keywordtype">bool</span> isRendered;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>                std::shared_ptr&lt;components::IShape&gt; data;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>            } <a class="code hl_struct" href="structecs_1_1components_1_1render_1_1render__s.html">render_t</a>;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        }</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    }</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
-<div class="ttc" id="astructecs_1_1components_1_1render_1_1render__s_html"><div class="ttname"><a href="structecs_1_1components_1_1render_1_1render__s.html">ecs::components::render::render_s</a></div><div class="ttdef"><b>Definition:</b> Render.hpp:18</div></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="structecs_1_1components_1_1render_1_1render__s.html">   27</a></span>            <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structecs_1_1components_1_1render_1_1render__s.html">render_s</a> {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="structecs_1_1components_1_1render_1_1render__s.html#a29ad9ce989541d85b5c22d9af81056f9">   28</a></span>                ShapeType <a class="code hl_variable" href="structecs_1_1components_1_1render_1_1render__s.html#a29ad9ce989541d85b5c22d9af81056f9">type</a>; </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="structecs_1_1components_1_1render_1_1render__s.html#a3520dc8ff5167508a0678861330afab1">   29</a></span>                <span class="keywordtype">bool</span> <a class="code hl_variable" href="structecs_1_1components_1_1render_1_1render__s.html#a3520dc8ff5167508a0678861330afab1">isRendered</a>; </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="structecs_1_1components_1_1render_1_1render__s.html#afd49ee69f78892e33adc2ea24ea9ba12">   30</a></span>                std::shared_ptr&lt;components::IShape&gt; <a class="code hl_variable" href="structecs_1_1components_1_1render_1_1render__s.html#afd49ee69f78892e33adc2ea24ea9ba12">data</a>; </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            } <a class="code hl_struct" href="structecs_1_1components_1_1render_1_1render__s.html">render_t</a>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        }</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    }</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
+<div class="ttc" id="astructecs_1_1components_1_1render_1_1render__s_html"><div class="ttname"><a href="structecs_1_1components_1_1render_1_1render__s.html">ecs::components::render::render_s</a></div><div class="ttdef"><b>Definition:</b> Render.hpp:27</div></div>
+<div class="ttc" id="astructecs_1_1components_1_1render_1_1render__s_html_a29ad9ce989541d85b5c22d9af81056f9"><div class="ttname"><a href="structecs_1_1components_1_1render_1_1render__s.html#a29ad9ce989541d85b5c22d9af81056f9">ecs::components::render::render_s::type</a></div><div class="ttdeci">ShapeType type</div><div class="ttdoc">The type of the shape to be rendered.</div><div class="ttdef"><b>Definition:</b> Render.hpp:28</div></div>
+<div class="ttc" id="astructecs_1_1components_1_1render_1_1render__s_html_a3520dc8ff5167508a0678861330afab1"><div class="ttname"><a href="structecs_1_1components_1_1render_1_1render__s.html#a3520dc8ff5167508a0678861330afab1">ecs::components::render::render_s::isRendered</a></div><div class="ttdeci">bool isRendered</div><div class="ttdoc">Flag indicating if the entity should be rendered.</div><div class="ttdef"><b>Definition:</b> Render.hpp:29</div></div>
+<div class="ttc" id="astructecs_1_1components_1_1render_1_1render__s_html_afd49ee69f78892e33adc2ea24ea9ba12"><div class="ttname"><a href="structecs_1_1components_1_1render_1_1render__s.html#afd49ee69f78892e33adc2ea24ea9ba12">ecs::components::render::render_s::data</a></div><div class="ttdeci">std::shared_ptr&lt; components::IShape &gt; data</div><div class="ttdoc">Shared pointer to the shape data used for rendering.</div><div class="ttdef"><b>Definition:</b> Render.hpp:30</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
