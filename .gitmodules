@@ -1,3 +1,9 @@
+[submodule "vcpkg"]
+	path = vcpkg
+	url = git@github.com:microsoft/vcpkg.git
+[submodule "raylib"]
+	path = raylib
+	url = git@github.com:raysan5/raylib.git
 [submodule "doxygen-awesome-css"]
 	path = doxygen-awesome-css
 	url = https://github.com/jothepro/doxygen-awesome-css.git

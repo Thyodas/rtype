@@ -15,12 +15,11 @@ var searchData=
   ['serverinterface_3c_20common_3a_3anetworkmessage_20_3e_12',['ServerInterface&lt; common::NetworkMessage &gt;',['../classrtype_1_1net_1_1_server_interface.html',1,'rtype::net']]],
   ['serverplayerdestroy_13',['ServerPlayerDestroy',['../structcommon_1_1game_1_1netbody_1_1_server_player_destroy.html',1,'common::game::netbody']]],
   ['serverplayertakedamage_14',['ServerPlayerTakeDamage',['../structcommon_1_1game_1_1netbody_1_1_server_player_take_damage.html',1,'common::game::netbody']]],
-  ['serverupdatebulletposition_15',['ServerUpdateBulletPosition',['../structcommon_1_1game_1_1netbody_1_1_server_update_bullet_position.html',1,'common::game::netbody']]],
-  ['serverupdateenemyvelocity_16',['ServerUpdateEnemyVelocity',['../structcommon_1_1game_1_1netbody_1_1_server_update_enemy_velocity.html',1,'common::game::netbody']]],
-  ['serverupdateshipposition_17',['ServerUpdateShipPosition',['../structcommon_1_1game_1_1netbody_1_1_server_update_ship_position.html',1,'common::game::netbody']]],
-  ['serverupdateshipvelocity_18',['ServerUpdateShipVelocity',['../structcommon_1_1game_1_1netbody_1_1_server_update_ship_velocity.html',1,'common::game::netbody']]],
-  ['skybox_19',['Skybox',['../classecs_1_1components_1_1_skybox.html',1,'ecs::components']]],
-  ['skyboxbehavior_20',['SkyboxBehavior',['../classclient_1_1_skybox_behavior.html',1,'client']]],
-  ['system_21',['System',['../classecs_1_1system_1_1_system.html',1,'ecs::system']]],
-  ['systemmanager_22',['SystemManager',['../classecs_1_1system_1_1_system_manager.html',1,'ecs::system']]]
+  ['serverupdateenemyvelocity_15',['ServerUpdateEnemyVelocity',['../structcommon_1_1game_1_1netbody_1_1_server_update_enemy_velocity.html',1,'common::game::netbody']]],
+  ['serverupdateshipposition_16',['ServerUpdateShipPosition',['../structcommon_1_1game_1_1netbody_1_1_server_update_ship_position.html',1,'common::game::netbody']]],
+  ['serverupdateshipvelocity_17',['ServerUpdateShipVelocity',['../structcommon_1_1game_1_1netbody_1_1_server_update_ship_velocity.html',1,'common::game::netbody']]],
+  ['skybox_18',['Skybox',['../classecs_1_1components_1_1_skybox.html',1,'ecs::components']]],
+  ['skyboxbehavior_19',['SkyboxBehavior',['../classclient_1_1_skybox_behavior.html',1,'client']]],
+  ['system_20',['System',['../classecs_1_1system_1_1_system.html',1,'ecs::system']]],
+  ['systemmanager_21',['SystemManager',['../classecs_1_1system_1_1_system_manager.html',1,'ecs::system']]]
 ];
