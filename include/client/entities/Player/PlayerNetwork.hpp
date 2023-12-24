@@ -10,6 +10,7 @@
 #include "game_engine/ecs/components/NetworkBehaviour.hpp"
 #include "common/game/NetworkBody.hpp"
 #include "client/core/NetClient.hpp"
+#include "client/entities/Bullet/BulletNetwork.hpp"
 
 namespace client {
 
@@ -33,6 +34,40 @@ namespace client {
                         onDestroy(msg);
                     }},
                 });
+                _networkManager.registerResponse({
+                    {common::NetworkMessage::serverFireBullet, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                        onFire(msg);
+                    }},
+                });
+            }
+
+            void onFire(rtype::net::Message<common::NetworkMessage>& msg)
+            {
+                std::cout << "received fire bullet from server" << std::endl;
+                common::game::netbody::ServerFireBullet body;
+                msg >> body;
+
+                common::game::EntityFactory factory;
+                ecs::Entity gunBullet = factory.createEntity(common::game::ObjectType::Model3D, common::game::ObjectName::GunBullet, {
+                    body.pos,
+                    0,
+                    0,
+                    0,
+                    WHITE,
+                    false,
+                    WHITE,
+                    {0, 0, 0},
+                    {0.025, 0.025, 0.025}
+                }, common::game::ObjectFormat::GLB);
+
+                auto &direction = engine::Engine::getInstance()->getComponent<ecs::components::direction::direction_t>(gunBullet);
+                direction.direction = body.direction;
+                auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(gunBullet);
+                // rigidBody.velocity = {0, 0, static_cast<float>(body.speed)};
+                rigidBody.velocity = { 0 };
+
+                auto behave = engine::createBehavior<client::BulletNetwork>(_networkManager, body.entityNetId);
+                engine::attachBehavior(gunBullet, behave);
             }
 
             void onUpdatePosition(rtype::net::Message<common::NetworkMessage>& msg)
@@ -42,8 +77,6 @@ namespace client {
 
                 if (body.entityNetId != getNetId())
                     return;
-
-                // std::cout << "Player position: " << body.pos.x << ", " << body.pos.y << ", " << body.pos.z << std::endl;
 
                 auto &playerTransform = _coord->getComponent<ecs::components::physics::transform_t>(_entity);
 
@@ -83,6 +116,20 @@ namespace client {
                 _networkManager.send(msg);
             }
 
+            void fireBullet()
+            {
+                auto &trans = _coord->getComponent<ecs::components::physics::transform_t>(_entity);
+
+                // Vector3 velocity = calculateBulletVelocity(trans, 10);
+
+                rtype::net::Message<common::NetworkMessage> msg;
+                msg.header.id = common::NetworkMessage::clientPlayerFireBullet;
+                common::game::netbody::ClientPlayerFireBullet body = {
+                    .direction = {0, 0, 1},
+                };
+                _networkManager.send(msg);
+            }
+
             Vector3 calculateBulletVelocity(const ecs::components::physics::transform_t& shipTransform, float bulletSpeed)
             {
                 // Assuming the ship's forward direction is the negative z-axis
@@ -95,20 +142,6 @@ namespace client {
                 Vector3 bulletVelocity = Vector3Scale(shipForward, bulletSpeed);
 
                 return bulletVelocity;
-            }
-
-            void fireBullet()
-            {
-                auto &trans = _coord->getComponent<ecs::components::physics::transform_t>(_entity);
-
-                Vector3 velocity = calculateBulletVelocity(trans, 10);
-
-                rtype::net::Message<common::NetworkMessage> msg;
-                msg.header.id = common::NetworkMessage::clientPlayerFireBullet;
-
-                msg << velocity;
-                msg << trans.pos;
-                _networkManager.send(msg);
             }
 
             void update() override
@@ -137,6 +170,7 @@ namespace client {
                 updateDirectionOnChange(direction);
 
                 if (IsKeyDown(KEY_SPACE)) {
+                    std::cout << "PRESSED SPACE -> FIRE BULLET" << std::endl;
                     fireBullet();
                 }
                 /*if (IsKeyReleased(KEY_SPACE)) {

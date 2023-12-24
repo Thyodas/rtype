@@ -13,28 +13,9 @@
 #include "client/entities/Enemy/EnemyNetwork.hpp"
 
 namespace client {
-    void NetClient::resServerFireBullet(rtype::net::Message<common::NetworkMessage>& msg)
-    {
-        common::game::netbody::ServerFireBullet body;
-        msg >> body;
-        common::game::EntityFactory factory;
-        ecs::Entity gunBullet = factory.createEntity(common::game::ObjectType::Model3D, common::game::ObjectName::GunBullet, {
-            body.pos,
-            0,
-            0,
-            0,
-            WHITE,
-            false,
-            WHITE,
-            {0, 0, 0},
-            {0.025, 0.025, 0.025}
-        }, common::game::ObjectFormat::GLB);
-        auto behave = engine::createBehavior<client::BulletNetwork>(*this);
-        engine::attachBehavior(gunBullet, behave);
-    }
-
         void NetClient::resServerCreatePlayerShip(rtype::net::Message<common::NetworkMessage>& msg)
         {
+            std::cout << "resServerCreatePlayerShip" << std::endl;
             common::game::netbody::ServerCreatePlayerShip body;
 
             msg >> body;
@@ -57,6 +38,7 @@ namespace client {
 
         void NetClient::resServerAllyConnect(rtype::net::Message<common::NetworkMessage>& msg)
         {
+            std::cout << "resServerAllyConnect" << std::endl;
             common::game::netbody::ServerAllyConnect body;
 
             msg >> body;
@@ -79,6 +61,7 @@ namespace client {
 
         void NetClient::resServerCreateEnemy(rtype::net::Message<common::NetworkMessage>& msg)
         {
+            std::cout << "resServerCreateEnemy" << std::endl;
             common::game::netbody::ServerCreateEnemy body;
 
             msg >> body;

@@ -25,21 +25,6 @@ void client::Client::run()
 {
     common::game::EntityFactory factory;
 
-
-    auto move = engine::createBehavior<BulletNetwork>(_netClient);
-    ecs::Entity gunBullet = factory.createEntity(common::game::ObjectType::Model3D, common::game::ObjectName::GunBullet, {
-        {0, 0, 0},
-        0,
-        0,
-        0,
-        WHITE,
-        false,
-        WHITE,
-        {0, 0, 0},
-        {0.025, 0.025, 0.025}
-    }, common::game::ObjectFormat::GLB);
-    engine::attachBehavior(gunBullet, move);
-
     auto skyBehavior = engine::createBehavior<client::SkyboxBehavior>();
     ecs::Entity skyBox = factory.createEntity(common::game::ObjectType::SkyBox, common::game::ObjectName::DefaultSkybox, {
         {0, 0, 0},

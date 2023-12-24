@@ -188,6 +188,17 @@ namespace common::game::netbody {
         }
     };
 
+    struct ServerUpdateBulletPosition {
+        uint32_t entityNetId;
+        Vector3 pos;
+
+        template<class Archive>
+        void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
+            ar & entityNetId;
+            ar & pos;
+        }
+    };
+
     struct ServerUpdateShipVelocity {
         uint32_t entityNetId;
         Vector3 velocity;

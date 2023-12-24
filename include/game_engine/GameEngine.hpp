@@ -16,6 +16,7 @@
 #include "game_engine/ecs/components/Behaviour.hpp"
 #include "game_engine/ecs/components/Network.hpp"
 #include "game_engine/ecs/components/Health.hpp"
+#include "game_engine/ecs/components/Direction.hpp"
 #include "game_engine/ecs/systems/Render.hpp"
 #include "game_engine/ecs/Entity.hpp"
 #include "game_engine/ecs/components/Animations.hpp"

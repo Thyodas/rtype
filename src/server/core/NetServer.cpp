@@ -9,7 +9,6 @@
 
 #include <common/game/entities/EntityFactory.hpp>
 #include <common/game/entities/Objects.hpp>
-
 #include "server/entities/Player/PlayerNetwork.hpp"
 
 namespace server {
@@ -23,6 +22,7 @@ namespace server {
 
     void NetServer::resClientConnect(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, rtype::net::Message<common::NetworkMessage>& msg)
     {
+        std::cout << "resClientConnect" << std::endl;
         common::game::netbody::ClientConnect body;
         msg >> body;
 
@@ -98,6 +98,24 @@ namespace server {
         common::game::netbody::ServerUpdateShipPosition body = {
             .entityNetId = ship,
             .pos = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(ship).pos,
+        };
+
+        msg << body;
+
+        messageAllClients(msg);
+    }
+
+    void NetServer::allServerFireBullet(ecs::Entity bullet)
+    {
+        std::cout << "allServerFireBullet" << std::endl;
+        rtype::net::Message<common::NetworkMessage> msg;
+        msg.header.id = common::NetworkMessage::serverFireBullet;
+
+        common::game::netbody::ServerFireBullet body = {
+            .entityNetId = bullet,
+            .pos = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(bullet).pos,
+            .direction = engine::Engine::getInstance()->getComponent<ecs::components::direction::direction_t>(bullet).direction,
+            .speed = 0,
         };
 
         msg << body;

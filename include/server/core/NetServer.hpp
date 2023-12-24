@@ -47,6 +47,7 @@ namespace server {
 
             void allServerAllyConnect(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, ecs::Entity ship);
             void allServerUpdateShipPosition(ecs::Entity ship);
+            void allServerFireBullet(ecs::Entity bullet);
 
             using ResponseFunction = std::function<void(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>> client, rtype::net::Message<common::NetworkMessage> msg)>;
 
@@ -64,9 +65,18 @@ namespace server {
 
             void dispatchResponse(const std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, const rtype::net::Message<common::NetworkMessage>& msg)
             {
-                const auto &[first, second] = _responses.equal_range(msg.header.id);
-                for (auto it = first; it != second; ++it)
-                    it->second(client, msg);
+                std::vector<ResponseFunction> functionsToCall;
+
+                {
+                    const auto &[first, second] = _responses.equal_range(msg.header.id);
+                    for (auto it = first; it != second; ++it) {
+                        functionsToCall.push_back(it->second);
+                    }
+                }
+
+                for (auto& func : functionsToCall) {
+                    func(client, msg);
+                }
             }
 
         protected:
