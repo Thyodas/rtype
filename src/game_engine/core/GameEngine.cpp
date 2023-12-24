@@ -175,7 +175,7 @@ namespace engine {
         anim.animFrameCounter = 0;
         anim.model = draw.data->getModel();
         anim.animsCount = 0;
-        anim.anims = LoadModelAnimations(filename, (int *)&anim.animsCount);
+        anim.anims = LoadModelAnimations(filename, &anim.animsCount);
         Engine::getInstance()->addComponent<ecs::components::animations::animation_t>(entity, anim);
     }
 
