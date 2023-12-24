@@ -96,26 +96,31 @@ $(document).ready(function(){initNavTree('classecs_1_1system_1_1_system.html',''
 <p>Base class for systems in an ECS (Entity-Component-System) architecture.  
  <a href="classecs_1_1system_1_1_system.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="_system_8hpp_source.html">System.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="common_2ecs_2_system_8hpp_source.html">System.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for ecs::system::System:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="classecs_1_1system_1_1_system.png" usemap="#ecs::system::System_map" alt=""/>
   <map id="ecs::system::System_map" name="ecs::system::System_map">
-<area href="classecs_1_1system_1_1_animation_system.html" title="System class responsible for handling and updating animations within the ECS framework." alt="ecs::system::AnimationSystem" shape="rect" coords="0,56,220,80"/>
-<area href="classecs_1_1system_1_1_behaviour_system.html" title="System class responsible for handling and updating behaviour components in the ECS framework." alt="ecs::system::BehaviourSystem" shape="rect" coords="230,56,450,80"/>
-<area href="classecs_1_1system_1_1_colision_detection_system.html" alt="ecs::system::ColisionDetectionSystem" shape="rect" coords="460,56,680,80"/>
-<area href="classecs_1_1system_1_1_physics_system.html" title="System responsible for updating the positions of entities based on their physical properties." alt="ecs::system::PhysicsSystem" shape="rect" coords="690,56,910,80"/>
-<area href="classecs_1_1system_1_1_render_system.html" title="System responsible for rendering entities in the ECS framework." alt="ecs::system::RenderSystem" shape="rect" coords="920,56,1140,80"/>
+<area href="classecs_1_1system_1_1_animation_system.html" alt="ecs::system::AnimationSystem" shape="rect" coords="230,56,450,80"/>
+<area href="classecs_1_1system_1_1_behaviour_system.html" alt="ecs::system::BehaviourSystem" shape="rect" coords="230,112,450,136"/>
+<area href="classecs_1_1system_1_1_colision_detection_system.html" alt="ecs::system::ColisionDetectionSystem" shape="rect" coords="230,168,450,192"/>
+<area href="classecs_1_1system_1_1_control_system.html" alt="ecs::system::ControlSystem" shape="rect" coords="230,224,450,248"/>
+<area href="classecs_1_1system_1_1_control_system.html" alt="ecs::system::ControlSystem" shape="rect" coords="230,280,450,304"/>
+<area href="classecs_1_1system_1_1_draw_system_s_f_m_l.html" alt="ecs::system::DrawSystemSFML" shape="rect" coords="230,336,450,360"/>
+<area href="classecs_1_1system_1_1_draw_system_s_f_m_l.html" alt="ecs::system::DrawSystemSFML" shape="rect" coords="230,392,450,416"/>
+<area href="classecs_1_1system_1_1_physics_system.html" alt="ecs::system::PhysicsSystem" shape="rect" coords="230,448,450,472"/>
+<area href="classecs_1_1system_1_1_physics_system.html" alt="ecs::system::PhysicsSystem" shape="rect" coords="230,504,450,528"/>
+<area href="classecs_1_1system_1_1_render_system.html" alt="ecs::system::RenderSystem" shape="rect" coords="230,560,450,584"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a5f84447b5e26269657b4be579513f865"><td class="memItemLeft" align="right" valign="top"><a id="a5f84447b5e26269657b4be579513f865" name="a5f84447b5e26269657b4be579513f865"></a>
+<tr class="memitem:a847135f59386967a024af6a3c6c0bdb4"><td class="memItemLeft" align="right" valign="top"><a id="a847135f59386967a024af6a3c6c0bdb4" name="a847135f59386967a024af6a3c6c0bdb4"></a>
 std::set&lt; Entity &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_entities</b></td></tr>
-<tr class="separator:a5f84447b5e26269657b4be579513f865"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a847135f59386967a024af6a3c6c0bdb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -127,7 +132,8 @@ static std::shared_ptr&lt; <a class="el" href="classecs_1_1_coordinator.html">ec
 <div class="textblock"><p >Base class for systems in an ECS (Entity-Component-System) architecture. </p>
 <p >Systems are responsible for processing entities that have a specific set of components. This class provides the basic structure for a system, mainly a set of entities that the system will process. </p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/game_engine/ecs/<a class="el" href="_system_8hpp_source.html">System.hpp</a></li>
+<li>include/common/ecs/<a class="el" href="common_2ecs_2_system_8hpp_source.html">System.hpp</a></li>
+<li>include/game_engine/ecs/<a class="el" href="game__engine_2ecs_2_system_8hpp_source.html">System.hpp</a></li>
 <li>src/game_engine/core/GameEngine.cpp</li>
 </ul>
 </div><!-- contents -->

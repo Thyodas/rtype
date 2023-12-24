@@ -25,7 +25,9 @@
 var NAVTREE =
 [
   [ "Arcade", "index.html", [
-    [ "ECS Documentation", "ecs_parent_page.html", "ecs_parent_page" ],
+    [ "Install", "index.html", null ],
+    [ "INSTALL Documentation", "install_parent_page.html", null ],
+    [ "ECS", "ecs_readme.html", null ],
     [ "Network Documentation", "github_parent_page.html", "github_parent_page" ],
     [ "Network Documentation", "network_parent_page.html", "network_parent_page" ],
     [ "Classes", "annotated.html", [
@@ -48,7 +50,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_chrono_8hpp_source.html",
-"files.html"
+"install_parent_page.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
