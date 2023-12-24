@@ -47,7 +47,7 @@ namespace client {
                 common::game::netbody::ServerFireBullet body;
                 msg >> body;
 
-                std::cout << "bullet pos: " << body.pos.x << " " << body.pos.y << " " << body.pos.z << std::endl;
+                //std::cout << "bullet pos: " << body.pos.x << " " << body.pos.y << " " << body.pos.z << std::endl;
                 common::game::EntityFactory factory;
                 ecs::Entity gunBullet = factory.createEntity(common::game::ObjectType::Model3D, common::game::ObjectName::GunBullet, {
                     body.pos,
@@ -113,7 +113,7 @@ namespace client {
                     .direction = direction,
                 };
                 msg << body;
-                std::cout << "move: " << direction.x << direction.y << direction.z  << msg << std::endl;
+                //std::cout << "move: " << direction.x << direction.y << direction.z  << msg << std::endl;
                 _networkManager.send(msg);
             }
 

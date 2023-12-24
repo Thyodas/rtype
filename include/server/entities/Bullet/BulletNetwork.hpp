@@ -41,7 +41,7 @@ namespace server {
                 rtype::net::Message<common::NetworkMessage> msg;
                 msg.header.id = common::NetworkMessage::serverUpdateBulletPosition;
                 msg << body;
-                std::cout << "Bullet Pos: " << transform.pos.x << " " << transform.pos.y << " " << transform.pos.z << std::endl;
+                //std::cout << "Bullet Pos: " << transform.pos.x << " " << transform.pos.y << " " << transform.pos.z << std::endl;
 
                 _networkManager.messageAllClients(msg);
             }
