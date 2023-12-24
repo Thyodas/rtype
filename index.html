@@ -94,7 +94,10 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <li><a href="#project-overview">Project Overview</a></li>
 <li><a href="#building-the-project">Building the Project</a><ul>
 <li><a href="#dependencies">Dependencies</a></li>
-<li><a href="#building-on-windows">Building on Windows</a></li>
+<li><a href="#building-on-windows">Building on Windows</a><ul>
+<li><a href="#installing-cmake-on-windows">Installing CMake on Windows</a></li>
+</ul>
+</li>
 <li><a href="#building-on-unix-like-systems">Building on Unix-like Systems</a></li>
 </ul>
 </li>
@@ -112,13 +115,18 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <ul>
 <li><a href="https://www.raylib.com/">Raylib 5.0</a></li>
 <li><a href="https://www.boost.org/">Boost</a></li>
+<li><a href="https://cmake.org/">CMake</a> (for building the project)</li>
 </ul>
 <h2>Building on Windows</h2>
+<h3>Installing CMake on Windows</h3>
+<p >Before building the project, you need to install CMake. Follow the <a href="#cmake-installation-guide-for-windows">CMake Installation Guide for Windows</a> to install CMake on your Windows machine.</p>
+<p >After installing CMake, you can proceed with building the project.</p>
 <ol type="1">
 <li>Install Visual Studio.</li>
-<li>Install vcpkg by following the instructions <a href="https://github.com/microsoft/vcpkg">here</a>.</li>
 <li>Open a command prompt and navigate to the project root directory.</li>
-<li>Run the following commands: <div class="fragment"><div class="line">cmake -B build -DCMAKE_TOOLCHAIN_FILE=&lt;path_to_vcpkg&gt;\scripts\buildsystems\vcpkg.cmake</div>
+<li>Run the following commands: <div class="fragment"><div class="line">git pull --recurse-submodules</div>
+<div class="line">.\vcpkg\vcpkg integrate install</div>
+<div class="line">cmake -B build</div>
 <div class="line">cmake --build build</div>
 </div><!-- fragment --></li>
 </ol>
@@ -126,7 +134,8 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <ol type="1">
 <li>Install CMake and a C++ compiler (e.g., g++).</li>
 <li>Open a terminal and navigate to the project root directory.</li>
-<li>Run the following commands: <div class="fragment"><div class="line">cmake -B build -DCMAKE_TOOLCHAIN_FILE=&lt;path_to_vcpkg&gt;/scripts/buildsystems/vcpkg.cmake</div>
+<li>Run the following commands: <div class="fragment"><div class="line">git pull --recurse-submodules</div>
+<div class="line">cmake -B build</div>
 <div class="line">cmake --build build</div>
 </div><!-- fragment --></li>
 </ol>
