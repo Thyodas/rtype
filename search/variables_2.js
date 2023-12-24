@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['thrcontext_0',['thrContext',['../classrtype_1_1net_1_1_client_interface.html#aa9f94e156cda750d803f6ab085f8398e',1,'rtype::net::ClientInterface']]]
+  ['box_0',['box',['../structecs_1_1components_1_1physics_1_1collider__s.html#ac4acb19ccc11ba2c2c6a2f261aa7d831',1,'ecs::components::physics::collider_s']]]
 ];

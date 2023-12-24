@@ -91,6 +91,11 @@ $(document).ready(function(){initNavTree('classecs_1_1system_1_1_render_system.h
   <div class="headertitle"><div class="title">ecs::system::RenderSystem Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p><a class="el" href="classecs_1_1system_1_1_system.html" title="Base class for systems in an ECS (Entity-Component-System) architecture.">System</a> responsible for rendering entities in the ECS framework.  
+ <a href="classecs_1_1system_1_1_render_system.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="systems_2_render_8hpp_source.html">Render.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for ecs::system::RenderSystem:</div>
 <div class="dyncontent">
@@ -103,21 +108,45 @@ Inheritance diagram for ecs::system::RenderSystem:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2ada55714c05e0222efbac87646a3604"><td class="memItemLeft" align="right" valign="top"><a id="a2ada55714c05e0222efbac87646a3604" name="a2ada55714c05e0222efbac87646a3604"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>render</b> ()</td></tr>
+<tr class="memitem:a2ada55714c05e0222efbac87646a3604"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classecs_1_1system_1_1_render_system.html#a2ada55714c05e0222efbac87646a3604">render</a> ()</td></tr>
+<tr class="memdesc:a2ada55714c05e0222efbac87646a3604"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders all entities with render components.  <a href="classecs_1_1system_1_1_render_system.html#a2ada55714c05e0222efbac87646a3604">More...</a><br /></td></tr>
 <tr class="separator:a2ada55714c05e0222efbac87646a3604"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_attribs_classecs_1_1system_1_1_system"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classecs_1_1system_1_1_system')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classecs_1_1system_1_1_system.html">ecs::system::System</a></td></tr>
-<tr class="memitem:a847135f59386967a024af6a3c6c0bdb4 inherit pub_attribs_classecs_1_1system_1_1_system"><td class="memItemLeft" align="right" valign="top"><a id="a847135f59386967a024af6a3c6c0bdb4" name="a847135f59386967a024af6a3c6c0bdb4"></a>
+<tr class="memitem:a5f84447b5e26269657b4be579513f865 inherit pub_attribs_classecs_1_1system_1_1_system"><td class="memItemLeft" align="right" valign="top"><a id="a5f84447b5e26269657b4be579513f865" name="a5f84447b5e26269657b4be579513f865"></a>
 std::set&lt; Entity &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_entities</b></td></tr>
-<tr class="separator:a847135f59386967a024af6a3c6c0bdb4 inherit pub_attribs_classecs_1_1system_1_1_system"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a5f84447b5e26269657b4be579513f865 inherit pub_attribs_classecs_1_1system_1_1_system"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_attribs_classecs_1_1system_1_1_system"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_classecs_1_1system_1_1_system')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="classecs_1_1system_1_1_system.html">ecs::system::System</a></td></tr>
 <tr class="memitem:a09e0c8c339686e2dc4615bee3de2a256 inherit pub_static_attribs_classecs_1_1system_1_1_system"><td class="memItemLeft" align="right" valign="top"><a id="a09e0c8c339686e2dc4615bee3de2a256" name="a09e0c8c339686e2dc4615bee3de2a256"></a>
 static std::shared_ptr&lt; <a class="el" href="classecs_1_1_coordinator.html">ecs::Coordinator</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_coord</b> = nullptr</td></tr>
 <tr class="separator:a09e0c8c339686e2dc4615bee3de2a256 inherit pub_static_attribs_classecs_1_1system_1_1_system"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p ><a class="el" href="classecs_1_1system_1_1_system.html" title="Base class for systems in an ECS (Entity-Component-System) architecture.">System</a> responsible for rendering entities in the ECS framework. </p>
+<p >Inherits from the base <a class="el" href="classecs_1_1system_1_1_system.html" title="Base class for systems in an ECS (Entity-Component-System) architecture.">System</a> class. This system handles the rendering process of entities within the game. It utilizes render components associated with entities to determine how each entity is visually represented in the game world. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a2ada55714c05e0222efbac87646a3604" name="a2ada55714c05e0222efbac87646a3604"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ada55714c05e0222efbac87646a3604">&#9670;&nbsp;</a></span>render()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ecs::system::RenderSystem::render </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Renders all entities with render components. </p>
+<p >This method goes through entities that have render components and calls their respective draw methods, effectively drawing them in the game window. It ensures that each entity is rendered according to its current state and transformation. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>include/game_engine/ecs/systems/<a class="el" href="systems_2_render_8hpp_source.html">Render.hpp</a></li>
 <li>src/game_engine/ecs/systems/Render.cpp</li>
