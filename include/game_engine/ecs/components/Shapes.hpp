@@ -8,8 +8,6 @@
 #pragma once
 
 #include "raylib.h"
-#include "common/math/vectors/Vec3.hpp"
-#include "common/math/vectors/Vec2.hpp"
 #include "raymath.h"
 #include <iostream>
 #include <vector>
@@ -25,6 +23,10 @@ namespace ecs {
 
 namespace ecs {
     namespace components {
+        /**
+         * @enum ShapeType
+         * @brief Enumerates different types of shapes available for rendering.
+         */
         enum class ShapeType {
             CUBE,
             LINE,
@@ -40,18 +42,55 @@ namespace ecs {
             MODEL,
         };
 
+        /**
+         * @class IShape
+         * @brief Interface for shape components used in rendering entities.
+         *
+         * Provides a common interface for different types of shapes, allowing them to be
+         * used interchangeably in the rendering system. Each shape should implement its own
+         * drawing logic.
+         */
         class IShape {
             public:
                 ~IShape() = default;
+                /**
+                 * @brief Calculates the bounding box of the shape based on the collider's properties.
+                 * @param collider Reference to the collider component.
+                 * @return The calculated bounding box.
+                 */
                 BoundingBox getBoundingBox(physics::collider_t &collider) const;
+                /**
+                 * @brief Pure virtual function for drawing the shape.
+                 * @param transf Reference to the transformation component.
+                 */
                 virtual void draw(physics::transform_t &transf) const = 0;
+                /**
+                 * @brief Gets the model associated with the shape.
+                 * @return Reference to the Model object.
+                 */
                 Model &getModel();
             protected:
                 Model _model;
         };
 
+        /**
+         * @class Cube
+         * @brief Represents a cube shape with customizable dimensions and colors.
+         *
+         * Inherits from IShape and implements the drawing logic for a cube. It allows for
+         * the specification of dimensions, color, and an option to toggle wireframe rendering.
+         */
         class Cube : public IShape {
             public:
+                /**
+                 * @brief Constructs a Cube object with specified dimensions and colors.
+                 * @param width Width of the cube.
+                 * @param height Height of the cube.
+                 * @param length Length of the cube.
+                 * @param toggleWire Flag to toggle wireframe rendering.
+                 * @param color Color of the cube.
+                 * @param wireColor Color of the wireframe.
+                 */
                 Cube(
                     float width = 2,
                     float height = 2,
@@ -59,6 +98,10 @@ namespace ecs {
                     bool toggleWire = false,
                     Color color = RED,
                     Color wireColor = BLACK);
+                /**
+                 * @brief Draws the cube with the specified transformations.
+                 * @param transf Reference to the transformation component.
+                 */
                 void draw(physics::transform_t &transf) const override;
             private:
                 float _width;
@@ -69,9 +112,48 @@ namespace ecs {
                 Color _wireColor;
         };
 
+        /**
+         * @class Model3D
+         * @brief Represents a 3D model loaded from a file.
+         *
+         * Inherits from IShape and implements the drawing logic for a 3D model. It allows for
+         * loading a model from a file and specifying its color.
+         */
         class Model3D : public IShape {
             public:
+                /**
+                 * @brief Constructs a Model3D object from a file.
+                 * @param filename Path to the file from which the model is loaded.
+                 * @param color Color to apply to the model.
+                 */
                 Model3D(const char *filename, Color color = WHITE);
+                /**
+                 * @brief Draws the 3D model with the specified transformations.
+                 * @param transf Reference to the transformation component.
+                 */
+                void draw(physics::transform_t &transf) const override;
+            private:
+                Color _color;
+        };
+
+        /**
+         * @class Skybox
+         * @brief Represents a skybox using a 3D model.
+         *
+         * Inherits from IShape and implements the drawing logic for a skybox. It allows for
+         * loading a skybox from a file.
+         */
+        class Skybox : public IShape {
+            public:
+                /**
+                 * @brief Constructs a Skybox object from a file.
+                 * @param filename Path to the file from which the skybox is loaded.
+                 */
+                Skybox(const char *filename);
+                /**
+                 * @brief Draws the skybox with the specified transformations.
+                 * @param transf Reference to the transformation component.
+                 */
                 void draw(physics::transform_t &transf) const override;
             private:
                 Color _color;

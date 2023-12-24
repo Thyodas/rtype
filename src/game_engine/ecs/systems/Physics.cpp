@@ -9,6 +9,7 @@
 #include "game_engine/ecs/systems/Physics.hpp"
 #include "game_engine/ecs/Coordinator.hpp"
 #include "game_engine/core/event/CollisionEvent.hpp"
+#include "game_engine/GameEngine.hpp"
 
 #include <algorithm>
 #include <iostream>
@@ -21,17 +22,19 @@ namespace ecs {
                 auto& body = _coord->getComponent<components::physics::rigidBody_t>(entity);
                 auto &collider = _coord->getComponent<components::physics::collider_t>(entity);
 
-                transf.pos.x += body.velocity.x;
-                body.velocity.x = 0;
+                double elapsedTime = engine::Engine::getInstance()->getElapsedTime() / 1000.0;
+                elapsedTime -= body.velocityLastUpdate;
 
-                transf.pos.y += body.velocity.y;
-                body.velocity.y = 0;
+                //std::cout << "vel: " << body.velocity.x << " " << body.velocity.y << " " << body.velocity.z << ", elapsed time: " << elapsedTime << std::endl;
+                transf.pos.x += body.velocity.x * elapsedTime;
 
-                transf.pos.z += body.velocity.z;
-                body.velocity.z = 0;
+                transf.pos.y += body.velocity.y * elapsedTime;
+
+                transf.pos.z += body.velocity.z * elapsedTime;
                 Matrix translate = MatrixTranslate(transf.pos.x, transf.pos.y, transf.pos.z);
                 collider.matTranslate = translate;
                 CollisionResponse::updateColliderGlobalVerts(collider);
+                body.velocityLastUpdate = engine::Engine::getInstance()->getElapsedTime() / 1000.0;
             }
         }
 
@@ -62,8 +65,8 @@ namespace ecs {
                         BoundingBox box2 = collider2.data->getBoundingBox(collider2);
                         bool colliding = CheckCollisionBoxes(box1, box2);
                         if (colliding) {
-                            std::cout << "ca collide" << std::endl;
-                            _coord->emitEvent<CollisionEvent>(CollisionEvent(*it1, box1, collider1.data->getModel().transform, *it2, box2, collider2.data->getModel().transform));
+                            //std::cout << "ca collide" << std::endl;
+                            //_coord->emitEvent<CollisionEvent>(CollisionEvent(*it1, box1, collider1.data->getModel().transform, *it2, box2, collider2.data->getModel().transform));
                         } else {
                             //std::cout << "no collision detected" << std::endl;
                         }
@@ -75,9 +78,11 @@ namespace ecs {
         CollisionResponse::CollisionResponse(ecs::Coordinator &coord) : _coord(coord)
         {
             _coord.registerListener<CollisionEvent>([this](const CollisionEvent &event) {
+                return;
                 auto &transf = _coord.getComponent<ecs::components::physics::transform_t>(event.entity1);
                 auto &collider = _coord.getComponent<ecs::components::physics::collider_t>(event.entity1);
                 Vector3 displacementVector = getCollisionResponse(event);
+                std::cout << "colision!" << std::endl;
                 transf.pos.x += displacementVector.x;
                 transf.pos.y += displacementVector.y;
                 transf.pos.z += displacementVector.z;
@@ -110,7 +115,7 @@ namespace ecs {
                 bounds.x = fmin(bounds.x, proj);
                 bounds.y = fmax(bounds.y, proj);
             }
-            std::cout << bounds.x << " " << bounds.y <<  std::endl;
+            //std::cout << bounds.x << " " << bounds.y <<  std::endl;
             return bounds;
         }
 
