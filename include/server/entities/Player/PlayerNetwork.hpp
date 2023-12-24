@@ -13,59 +13,58 @@
 
 namespace server {
 
+    constexpr float PLAYER_SPEED = 10;
+
     class PlayerNetwork : public ecs::components::behaviour::NetworkBehaviour<server::NetServer> {
         public:
             PlayerNetwork(server::NetServer& networkManager, uint32_t entityNetId = 0, uint32_t connectionId = 0)
                 : NetworkBehaviour(networkManager, entityNetId, connectionId)
             {
-                common::NetworkMessage::serverUpdateShipPosition,
-                [this](rtype::net::Message<common::NetworkMessage> msg) {
-                    serverClientUpdatePlayerDirection(msg);
-                };
+                _networkManager.registerResponse({
+                    {
+                        common::NetworkMessage::clientUpdatePlayerDirection,
+                        [this](std::shared_ptr<rtype::net::Connection<common::NetworkMessage>> client, rtype::net::Message<common::NetworkMessage> msg) {
+                            onUpdatePlayerDirection(client, msg);
+                        }
+                    },
+                });
             }
 
-            void update() override
-            {
-
-            }
-
-            void serverClientUpdatePlayerDirection(rtype::net::Message<common::NetworkMessage>& msg)
+            void onUpdatePlayerDirection(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, rtype::net::Message<common::NetworkMessage>& msg)
             {
                 common::game::netbody::ClientUpdatePlayerDirection body;
                 msg >> body;
 
-                ecs::Entity player = getNetId();
+                if (client->getID() != getConnectionId())
+                    return;
+
+                auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(_entity);
 
                 if (body.direction.x > 0) {
-                    engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity.x += 1;
+                    rigidBody.velocity.x = 1 * PLAYER_SPEED;
                 } else if (body.direction.x < 0) {
-                    engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity.x -= 1;
+                    rigidBody.velocity.x = -1 * PLAYER_SPEED;
                 }
                 if (body.direction.y > 0) {
-                    engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity.y += 1;
+                    rigidBody.velocity.y = 1 * PLAYER_SPEED;
                 } else if (body.direction.y < 0) {
-                    engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity.y -= 1;
+                    rigidBody.velocity.y = -1 * PLAYER_SPEED;
                 }
                 if (body.direction.z > 0) {
-                    engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity.z += 1;
+                    rigidBody.velocity.z = 1 * PLAYER_SPEED;
                 } else if (body.direction.z < 0) {
-                    engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity.z -= 1;
+                    rigidBody.velocity.z = -1 * PLAYER_SPEED;
                 }
 
-                rtype::net::Message<common::NetworkMessage> msg2;
-                msg.header.id = common::NetworkMessage::serverUpdateShipPosition;
-
-                common::game::netbody::ServerUpdateShipPosition body2 = {
-                    .entityNetId = player,
-                    .pos = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity,
-                };
-
-
-                std::cout << "test" << std::endl;
-
-                msg2 << body2;
-                _networkManager.messageAllClients(msg2);
+                //std::cout << "Player " << getNetId() << " direction: " << rigidBody.velocity.x << ", " << rigidBody.velocity.y << ", " << rigidBody.velocity.z << std::endl;
             }
+
+            void update() override
+            {
+                _networkManager.allServerUpdateShipPosition(_entity);
+            }
+
+
     };
 
 }

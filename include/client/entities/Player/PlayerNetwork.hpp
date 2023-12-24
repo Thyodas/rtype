@@ -15,12 +15,12 @@ namespace client {
 
     class PlayerNetwork : public ecs::components::behaviour::NetworkBehaviour<client::NetClient> {
         public:
-            explicit PlayerNetwork(client::NetClient& networkManager)
-                : NetworkBehaviour(networkManager)
+            explicit PlayerNetwork(client::NetClient& networkManager, uint32_t netId = 0)
+                : NetworkBehaviour(networkManager, netId)
             {
                 _networkManager.registerResponse({
                     {common::NetworkMessage::serverUpdateShipPosition, [this](rtype::net::Message<common::NetworkMessage> msg) {
-                        onUpdateVelocity(msg);
+                        onUpdatePosition(msg);
                     }},
                 });
                 _networkManager.registerResponse({
@@ -35,16 +35,19 @@ namespace client {
                 });
             }
 
-            void onUpdateVelocity(rtype::net::Message<common::NetworkMessage>& msg)
+            void onUpdatePosition(rtype::net::Message<common::NetworkMessage>& msg)
             {
                 common::game::netbody::ServerUpdateShipPosition body;
-                auto &playerBody = _coord->getComponent<ecs::components::physics::rigidBody_t>(_entity);
                 msg >> body;
 
                 if (body.entityNetId != getNetId())
                     return;
 
-                playerBody.velocity = body.pos;
+                // std::cout << "Player position: " << body.pos.x << ", " << body.pos.y << ", " << body.pos.z << std::endl;
+
+                auto &playerTransform = _coord->getComponent<ecs::components::physics::transform_t>(_entity);
+
+                playerTransform.pos = body.pos;
             }
 
             void onDamageReceive(rtype::net::Message<common::NetworkMessage>& msg)
@@ -73,7 +76,7 @@ namespace client {
                 common::game::netbody::ClientUpdatePlayerDirection body = {
                     .direction = direction,
                 };
-                msg << direction;
+                msg << body;
                 _networkManager.send(msg);
             }
 
@@ -111,29 +114,24 @@ namespace client {
                 if (IsKeyDown(KEY_D)) {
                     // velocity.x += 0.1f;
                     // velocity.z -= 0.1f;
-                    direction.x = 1;
-                    direction.z = -1;
+                    direction.z = 1;
                 }
                 if (IsKeyDown(KEY_A)) {
                     // velocity.x -= 0.1f;
                     // velocity.z += 0.1f;
-                    direction.x = -1;
-                    direction.z = 1;
+                    direction.z = -1;
                 }
                 if (IsKeyDown(KEY_W)) {
                     // velocity.x -= 0.2f;
                     // velocity.z -= 0.2f;
-                    direction.x = -1;
-                    direction.z = -1;
+                    direction.y = 1;
                 }
                 if (IsKeyDown(KEY_S)) {
                     // velocity.x += 0.2f;
                     // velocity.z += 0.2f;
-                    direction.x = 1;
-                    direction.z = 1;
+                    direction.y = -1;
                 }
-                if (direction.x != 0 || direction.y != 0 || direction.z != 0)
-                    updateDirection(direction);
+                updateDirection(direction);
 
                 if (IsKeyDown(KEY_SPACE)) {
                     fireBullet();

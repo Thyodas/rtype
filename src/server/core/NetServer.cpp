@@ -90,14 +90,14 @@ namespace server {
 
     }
 
-    void NetServer::allServerUpdatePlayerShipPosition(ecs::Entity ship, Vector3 pos)
+    void NetServer::allServerUpdateShipPosition(ecs::Entity ship)
     {
         rtype::net::Message<common::NetworkMessage> msg;
         msg.header.id = common::NetworkMessage::serverUpdateShipPosition;
 
         common::game::netbody::ServerUpdateShipPosition body = {
             .entityNetId = ship,
-            .pos = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(ship).velocity,
+            .pos = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(ship).pos,
         };
 
         msg << body;

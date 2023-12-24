@@ -37,7 +37,7 @@ namespace server {
                 });
             }
 
-        protected:
+
 
             void resPingServer(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, const rtype::net::Message<common::NetworkMessage>& msg);
             void resClientConnect(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, rtype::net::Message<common::NetworkMessage>& msg);
@@ -46,29 +46,7 @@ namespace server {
             void reqServerCreatePlayerShip(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, ecs::Entity ship);
 
             void allServerAllyConnect(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, ecs::Entity ship);
-            void allServerUpdatePlayerShipPosition(ecs::Entity ship, Vector3 pos);
-
-
-            bool onClientConnect(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>> client) override
-            {
-                rtype::net::Message<common::NetworkMessage> msg;
-                msg.header.id = common::NetworkMessage::ServerAccept;
-                messageClient(client, msg);
-                return true;
-            }
-
-            // Called when a client appears to have disconnected
-            void onClientDisconnect(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>> client) override
-            {
-                std::cout << "Removing client [" << client->getID() << "]\n";
-            }
-
-            // Called when a message arrives
-            void onMessage(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>> client,
-                rtype::net::Message<common::NetworkMessage>& msg) override
-            {
-                dispatchResponse(client, msg);
-            }
+            void allServerUpdateShipPosition(ecs::Entity ship);
 
             using ResponseFunction = std::function<void(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>> client, rtype::net::Message<common::NetworkMessage> msg)>;
 
@@ -89,6 +67,28 @@ namespace server {
                 const auto &[first, second] = _responses.equal_range(msg.header.id);
                 for (auto it = first; it != second; ++it)
                     it->second(client, msg);
+            }
+
+        protected:
+            bool onClientConnect(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>> client) override
+            {
+                rtype::net::Message<common::NetworkMessage> msg;
+                msg.header.id = common::NetworkMessage::ServerAccept;
+                messageClient(client, msg);
+                return true;
+            }
+
+            // Called when a client appears to have disconnected
+            void onClientDisconnect(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>> client) override
+            {
+                std::cout << "Removing client [" << client->getID() << "]\n";
+            }
+
+            // Called when a message arrives
+            void onMessage(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>> client,
+                rtype::net::Message<common::NetworkMessage>& msg) override
+            {
+                dispatchResponse(client, msg);
             }
 
         protected:

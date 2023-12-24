@@ -91,7 +91,7 @@ namespace engine {
         BeginDrawing();
         BeginMode3D(_window->getCamera());
         _renderSystem->render();
-        DrawGrid(20, 1.0f);
+        //DrawGrid(20, 1.0f);
         EndMode3D();
         EndDrawing();
     }

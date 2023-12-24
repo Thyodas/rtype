@@ -24,19 +24,6 @@ client::Client::Client()
 void client::Client::run()
 {
     common::game::EntityFactory factory;
-    ecs::Entity cube = factory.createEntity(common::game::ObjectType::Model3D, common::game::ObjectName::Transtellar, {
-        {0, 0, 0},
-        0,
-        0,
-        0,
-        WHITE,
-        false,
-        WHITE,
-        {0, 180, 0},
-        {1, 1, 1}
-    });
-    auto spaceShipNetwork = engine::createBehavior<client::PlayerNetwork>(_netClient);
-    engine::attachBehavior(cube, spaceShipNetwork);
 
 
     auto move = engine::createBehavior<BulletNetwork>(_netClient);

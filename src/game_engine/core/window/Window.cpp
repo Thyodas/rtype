@@ -13,7 +13,7 @@ namespace engine {
         {
             _width = width;
             _height = height;
-            _camera.position = (Vector3){ 10.0f, 10.0f, 10.0f };
+            _camera.position = (Vector3){ -25.0f, 1.0f, 0.0f };
             _camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };
             _camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };
             _camera.fovy = 45.0f;

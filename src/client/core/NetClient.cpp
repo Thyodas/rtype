@@ -51,7 +51,7 @@ namespace client {
                 {0, 0, 0},
                 {1, 1, 1}
             });
-            auto behave = engine::createBehavior<client::PlayerNetwork>(*this);
+            auto behave = engine::createBehavior<client::PlayerNetwork>(*this, body.entityNetId);
             engine::attachBehavior(cube, behave);
         }
 

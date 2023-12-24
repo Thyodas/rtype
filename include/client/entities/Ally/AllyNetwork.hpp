@@ -20,7 +20,7 @@ namespace client {
             {
                 _networkManager.registerResponse({
                     {common::NetworkMessage::serverUpdateShipPosition, [this](rtype::net::Message<common::NetworkMessage> msg) {
-                        onUpdateVelocity(msg);
+                        onUpdatePosition(msg);
                     }},
                 });
                 _networkManager.registerResponse({
@@ -40,7 +40,7 @@ namespace client {
                 });
             }
 
-            void onUpdateVelocity(rtype::net::Message<common::NetworkMessage>& msg)
+            void onUpdatePosition(rtype::net::Message<common::NetworkMessage>& msg)
             {
                 common::game::netbody::ServerUpdateShipPosition body;
                 auto &allyBody = _coord->getComponent<ecs::components::physics::rigidBody_t>(_entity);
