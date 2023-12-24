@@ -33,11 +33,6 @@ namespace client {
                         onDestroy(msg);
                     }},
                 });
-                _networkManager.registerResponse({
-                    {common::NetworkMessage::clientUpdatePlayerDirection, [this](rtype::net::Message<common::NetworkMessage> msg) {
-                        serverClientUpdatePlayerDirection(msg);
-                    }},
-                });
             }
 
             void onUpdateVelocity(rtype::net::Message<common::NetworkMessage>& msg)
@@ -153,40 +148,5 @@ namespace client {
                     engine::scale(_entity, scale);
                 }*/
             }
-
-        void serverClientUpdatePlayerDirection(rtype::net::Message<common::NetworkMessage>& msg)
-        {
-            common::game::netbody::ClientUpdatePlayerDirection body;
-            msg >> body;
-
-            ecs::Entity player = getNetId();
-
-            if (body.direction.x > 0) {
-                engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity.x += 1;
-            } else if (body.direction.x < 0) {
-                engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity.x -= 1;
-            }
-            if (body.direction.y > 0) {
-                engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity.y += 1;
-            } else if (body.direction.y < 0) {
-                engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity.y -= 1;
-            }
-            if (body.direction.z > 0) {
-                engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity.z += 1;
-            } else if (body.direction.z < 0) {
-                engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity.z -= 1;
-            }
-
-            rtype::net::Message<common::NetworkMessage> msg2;
-            msg.header.id = common::NetworkMessage::serverUpdateShipPosition;
-
-            common::game::netbody::ServerUpdateShipPosition body2 = {
-                .entityNetId = player,
-                .pos = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(player).velocity,
-            };
-
-            msg2 << body2;
-        }
     };
-
 }
