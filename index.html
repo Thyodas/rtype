@@ -124,7 +124,9 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <ol type="1">
 <li>Install Visual Studio.</li>
 <li>Open a command prompt and navigate to the project root directory.</li>
-<li>Run the following commands: <div class="fragment"><div class="line">git pull --recurse-submodules</div>
+<li>Run the following commands: <div class="fragment"><div class="line">git submodule init</div>
+<div class="line">git pull --recurse-submodules</div>
+<div class="line">.\vcpkg\bootstrap-vcpkg.bat</div>
 <div class="line">.\vcpkg\vcpkg integrate install</div>
 <div class="line">cmake -B build</div>
 <div class="line">cmake --build build</div>
@@ -134,7 +136,8 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <ol type="1">
 <li>Install CMake and a C++ compiler (e.g., g++).</li>
 <li>Open a terminal and navigate to the project root directory.</li>
-<li>Run the following commands: <div class="fragment"><div class="line">git pull --recurse-submodules</div>
+<li>Run the following commands: <div class="fragment"><div class="line">git submodule init</div>
+<div class="line">git pull --recurse-submodules</div>
 <div class="line">cmake -B build</div>
 <div class="line">cmake --build build</div>
 </div><!-- fragment --></li>
