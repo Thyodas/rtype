@@ -2,9 +2,11 @@ name: Task Template
 description: Use this template to create tasks for the project.
 title: "[Task]: "
 labels: ["task"]
+assignees: 
+  - 
 
 body:
-    - type: input
+  - type: input
     id: title
     attributes:
       label: Title
