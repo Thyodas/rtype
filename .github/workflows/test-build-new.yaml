@@ -24,7 +24,9 @@ jobs:
 
       # Install clang-tidy
       - name: Install clang-tidy
-        run: sudo apt-get install clang-tidy -y
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install clang-tidy -y
 
       # Run clang-tidy
       - name: Run clang-tidy
