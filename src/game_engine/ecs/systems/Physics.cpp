@@ -22,19 +22,17 @@ namespace ecs {
                 auto& body = _coord->getComponent<components::physics::rigidBody_t>(entity);
                 auto &collider = _coord->getComponent<components::physics::collider_t>(entity);
 
-                double elapsedTime = engine::Engine::getInstance()->getElapsedTime() / 1000.0;
-                elapsedTime -= body.velocityLastUpdate;
+                double now = engine::Engine::getInstance()->getElapsedTime() / 1000;
+                double elapsedTime = now - body.velocityLastUpdate;
 
-                //std::cout << "vel: " << body.velocity.x << " " << body.velocity.y << " " << body.velocity.z << ", elapsed time: " << elapsedTime << std::endl;
                 transf.pos.x += body.velocity.x * elapsedTime;
-
                 transf.pos.y += body.velocity.y * elapsedTime;
-
                 transf.pos.z += body.velocity.z * elapsedTime;
+
                 Matrix translate = MatrixTranslate(transf.pos.x, transf.pos.y, transf.pos.z);
                 collider.matTranslate = translate;
                 CollisionResponse::updateColliderGlobalVerts(collider);
-                body.velocityLastUpdate = engine::Engine::getInstance()->getElapsedTime() / 1000.0;
+                body.velocityLastUpdate = now;
             }
         }
 

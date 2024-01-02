@@ -20,6 +20,7 @@ namespace server {
             BulletNetwork(server::NetServer& networkManager, uint32_t entityNetId = 0, uint32_t connectionId = 0)
                 : NetworkBehaviour(networkManager, entityNetId, connectionId)
             {
+                _lastUpdate = engine::Engine::getInstance()->getElapsedTime() / 1000;
             }
 
             void update() override

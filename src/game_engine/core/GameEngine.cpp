@@ -119,7 +119,8 @@ namespace engine {
     {
         auto cube = std::make_shared<ecs::components::Cube>(width, height, length, toggleWire, color, wireColor);
         ecs::components::physics::transform_t transf = {pos, {0}, {0}};
-        ecs::components::physics::rigidBody_t body = {0.0, {0}, {0}};
+        double now = engine::Engine::getInstance()->getElapsedTime() / 1000;
+        ecs::components::physics::rigidBody_t body = {0.0, {0}, {0}, now};
         ecs::components::render::render_t render = {ecs::components::ShapeType::CUBE, true, cube};
         ecs::components::physics::collider_t collider = {
             ecs::components::ShapeType::CUBE,
@@ -145,7 +146,8 @@ namespace engine {
     {
         auto model = std::make_shared<ecs::components::Model3D>(filename, color);
         ecs::components::physics::transform_t transf = {pos, {0}, {0}};
-        ecs::components::physics::rigidBody_t body = {0.0, {0}, {0}};
+        double now = engine::Engine::getInstance()->getElapsedTime() / 1000;
+        ecs::components::physics::rigidBody_t body = {0.0, {0}, {0}, now};
         ecs::components::render::render_t render = {ecs::components::ShapeType::MODEL, true, model};
         ecs::components::health::health_t health = {0};
         ecs::components::physics::collider_t collider = {ecs::components::ShapeType::MODEL, ecs::components::physics::CollisionType::COLLIDE, model};
@@ -162,7 +164,8 @@ namespace engine {
         auto model = std::make_shared<ecs::components::Skybox>(filename);
         ecs::components::physics::transform_t transf = {pos, {0}, {0}};
         ecs::components::render::render_t render = {ecs::components::ShapeType::MODEL, true, model};
-        ecs::components::physics::rigidBody_t body = {0.0, {0}, {0}};
+        double now = engine::Engine::getInstance()->getElapsedTime() / 1000;
+        ecs::components::physics::rigidBody_t body = {0.0, {0}, {0}, now};
         ecs::components::physics::collider_t collider = {ecs::components::ShapeType::MODEL, ecs::components::physics::CollisionType::COLLIDE, model};
         ecs::Entity entity = Engine::getInstance()->addEntity(transf, render);
         Engine::getInstance()->addComponent<ecs::components::physics::collider_t>(entity, collider);
