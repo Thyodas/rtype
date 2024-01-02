@@ -1,0 +1,112 @@
+name: Task Template
+description: Use this template to create tasks for the project.
+title: "[Task]: "
+labels: ["task"]
+assignees: 
+  - 
+
+body:
+  - type: input
+    id: title
+    attributes:
+      label: Title
+      description: Brief title of the task.
+      placeholder: Enter the task title.
+    validations:
+      required: true
+
+  - type: textarea
+    id: objective
+    attributes:
+      label: Objective
+      description: A clear, concise statement of what needs to be accomplished.
+      placeholder: Enter the objective of the task.
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Provide a detailed description of the task.
+      placeholder: Enter the detailed description of the task.
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: "## Acceptance Criteria"
+
+  - type: checkboxes
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Detail what constitutes a successful completion of the task.
+      options:
+        - label: Criterion 1
+        - label: Criterion 2
+        - label: Criterion 3
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: List any dependencies such as other tasks, issues, or external factors that may affect the progress or scheduling of this task.
+      placeholder: Enter any dependencies.
+
+  - type: textarea
+    id: technical-details
+    attributes:
+      label: Technical Details
+      description: Provide any technical details for the task.
+      placeholder: |
+        Environment: 
+        Components: 
+        Resources: 
+
+  - type: textarea
+    id: mockups-examples
+    attributes:
+      label: Mockups / Examples
+      description: Attach any mockups, screenshots, or code examples if applicable.
+      placeholder: Add any mockups or examples.
+
+  - type: input
+    id: start-date
+    attributes:
+      label: Start Date
+      description: When will the task start?
+      placeholder: YYYY-MM-DD
+    validations:
+      required: true
+
+  - type: input
+    id: estimated-end-date
+    attributes:
+      label: Estimated End Date
+      description: When is the task estimated to be completed?
+      placeholder: YYYY-MM-DD
+    validations:
+      required: true
+
+  - type: textarea
+    id: assignees
+    attributes:
+      label: Assignees
+      description: Assign relevant contributors to this task.
+      placeholder: Enter GitHub usernames separated by commas.
+
+  - type: dropdown
+    id: tags
+    attributes:
+      label: Tags
+      description: Choose a tag for this issue.
+      options:
+        - Feature
+        - Bug
+        - Chore
+        - Priority: High
+        - Priority: Medium
+        - Priority: Low
+    validations:
+      required: true
