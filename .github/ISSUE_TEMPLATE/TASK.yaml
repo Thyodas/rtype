@@ -1,28 +1,15 @@
 name: Task Template
 description: Use this template to create tasks for the project.
-title: "[TASK_TYPE]: "
+title: "[Task]: "
 labels: ["task"]
 
 body:
-  - type: dropdown
-    id: task-type
-    attributes:
-      label: Task Type
-      description: Select the type of the task.
-      options:
-        - chore
-        - feat
-        - refactor
-        - bug
-    validations:
-      required: true
-
-  - type: input
+    - type: input
     id: title
     attributes:
       label: Title
-      description: Brief title of the task, including the task type prefix.
-      placeholder: Enter the task title, prefixed with the type (e.g., "feat: Add new login feature").
+      description: Brief title of the task.
+      placeholder: Enter the task title.
     validations:
       required: true
 
@@ -48,13 +35,15 @@ body:
     attributes:
       value: "## Acceptance Criteria"
 
-  - type: textarea
+  - type: checkboxes
     id: acceptance-criteria
     attributes:
-      label: Custom Acceptance Criteria
-      description: Add custom acceptance criteria as a list.
-      placeholder: "- [ ] Custom criterion 1\n- [ ] Custom criterion 2"
-      render: markdown
+      label: Acceptance Criteria
+      description: Detail what constitutes a successful completion of the task.
+      options:
+        - label: Criterion 1
+        - label: Criterion 2
+        - label: Criterion 3
 
   - type: textarea
     id: dependencies
@@ -80,18 +69,40 @@ body:
       description: Attach any mockups, screenshots, or code examples if applicable.
       placeholder: Add any mockups or examples.
 
+  - type: input
+    id: start-date
+    attributes:
+      label: Start Date
+      description: When will the task start?
+      placeholder: YYYY-MM-DD
+    validations:
+      required: true
+
+  - type: input
+    id: estimated-end-date
+    attributes:
+      label: Estimated End Date
+      description: When is the task estimated to be completed?
+      placeholder: YYYY-MM-DD
+    validations:
+      required: true
+
+  - type: textarea
+    id: assignees
+    attributes:
+      label: Assignees
+      description: Assign relevant contributors to this task.
+      placeholder: Enter GitHub usernames separated by commas.
+
   - type: dropdown
     id: tags
     attributes:
       label: Tags
-      description: Choose tags for this issue.
-      multiple: true
+      description: Choose a tag for this issue.
       options:
         - Feature
         - Bug
         - Chore
-        - Documentation
-        - Refactor
         - Priority: High
         - Priority: Medium
         - Priority: Low
