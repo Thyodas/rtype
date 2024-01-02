@@ -41,7 +41,7 @@ jobs:
           sudo apt install -y ninja-build libx11-dev libxrandr-dev libxi-dev libudev-dev libgl1-mesa-dev autoconf libtool libopenal-dev libalut-dev libxinerama-dev libxcursor-dev xorg-dev libglu1-mesa-dev pkg-config
           sudo apt-get install -y software-properties-common lsb-release
           sudo apt-key adv --fetch-keys 'https://apt.kitware.com/keys/kitware-archive-latest.asc'
-          sudo apt-get install -y cmake
+          sudo apt-get install -y cmake clang-tidy
           sudo apt install gcc-10 g++-10 -y
           sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 100
           sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 100
@@ -112,8 +112,12 @@ jobs:
       - name: Install Windows dependencies
         if: matrix.platform == 'windows-latest'
         run: |
-          choco install ninja cmake
+          choco install ninja cmake llvm
           choco install visualstudio2019buildtools --package-parameters "--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64"
+
+      # Run clang-tidy
+      - name: Run clang-tidy
+        run: find . -name '*.cpp' -o -name '*.h' | xargs clang-tidy -p build
 
       - name: Configure
         run: |
