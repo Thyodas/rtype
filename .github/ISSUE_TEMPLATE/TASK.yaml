@@ -2,6 +2,9 @@ name: Task Template
 description: Use this template to create tasks for the project.
 title: "[Task]: "
 labels: ["task"]
+projects: ["EpitechPromo2026/1295"]
+assignees:
+  - imeanz
 
 body:
 
@@ -14,17 +17,19 @@ body:
     validations:
       required: true
 
-  - type: markdown
-    attributes:
-      value: "## Acceptance Criteria"
-
   - type: textarea
-    id: acceptance-criteria
-    attributes:
-      label: Custom Acceptance Criteria
-      description: Add custom acceptance criteria as a list.
-      placeholder: "- [ ] Custom criterion 1\n- [ ] Custom criterion 2"
-      render: markdown
+  id: acceptance-criteria
+  attributes:
+    label: Custom Acceptance Criteria
+    description: Add custom acceptance criteria as a list.
+    value: |
+      1.
+      2.
+      3.
+      ...
+    render: markdown
+  validations:
+    required: true
 
   - type: textarea
     id: dependencies
@@ -50,17 +55,3 @@ body:
       description: Attach any mockups, screenshots, or code examples if applicable.
       placeholder: Add any mockups or examples.
 
-  - type: dropdown
-    id: tags
-    attributes:
-      label: Tags
-      description: Choose a tag for this issue.
-      options:
-        - Feature
-        - Bug
-        - Chore
-        - Priority: High
-        - Priority: Medium
-        - Priority: Low
-    validations:
-      required: true
