@@ -29,17 +29,22 @@ jobs:
     env:
       VCPKG_DEFAULT_TRIPLET: ${{ matrix.triplet }}
     steps:
-      # System dependencies for Linux
+      # System dependencies for Linux -
       - name: Install system deps for Linux
         if: matrix.platform == 'ubuntu-latest'
         run: |
+          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 42D5A192B819C5DA
+          sudo apt update
+          sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+          sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
           sudo apt update -y && sudo apt upgrade -y
           sudo apt install -y ninja-build libx11-dev libxrandr-dev libxi-dev libudev-dev libgl1-mesa-dev autoconf libtool libopenal-dev libalut-dev libxinerama-dev libxcursor-dev xorg-dev libglu1-mesa-dev pkg-config
           sudo apt-get install -y software-properties-common lsb-release
           sudo apt-key adv --fetch-keys 'https://apt.kitware.com/keys/kitware-archive-latest.asc'
-          sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
-          sudo apt-get update
           sudo apt-get install -y cmake
+          sudo apt install gcc-10 g++-10 -y
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 100
+          sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 100
           cmake --version
 
     # Checkout code
@@ -106,7 +111,9 @@ jobs:
       # Install Windows dependencies
       - name: Install Windows dependencies
         if: matrix.platform == 'windows-latest'
-        run: choco install ninja cmake
+        run: |
+          choco install ninja cmake
+          choco install visualstudio2019buildtools --package-parameters "--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64"
 
       - name: Configure
         run: |
@@ -125,21 +132,24 @@ jobs:
         shell: bash
 
       - name: Build
-        shell: cmake -P {0}
         run: |
-          message(STATUS "Using host CMake version: ${CMAKE_VERSION}")
-
-          execute_process(
-            COMMAND cmake -B build && cmake --build build
-            RESULT_VARIABLE result
-          )
-          if (${{ matrix.platform }} STREQUAL "windows-latest")
-            cmake_path(SET WORKSPACE_DIR ${{ github.workspace }})
-            message(STATUS "Using WORKSPACE_DIR: ${WORKSPACE_DIR}")
-            configure_file(${WORKSPACE_DIR}/Debug/r-type_client.exe ${WORKSPACE_DIR} COPYONLY)
-            configure_file(${WORKSPACE_DIR}/Debug/r-type_server.exe ${WORKSPACE_DIR} COPYONLY)
-          endif()
-          if (NOT result EQUAL 0)
-            message(FATAL_ERROR "Bad exit status. Failed to build RTYPE project.")
-          endif()
+          echo "Using host CMake version: ${CMAKE_VERSION}"
+          
+          # Execute CMake commands
+          cmake -B build
+          cmake --build build
+          
+          if [ "${{ matrix.platform }}" = "windows-latest" ]; then
+            # Define WORKSPACE_DIR
+            WORKSPACE_DIR="${{ github.workspace }}/build/Debug"
+          
+            echo "Using WORKSPACE_DIR: $WORKSPACE_DIR"
+          
+            # Check if the executables are present
+            if [ ! -f "$WORKSPACE_DIR/client.exe" ] || [ ! -f "$WORKSPACE_DIR/server.exe" ]; then
+              echo "Build failed: Executables not found."
+              exit 1
+            fi
+          fi
         working-directory: ${{ github.workspace }}
+        shell: bash
