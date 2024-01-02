@@ -2,17 +2,29 @@ name: Task Template
 description: Use this template to create tasks for the project.
 title: "[Task]: "
 labels: ["task"]
-assignees:
-  - imeanz
+projects: ["EpitechPromo2026/1295"]
 
 body:
-
   - type: textarea
     id: objective
     attributes:
       label: Objective
       description: A clear, concise statement of what needs to be accomplished.
       placeholder: Enter the objective of the task.
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction steps
+      description: "How do you trigger this bug? Please walk us through it step by step."
+      value: |
+        1.
+        2.
+        3.
+        ...
+      render: bash
     validations:
       required: true
 
