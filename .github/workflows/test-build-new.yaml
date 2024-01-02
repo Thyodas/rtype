@@ -31,8 +31,17 @@ jobs:
       # Run clang-tidy
       - name: Run clang-tidy
         run: |
-          find src -name '*.cpp' -exec clang-tidy {} -- -Iinclude \;
-          find include -name '*.h' -exec clang-tidy {} -- -Iinclude \;
+          #!/bin/bash
+          set -o pipefail
+          EXIT_STATUS=0
+          for file in $(find src -name '*.cpp' -o -name '*.h')
+          do
+            clang-tidy "$file" -- -Iinclude || EXIT_STATUS=$?
+          done
+          if [ $EXIT_STATUS -ne 0 ]; then
+            echo "Clang-tidy reported issues"
+            exit $EXIT_STATUS
+          fi
         shell: bash
 
   build:
