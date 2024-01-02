@@ -17,8 +17,8 @@ body:
   - type: textarea
     id: acceptance-criteria
     attributes:
-      label: acceptance-criteria
-      description: "What are the different requirement for this task ?"
+      label: Acceptance criteria
+      description: "What are the different requirements for this task ?"
       value: |
         - [ ] 1.
         - [ ] 2.
@@ -54,7 +54,7 @@ body:
   - type: dropdown
     id: type
     attributes:
-      label: type
+      label: Type
       description: What part of the project this issue is about ?
       options:
         - Server
