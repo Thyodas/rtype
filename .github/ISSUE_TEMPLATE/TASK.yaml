@@ -2,18 +2,8 @@ name: Task Template
 description: Use this template to create tasks for the project.
 title: "[Task]: "
 labels: ["task"]
-assignees: 
-  - 
 
 body:
-  - type: input
-    id: title
-    attributes:
-      label: Title
-      description: Brief title of the task.
-      placeholder: Enter the task title.
-    validations:
-      required: true
 
   - type: textarea
     id: objective
@@ -24,28 +14,17 @@ body:
     validations:
       required: true
 
-  - type: textarea
-    id: description
-    attributes:
-      label: Description
-      description: Provide a detailed description of the task.
-      placeholder: Enter the detailed description of the task.
-    validations:
-      required: true
-
   - type: markdown
     attributes:
       value: "## Acceptance Criteria"
 
-  - type: checkboxes
+  - type: textarea
     id: acceptance-criteria
     attributes:
-      label: Acceptance Criteria
-      description: Detail what constitutes a successful completion of the task.
-      options:
-        - label: Criterion 1
-        - label: Criterion 2
-        - label: Criterion 3
+      label: Custom Acceptance Criteria
+      description: Add custom acceptance criteria as a list.
+      placeholder: "- [ ] Custom criterion 1\n- [ ] Custom criterion 2"
+      render: markdown
 
   - type: textarea
     id: dependencies
@@ -70,31 +49,6 @@ body:
       label: Mockups / Examples
       description: Attach any mockups, screenshots, or code examples if applicable.
       placeholder: Add any mockups or examples.
-
-  - type: input
-    id: start-date
-    attributes:
-      label: Start Date
-      description: When will the task start?
-      placeholder: YYYY-MM-DD
-    validations:
-      required: true
-
-  - type: input
-    id: estimated-end-date
-    attributes:
-      label: Estimated End Date
-      description: When is the task estimated to be completed?
-      placeholder: YYYY-MM-DD
-    validations:
-      required: true
-
-  - type: textarea
-    id: assignees
-    attributes:
-      label: Assignees
-      description: Assign relevant contributors to this task.
-      placeholder: Enter GitHub usernames separated by commas.
 
   - type: dropdown
     id: tags
