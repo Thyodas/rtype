@@ -30,7 +30,10 @@ jobs:
 
       # Run clang-tidy
       - name: Run clang-tidy
-        run: clang-tidy 'src/**/*.cpp' 'include/**/*.h' -- -Iinclude
+        run: |
+          find src -name '*.cpp' -exec clang-tidy {} -- -Iinclude \;
+          find include -name '*.h' -exec clang-tidy {} -- -Iinclude \;
+        shell: bash
 
   build:
     needs: lint
