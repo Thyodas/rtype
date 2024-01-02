@@ -15,16 +15,15 @@ body:
       required: true
 
   - type: textarea
-    id: repro
+    id: acceptance-criteria
     attributes:
-      label: Reproduction steps
-      description: "How do you trigger this bug? Please walk us through it step by step."
+      label: acceptance-criteria
+      description: "What are the different requirement for this task ?"
       value: |
         - [ ] 1.
         - [ ] 2.
         - [ ] 3.
         ...
-      render: markdown
     validations:
       required: true
 
