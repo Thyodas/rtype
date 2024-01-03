@@ -64,6 +64,9 @@ namespace ImGui
         style.Colors[ImGuiCol_TextSelectedBg]        = ImVec4(0.26f, 0.59f, 0.98f, 0.35f);
         //style.Colors[ImGuiCol_ModalWindowDarkening]  = ImVec4(0.20f, 0.20f, 0.20f, 0.35f);
 
+
+
+
         if( bStyleDark_ )
         {
             for (int i = 0; i <= ImGuiCol_COUNT; i++)
@@ -205,7 +208,7 @@ namespace ImGui
             counts[bin] += 1.0f;
             countsTotal += 1.0f;
 
-            float hitch = abs( lastdT - deltaT_ );
+            float hitch = fabs( lastdT - deltaT_ );
             int deltaBin = GetBin( hitch );
             hitchTimes[ deltaBin] += hitch;
             hitchCounts[deltaBin] += 1.0f;

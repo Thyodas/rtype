@@ -11,23 +11,25 @@
 
 #define IMGUI_ENABLE_FREETYPE
 
+#include <imgui_impl_raylib.h>
+#include "imgui.h"
+#include "rlImGui.h"
+//#include "rlImGuiColors.h"
+
 #include "game_engine/core/Window.hpp"
 #include "game_engine/ecs/Coordinator.hpp"
 #include "game_engine/ecs/components/Physics.hpp"
 #include "game_engine/ecs/components/Shapes.hpp"
 #include "game_engine/GameEngine.hpp"
 #include "TestBehaviour.hpp"
-#include <imgui_impl_raylib.h>
+
 
 
 
 #include "raylib.h"
 #include "raymath.h"
 
-#include "imgui.h"
-#include "rlImGui.h"
-#include "rlImGuiColors.h"
-#include "game_engine/gui/ImguiStyle.hpp"
+
 
 class input;
 bool Quit = false;
@@ -319,10 +321,17 @@ int main(int argc, char* argv[])
 	/*InitWindow(screenWidth, screenHeight, "raylib-Extras [ImGui] example - ImGui Demo");
 	SetTargetFPS(144);*/
 	engine::initEngine();
-	rlImGuiSetup(true);
+	rlImGuiSetup(false);
+	ImGui::Spectrum::StyleColorsSpectrum();
 
-	ImGui::SetupImGuiStyle(true, 1.0f);
+	//ImGui::SetupImGuiStyle(true, 1.0f);
 	ImGui::GetIO().ConfigWindowsMoveFromTitleBarOnly = true;
+
+	ImGuiStyle * style = &ImGui::GetStyle();
+	style->CircleTessellationMaxError = 0.10f;
+	style->WindowRounding = 10.0f;
+	style->ChildRounding = 6.0f;
+	style->PopupRounding = 4.0f;
 
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 
@@ -341,15 +350,23 @@ int main(int argc, char* argv[])
 	ImFontConfig font_config;
 	font_config.OversampleH = 3; // Horizontal oversampling
 	font_config.OversampleV = 3; // Vertical oversampling
-	font_config.RasterizerDensity = 2.0f;  // Increase the density for sharper text
+
 	//io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\segoeui.ttf", 18.0f);
 	//io.Fonts->AddFontFromFileTTF("../../misc/fonts/DroidSans.ttf", 16.0f);
 	//io.Fonts->AddFontFromFileTTF("../../misc/fonts/Roboto-Medium.ttf", 16.0f);
 	//io.Fonts->AddFontFromFileTTF("../../misc/fonts/Cousine-Regular.ttf", 15.0f);
-	ImFont* font = io.Fonts->AddFontFromFileTTF("resources/bmonofont-i18n.ttf", 13.0f, &font_config);
+	ImFont* font = io.Fonts->AddFontFromFileTTF("resources/SourceSans3-Regular.ttf", 18.0f, &font_config);
 	IM_ASSERT(font != nullptr);
 	io.FontDefault = font;
 	Imgui_ImplRaylib_BuildFontAtlas();
+
+	ImVec4* colors = ImGui::GetStyle().Colors;
+	colors[ImGuiCol_Tab]                    = ImVec4(0.26f, 0.52f, 0.83f, 0.93f);
+	colors[ImGuiCol_TabHovered]             = ImVec4(0.12f, 0.52f, 0.99f, 0.80f);
+	colors[ImGuiCol_TabActive]              = ImVec4(0.06f, 0.32f, 0.63f, 1.00f);
+	colors[ImGuiCol_TableHeaderBg]          = ImVec4(0.15f, 0.44f, 0.79f, 1.00f);
+
+
 
 
 	//ImageViewer.Setup();

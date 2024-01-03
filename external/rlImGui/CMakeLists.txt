@@ -3,13 +3,13 @@ project(rlImGui)
 
 # Find raylib and imgui packages
 find_package(raylib QUIET)
-find_package(imgui REQUIRED)
+find_package(imgui QUIET)
 
 # Fetch rlImGui using FetchContent
 include(FetchContent)
 FetchContent_Declare(
         rlimgui
-        GIT_REPOSITORY https://github.com/raylib-extras/rlImGui.git
+        GIT_REPOSITORY https://github.com/Thyodas/rlImGui
         GIT_TAG main
 )
 FetchContent_MakeAvailable(rlimgui)

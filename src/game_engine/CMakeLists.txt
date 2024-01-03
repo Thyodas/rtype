@@ -65,7 +65,7 @@ find_package(raylib 5.0 CONFIG QUIET)
 include_directories(${raylib_INCLUDE_DIRS})
 
 # Find imgui package
-find_package(imgui REQUIRED)
+find_package(imgui QUIET)
 include_directories(${imgui_INCLUDE_DIRS})
 
 

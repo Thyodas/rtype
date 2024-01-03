@@ -9,9 +9,6 @@
     },
     {
       "name": "boost-serialization"
-    },
-    {
-      "name": "imgui"
     }
   ]
 }
