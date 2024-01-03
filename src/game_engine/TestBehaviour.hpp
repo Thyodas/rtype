@@ -8,7 +8,6 @@
 #pragma once
 
 #include "my_raylib.h"
-
 #include "game_engine/ecs/components/Behaviour.hpp"
 #include "game_engine/ecs/components/Physics.hpp"
 #include "game_engine/GameEngine.hpp"

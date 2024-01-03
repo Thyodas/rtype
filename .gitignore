@@ -163,3 +163,7 @@ Makefile
 server
 
 .vs/
+
+.DS_Store
+
+.clangd

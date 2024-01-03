@@ -63,7 +63,6 @@ namespace server {
 
                 resMsg << body;
 
-
                 _networkManager.messageClient(client, resMsg);
             }
 
