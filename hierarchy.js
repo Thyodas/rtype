@@ -37,6 +37,10 @@ var hierarchy =
     [ "ecs::components::ComponentManager", "classecs_1_1components_1_1_component_manager.html", null ],
     [ "ecs::Coordinator", "classecs_1_1_coordinator.html", null ],
     [ "ecs::components::direction::direction_s", "structecs_1_1components_1_1direction_1_1direction__s.html", null ],
+    [ "DocumentWindow", "class_document_window.html", [
+      [ "ImageViewerWindow", "class_image_viewer_window.html", null ],
+      [ "SceneViewWindow", "class_scene_view_window.html", null ]
+    ] ],
     [ "std::enable_shared_from_this", null, [
       [ "rtype::net::Connection< T >", "classrtype_1_1net_1_1_connection.html", null ]
     ] ],
@@ -45,6 +49,7 @@ var hierarchy =
     [ "common::game::EntityFactory", "classcommon_1_1game_1_1_entity_factory.html", null ],
     [ "ecs::EntityManager", "classecs_1_1_entity_manager.html", null ],
     [ "ecs::event::EventManager", "classecs_1_1event_1_1_event_manager.html", null ],
+    [ "ImGui::FrameTimeHistogram", "struct_im_gui_1_1_frame_time_histogram.html", null ],
     [ "ecs::components::health::health_s", "structecs_1_1components_1_1health_1_1health__s.html", null ],
     [ "common::utils::IClock", "classcommon_1_1utils_1_1_i_clock.html", [
       [ "common::utils::Chrono", "classcommon_1_1utils_1_1_chrono.html", null ]
