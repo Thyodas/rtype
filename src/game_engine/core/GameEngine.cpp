@@ -102,6 +102,23 @@ namespace engine {
         EndDrawing();
     }
 
+    void Engine::runTextureMode(RenderTexture& ViewTexture) {
+        _behaviourSystem->handleBehaviours();
+        _physicSystem->updatePosition();
+        _animationSystem->handleAnimations();
+        _collisionDetectionSystem->detectCollision();
+        _coordinator->dispatchEvents();
+        if (_disableRender)
+            return;
+        BeginTextureMode(ViewTexture);
+        _window->clear(WHITE);
+        BeginMode3D(_window->getCamera());
+        _renderSystem->render();
+        //DrawGrid(20, 1.0f);
+        EndMode3D();
+        EndTextureMode();
+    }
+
     void initEngine(bool disableRender)
     {
         Engine::getInstance()->init(disableRender);
@@ -110,6 +127,11 @@ namespace engine {
     void runEngine()
     {
         Engine::getInstance()->run();
+    }
+
+    void runEngineTextureMode(RenderTexture& ViewTexture)
+    {
+        Engine::getInstance()->runTextureMode(ViewTexture);
     }
 
     ecs::Entity createCube(

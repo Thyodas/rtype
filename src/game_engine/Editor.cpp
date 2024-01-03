@@ -11,6 +11,12 @@
 
 #define IMGUI_ENABLE_FREETYPE
 
+#include "game_engine/core/Window.hpp"
+#include "game_engine/ecs/Coordinator.hpp"
+#include "game_engine/ecs/components/Physics.hpp"
+#include "game_engine/ecs/components/Shapes.hpp"
+#include "game_engine/GameEngine.hpp"
+#include "TestBehaviour.hpp"
 #include <imgui_impl_raylib.h>
 
 
@@ -23,6 +29,7 @@
 #include "rlImGuiColors.h"
 #include "game_engine/gui/ImguiStyle.hpp"
 
+class input;
 bool Quit = false;
 
 bool ImGuiDemoOpen = false;
@@ -229,24 +236,20 @@ public:
 	void Setup() override
 	{
 		ViewTexture = LoadRenderTexture(GetScreenWidth(), GetScreenHeight());
-
-		Camera.fovy = 45;
-		Camera.up.y = 1;
-		Camera.position.y = 3;
-		Camera.position.z = -25;
-
-		Image img = GenImageChecked(256, 256, 32, 32, DARKGRAY, WHITE);
-		GridTexture = LoadTextureFromImage(img);
-		UnloadImage(img);
-		GenTextureMipmaps(&GridTexture);
-		SetTextureFilter(GridTexture, TEXTURE_FILTER_ANISOTROPIC_16X);
-		SetTextureWrap(GridTexture, TEXTURE_WRAP_CLAMP);
+		//engine::initEngine();
+		ecs::Entity cube = engine::createCube({0, 2, 0}, 4, 4, 4, RED, true);
+		//engine::setRotation(cube, {deg2rad(30), 0, 0});
+		//engine::setRotation(cube, {deg2rad(-10), 0, 0});
+		auto behave = engine::createBehavior<input>();
+		engine::attachBehavior(cube, behave);
+		ecs::Entity cube2 = engine::createCube({5, 1, 0}, 2, 2, 2);
 	}
 
 	void Shutdown() override
 	{
 		UnloadRenderTexture(ViewTexture);
-		UnloadTexture(GridTexture);
+		/*UnloadTexture(GridTexture);*/
+
 	}
 
 	void Show() override
@@ -268,51 +271,17 @@ public:
 	{
 		if (!Open)
 			return;
-
 		if (IsWindowResized())
 		{
 			UnloadRenderTexture(ViewTexture);
 			ViewTexture = LoadRenderTexture(GetScreenWidth(), GetScreenHeight());
 		}
-
-		float period = 10;
-		float magnitude = 25;
-
-		Camera.position.x = (float)(sinf((float)GetTime() / period) * magnitude);
-
-		BeginTextureMode(ViewTexture);
-		ClearBackground(SKYBLUE);
-
-		BeginMode3D(Camera);
-
-		// grid of cube trees on a plane to make a "world"
-		DrawPlane(Vector3{ 0, 0, 0 }, Vector2{ 50, 50 }, BEIGE); // simple world plane
-		float spacing = 4;
-		int count = 5;
-
-		for (float x = -count * spacing; x <= count * spacing; x += spacing)
-		{
-			for (float z = -count * spacing; z <= count * spacing; z += spacing)
-			{
-				Vector3 pos = { x, 0.5f, z };
-
-				Vector3 min = { x - 0.5f,0,z - 0.5f };
-				Vector3 max = { x + 0.5f,1,z + 0.5f };
-
-				DrawCube(Vector3{ x, 1.5f, z }, 1, 1, 1, GREEN);
-				DrawCube(Vector3{ x, 0.5f, z }, 0.25f, 1, 0.25f, BROWN);
-			}
-		}
-
-		EndMode3D();
-		EndTextureMode();
+		engine::runEngineTextureMode(ViewTexture);
 	}
-
-	Texture2D GridTexture = { 0 };
 };
 
 
-ImageViewerWindow ImageViewer;
+//ImageViewerWindow ImageViewer;
 SceneViewWindow SceneView;
 
 void DoMainMenu()
@@ -330,7 +299,7 @@ void DoMainMenu()
 		if (ImGui::BeginMenu("Window"))
 		{
 			ImGui::MenuItem("ImGui Demo", nullptr, &ImGuiDemoOpen);
-			ImGui::MenuItem("Image Viewer", nullptr, &ImageViewer.Open);
+			//ImGui::MenuItem("Image Viewer", nullptr, &ImageViewer.Open);
 			ImGui::MenuItem("3D View", nullptr, &SceneView.Open);
 
 			ImGui::EndMenu();
@@ -346,10 +315,12 @@ int main(int argc, char* argv[])
 	int screenWidth = 1900;
 	int screenHeight = 900;
 
-	SetConfigFlags(FLAG_MSAA_4X_HINT | FLAG_VSYNC_HINT);
-	InitWindow(screenWidth, screenHeight, "raylib-Extras [ImGui] example - ImGui Demo");
-	SetTargetFPS(144);
+	//SetConfigFlags(FLAG_MSAA_4X_HINT | FLAG_VSYNC_HINT);
+	/*InitWindow(screenWidth, screenHeight, "raylib-Extras [ImGui] example - ImGui Demo");
+	SetTargetFPS(144);*/
+	engine::initEngine();
 	rlImGuiSetup(true);
+
 	ImGui::SetupImGuiStyle(true, 1.0f);
 	ImGui::GetIO().ConfigWindowsMoveFromTitleBarOnly = true;
 
@@ -381,17 +352,19 @@ int main(int argc, char* argv[])
 	Imgui_ImplRaylib_BuildFontAtlas();
 
 
-	ImageViewer.Setup();
-	ImageViewer.Open = true;
+	//ImageViewer.Setup();
+	//ImageViewer.Open = false;
 
 	SceneView.Setup();
 	SceneView.Open = true;
 
 	// Main game loop
-	while (!WindowShouldClose() && !Quit)    // Detect window close button or ESC key
+	while (engine::isWindowOpen())    // Detect window close button or ESC key
 	{
-		ImageViewer.Update();
+
+		//ImageViewer.Update();
 		SceneView.Update();
+
 
 		BeginDrawing();
 		ClearBackground(DARKGRAY);
@@ -402,8 +375,8 @@ int main(int argc, char* argv[])
 		if (ImGuiDemoOpen)
 			ImGui::ShowDemoWindow(&ImGuiDemoOpen);
 
-		if (ImageViewer.Open)
-			ImageViewer.Show();
+		/*if (ImageViewer.Open)
+			ImageViewer.Show();*/
 
 		if (SceneView.Open)
 			SceneView.Show();
@@ -415,12 +388,12 @@ int main(int argc, char* argv[])
 	}
 	rlImGuiShutdown();
 
-	ImageViewer.Shutdown();
+	//ImageViewer.Shutdown();
 	SceneView.Shutdown();
 
 	// De-Initialization
 	//--------------------------------------------------------------------------------------
-	CloseWindow();        // Close window and OpenGL context
+	/*CloseWindow(); */       // Close window and OpenGL context
 	//--------------------------------------------------------------------------------------
 
 	return 0;
