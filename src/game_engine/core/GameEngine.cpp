@@ -114,7 +114,7 @@ namespace engine {
         _window->clear(WHITE);
         BeginMode3D(_window->getCamera());
         _renderSystem->render();
-        //DrawGrid(20, 1.0f);
+        DrawGrid(10000, 1.0f);
         EndMode3D();
         EndTextureMode();
     }

@@ -4,6 +4,8 @@ project(game_engine)
 
 set(SRCS
     src/game_engine/Editor.cpp
+    src/game_engine/editor/GameEngineEditor.cpp
+    src/game_engine/editor/DocumentWindows/Main3DScene.cpp
     src/game_engine/core/GameEngine.cpp
     src/game_engine/core/window/Window.cpp
     src/game_engine/core/event/Event.cpp
@@ -14,6 +16,7 @@ set(SRCS
     src/game_engine/ecs/systems/Behaviour.cpp
     src/game_engine/ecs/systems/Animations.cpp
     src/game_engine/ecs/Entity.cpp
+
 )
 
 set(CMAKE_CXX_STANDARD 20)
