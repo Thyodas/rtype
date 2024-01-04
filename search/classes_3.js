@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['direction_5fs_0',['direction_s',['../structecs_1_1components_1_1direction_1_1direction__s.html',1,'ecs::components::direction']]],
-  ['documentwindow_1',['DocumentWindow',['../class_document_window.html',1,'']]]
+  ['direction_5fs_0',['direction_s',['../structecs_1_1components_1_1direction_1_1direction__s.html',1,'ecs::components::direction']]]
 ];

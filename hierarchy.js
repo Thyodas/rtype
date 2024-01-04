@@ -37,10 +37,6 @@ var hierarchy =
     [ "ecs::components::ComponentManager", "classecs_1_1components_1_1_component_manager.html", null ],
     [ "ecs::Coordinator", "classecs_1_1_coordinator.html", null ],
     [ "ecs::components::direction::direction_s", "structecs_1_1components_1_1direction_1_1direction__s.html", null ],
-    [ "DocumentWindow", "class_document_window.html", [
-      [ "ImageViewerWindow", "class_image_viewer_window.html", null ],
-      [ "SceneViewWindow", "class_scene_view_window.html", null ]
-    ] ],
     [ "std::enable_shared_from_this", null, [
       [ "rtype::net::Connection< T >", "classrtype_1_1net_1_1_connection.html", null ]
     ] ],
@@ -50,12 +46,18 @@ var hierarchy =
     [ "ecs::EntityManager", "classecs_1_1_entity_manager.html", null ],
     [ "ecs::event::EventManager", "classecs_1_1event_1_1_event_manager.html", null ],
     [ "ImGui::FrameTimeHistogram", "struct_im_gui_1_1_frame_time_histogram.html", null ],
+    [ "engine::editor::GameEngineEditor", "classengine_1_1editor_1_1_game_engine_editor.html", null ],
     [ "ecs::components::health::health_s", "structecs_1_1components_1_1health_1_1health__s.html", null ],
     [ "common::utils::IClock", "classcommon_1_1utils_1_1_i_clock.html", [
       [ "common::utils::Chrono", "classcommon_1_1utils_1_1_chrono.html", null ]
     ] ],
     [ "ecs::components::IComponentArray", "classecs_1_1components_1_1_i_component_array.html", [
       [ "ecs::components::ComponentArray< T >", "classecs_1_1components_1_1_component_array.html", null ]
+    ] ],
+    [ "engine::editor::IDocumentWindow", "classengine_1_1editor_1_1_i_document_window.html", [
+      [ "engine::editor::ADocumentWindow", "classengine_1_1editor_1_1_a_document_window.html", [
+        [ "engine::editor::Main3DScene", "classengine_1_1editor_1_1_main3_d_scene.html", null ]
+      ] ]
     ] ],
     [ "ecs::event::IEvent", "classecs_1_1event_1_1_i_event.html", [
       [ "CollisionEvent", "class_collision_event.html", null ]

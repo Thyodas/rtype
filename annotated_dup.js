@@ -97,6 +97,12 @@ var annotated_dup =
       [ "core", null, [
         [ "Window", "classengine_1_1core_1_1_window.html", "classengine_1_1core_1_1_window" ]
       ] ],
+      [ "editor", null, [
+        [ "ADocumentWindow", "classengine_1_1editor_1_1_a_document_window.html", null ],
+        [ "GameEngineEditor", "classengine_1_1editor_1_1_game_engine_editor.html", "classengine_1_1editor_1_1_game_engine_editor" ],
+        [ "IDocumentWindow", "classengine_1_1editor_1_1_i_document_window.html", null ],
+        [ "Main3DScene", "classengine_1_1editor_1_1_main3_d_scene.html", null ]
+      ] ],
       [ "Engine", "classengine_1_1_engine.html", "classengine_1_1_engine" ]
     ] ],
     [ "ImGui", null, [
@@ -124,12 +130,9 @@ var annotated_dup =
     [ "CollisionDetectionSystem", "class_collision_detection_system.html", null ],
     [ "CollisionEvent", "class_collision_event.html", null ],
     [ "ComponentArray< T >", "class_component_array_3_01_t_01_4.html", null ],
-    [ "DocumentWindow", "class_document_window.html", null ],
-    [ "ImageViewerWindow", "class_image_viewer_window.html", null ],
     [ "input", "classinput.html", "classinput" ],
     [ "movement", "classmovement.html", "classmovement" ],
     [ "render_t", "structrender__t.html", null ],
     [ "rigidBody_t", "structrigid_body__t.html", null ],
-    [ "SceneViewWindow", "class_scene_view_window.html", null ],
     [ "transform_t", "structtransform__t.html", null ]
 ];
