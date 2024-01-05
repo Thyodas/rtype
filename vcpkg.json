@@ -9,6 +9,9 @@
     },
     {
       "name": "boost-serialization"
+    },
+    {
+      "name": "joltphysics"
     }
   ]
 }
