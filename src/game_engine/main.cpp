@@ -10,6 +10,7 @@
 #include "game_engine/ecs/Coordinator.hpp"
 #include "game_engine/ecs/components/Physics.hpp"
 #include "game_engine/ecs/components/Shapes.hpp"
+#include "game_engine/ecs/components/Input.hpp"
 #include "game_engine/GameEngine.hpp"
 #include "TestBehaviour.hpp"
 
@@ -31,7 +32,10 @@ int main()
     // engine::attachBehavior(robot, behave);
     // engine::setAnimation(robot, "robot.glb");
 
-    while (engine::isWindowOpen())
+    while (engine::isWindowOpen()) {
         engine::runEngine();
+        if (engine::isKeyPressed(ecs::components::input::Keys::KeyR))
+            std::cout << "Key pressed" << std::endl;
+    }
     return 0;
 }
