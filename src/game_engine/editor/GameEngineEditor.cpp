@@ -28,7 +28,6 @@ engine::editor::GameEngineEditor::GameEngineEditor()
 {
 	setupEngine();
 	setupStyle();
-	setupFonts();
 	setupDockspace();
 }
 
@@ -40,8 +39,13 @@ bool engine::editor::GameEngineEditor::isOpen() const
 void engine::editor::GameEngineEditor::setupEngine()
 {
 	SetConfigFlags(FLAG_MSAA_4X_HINT | FLAG_VSYNC_HINT | FLAG_WINDOW_RESIZABLE | FLAG_WINDOW_HIGHDPI);
-	engine::initEngine();
-	rlImGuiSetup(false);
+	engine::initEngine(false, 1920, 1000);
+
+	rlImGuiBeginInitImGui();
+	ImGui::StyleColorsDark();
+
+	setupFonts();
+	rlImGuiEndInitImGui();
 }
 
 void engine::editor::GameEngineEditor::setupStyle()
@@ -58,6 +62,7 @@ void engine::editor::GameEngineEditor::setupStyle()
 	ImGuiIO& io = ImGui::GetIO();
 	io.DisplayFramebufferScale = ImVec2(scale.x, scale.y); // Apply the DPI scale to ImGui rendering
 	io.ConfigWindowsMoveFromTitleBarOnly = true;
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
 	ImGuiStyle *style = &ImGui::GetStyle();
 	style->CircleTessellationMaxError = 0.10f;
@@ -89,18 +94,22 @@ void engine::editor::GameEngineEditor::setupFonts()
 	IM_ASSERT(font != nullptr);
 	io.FontDefault = font;
 
+	/*
 	ImFontConfig fontawesome_config;
 	fontawesome_config.MergeMode = true;
 	fontawesome_config.OversampleH = 3; // Horizontal oversampling
 	fontawesome_config.OversampleV = 3; // Vertical oversampling
 	static const ImWchar icon_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
 	io.Fonts->AddFontFromFileTTF("resources/fontawesome4.ttf", fontSize, &fontawesome_config, icon_ranges);
+	*/
 
 	Imgui_ImplRaylib_BuildFontAtlas();
 }
 
 void engine::editor::GameEngineEditor::setupDockspace()
 {
+	//ImGui::DockSpaceOverViewport(ImGui::GetMainViewport(), ImGuiDockNodeFlags_None);
+
 }
 
 void engine::editor::GameEngineEditor::drawMenuBar()
@@ -161,6 +170,8 @@ void engine::editor::GameEngineEditor::render()
 	ClearBackground(DARKGRAY);
 
 	rlImGuiBegin();
+
+	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 
 	drawMenuBar();
 	ImGui::ShowDemoWindow();

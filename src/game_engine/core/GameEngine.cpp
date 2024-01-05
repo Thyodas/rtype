@@ -15,11 +15,11 @@ namespace engine {
 
     Engine *Engine::engine = nullptr;
     std::mutex Engine::_mutex;
-    void Engine::init(bool disableRender)
+    void Engine::init(bool disableRender, int windowWidth, int windowHeight)
     {
         _disableRender = disableRender;
         if (!_disableRender) {
-            _window = std::make_shared<core::Window>();
+            _window = std::make_shared<core::Window>(windowWidth, windowHeight);
             _window->setFPS(60);
         }
         _coordinator = std::make_shared<ecs::Coordinator>();
@@ -216,7 +216,7 @@ namespace engine {
 
     void initEngine(bool disableRender)
     {
-        Engine::getInstance()->init(disableRender);
+        Engine::getInstance()->init(disableRender, windowWidth, windowHeight);
     }
 
     void runEngine()
