@@ -386,13 +386,9 @@ int main(int argc, char** argv)
 	BodyCreationSettings floor_settings(floor_shape, RVec3(0.0_r, -1.0_r, 0.0_r), Quat::sIdentity(), EMotionType::Static, Layers::NON_MOVING);
 	floor_settings.mRestitution = 0.5f;
 	floor_settings.mAllowSleeping = true;
-
-	// Create the actual rigid body
-	Body *floor = body_interface.CreateBody(floor_settings); // Note that if we run out of bodies this can return nullptr
+	body_interface.CreateAndAddBody(floor_settings, EActivation::DontActivate);
 	//floor->SetFriction(1.0f);
 
-	// Add it to the world
-	body_interface.AddBody(floor->GetID(), EActivation::DontActivate);
 
 	// Now create a dynamic body to bounce on the floor
 	// Note that this uses the shorthand version of creating and adding a body to the world
@@ -408,10 +404,6 @@ int main(int argc, char** argv)
 
 	// We simulate the physics world in discrete time steps. 60 Hz is a good rate to update the physics system.
 	const float cDeltaTime = 1.0f / 60.0f;
-
-	// Optional step: Before starting the physics simulation you can optimize the broad phase. This improves collision detection performance (it's pointless here because we only have 2 bodies).
-	// You should definitely not call this every frame or when e.g. streaming in a new level section as it is an expensive operation.
-	// Instead insert all new objects in batches instead of 1 at a time to keep the broad phase efficient.
 	physics_system.OptimizeBroadPhase();
 
 	// Now we're ready to simulate the body, keep simulating until it goes to sleep
@@ -440,63 +432,58 @@ int main(int argc, char** argv)
 
     // Define the camera to look into our 3d world
     Camera camera = { 0 };
-    camera.position = Vector3{ 0.0f, 10.0f, 10.0f };
-    camera.target = Vector3{ 0.0f, 0.0f, 0.0f };
-    camera.up = Vector3{ 0.0f, 1.0f, 0.0f };
+    camera.position = (Vector3){ 0.0f, 10.0f, 10.0f };
+    camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };
+    camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };
     camera.fovy = 45.0f;
     camera.projection = CAMERA_PERSPECTIVE;
 
-	double tickRate = 60.0;
+	double tickRate = 2.0;
   	double tickTime = 1.0 / tickRate;
-  	double tickTimer = 0;
-
-	float lastFrame = 1.0;
+  	double tickTimer = 20;
 
 	bool jump = false;
 
 	std::vector<BodyID> bodies;
 	bodies.push_back(sphere_id);
 
-	const float fixedTimestep = 1.0f / 60.0f;
-	float accumulator = 0.0f;
-
-	Model sphere_model = LoadModelFromMesh(GenMeshSphere(1.0, 15, 15));
-
-	while (!WindowShouldClose()) {
-		float deltaTime = GetFrameTime();
-    	accumulator += deltaTime;
-		while (accumulator >= fixedTimestep) {
-			const int cCollisionSteps = 1;
-			physics_system.Update(fixedTimestep, cCollisionSteps, &temp_allocator, &job_system);
+	while (!WindowShouldClose())
+	{
+		// Next step
+		tickTimer += GetFrameTime();
+    	if (tickTimer >= tickTime) {
 			tickTimer -= tickTime;
+			if (IsKeyReleased(KEY_R)) {
+				BodyCreationSettings new_sphere_settings(new SphereShape(1.0f), RVec3(0.0_r, 20.0_r, 0.5_r), Quat::sIdentity(), EMotionType::Dynamic, Layers::MOVING);
+				BodyID new_sphere_id = body_interface.CreateAndAddBody(new_sphere_settings, EActivation::Activate);
+				//body_interface.SetFriction(new_sphere_id, 0.5f);
+				body_interface.SetLinearVelocity(new_sphere_id, Vec3(0.0f, -5.0f, 0.0f));
+				bodies.push_back(new_sphere_id);
+			}
+
 			++step;
-			accumulator -= fixedTimestep;
-		}
 
-		if (IsKeyReleased(KEY_R)) {
-			BodyCreationSettings new_sphere_settings(new SphereShape(1.0f), RVec3(0.0_r, 20.0_r, 1.0_r), Quat::sIdentity(), EMotionType::Dynamic, Layers::MOVING);
-			BodyID new_sphere_id = body_interface.CreateAndAddBody(new_sphere_settings, EActivation::Activate);
-			body_interface.SetLinearVelocity(new_sphere_id, Vec3(0.0f, -5.0f, 0.0f));
-			bodies.push_back(new_sphere_id);
-		}
-		BeginDrawing();
-		ClearBackground({ 0, 0, 0, 0 });
-		BeginMode3D(camera);
-		DrawCube({0, -1, 0}, 10, 2, 10, { 255, 255, 255, 255 });
-		for (int i = 0; i < bodies.size(); ++i) {
-			RVec3 position = body_interface.GetCenterOfMassPosition(bodies[i]);
-			Vec3 velocity = body_interface.GetLinearVelocity(bodies[i]);
+			BeginDrawing();
+			ClearBackground({ 0, 0, 0, 0 });
+			BeginMode3D(camera);
+			DrawCube({0, -1, 0}, 10, 2, 10, { 255, 255, 255, 255 });
+			const int cCollisionSteps = 1;
+			physics_system.Update(cDeltaTime, cCollisionSteps, &temp_allocator, &job_system);
+			// Output current position and velocity of the sphere
+			for (int i = 0; i < bodies.size(); ++i) {
+				RVec3 position = body_interface.GetCenterOfMassPosition(bodies[i]);
+				Vec3 velocity = body_interface.GetLinearVelocity(bodies[i]);
+				cout << "id " << i << " " << "Step " << step << ": Position = (" << position.GetX() << ", " << position.GetY() << ", " << position.GetZ() << "), Velocity = (" << velocity.GetX() << ", " << velocity.GetY() << ", " << velocity.GetZ() << ")" << endl;
 
-			JPH::Quat quat = body_interface.GetRotation(bodies[i]);
-			Quaternion quaternion = {quat.GetX(), quat.GetY(), quat.GetZ(), quat.GetW()};
-			sphere_model.transform = QuaternionToMatrix(quaternion);
-			DrawModel(sphere_model, {position.GetX(), position.GetY(), position.GetZ()}, 1.0f, { 255, 0, 0, 255 });
-			DrawModelWires(sphere_model, {position.GetX(), position.GetY(), position.GetZ()}, 1.0f, {255, 255, 255, 255});
-			//cout << "id " << i << " " << "Step " << step << ": Position = (" << position.GetX() << ", " << position.GetY() << ", " << position.GetZ() << "), Velocity = (" << velocity.GetX() << ", " << velocity.GetY() << ", " << velocity.GetZ() << ")" << endl;
-		}
-		EndMode3D();
-		EndDrawing();
-    }
+				// If you take larger steps than 1 / 60th of a second you need to do multiple collision steps in order to keep the simulation stable. Do 1 collision step per 1 / 60th of a second (round up).
+
+				// Step the world
+				DrawSphere({position.GetX(), position.GetY(), position.GetZ()}, 1.0f, { 255, 0, 0, 255 });
+			}
+			EndMode3D();
+			EndDrawing();
+    	}
+	}
 	CloseWindow();
 
 	// Remove the sphere from the physics system. Note that the sphere itself keeps all of its state and can be re-added at any time.
@@ -506,11 +493,8 @@ int main(int argc, char** argv)
 	body_interface.DestroyBody(sphere_id);
 
 	// Remove and destroy the floor
-	body_interface.RemoveBody(floor->GetID());
-	body_interface.DestroyBody(floor->GetID());
 
 	// Unregisters all types with the factory and cleans up the default material
-	UnregisterTypes();
 
 	// Destroy the factory
 	delete Factory::sInstance;
