@@ -6,6 +6,8 @@ set(SRCS
     src/game_engine/Editor.cpp
     src/game_engine/editor/GameEngineEditor.cpp
     src/game_engine/editor/DocumentWindows/Main3DScene.cpp
+    src/game_engine/editor/DocumentWindows/SceneTreeWindow.cpp
+    src/game_engine/editor/DocumentWindows/EntityPropertiesWindow.cpp
     src/game_engine/core/GameEngine.cpp
     src/game_engine/core/window/Window.cpp
     src/game_engine/core/event/Event.cpp

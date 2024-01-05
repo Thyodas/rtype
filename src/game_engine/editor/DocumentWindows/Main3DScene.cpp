@@ -25,6 +25,11 @@ engine::editor::Main3DScene::~Main3DScene()
 
 void engine::editor::Main3DScene::setup()
 {
+    ImVec2 pos = ImVec2(118, 24);
+    ImVec2 size = ImVec2(1389, 804);
+    ImGui::SetNextWindowPos(pos, ImGuiCond_FirstUseEver);
+    ImGui::SetNextWindowSize(size, ImGuiCond_FirstUseEver);
+
     _viewTexture = LoadRenderTexture(GetScreenWidth(), GetScreenHeight());
     //engine::initEngine();
     ecs::Entity cube = engine::createCube({0, 2, 0}, 4, 4, 4, RED, true);

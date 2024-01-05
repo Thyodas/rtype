@@ -88,6 +88,14 @@ void engine::editor::GameEngineEditor::setupFonts()
 	ImFont* font = io.Fonts->AddFontFromFileTTF("resources/SourceSans3-Regular.ttf", fontSize, &font_config);
 	IM_ASSERT(font != nullptr);
 	io.FontDefault = font;
+
+	ImFontConfig fontawesome_config;
+	fontawesome_config.MergeMode = true;
+	fontawesome_config.OversampleH = 3; // Horizontal oversampling
+	fontawesome_config.OversampleV = 3; // Vertical oversampling
+	static const ImWchar icon_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
+	io.Fonts->AddFontFromFileTTF("resources/fontawesome4.ttf", fontSize, &fontawesome_config, icon_ranges);
+
 	Imgui_ImplRaylib_BuildFontAtlas();
 }
 
@@ -142,7 +150,8 @@ void engine::editor::GameEngineEditor::update()
 {
 	//engine::runEngineTextureMode();
 	for (const auto& window: _windows | std::views::values) {
-		window->update();
+		if (window->isFocused())
+			window->update();
 	}
 }
 
@@ -157,7 +166,8 @@ void engine::editor::GameEngineEditor::render()
 	ImGui::ShowDemoWindow();
 
 	for (const auto& window: _windows | std::views::values) {
-		window->show();
+		if (window->isOpened())
+			window->show();
 	}
 
 	rlImGuiEnd();
