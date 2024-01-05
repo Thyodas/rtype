@@ -460,6 +460,8 @@ int main(int argc, char** argv)
 	const float fixedTimestep = 1.0f / 60.0f;
 	float accumulator = 0.0f;
 
+	Model sphere_model = LoadModelFromMesh(GenMeshSphere(1.0, 15, 15));
+
 	while (!WindowShouldClose()) {
 		float deltaTime = GetFrameTime();
     	accumulator += deltaTime;
@@ -484,7 +486,7 @@ int main(int argc, char** argv)
 		for (int i = 0; i < bodies.size(); ++i) {
 			RVec3 position = body_interface.GetCenterOfMassPosition(bodies[i]);
 			Vec3 velocity = body_interface.GetLinearVelocity(bodies[i]);
-			Model sphere_model = LoadModelFromMesh(GenMeshSphere(1.0, 15, 15));
+
 			JPH::Quat quat = body_interface.GetRotation(bodies[i]);
 			Quaternion quaternion = {quat.GetX(), quat.GetY(), quat.GetZ(), quat.GetW()};
 			sphere_model.transform = QuaternionToMatrix(quaternion);
