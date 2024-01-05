@@ -57,6 +57,10 @@ var annotated_dup =
         [ "health", null, [
           [ "health_s", "structecs_1_1components_1_1health_1_1health__s.html", null ]
         ] ],
+        [ "input", null, [
+          [ "Input", "structecs_1_1components_1_1input_1_1_input.html", null ],
+          [ "keyState", "structecs_1_1components_1_1input_1_1key_state.html", null ]
+        ] ],
         [ "network", null, [
           [ "network_s", "structecs_1_1components_1_1network_1_1network__s.html", null ]
         ] ],
@@ -85,30 +89,23 @@ var annotated_dup =
         [ "BehaviourSystem", "classecs_1_1system_1_1_behaviour_system.html", "classecs_1_1system_1_1_behaviour_system" ],
         [ "ColisionDetectionSystem", "classecs_1_1system_1_1_colision_detection_system.html", "classecs_1_1system_1_1_colision_detection_system" ],
         [ "CollisionResponse", "classecs_1_1system_1_1_collision_response.html", "classecs_1_1system_1_1_collision_response" ],
+        [ "InputSystem", "classecs_1_1system_1_1_input_system.html", null ],
         [ "PhysicsSystem", "classecs_1_1system_1_1_physics_system.html", "classecs_1_1system_1_1_physics_system" ],
         [ "RenderSystem", "classecs_1_1system_1_1_render_system.html", "classecs_1_1system_1_1_render_system" ],
         [ "System", "classecs_1_1system_1_1_system.html", null ],
         [ "SystemManager", "classecs_1_1system_1_1_system_manager.html", "classecs_1_1system_1_1_system_manager" ]
       ] ],
       [ "Coordinator", "classecs_1_1_coordinator.html", "classecs_1_1_coordinator" ],
-      [ "EntityManager", "classecs_1_1_entity_manager.html", "classecs_1_1_entity_manager" ]
+      [ "EntityManager", "classecs_1_1_entity_manager.html", "classecs_1_1_entity_manager" ],
+      [ "ISingletonComponent", "classecs_1_1_i_singleton_component.html", null ],
+      [ "SingletonComponent", "classecs_1_1_singleton_component.html", null ],
+      [ "SingletonComponentManager", "classecs_1_1_singleton_component_manager.html", null ]
     ] ],
     [ "engine", null, [
       [ "core", null, [
         [ "Window", "classengine_1_1core_1_1_window.html", "classengine_1_1core_1_1_window" ]
       ] ],
-      [ "editor", null, [
-        [ "ADocumentWindow", "classengine_1_1editor_1_1_a_document_window.html", null ],
-        [ "EntityPropertiesWindow", "classengine_1_1editor_1_1_entity_properties_window.html", null ],
-        [ "GameEngineEditor", "classengine_1_1editor_1_1_game_engine_editor.html", "classengine_1_1editor_1_1_game_engine_editor" ],
-        [ "IDocumentWindow", "classengine_1_1editor_1_1_i_document_window.html", null ],
-        [ "Main3DScene", "classengine_1_1editor_1_1_main3_d_scene.html", null ],
-        [ "SceneTreeWindow", "classengine_1_1editor_1_1_scene_tree_window.html", null ]
-      ] ],
       [ "Engine", "classengine_1_1_engine.html", "classengine_1_1_engine" ]
-    ] ],
-    [ "ImGui", null, [
-      [ "FrameTimeHistogram", "struct_im_gui_1_1_frame_time_histogram.html", null ]
     ] ],
     [ "rtype", null, [
       [ "net", null, [

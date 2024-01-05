@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Arcade: ecs::system::System Class Reference</title>
+<title>Arcade: ecs::system::InputSystem Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('classecs_1_1system_1_1_system.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('classecs_1_1system_1_1_input_system.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -86,57 +86,48 @@ $(document).ready(function(){initNavTree('classecs_1_1system_1_1_system.html',''
 
 <div class="header">
   <div class="summary">
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="classecs_1_1system_1_1_system-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">ecs::system::System Class Reference</div></div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="classecs_1_1system_1_1_input_system-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">ecs::system::InputSystem Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>Base class for systems in an ECS (Entity-Component-System) architecture.  
- <a href="classecs_1_1system_1_1_system.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="_system_8hpp_source.html">System.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for ecs::system::System:</div>
+Inheritance diagram for ecs::system::InputSystem:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="classecs_1_1system_1_1_system.png" usemap="#ecs::system::System_map" alt=""/>
-  <map id="ecs::system::System_map" name="ecs::system::System_map">
-<area href="classecs_1_1system_1_1_animation_system.html" title="System class responsible for handling and updating animations within the ECS framework." alt="ecs::system::AnimationSystem" shape="rect" coords="0,56,220,80"/>
-<area href="classecs_1_1system_1_1_behaviour_system.html" title="System class responsible for handling and updating behaviour components in the ECS framework." alt="ecs::system::BehaviourSystem" shape="rect" coords="230,56,450,80"/>
-<area href="classecs_1_1system_1_1_colision_detection_system.html" alt="ecs::system::ColisionDetectionSystem" shape="rect" coords="460,56,680,80"/>
-<area href="classecs_1_1system_1_1_input_system.html" alt="ecs::system::InputSystem" shape="rect" coords="690,56,910,80"/>
-<area href="classecs_1_1system_1_1_physics_system.html" title="System responsible for updating the positions of entities based on their physical properties." alt="ecs::system::PhysicsSystem" shape="rect" coords="920,56,1140,80"/>
-<area href="classecs_1_1system_1_1_render_system.html" title="System responsible for rendering entities in the ECS framework." alt="ecs::system::RenderSystem" shape="rect" coords="1150,56,1370,80"/>
+  <img src="classecs_1_1system_1_1_input_system.png" usemap="#ecs::system::InputSystem_map" alt=""/>
+  <map id="ecs::system::InputSystem_map" name="ecs::system::InputSystem_map">
+<area href="classecs_1_1system_1_1_system.html" title="Base class for systems in an ECS (Entity-Component-System) architecture." alt="ecs::system::System" shape="rect" coords="0,0,149,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a5f84447b5e26269657b4be579513f865"><td class="memItemLeft" align="right" valign="top"><a id="a5f84447b5e26269657b4be579513f865" name="a5f84447b5e26269657b4be579513f865"></a>
-std::set&lt; Entity &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_entities</b></td></tr>
-<tr class="separator:a5f84447b5e26269657b4be579513f865"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ac7f94b85c88730066ba2d4c6e29801e8"><td class="memItemLeft" align="right" valign="top"><a id="ac7f94b85c88730066ba2d4c6e29801e8" name="ac7f94b85c88730066ba2d4c6e29801e8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>handleInputs</b> (void)</td></tr>
+<tr class="separator:ac7f94b85c88730066ba2d4c6e29801e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:a09e0c8c339686e2dc4615bee3de2a256"><td class="memItemLeft" align="right" valign="top"><a id="a09e0c8c339686e2dc4615bee3de2a256" name="a09e0c8c339686e2dc4615bee3de2a256"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_attribs_classecs_1_1system_1_1_system"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classecs_1_1system_1_1_system')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classecs_1_1system_1_1_system.html">ecs::system::System</a></td></tr>
+<tr class="memitem:a5f84447b5e26269657b4be579513f865 inherit pub_attribs_classecs_1_1system_1_1_system"><td class="memItemLeft" align="right" valign="top"><a id="a5f84447b5e26269657b4be579513f865" name="a5f84447b5e26269657b4be579513f865"></a>
+std::set&lt; Entity &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_entities</b></td></tr>
+<tr class="separator:a5f84447b5e26269657b4be579513f865 inherit pub_attribs_classecs_1_1system_1_1_system"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_attribs_classecs_1_1system_1_1_system"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_classecs_1_1system_1_1_system')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="classecs_1_1system_1_1_system.html">ecs::system::System</a></td></tr>
+<tr class="memitem:a09e0c8c339686e2dc4615bee3de2a256 inherit pub_static_attribs_classecs_1_1system_1_1_system"><td class="memItemLeft" align="right" valign="top"><a id="a09e0c8c339686e2dc4615bee3de2a256" name="a09e0c8c339686e2dc4615bee3de2a256"></a>
 static std::shared_ptr&lt; <a class="el" href="classecs_1_1_coordinator.html">ecs::Coordinator</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_coord</b> = nullptr</td></tr>
-<tr class="separator:a09e0c8c339686e2dc4615bee3de2a256"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a09e0c8c339686e2dc4615bee3de2a256 inherit pub_static_attribs_classecs_1_1system_1_1_system"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >Base class for systems in an ECS (Entity-Component-System) architecture. </p>
-<p >Systems are responsible for processing entities that have a specific set of components. This class provides the basic structure for a system, mainly a set of entities that the system will process. </p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/game_engine/ecs/<a class="el" href="_system_8hpp_source.html">System.hpp</a></li>
-<li>src/game_engine/core/GameEngine.cpp</li>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/game_engine/ecs/systems/<a class="el" href="systems_2_input_8hpp_source.html">Input.hpp</a></li>
+<li>src/game_engine/ecs/systems/Input.cpp</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>ecs</b></li><li class="navelem"><b>system</b></li><li class="navelem"><a class="el" href="classecs_1_1system_1_1_system.html">System</a></li>
+    <li class="navelem"><b>ecs</b></li><li class="navelem"><b>system</b></li><li class="navelem"><a class="el" href="classecs_1_1system_1_1_input_system.html">InputSystem</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2 </li>
   </ul>
 </div>

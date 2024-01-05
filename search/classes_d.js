@@ -1,8 +1,28 @@
 var searchData=
 [
-  ['render_5fs_0',['render_s',['../structecs_1_1components_1_1render_1_1render__s.html',1,'ecs::components::render']]],
-  ['render_5ft_1',['render_t',['../structrender__t.html',1,'']]],
-  ['rendersystem_2',['RenderSystem',['../classecs_1_1system_1_1_render_system.html',1,'ecs::system']]],
-  ['rigidbody_5fs_3',['rigidBody_s',['../structecs_1_1components_1_1physics_1_1rigid_body__s.html',1,'ecs::components::physics']]],
-  ['rigidbody_5ft_4',['rigidBody_t',['../structrigid_body__t.html',1,'']]]
+  ['server_0',['Server',['../classserver_1_1_server.html',1,'server']]],
+  ['serverallyconnect_1',['ServerAllyConnect',['../structcommon_1_1game_1_1netbody_1_1_server_ally_connect.html',1,'common::game::netbody']]],
+  ['serverallydestroy_2',['ServerAllyDestroy',['../structcommon_1_1game_1_1netbody_1_1_server_ally_destroy.html',1,'common::game::netbody']]],
+  ['serverallydisconnect_3',['ServerAllyDisconnect',['../structcommon_1_1game_1_1netbody_1_1_server_ally_disconnect.html',1,'common::game::netbody']]],
+  ['serverallytakedamage_4',['ServerAllyTakeDamage',['../structcommon_1_1game_1_1netbody_1_1_server_ally_take_damage.html',1,'common::game::netbody']]],
+  ['servercreateenemy_5',['ServerCreateEnemy',['../structcommon_1_1game_1_1netbody_1_1_server_create_enemy.html',1,'common::game::netbody']]],
+  ['servercreateplayership_6',['ServerCreatePlayerShip',['../structcommon_1_1game_1_1netbody_1_1_server_create_player_ship.html',1,'common::game::netbody']]],
+  ['serverdestroybullet_7',['ServerDestroyBullet',['../structcommon_1_1game_1_1netbody_1_1_server_destroy_bullet.html',1,'common::game::netbody']]],
+  ['serverdestroyenemy_8',['ServerDestroyEnemy',['../structcommon_1_1game_1_1netbody_1_1_server_destroy_enemy.html',1,'common::game::netbody']]],
+  ['serverenemytakedamage_9',['ServerEnemyTakeDamage',['../structcommon_1_1game_1_1netbody_1_1_server_enemy_take_damage.html',1,'common::game::netbody']]],
+  ['serverfirebullet_10',['ServerFireBullet',['../structcommon_1_1game_1_1netbody_1_1_server_fire_bullet.html',1,'common::game::netbody']]],
+  ['serverinterface_11',['ServerInterface',['../classrtype_1_1net_1_1_server_interface.html',1,'rtype::net']]],
+  ['serverinterface_3c_20common_3a_3anetworkmessage_20_3e_12',['ServerInterface&lt; common::NetworkMessage &gt;',['../classrtype_1_1net_1_1_server_interface.html',1,'rtype::net']]],
+  ['serverplayerdestroy_13',['ServerPlayerDestroy',['../structcommon_1_1game_1_1netbody_1_1_server_player_destroy.html',1,'common::game::netbody']]],
+  ['serverplayertakedamage_14',['ServerPlayerTakeDamage',['../structcommon_1_1game_1_1netbody_1_1_server_player_take_damage.html',1,'common::game::netbody']]],
+  ['serverupdatebulletposition_15',['ServerUpdateBulletPosition',['../structcommon_1_1game_1_1netbody_1_1_server_update_bullet_position.html',1,'common::game::netbody']]],
+  ['serverupdateenemyvelocity_16',['ServerUpdateEnemyVelocity',['../structcommon_1_1game_1_1netbody_1_1_server_update_enemy_velocity.html',1,'common::game::netbody']]],
+  ['serverupdateshipposition_17',['ServerUpdateShipPosition',['../structcommon_1_1game_1_1netbody_1_1_server_update_ship_position.html',1,'common::game::netbody']]],
+  ['serverupdateshipvelocity_18',['ServerUpdateShipVelocity',['../structcommon_1_1game_1_1netbody_1_1_server_update_ship_velocity.html',1,'common::game::netbody']]],
+  ['singletoncomponent_19',['SingletonComponent',['../classecs_1_1_singleton_component.html',1,'ecs']]],
+  ['singletoncomponentmanager_20',['SingletonComponentManager',['../classecs_1_1_singleton_component_manager.html',1,'ecs']]],
+  ['skybox_21',['Skybox',['../classecs_1_1components_1_1_skybox.html',1,'ecs::components']]],
+  ['skyboxbehavior_22',['SkyboxBehavior',['../classclient_1_1_skybox_behavior.html',1,'client']]],
+  ['system_23',['System',['../classecs_1_1system_1_1_system.html',1,'ecs::system']]],
+  ['systemmanager_24',['SystemManager',['../classecs_1_1system_1_1_system_manager.html',1,'ecs::system']]]
 ];

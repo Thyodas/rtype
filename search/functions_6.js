@@ -18,5 +18,6 @@ var searchData=
   ['getincoming_15',['getIncoming',['../classrtype_1_1net_1_1_client_interface.html#a4d61e723e1a35614e893de0f617c04ea',1,'rtype::net::ClientInterface']]],
   ['getmodel_16',['getModel',['../classecs_1_1components_1_1_i_shape.html#a03e8f03c696b607f7ad5f7cb43ea34e8',1,'ecs::components::IShape']]],
   ['getsignature_17',['getSignature',['../classecs_1_1_entity_manager.html#ae21219b3d91d4b90a5100fa1b050a148',1,'ecs::EntityManager']]],
-  ['getwidth_18',['getWidth',['../classengine_1_1core_1_1_window.html#a29f74683fa9772f4d866f10114c45bad',1,'engine::core::Window']]]
+  ['getsingletoncomponent_18',['getSingletonComponent',['../classecs_1_1_coordinator.html#a9e0f4b9d5b32186cea15014ae65bc6aa',1,'ecs::Coordinator']]],
+  ['getwidth_19',['getWidth',['../classengine_1_1core_1_1_window.html#a29f74683fa9772f4d866f10114c45bad',1,'engine::core::Window']]]
 ];

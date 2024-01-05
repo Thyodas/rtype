@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Arcade: engine::editor::IDocumentWindow Class Reference</title>
+<title>Arcade: ecs::SingletonComponent&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('classengine_1_1editor_1_1_i_document_window.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('classecs_1_1_singleton_component.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -87,53 +87,38 @@ $(document).ready(function(){initNavTree('classengine_1_1editor_1_1_i_document_w
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="classengine_1_1editor_1_1_i_document_window-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">engine::editor::IDocumentWindow Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+<a href="classecs_1_1_singleton_component-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">ecs::SingletonComponent&lt; T &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="dynheader">
-Inheritance diagram for engine::editor::IDocumentWindow:</div>
+Inheritance diagram for ecs::SingletonComponent&lt; T &gt;:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="classengine_1_1editor_1_1_i_document_window.png" usemap="#engine::editor::IDocumentWindow_map" alt=""/>
-  <map id="engine::editor::IDocumentWindow_map" name="engine::editor::IDocumentWindow_map">
-<area href="classengine_1_1editor_1_1_a_document_window.html" alt="engine::editor::ADocumentWindow" shape="rect" coords="237,56,464,80"/>
-<area href="classengine_1_1editor_1_1_entity_properties_window.html" alt="engine::editor::EntityPropertiesWindow" shape="rect" coords="0,112,227,136"/>
-<area href="classengine_1_1editor_1_1_main3_d_scene.html" alt="engine::editor::Main3DScene" shape="rect" coords="237,112,464,136"/>
-<area href="classengine_1_1editor_1_1_scene_tree_window.html" alt="engine::editor::SceneTreeWindow" shape="rect" coords="474,112,701,136"/>
+  <img src="classecs_1_1_singleton_component.png" usemap="#ecs::SingletonComponent_3C_20T_20_3E_map" alt=""/>
+  <map id="ecs::SingletonComponent_3C_20T_20_3E_map" name="ecs::SingletonComponent_3C_20T_20_3E_map">
+<area href="classecs_1_1_i_singleton_component.html" alt="ecs::ISingletonComponent" shape="rect" coords="0,0,184,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a29340c8d9310119ee83d98be9af7b430"><td class="memItemLeft" align="right" valign="top"><a id="a29340c8d9310119ee83d98be9af7b430" name="a29340c8d9310119ee83d98be9af7b430"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>setup</b> ()=0</td></tr>
-<tr class="separator:a29340c8d9310119ee83d98be9af7b430"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d00ba7a9d112372471824cf69f2d9eb"><td class="memItemLeft" align="right" valign="top"><a id="a3d00ba7a9d112372471824cf69f2d9eb" name="a3d00ba7a9d112372471824cf69f2d9eb"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>shutdown</b> ()=0</td></tr>
-<tr class="separator:a3d00ba7a9d112372471824cf69f2d9eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af30185054292c4a3119a09c7f102b256"><td class="memItemLeft" align="right" valign="top"><a id="af30185054292c4a3119a09c7f102b256" name="af30185054292c4a3119a09c7f102b256"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>show</b> ()=0</td></tr>
-<tr class="separator:af30185054292c4a3119a09c7f102b256"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1640e578dbf958378fce0a998a209af"><td class="memItemLeft" align="right" valign="top"><a id="ac1640e578dbf958378fce0a998a209af" name="ac1640e578dbf958378fce0a998a209af"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> ()=0</td></tr>
-<tr class="separator:ac1640e578dbf958378fce0a998a209af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40027d000c053a2769a0a465c94c1285"><td class="memItemLeft" align="right" valign="top"><a id="a40027d000c053a2769a0a465c94c1285" name="a40027d000c053a2769a0a465c94c1285"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>isFocused</b> () const =0</td></tr>
-<tr class="separator:a40027d000c053a2769a0a465c94c1285"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9414e4747cd902657f7dd06aec45abf0"><td class="memItemLeft" align="right" valign="top"><a id="a9414e4747cd902657f7dd06aec45abf0" name="a9414e4747cd902657f7dd06aec45abf0"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>isOpened</b> () const =0</td></tr>
-<tr class="separator:a9414e4747cd902657f7dd06aec45abf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40a6cdcb133a47c4caf45bee7d9ee8c3"><td class="memItemLeft" align="right" valign="top"><a id="a40a6cdcb133a47c4caf45bee7d9ee8c3" name="a40a6cdcb133a47c4caf45bee7d9ee8c3"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>SingletonComponent</b> (T instance)</td></tr>
+<tr class="separator:a40a6cdcb133a47c4caf45bee7d9ee8c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c7e268c526cdae326b581eef2e480f2"><td class="memItemLeft" align="right" valign="top"><a id="a8c7e268c526cdae326b581eef2e480f2" name="a8c7e268c526cdae326b581eef2e480f2"></a>
+T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getInstance</b> ()</td></tr>
+<tr class="separator:a8c7e268c526cdae326b581eef2e480f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/game_engine/editor/<a class="el" href="_i_document_window_8hpp_source.html">IDocumentWindow.hpp</a></li>
+<li>include/game_engine/ecs/<a class="el" href="_singleton_component_8hpp_source.html">SingletonComponent.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>engine</b></li><li class="navelem"><b>editor</b></li><li class="navelem"><a class="el" href="classengine_1_1editor_1_1_i_document_window.html">IDocumentWindow</a></li>
+    <li class="navelem"><b>ecs</b></li><li class="navelem"><a class="el" href="classecs_1_1_singleton_component.html">SingletonComponent</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2 </li>
   </ul>
 </div>
