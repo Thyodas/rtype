@@ -11,6 +11,7 @@
 
 #include "System.hpp"
 #include "../core/event/Event.hpp"
+#include "SingletonComponent.hpp"
 
 namespace ecs {
     /**
@@ -33,6 +34,7 @@ namespace ecs {
                 _entityManager = std::make_shared<EntityManager>();
                 _systemManager = std::make_shared<system::SystemManager>();
                 _eventManager = std::make_shared<ecs::event::EventManager>();
+                _singletonComponentManager = std::make_shared<ecs::SingletonComponentManager>();
             }
 
             /**
@@ -61,6 +63,17 @@ namespace ecs {
             template <typename T>
             void registerComponent() {
                 _componentManager->registerComponent<T>();
+            }
+
+            /**
+             * @brief Registers a new singleton component
+             *
+             * @tparam T Class that should inherit from SingletonComponent class
+             * @param component
+             */
+            template <typename T>
+            void registerSingletonComponent(T component) {
+                _singletonComponentManager->registerSingletonComponent<T>(component);
             }
 
             /**
@@ -97,6 +110,16 @@ namespace ecs {
             }
 
             /**
+             * @brief Remove a singleton component
+             *
+             * @tparam T Class that should inherit from the SingletonComponent class
+             */
+            template <typename T>
+            void removeSingletonComponent(void) {
+                _singletonComponentManager->unregisterSingletonComponent<T>();
+            }
+
+            /**
             * @brief Retrieves a reference to a component of an entity.
             *
             * @param entity - The ID of the entity.
@@ -105,6 +128,17 @@ namespace ecs {
             template <typename T>
             T &getComponent(Entity entity) {
                 return _componentManager->getComponent<T>(entity);
+            }
+
+            /**
+             * @brief Get the Singleton Component object
+             *
+             * @tparam T Class that should inherit from the SingletonComponent class
+             * @return T& The instance of the desired singleton component
+             */
+            template <typename T>
+            T &getSingletonComponent(void) {
+                return _singletonComponentManager->getSingletonComponent<T>();
             }
 
             /**
@@ -159,5 +193,6 @@ namespace ecs {
             std::shared_ptr<EntityManager> _entityManager;
             std::shared_ptr<system::SystemManager> _systemManager;
             std::shared_ptr<ecs::event::EventManager> _eventManager;
+            std::shared_ptr<ecs::SingletonComponentManager> _singletonComponentManager;
     };
 }

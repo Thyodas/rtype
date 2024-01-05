@@ -17,10 +17,12 @@
 #include "game_engine/ecs/components/Network.hpp"
 #include "game_engine/ecs/components/Health.hpp"
 #include "game_engine/ecs/components/Direction.hpp"
+#include "game_engine/ecs/components/Input.hpp"
 #include "game_engine/ecs/systems/Render.hpp"
 #include "game_engine/ecs/Entity.hpp"
 #include "game_engine/ecs/components/Animations.hpp"
 #include "game_engine/ecs/systems/Animations.hpp"
+#include "game_engine/ecs/systems/Input.hpp"
 #include "common/utils/Chrono.hpp"
 #include <memory>
 #include <mutex>
@@ -76,6 +78,11 @@ namespace engine {
                 return _coordinator->getComponent<T>(entity);
             }
 
+            template<typename T>
+            T &getSingletonComponent() {
+                return _coordinator->getSingletonComponent<T>();
+            }
+
             /**
              * @brief Registers an event listener.
              * @tparam T Type of the event.
@@ -120,6 +127,7 @@ namespace engine {
             std::shared_ptr<ecs::system::AnimationSystem> _animationSystem;
             std::shared_ptr<ecs::system::CollisionResponse> _collisionResponseSystem;
             std::shared_ptr<ecs::system::ColisionDetectionSystem> _collisionDetectionSystem;
+            std::shared_ptr<ecs::system::InputSystem> _inputSystem;
 
             std::shared_ptr<core::Window> _window;
             bool _disableRender = false;
@@ -210,6 +218,42 @@ namespace engine {
      * @return True if the window is open, false otherwise.
      */
     bool isWindowOpen(void);
+
+    /**
+     * @brief Returns true if a key has been pressed
+     *
+     * @param key
+     * @return true
+     * @return false
+     */
+    bool isKeyPressed(ecs::components::input::Keys key);
+
+    /**
+     * @brief Returns true if a key has been released
+     *
+     * @param key
+     * @return true
+     * @return false
+     */
+    bool isKeyReleased(ecs::components::input::Keys key);
+
+    /**
+     * @brief Returns true if a key is down
+     *
+     * @param key
+     * @return true
+     * @return false
+     */
+    bool isKeyDown(ecs::components::input::Keys key);
+
+    /**
+     * @brief Returns true if a key is up
+     *
+     * @param key
+     * @return true
+     * @return false
+     */
+    bool isKeyUp(ecs::components::input::Keys key);
 
     /**
      * @brief Rotates an entity.

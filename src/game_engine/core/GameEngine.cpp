@@ -38,6 +38,8 @@ namespace engine {
         _coordinator->registerComponent<ecs::components::network::network_t>();
         _coordinator->registerComponent<ecs::components::health::health_t>();
         _coordinator->registerComponent<ecs::components::direction::direction_t>();
+        ecs::components::input::Input input;
+        _coordinator->registerSingletonComponent<ecs::components::input::Input>(input);
 
         ecs::Signature signaturePhysics;
         signaturePhysics.set(_coordinator->getComponentType<ecs::components::physics::transform_t>());
@@ -71,6 +73,8 @@ namespace engine {
 
         _animationSystem = _coordinator->registerSystem<ecs::system::AnimationSystem>();
         _coordinator->setSystemSignature<ecs::system::AnimationSystem>(signatureAnimations);
+
+        _inputSystem = _coordinator->registerSystem<ecs::system::InputSystem>();
     }
 
     ecs::Entity Engine::addEntity(ecs::components::physics::transform_t transf, ecs::components::render::render_t render) {
@@ -81,6 +85,7 @@ namespace engine {
     }
 
     void Engine::run(void) {
+        _inputSystem->handleInputs();
         _behaviourSystem->handleBehaviours();
         _physicSystem->updatePosition();
         _animationSystem->handleAnimations();
@@ -220,5 +225,29 @@ namespace engine {
     bool isWindowOpen(void)
     {
         return Engine::getInstance()->isWindowOpen();
+    }
+
+    bool isKeyPressed(ecs::components::input::Keys key)
+    {
+        auto &input = Engine::getInstance()->getSingletonComponent<ecs::components::input::Input>();
+        return input.keys[static_cast<size_t>(key)].keyPressed;
+    }
+
+    bool isKeyReleased(ecs::components::input::Keys key)
+    {
+        auto &input = Engine::getInstance()->getSingletonComponent<ecs::components::input::Input>();
+        return input.keys[static_cast<size_t>(key)].keyReleased;
+    }
+
+    bool isKeyDown(ecs::components::input::Keys key)
+    {
+        auto &input = Engine::getInstance()->getSingletonComponent<ecs::components::input::Input>();
+        return input.keys[static_cast<size_t>(key)].keyDown;
+    }
+
+    bool isKeyUp(ecs::components::input::Keys key)
+    {
+        auto &input = Engine::getInstance()->getSingletonComponent<ecs::components::input::Input>();
+        return input.keys[static_cast<size_t>(key)].keyUp;
     }
 }
