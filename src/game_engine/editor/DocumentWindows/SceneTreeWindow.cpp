@@ -21,8 +21,8 @@ namespace engine::editor {
         root_.children = {
             {ICON_FA_CAMERA " Camera"},
             {ICON_FA_LIGHTBULB " Lights", {
-                {ICON_FA_SUN "Directional Light"},
-                {ICON_FA_BOLT "Spot Light"}
+                {ICON_FA_SUN " Directional Light"},
+                {ICON_FA_BOLT " Spot Light"}
             }},
             {"Static Meshes", {{"Cube"}, {"Sphere"}, {"Plane"}}},
             {"Dynamic Objects", {{"Player"}, {"Enemy #1"}, {"Enemy #2"}}},

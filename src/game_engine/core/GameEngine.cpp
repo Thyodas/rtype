@@ -16,7 +16,7 @@ namespace engine
 
     Engine *Engine::engine = nullptr;
     std::mutex Engine::_mutex;
-    void Engine::init(bool disableRender)
+    void Engine::init(bool disableRender, int windowWidth, int windowHeight)
     {
         _disableRender = disableRender;
         if (!_disableRender)
@@ -286,7 +286,7 @@ namespace engine
 
     void initEngine(bool disableRender)
     {
-        Engine::getInstance()->init(disableRender);
+        Engine::getInstance()->init(disableRender, windowWidth, windowHeight);
     }
 
     void runEngine()
