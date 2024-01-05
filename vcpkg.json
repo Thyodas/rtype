@@ -12,6 +12,9 @@
     },
     {
       "name": "boost-multi-index"
+    },
+    {
+      "name": "joltphysics"
     }
   ]
 }
