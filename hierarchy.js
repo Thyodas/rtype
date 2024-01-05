@@ -56,7 +56,9 @@ var hierarchy =
     ] ],
     [ "engine::editor::IDocumentWindow", "classengine_1_1editor_1_1_i_document_window.html", [
       [ "engine::editor::ADocumentWindow", "classengine_1_1editor_1_1_a_document_window.html", [
-        [ "engine::editor::Main3DScene", "classengine_1_1editor_1_1_main3_d_scene.html", null ]
+        [ "engine::editor::EntityPropertiesWindow", "classengine_1_1editor_1_1_entity_properties_window.html", null ],
+        [ "engine::editor::Main3DScene", "classengine_1_1editor_1_1_main3_d_scene.html", null ],
+        [ "engine::editor::SceneTreeWindow", "classengine_1_1editor_1_1_scene_tree_window.html", null ]
       ] ]
     ] ],
     [ "ecs::event::IEvent", "classecs_1_1event_1_1_i_event.html", [
