@@ -1,6 +1,9 @@
 var searchData=
 [
-  ['physicssystem_0',['PhysicsSystem',['../classecs_1_1system_1_1_physics_system.html',1,'ecs::system']]],
-  ['pingserver_1',['PingServer',['../structcommon_1_1game_1_1netbody_1_1_ping_server.html',1,'common::game::netbody']]],
-  ['playernetwork_2',['PlayerNetwork',['../classclient_1_1_player_network.html',1,'client::PlayerNetwork'],['../classserver_1_1_player_network.html',1,'server::PlayerNetwork']]]
+  ['netclient_0',['NetClient',['../classclient_1_1_net_client.html',1,'client']]],
+  ['netserver_1',['NetServer',['../classserver_1_1_net_server.html',1,'server']]],
+  ['network_5fs_2',['network_s',['../structecs_1_1components_1_1network_1_1network__s.html',1,'ecs::components::network']]],
+  ['networkbehaviour_3',['NetworkBehaviour',['../classecs_1_1components_1_1behaviour_1_1_network_behaviour.html',1,'ecs::components::behaviour']]],
+  ['networkbehaviour_3c_20client_3a_3anetclient_20_3e_4',['NetworkBehaviour&lt; client::NetClient &gt;',['../classecs_1_1components_1_1behaviour_1_1_network_behaviour.html',1,'ecs::components::behaviour']]],
+  ['networkbehaviour_3c_20server_3a_3anetserver_20_3e_5',['NetworkBehaviour&lt; server::NetServer &gt;',['../classecs_1_1components_1_1behaviour_1_1_network_behaviour.html',1,'ecs::components::behaviour']]]
 ];

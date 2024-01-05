@@ -105,7 +105,18 @@ var annotated_dup =
       [ "core", null, [
         [ "Window", "classengine_1_1core_1_1_window.html", "classengine_1_1core_1_1_window" ]
       ] ],
+      [ "editor", null, [
+        [ "ADocumentWindow", "classengine_1_1editor_1_1_a_document_window.html", null ],
+        [ "EntityPropertiesWindow", "classengine_1_1editor_1_1_entity_properties_window.html", null ],
+        [ "GameEngineEditor", "classengine_1_1editor_1_1_game_engine_editor.html", "classengine_1_1editor_1_1_game_engine_editor" ],
+        [ "IDocumentWindow", "classengine_1_1editor_1_1_i_document_window.html", null ],
+        [ "Main3DScene", "classengine_1_1editor_1_1_main3_d_scene.html", null ],
+        [ "SceneTreeWindow", "classengine_1_1editor_1_1_scene_tree_window.html", null ]
+      ] ],
       [ "Engine", "classengine_1_1_engine.html", "classengine_1_1_engine" ]
+    ] ],
+    [ "ImGui", null, [
+      [ "FrameTimeHistogram", "struct_im_gui_1_1_frame_time_histogram.html", null ]
     ] ],
     [ "rtype", null, [
       [ "net", null, [

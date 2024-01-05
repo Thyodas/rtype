@@ -45,12 +45,21 @@ var hierarchy =
     [ "common::game::EntityFactory", "classcommon_1_1game_1_1_entity_factory.html", null ],
     [ "ecs::EntityManager", "classecs_1_1_entity_manager.html", null ],
     [ "ecs::event::EventManager", "classecs_1_1event_1_1_event_manager.html", null ],
+    [ "ImGui::FrameTimeHistogram", "struct_im_gui_1_1_frame_time_histogram.html", null ],
+    [ "engine::editor::GameEngineEditor", "classengine_1_1editor_1_1_game_engine_editor.html", null ],
     [ "ecs::components::health::health_s", "structecs_1_1components_1_1health_1_1health__s.html", null ],
     [ "common::utils::IClock", "classcommon_1_1utils_1_1_i_clock.html", [
       [ "common::utils::Chrono", "classcommon_1_1utils_1_1_chrono.html", null ]
     ] ],
     [ "ecs::components::IComponentArray", "classecs_1_1components_1_1_i_component_array.html", [
       [ "ecs::components::ComponentArray< T >", "classecs_1_1components_1_1_component_array.html", null ]
+    ] ],
+    [ "engine::editor::IDocumentWindow", "classengine_1_1editor_1_1_i_document_window.html", [
+      [ "engine::editor::ADocumentWindow", "classengine_1_1editor_1_1_a_document_window.html", [
+        [ "engine::editor::EntityPropertiesWindow", "classengine_1_1editor_1_1_entity_properties_window.html", null ],
+        [ "engine::editor::Main3DScene", "classengine_1_1editor_1_1_main3_d_scene.html", null ],
+        [ "engine::editor::SceneTreeWindow", "classengine_1_1editor_1_1_scene_tree_window.html", null ]
+      ] ]
     ] ],
     [ "ecs::event::IEvent", "classecs_1_1event_1_1_i_event.html", [
       [ "CollisionEvent", "class_collision_event.html", null ]
