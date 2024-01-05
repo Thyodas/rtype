@@ -110,6 +110,8 @@ namespace engine {
              */
             void run();
 
+            void runTextureMode(RenderTexture& ViewTexture);
+
             /**
              * @brief Gets the elapsed time since the engine started.
              * @return Elapsed time in seconds.
@@ -140,7 +142,10 @@ namespace engine {
 
         protected:
             Engine() {};
-            ~Engine() {};
+            ~Engine()
+            {
+                std::cout << "Engine destroyed" << std::endl;
+            };
 
         public:
             Engine(Engine &other) = delete;
@@ -164,6 +169,10 @@ namespace engine {
      * @brief Runs the game engine.
      */
     void runEngine();
+
+    void runEngineTextureMode(RenderTexture& ViewTexture);
+
+
 
     /**
      * @brief Creates a cube entity with specified parameters.

@@ -9,6 +9,7 @@
 
 #include "my_raylib.h"
 #include "common/game/entities/Objects.hpp"
+#include <string>
 
 namespace boost::serialization {
 

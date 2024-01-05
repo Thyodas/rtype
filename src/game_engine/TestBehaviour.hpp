@@ -8,7 +8,6 @@
 #pragma once
 
 #include "my_raylib.h"
-
 #include "game_engine/ecs/components/Behaviour.hpp"
 #include "game_engine/ecs/components/Physics.hpp"
 #include "game_engine/GameEngine.hpp"
@@ -36,7 +35,7 @@ class input : public ecs::components::behaviour::Behaviour {
             }
             if (IsKeyReleased(KEY_SPACE)) {
                 Vector3 newRotation = {0};
-                newRotation.z = 10 * M_PI / 180;
+                newRotation.z = 10 * PI / 180;
                 engine::rotate(_entity, newRotation);
             }
             if (IsKeyReleased(KEY_R)) {
