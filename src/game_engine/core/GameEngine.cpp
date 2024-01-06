@@ -150,7 +150,7 @@ namespace engine
         if (_disableRender)
             return;
         BeginTextureMode(ViewTexture);
-        _window->clear(WHITE);
+        _window->clear(Color{41, 41, 41, 255});
         BeginMode3D(_window->getCamera());
         _renderSystem->render();
         DrawGrid(10000, 1.0f);
@@ -399,6 +399,37 @@ namespace engine
         anim.animsCount = 0;
         anim.anims = LoadModelAnimations(filename, &anim.animsCount);
         Engine::getInstance()->addComponent<ecs::components::animations::animation_t>(entity, anim);
+    }
+
+    void camera::setPosition(Vector3 pos)
+    {
+        Engine::getInstance()->getWindow()->setCameraPosition(pos);
+    }
+
+    Vector3 camera::getPosition()
+    {
+        return Engine::getInstance()->getWindow()->getCameraPosition();
+    }
+
+    void camera::setTarget(Vector3 pos)
+    {
+        Engine::getInstance()->getWindow()->setCameraTarget(pos);
+    }
+
+    Vector3 camera::getTarget()
+    {
+        return Engine::getInstance()->getWindow()->getCameraTarget();
+    }
+
+
+    void camera::setFov(float fov)
+    {
+        Engine::getInstance()->getWindow()->setCameraFov(fov);
+    }
+
+    float camera::getFov()
+    {
+        return Engine::getInstance()->getWindow()->getCameraFov();
     }
 
     void rotate(ecs::Entity entity, Vector3 rotation)

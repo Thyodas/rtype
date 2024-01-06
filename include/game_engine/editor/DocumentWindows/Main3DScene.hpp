@@ -22,7 +22,10 @@ namespace engine::editor {
             void show() override;
             void update() override;
 
+            bool isWindowResized() const;
         private:
             RenderTexture _viewTexture;
+            ImVec2 _currentwindowSize = {0, 0};
+            ImVec2 _prevWindowSize = {0, 0};
     };
 } // namespace engine::editor
