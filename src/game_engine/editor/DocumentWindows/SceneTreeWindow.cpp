@@ -90,8 +90,5 @@ namespace engine::editor {
 
     void SceneTreeWindow::update() {
         // update code
-        if (_opened) {
-            show();
-        }
     }
 }

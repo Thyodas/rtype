@@ -159,8 +159,7 @@ void engine::editor::GameEngineEditor::update()
 {
 	//engine::runEngineTextureMode();
 	for (const auto& window: _windows | std::views::values) {
-		if (window->isFocused())
-			window->update();
+		window->update();
 	}
 }
 

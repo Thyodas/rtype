@@ -101,6 +101,16 @@ namespace engine {
             }
 
             /**
+             * @brief Get the window object.
+             */
+            [[nodiscard]] std::shared_ptr<engine::core::Window> getWindow() const
+            {
+                return _window;
+            }
+
+
+
+            /**
              * @brief Checks if the window of the game engine is open.
              * @return True if the window is open, false otherwise.
              */
@@ -446,4 +456,43 @@ namespace engine {
      * @param camera
      */
     void detachCamera(ecs::SceneID sceneID, engine::core::EngineCamera &camera);
+
+
+    namespace camera {
+        /**
+         * @brief Sets the camera's position.
+         * @param pos The new position of the camera.
+         */
+        void setPosition(Vector3 pos);
+
+        /**
+         * @brief Gets the current position of the camera.
+         * @return The current position of the camera as Vector3.
+         */
+        Vector3 getPosition();
+
+        /**
+         * @brief Sets the camera's target position.
+         * @param pos The new target position of the camera.
+         */
+        void setTarget(Vector3 pos);
+
+        /**
+         * @brief Gets the current target position of the camera.
+         * @return The current target position of the camera as Vector3.
+         */
+        Vector3 getTarget();
+
+        /**
+         * @brief Sets the camera's field of view.
+         * @param fov The new field of view of the camera.
+         */
+        void setFov(float fov);
+
+        /**
+         * @brief Gets the current field of view of the camera.
+         * @return The current field of view of the camera.
+         */
+        float getFov();
+    }
 }
