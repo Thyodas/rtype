@@ -45,21 +45,12 @@ var hierarchy =
     [ "common::game::EntityFactory", "classcommon_1_1game_1_1_entity_factory.html", null ],
     [ "ecs::EntityManager", "classecs_1_1_entity_manager.html", null ],
     [ "ecs::event::EventManager", "classecs_1_1event_1_1_event_manager.html", null ],
-    [ "ImGui::FrameTimeHistogram", "struct_im_gui_1_1_frame_time_histogram.html", null ],
-    [ "engine::editor::GameEngineEditor", "classengine_1_1editor_1_1_game_engine_editor.html", null ],
     [ "ecs::components::health::health_s", "structecs_1_1components_1_1health_1_1health__s.html", null ],
     [ "common::utils::IClock", "classcommon_1_1utils_1_1_i_clock.html", [
       [ "common::utils::Chrono", "classcommon_1_1utils_1_1_chrono.html", null ]
     ] ],
     [ "ecs::components::IComponentArray", "classecs_1_1components_1_1_i_component_array.html", [
       [ "ecs::components::ComponentArray< T >", "classecs_1_1components_1_1_component_array.html", null ]
-    ] ],
-    [ "engine::editor::IDocumentWindow", "classengine_1_1editor_1_1_i_document_window.html", [
-      [ "engine::editor::ADocumentWindow", "classengine_1_1editor_1_1_a_document_window.html", [
-        [ "engine::editor::EntityPropertiesWindow", "classengine_1_1editor_1_1_entity_properties_window.html", null ],
-        [ "engine::editor::Main3DScene", "classengine_1_1editor_1_1_main3_d_scene.html", null ],
-        [ "engine::editor::SceneTreeWindow", "classengine_1_1editor_1_1_scene_tree_window.html", null ]
-      ] ]
     ] ],
     [ "ecs::event::IEvent", "classecs_1_1event_1_1_i_event.html", [
       [ "CollisionEvent", "class_collision_event.html", null ]
@@ -69,11 +60,6 @@ var hierarchy =
       [ "ecs::components::Model3D", "classecs_1_1components_1_1_model3_d.html", null ],
       [ "ecs::components::Skybox", "classecs_1_1components_1_1_skybox.html", null ]
     ] ],
-    [ "ecs::ISingletonComponent", "classecs_1_1_i_singleton_component.html", [
-      [ "ecs::SingletonComponent< T >", "classecs_1_1_singleton_component.html", null ],
-      [ "ecs::components::input::Input", "structecs_1_1components_1_1input_1_1_input.html", null ]
-    ] ],
-    [ "ecs::components::input::keyState", "structecs_1_1components_1_1input_1_1key_state.html", null ],
     [ "rtype::net::Message< T >", "structrtype_1_1net_1_1_message.html", null ],
     [ "rtype::net::MessageHeader< T >", "structrtype_1_1net_1_1_message_header.html", null ],
     [ "ecs::components::network::network_s", "structecs_1_1components_1_1network_1_1network__s.html", null ],
@@ -84,8 +70,6 @@ var hierarchy =
     [ "render_t", "structrender__t.html", null ],
     [ "ecs::components::physics::rigidBody_s", "structecs_1_1components_1_1physics_1_1rigid_body__s.html", null ],
     [ "rigidBody_t", "structrigid_body__t.html", null ],
-    [ "ecs::Scene", "classecs_1_1_scene.html", null ],
-    [ "ecs::SceneManager", "classecs_1_1_scene_manager.html", null ],
     [ "server::Server", "classserver_1_1_server.html", null ],
     [ "common::game::netbody::ServerAllyConnect", "structcommon_1_1game_1_1netbody_1_1_server_ally_connect.html", null ],
     [ "common::game::netbody::ServerAllyDestroy", "structcommon_1_1game_1_1netbody_1_1_server_ally_destroy.html", null ],
@@ -107,12 +91,10 @@ var hierarchy =
     [ "common::game::netbody::ServerUpdateEnemyVelocity", "structcommon_1_1game_1_1netbody_1_1_server_update_enemy_velocity.html", null ],
     [ "common::game::netbody::ServerUpdateShipPosition", "structcommon_1_1game_1_1netbody_1_1_server_update_ship_position.html", null ],
     [ "common::game::netbody::ServerUpdateShipVelocity", "structcommon_1_1game_1_1netbody_1_1_server_update_ship_velocity.html", null ],
-    [ "ecs::SingletonComponentManager", "classecs_1_1_singleton_component_manager.html", null ],
     [ "ecs::system::System", "classecs_1_1system_1_1_system.html", [
       [ "ecs::system::AnimationSystem", "classecs_1_1system_1_1_animation_system.html", null ],
       [ "ecs::system::BehaviourSystem", "classecs_1_1system_1_1_behaviour_system.html", null ],
       [ "ecs::system::ColisionDetectionSystem", "classecs_1_1system_1_1_colision_detection_system.html", null ],
-      [ "ecs::system::InputSystem", "classecs_1_1system_1_1_input_system.html", null ],
       [ "ecs::system::PhysicsSystem", "classecs_1_1system_1_1_physics_system.html", null ],
       [ "ecs::system::RenderSystem", "classecs_1_1system_1_1_render_system.html", null ]
     ] ],
