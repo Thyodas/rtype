@@ -84,6 +84,11 @@ namespace engine {
         return entity;
     }
 
+    void Engine::destroyEntity(ecs::Entity entity)
+    {
+        _coordinator->destroyEntity(entity);
+    }
+
     void Engine::run(void) {
         _inputSystem->handleInputs();
         _behaviourSystem->handleBehaviours();
@@ -117,6 +122,28 @@ namespace engine {
         DrawGrid(10000, 1.0f);
         EndMode3D();
         EndTextureMode();
+    }
+
+    ecs::SceneID Engine::createScene()
+    {
+        static ecs::SceneID currentSceneId = 0;
+        _coordinator->createScene(currentSceneId);
+        return currentSceneId++;
+    }
+
+    void Engine::deleteScene(ecs::SceneID id)
+    {
+        _coordinator->deleteScene(id);
+    }
+
+    void Engine::activateScene(ecs::SceneID id)
+    {
+        _coordinator->activateScene(id);
+    }
+
+    void Engine::deactivateScene(ecs::SceneID id)
+    {
+        _coordinator->deactivateScene(id);
     }
 
     void initEngine(bool disableRender)
@@ -200,6 +227,11 @@ namespace engine {
         return entity;
     }
 
+    void destroyEntity(ecs::Entity entity)
+    {
+        Engine::getInstance()->destroyEntity(entity);
+    }
+
     void setAnimation(ecs::Entity entity, const char *filename)
     {
         ecs::components::animations::animation_t anim;
@@ -271,5 +303,35 @@ namespace engine {
     {
         auto &input = Engine::getInstance()->getSingletonComponent<ecs::components::input::Input>();
         return input.keys[static_cast<size_t>(key)].keyUp;
+    }
+
+    ecs::SceneID createScene()
+    {
+        return Engine::getInstance()->createScene();
+    }
+
+    void deleteScene(ecs::SceneID id)
+    {
+        Engine::getInstance()->deleteScene(id);
+    }
+
+    void activateScene(ecs::SceneID id)
+    {
+        Engine::getInstance()->activateScene(id);
+    }
+
+    void deactivateScene(ecs::SceneID id)
+    {
+        Engine::getInstance()->deactivateScene(id);
+    }
+
+    void addEntityToScene(ecs::Entity entity, ecs::SceneID sceneID)
+    {
+        Engine::getInstance()->addEntityToScene(entity, sceneID);
+    }
+
+    void removeEntityFromScene(ecs::Entity entity, ecs::SceneID sceneID)
+    {
+        Engine::getInstance()->removeEntityFromScene(entity, sceneID);
     }
 }
