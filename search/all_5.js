@@ -1,7 +1,7 @@
 var searchData=
 [
   ['ecs_0',['ECS',['../ecs_readme.html',1,'']]],
-  ['emitevent_1',['emitEvent',['../classecs_1_1event_1_1_event_manager.html#a571be10ac07fcd10e83954327a9eb39e',1,'ecs::event::EventManager']]],
+  ['emitevent_1',['emitEvent',['../classecs_1_1event_1_1_event_manager.html#a571be10ac07fcd10e83954327a9eb39e',1,'ecs::event::EventManager::emitEvent()'],['../classecs_1_1_coordinator.html#aa5d239dbde39738ffb8f8d611d896dc9',1,'ecs::Coordinator::emitEvent()']]],
   ['empty_2',['empty',['../classrtype_1_1net_1_1_ts_queue.html#ae2ead6b2bf877e652f8584d4863269aa',1,'rtype::net::TsQueue']]],
   ['enemynetwork_3',['EnemyNetwork',['../classclient_1_1_enemy_network.html',1,'client']]],
   ['engine_4',['Engine',['../classengine_1_1_engine.html',1,'engine']]],

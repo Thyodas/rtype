@@ -21,12 +21,6 @@ var hierarchy =
       [ "input", "classinput.html", null ],
       [ "movement", "classmovement.html", null ]
     ] ],
-    [ "BodyActivationListener", null, [
-      [ "MyBodyActivationListener", "class_my_body_activation_listener.html", null ]
-    ] ],
-    [ "BroadPhaseLayerInterface", null, [
-      [ "BPLayerInterfaceImpl", "class_b_p_layer_interface_impl.html", null ]
-    ] ],
     [ "client::Client", "classclient_1_1_client.html", null ],
     [ "common::game::netbody::ClientConnect", "structcommon_1_1game_1_1netbody_1_1_client_connect.html", null ],
     [ "rtype::net::ClientInterface< T >", "classrtype_1_1net_1_1_client_interface.html", null ],
@@ -41,9 +35,6 @@ var hierarchy =
     [ "ecs::system::CollisionResponse", "classecs_1_1system_1_1_collision_response.html", null ],
     [ "ComponentArray< T >", "class_component_array_3_01_t_01_4.html", null ],
     [ "ecs::components::ComponentManager", "classecs_1_1components_1_1_component_manager.html", null ],
-    [ "ContactListener", null, [
-      [ "MyContactListener", "class_my_contact_listener.html", null ]
-    ] ],
     [ "ecs::Coordinator", "classecs_1_1_coordinator.html", null ],
     [ "ecs::components::direction::direction_s", "structecs_1_1components_1_1direction_1_1direction__s.html", null ],
     [ "std::enable_shared_from_this", null, [
@@ -86,19 +77,15 @@ var hierarchy =
     [ "rtype::net::Message< T >", "structrtype_1_1net_1_1_message.html", null ],
     [ "rtype::net::MessageHeader< T >", "structrtype_1_1net_1_1_message_header.html", null ],
     [ "ecs::components::network::network_s", "structecs_1_1components_1_1network_1_1network__s.html", null ],
-    [ "ObjectLayerPairFilter", null, [
-      [ "ObjectLayerPairFilterImpl", "class_object_layer_pair_filter_impl.html", null ]
-    ] ],
     [ "common::game::ObjectParams", "structcommon_1_1game_1_1_object_params.html", null ],
-    [ "ObjectVsBroadPhaseLayerFilter", null, [
-      [ "ObjectVsBroadPhaseLayerFilterImpl", "class_object_vs_broad_phase_layer_filter_impl.html", null ]
-    ] ],
     [ "rtype::net::OwnedMessage< T >", "structrtype_1_1net_1_1_owned_message.html", null ],
     [ "common::game::netbody::PingServer", "structcommon_1_1game_1_1netbody_1_1_ping_server.html", null ],
     [ "ecs::components::render::render_s", "structecs_1_1components_1_1render_1_1render__s.html", null ],
     [ "render_t", "structrender__t.html", null ],
     [ "ecs::components::physics::rigidBody_s", "structecs_1_1components_1_1physics_1_1rigid_body__s.html", null ],
     [ "rigidBody_t", "structrigid_body__t.html", null ],
+    [ "ecs::Scene", "classecs_1_1_scene.html", null ],
+    [ "ecs::SceneManager", "classecs_1_1_scene_manager.html", null ],
     [ "server::Server", "classserver_1_1_server.html", null ],
     [ "common::game::netbody::ServerAllyConnect", "structcommon_1_1game_1_1netbody_1_1_server_ally_connect.html", null ],
     [ "common::game::netbody::ServerAllyDestroy", "structcommon_1_1game_1_1netbody_1_1_server_ally_destroy.html", null ],

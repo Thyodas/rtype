@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Arcade: MyContactListener Class Reference</title>
+<title>Arcade: ecs::Scene Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('class_my_contact_listener.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('classecs_1_1_scene.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -87,41 +87,42 @@ $(document).ready(function(){initNavTree('class_my_contact_listener.html',''); i
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="class_my_contact_listener-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">MyContactListener Class Reference</div></div>
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="classecs_1_1_scene-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">ecs::Scene Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="dynheader">
-Inheritance diagram for MyContactListener:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="class_my_contact_listener.png" alt=""/>
- </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a81d7ba78ae293b79dceeae6bc56168db"><td class="memItemLeft" align="right" valign="top"><a id="a81d7ba78ae293b79dceeae6bc56168db" name="a81d7ba78ae293b79dceeae6bc56168db"></a>
-virtual ValidateResult&#160;</td><td class="memItemRight" valign="bottom"><b>OnContactValidate</b> (const Body &amp;inBody1, const Body &amp;inBody2, RVec3Arg inBaseOffset, const CollideShapeResult &amp;inCollisionResult) override</td></tr>
-<tr class="separator:a81d7ba78ae293b79dceeae6bc56168db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab048c896ce0c2bb4f85b0c748e0330af"><td class="memItemLeft" align="right" valign="top"><a id="ab048c896ce0c2bb4f85b0c748e0330af" name="ab048c896ce0c2bb4f85b0c748e0330af"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>OnContactAdded</b> (const Body &amp;inBody1, const Body &amp;inBody2, const ContactManifold &amp;inManifold, ContactSettings &amp;ioSettings) override</td></tr>
-<tr class="separator:ab048c896ce0c2bb4f85b0c748e0330af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae223f792acbec12abd71f702a443dfd6"><td class="memItemLeft" align="right" valign="top"><a id="ae223f792acbec12abd71f702a443dfd6" name="ae223f792acbec12abd71f702a443dfd6"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>OnContactPersisted</b> (const Body &amp;inBody1, const Body &amp;inBody2, const ContactManifold &amp;inManifold, ContactSettings &amp;ioSettings) override</td></tr>
-<tr class="separator:ae223f792acbec12abd71f702a443dfd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a118255e1f4b33f363fdb58288dad43d9"><td class="memItemLeft" align="right" valign="top"><a id="a118255e1f4b33f363fdb58288dad43d9" name="a118255e1f4b33f363fdb58288dad43d9"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>OnContactRemoved</b> (const SubShapeIDPair &amp;inSubShapePair) override</td></tr>
-<tr class="separator:a118255e1f4b33f363fdb58288dad43d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0eb1a3adbe3621dbe14e4f01d020059e"><td class="memItemLeft" align="right" valign="top"><a id="a0eb1a3adbe3621dbe14e4f01d020059e" name="a0eb1a3adbe3621dbe14e4f01d020059e"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Scene</b> (SceneID id)</td></tr>
+<tr class="separator:a0eb1a3adbe3621dbe14e4f01d020059e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9015a1be5d725e08d6a60c4d908bbb7c"><td class="memItemLeft" align="right" valign="top"><a id="a9015a1be5d725e08d6a60c4d908bbb7c" name="a9015a1be5d725e08d6a60c4d908bbb7c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addEntity</b> (ecs::Entity entity)</td></tr>
+<tr class="separator:a9015a1be5d725e08d6a60c4d908bbb7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a972b969f96d198d1f614f691fcf987d1"><td class="memItemLeft" align="right" valign="top"><a id="a972b969f96d198d1f614f691fcf987d1" name="a972b969f96d198d1f614f691fcf987d1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>removeEntity</b> (ecs::Entity entity)</td></tr>
+<tr class="separator:a972b969f96d198d1f614f691fcf987d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:ad70bad19918f528637ec977b8e1a110a"><td class="memItemLeft" align="right" valign="top"><a id="ad70bad19918f528637ec977b8e1a110a" name="ad70bad19918f528637ec977b8e1a110a"></a>
+SceneID&#160;</td><td class="memItemRight" valign="bottom"><b>_id</b></td></tr>
+<tr class="separator:ad70bad19918f528637ec977b8e1a110a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae827bc689387537a3c96a3fc2b95c397"><td class="memItemLeft" align="right" valign="top"><a id="ae827bc689387537a3c96a3fc2b95c397" name="ae827bc689387537a3c96a3fc2b95c397"></a>
+std::set&lt; ecs::Entity &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>entities</b></td></tr>
+<tr class="separator:ae827bc689387537a3c96a3fc2b95c397"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>joltSample.cpp</li>
+<li>include/game_engine/ecs/<a class="el" href="_scene_8hpp_source.html">Scene.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="class_my_contact_listener.html">MyContactListener</a></li>
+    <li class="navelem"><b>ecs</b></li><li class="navelem"><a class="el" href="classecs_1_1_scene.html">Scene</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2 </li>
   </ul>
 </div>
