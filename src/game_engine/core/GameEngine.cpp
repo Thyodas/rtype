@@ -194,6 +194,28 @@ namespace engine
         PlaySound(sound);
     }
 
+    ecs::SceneID Engine::createScene()
+    {
+        static ecs::SceneID currentSceneId = 0;
+        _coordinator->createScene(currentSceneId);
+        return currentSceneId++;
+    }
+
+    void Engine::deleteScene(ecs::SceneID id)
+    {
+        _coordinator->deleteScene(id);
+    }
+
+    void Engine::activateScene(ecs::SceneID id)
+    {
+        _coordinator->activateScene(id);
+    }
+
+    void Engine::deactivateScene(ecs::SceneID id)
+    {
+        _coordinator->deactivateScene(id);
+    }
+
     void initEngine(bool disableRender)
     {
         Engine::getInstance()->init(disableRender);
@@ -380,5 +402,35 @@ namespace engine
     void resumeMusic(ecs::Entity musicSource)
     {
         Engine::getInstance()->resumeMusic(musicSource);
+    }
+
+    ecs::SceneID createScene()
+    {
+        return Engine::getInstance()->createScene();
+    }
+
+    void deleteScene(ecs::SceneID id)
+    {
+        Engine::getInstance()->deleteScene(id);
+    }
+
+    void activateScene(ecs::SceneID id)
+    {
+        Engine::getInstance()->activateScene(id);
+    }
+
+    void deactivateScene(ecs::SceneID id)
+    {
+        Engine::getInstance()->deactivateScene(id);
+    }
+
+    void addEntityToScene(ecs::Entity entity, ecs::SceneID sceneID)
+    {
+        Engine::getInstance()->addEntityToScene(entity, sceneID);
+    }
+
+    void removeEntityFromScene(ecs::Entity entity, ecs::SceneID sceneID)
+    {
+        Engine::getInstance()->removeEntityFromScene(entity, sceneID);
     }
 }
