@@ -23,6 +23,7 @@
 #include "game_engine/ecs/components/Animations.hpp"
 #include "game_engine/ecs/systems/Animations.hpp"
 #include "game_engine/ecs/systems/Input.hpp"
+#include "game_engine/ecs/Scene.hpp"
 #include "common/utils/Chrono.hpp"
 #include <memory>
 #include <mutex>
@@ -55,6 +56,8 @@ namespace engine {
             ecs::Entity addEntity(ecs::components::physics::transform_t transf = {{0, 1, 0}, {0}, {0}},
                                     ecs::components::render::render_t render = {ecs::components::ShapeType::CUBE, true, std::make_shared<ecs::components::Cube>()}
             );
+
+            void destroyEntity(ecs::Entity entity);
 
             /**
              * @brief Adds a component to an entity.
@@ -119,6 +122,44 @@ namespace engine {
             [[nodiscard]] double getElapsedTime() const
             {
                 return _chrono.getElapsedTime();
+            }
+
+            /**
+             * @brief Create a Scene object
+             *
+             * @return ecs::SceneID
+             */
+            ecs::SceneID createScene();
+
+            /**
+             * @brief Deletes a scene
+             *
+             * @param id
+             */
+            void deleteScene(ecs::SceneID id);
+
+            /**
+             * @brief Activates a scene
+             *
+             * @param id
+             */
+            void activateScene(ecs::SceneID id);
+
+            /**
+             * @brief Deactivate a scene
+             *
+             * @param id
+             */
+            void deactivateScene(ecs::SceneID id);
+
+            void addEntityToScene(ecs::Entity entity, ecs::SceneID sceneID)
+            {
+                _coordinator->addEntityToScene(entity, sceneID);
+            }
+
+            void removeEntityFromScene(ecs::Entity entity, ecs::SceneID sceneID)
+            {
+                _coordinator->removeEntityFromScene(entity, sceneID);
             }
 
         private:
@@ -202,6 +243,9 @@ namespace engine {
      * @return The created skybox entity.
      */
     ecs::Entity createSkybox(const char *filename, Vector3 pos, Color color = WHITE);
+
+    void destroyEntity(ecs::Entity entity);
+
     /**
      * @brief Creates a behavior component.
      * @tparam T Type of the behavior.
@@ -293,4 +337,36 @@ namespace engine {
     {
         Engine::getInstance()->registerListener<T>(listener);
     }
+
+    /**
+     * @brief Create a Scene object
+     *
+     * @return ecs::SceneID
+     */
+    ecs::SceneID createScene();
+
+    /**
+     * @brief Deletes a scene
+     *
+     * @param id
+     */
+    void deleteScene(ecs::SceneID id);
+
+    /**
+     * @brief Activates a scene
+     *
+     * @param id
+     */
+    void activateScene(ecs::SceneID id);
+
+    /**
+     * @brief Deactivate a scene
+     *
+     * @param id
+     */
+    void deactivateScene(ecs::SceneID id);
+
+    void addEntityToScene(ecs::Entity entity, ecs::SceneID sceneID);
+
+    void removeEntityFromScene(ecs::Entity entity, ecs::SceneID sceneID);
 }

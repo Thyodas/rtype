@@ -14,6 +14,7 @@
 
 #include "Entity.hpp"
 #include "Signature.hpp"
+#include "Scene.hpp"
 
 namespace ecs {
     class Coordinator;
@@ -60,6 +61,25 @@ namespace ecs {
                     auto system = std::make_shared<T>();
                     _systems.insert({typeName, system});
                     return system;
+                }
+
+                /**
+                 * @brief Updates systems entites based on the scenes that are active
+                 *
+                 * @param sceneManager
+                 */
+                void updateSystemEntities(const ecs::SceneManager &sceneManager)
+                {
+                    const auto &activeEntities = sceneManager.getActiveEntities();
+
+                    for (auto &[type, system] : _systems) {
+                        std::set<ecs::Entity> updatedEntities;
+                        for (auto entity : system->_entities) {
+                            if (activeEntities.find(entity) != activeEntities.end())
+                                updatedEntities.insert(entity);
+                        }
+                        system->_entities = std::move(updatedEntities);
+                    }
                 }
 
                 /**
