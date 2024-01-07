@@ -25,6 +25,7 @@
 #include "game_engine/ecs/components/Animations.hpp"
 #include "game_engine/ecs/systems/Animations.hpp"
 #include "game_engine/ecs/systems/Input.hpp"
+#include "game_engine/ecs/Scene.hpp"
 #include "game_engine/ecs/systems/Audio.hpp"
 #include "common/utils/Chrono.hpp"
 #include <memory>
@@ -169,6 +170,44 @@ namespace engine {
             void emitEvent(T &event)
             {
                 _coordinator->emitEvent<T>(event);
+            }
+
+            /**
+             * @brief Create a Scene object
+             *
+             * @return ecs::SceneID
+             */
+            ecs::SceneID createScene();
+
+            /**
+             * @brief Deletes a scene
+             *
+             * @param id
+             */
+            void deleteScene(ecs::SceneID id);
+
+            /**
+             * @brief Activates a scene
+             *
+             * @param id
+             */
+            void activateScene(ecs::SceneID id);
+
+            /**
+             * @brief Deactivate a scene
+             *
+             * @param id
+             */
+            void deactivateScene(ecs::SceneID id);
+
+            void addEntityToScene(ecs::Entity entity, ecs::SceneID sceneID)
+            {
+                _coordinator->addEntityToScene(entity, sceneID);
+            }
+
+            void removeEntityFromScene(ecs::Entity entity, ecs::SceneID sceneID)
+            {
+                _coordinator->removeEntityFromScene(entity, sceneID);
             }
 
         private:
@@ -395,4 +434,36 @@ namespace engine {
     {
         Engine::getInstance()->emitEvent(event);
     }
+
+    /**
+     * @brief Create a Scene object
+     *
+     * @return ecs::SceneID
+     */
+    ecs::SceneID createScene();
+
+    /**
+     * @brief Deletes a scene
+     *
+     * @param id
+     */
+    void deleteScene(ecs::SceneID id);
+
+    /**
+     * @brief Activates a scene
+     *
+     * @param id
+     */
+    void activateScene(ecs::SceneID id);
+
+    /**
+     * @brief Deactivate a scene
+     *
+     * @param id
+     */
+    void deactivateScene(ecs::SceneID id);
+
+    void addEntityToScene(ecs::Entity entity, ecs::SceneID sceneID);
+
+    void removeEntityFromScene(ecs::Entity entity, ecs::SceneID sceneID);
 }

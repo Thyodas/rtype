@@ -12,6 +12,7 @@
 #include "System.hpp"
 #include "../core/event/Event.hpp"
 #include "SingletonComponent.hpp"
+#include "Scene.hpp"
 
 namespace ecs {
     /**
@@ -27,7 +28,8 @@ namespace ecs {
         public:
             /**
             * @brief Initializes the Coordinator, creating instances of EntityManager,
-            * ComponentManager, and SystemManager.
+            * ComponentManager, SystemManager, EventManager, SingletonComponentManager
+            * and SceneManager.
             */
             void init() {
                 _componentManager = std::make_shared<components::ComponentManager>();
@@ -35,6 +37,7 @@ namespace ecs {
                 _systemManager = std::make_shared<system::SystemManager>();
                 _eventManager = std::make_shared<ecs::event::EventManager>();
                 _singletonComponentManager = std::make_shared<ecs::SingletonComponentManager>();
+                _sceneManager = std::make_shared<ecs::SceneManager>();
             }
 
             /**
@@ -55,6 +58,8 @@ namespace ecs {
                 _entityManager->destroyEntity(entity);
                 _componentManager->entityDestroyed(entity);
                 _systemManager->entityDestroyed(entity);
+                _sceneManager->entityDestroyed(entity);
+                updateSystemEntities();
             }
 
             /**
@@ -188,16 +193,90 @@ namespace ecs {
                 _eventManager->emitEvent<T>(event);
             }
 
+            /**
+             * @brief Dispatch the event to the listeners
+             *
+             */
             void dispatchEvents()
             {
                 _eventManager->dispatchEvents();
             }
 
+            /**
+             * @brief Create a Scene object
+             *
+             * @param id The id of the scene to be created
+             */
+            void createScene(ecs::SceneID id)
+            {
+                _sceneManager->createScene(id);
+            }
+
+            /**
+             * @brief Delete a scene object
+             *
+             * @param id The id of the scene to be deleted
+             */
+            void deleteScene(ecs::SceneID id)
+            {
+                _sceneManager->deleteScene(id);
+            }
+
+            /**
+             * @brief Activate a scene
+             *
+             * @param id The id of the scene
+             */
+            void activateScene(ecs::SceneID id)
+            {
+                _sceneManager->activateScene(id);
+                updateSystemEntities();
+                for (const auto& entity : _sceneManager->getActiveEntities()) {
+                    auto signature = _entityManager->getSignature(entity);
+                    _systemManager->entitySignatureChanged(entity, signature);
+                }
+            }
+
+            /**
+             * @brief Deactivate a scene
+             *
+             * @param id The id of the scene
+             */
+            void deactivateScene(ecs::SceneID id)
+            {
+                _sceneManager->deactivateScene(id);
+                updateSystemEntities();
+                for (const auto& entity : _sceneManager->getActiveEntities()) {
+                    auto signature = _entityManager->getSignature(entity);
+                    _systemManager->entitySignatureChanged(entity, signature);
+                }
+            }
+
+            void addEntityToScene(ecs::Entity entity, ecs::SceneID sceneID)
+            {
+                _sceneManager->addEntityToScene(entity, sceneID);
+                auto signature = _entityManager->getSignature(entity);
+                _systemManager->entitySignatureChanged(entity, signature);
+                updateSystemEntities();
+            }
+
+            void removeEntityFromScene(ecs::Entity entity, ecs::SceneID sceneID)
+            {
+                _sceneManager->removeEntityFromScene(entity, sceneID);
+                updateSystemEntities();
+            }
+
         private:
+            void updateSystemEntities(void)
+            {
+                _systemManager->updateSystemEntities(*_sceneManager);
+            }
+
             std::shared_ptr<components::ComponentManager> _componentManager;
             std::shared_ptr<EntityManager> _entityManager;
             std::shared_ptr<system::SystemManager> _systemManager;
             std::shared_ptr<ecs::event::EventManager> _eventManager;
             std::shared_ptr<ecs::SingletonComponentManager> _singletonComponentManager;
+            std::shared_ptr<ecs::SceneManager> _sceneManager;
     };
 }
