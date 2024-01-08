@@ -10,6 +10,8 @@
 #include "game_engine/ecs/components/NetworkBehaviour.hpp"
 #include "common/game/NetworkBody.hpp"
 #include "server/core/NetServer.hpp"
+#include "game_engine/GameEngine.hpp"
+#include "game_engine/ecs/components/Physics.hpp"
 
 namespace server {
 
@@ -21,6 +23,10 @@ namespace server {
                 : NetworkBehaviour(networkManager, entityNetId, connectionId)
             {
                 _lastUpdate = engine::Engine::getInstance()->getElapsedTime() / 1000;
+
+                _coord->registerListener<CollisionEvent>([this](const CollisionEvent &event) {
+                    std::cout << "Bullet collides with " << event.entity2 << std::endl;
+                });
             }
 
             void update() override

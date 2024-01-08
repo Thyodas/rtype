@@ -171,9 +171,10 @@ namespace client {
                 }
                 updateDirectionOnChange(direction);
 
-                if (IsKeyDown(KEY_SPACE)) {
+                if (IsKeyDown(KEY_SPACE) && (engine::Engine::getInstance()->getElapsedTime() / 1000) - _lastBulletFire > 1.0) {
                     std::cout << "PRESSED SPACE -> FIRE BULLET" << std::endl;
                     fireBullet();
+                    _lastBulletFire = engine::Engine::getInstance()->getElapsedTime() / 1000;
                 }
                 /*if (IsKeyReleased(KEY_SPACE)) {
                     Vector3 newRotation = {0};
@@ -189,5 +190,6 @@ namespace client {
             }
         protected:
             Vector3 _lastDirection{0, 0, 0};
+            double _lastBulletFire = 0;
     };
 }

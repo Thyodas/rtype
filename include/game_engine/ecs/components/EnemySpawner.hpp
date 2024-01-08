@@ -23,7 +23,6 @@ namespace ecs::components::behaviour
 
             void addEnemy()
             {
-                // spawn enemy, pass position ? and add to the set _> add remove method
                 common::game::EntityFactory factory;
                 ecs::Entity entity = factory.createEntity(common::game::ObjectType::Model3D, common::game::ObjectName::Transtellar, {
                     {0, 0, 10},
@@ -46,6 +45,7 @@ namespace ecs::components::behaviour
                     .pos = {0, 0, 10},
                 };
                resMsg << body;
+               std::cout << "creating enemy" << std::endl;
                 _networkManager.messageAllClients(resMsg);
 
                 _ennemies.emplace(entity);

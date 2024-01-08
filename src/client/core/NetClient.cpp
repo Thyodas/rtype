@@ -34,6 +34,8 @@ namespace client {
             });
             auto behave = engine::createBehavior<client::PlayerNetwork>(*this, body.entityNetId);
             engine::attachBehavior(cube, behave);
+
+            std::cout << "Player created with id " << body.entityNetId << std::endl;
         }
 
         void NetClient::resServerAllyConnect(rtype::net::Message<common::NetworkMessage>& msg)
@@ -80,5 +82,7 @@ namespace client {
             });
             auto behave = engine::createBehavior<client::EnemyNetwork>(*this);
             engine::attachBehavior(cube, behave);
+
+            std::cout << "Enemy created with id " << body.entityNetId << std::endl;
         }
 }

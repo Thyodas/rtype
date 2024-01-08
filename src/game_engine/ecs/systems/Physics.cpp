@@ -56,17 +56,17 @@ namespace ecs {
                     if (it2 == _entities.end()) break;
                     auto& transf2 = _coord->getComponent<components::physics::transform_t>(*it2);
                     auto& collider2 = _coord->getComponent<components::physics::collider_t>(*it2);
+                    if (collider1.collisionType == ecs::components::physics::CollisionType::NON_COLLIDE ||
+                            collider2.collisionType == ecs::components::physics::CollisionType::NON_COLLIDE) {
+                        continue;
+                    }
                     if (collider1.shapeType == ecs::components::ShapeType::SPHERE || collider2.shapeType == ecs::components::ShapeType::SPHERE) {
-                        
                     } else {
                         BoundingBox box1 = collider1.data->getBoundingBox(collider1);
                         BoundingBox box2 = collider2.data->getBoundingBox(collider2);
                         bool colliding = CheckCollisionBoxes(box1, box2);
                         if (colliding) {
-                            //std::cout << "ca collide" << std::endl;
-                            //_coord->emitEvent<CollisionEvent>(CollisionEvent(*it1, box1, collider1.data->getModel().transform, *it2, box2, collider2.data->getModel().transform));
-                        } else {
-                            //std::cout << "no collision detected" << std::endl;
+                            _coord->emitEvent<CollisionEvent>(CollisionEvent(*it1, box1, collider1.data->getModel().transform, *it2, box2, collider2.data->getModel().transform));
                         }
                     }
                 }
@@ -76,11 +76,9 @@ namespace ecs {
         CollisionResponse::CollisionResponse(ecs::Coordinator &coord) : _coord(coord)
         {
             _coord.registerListener<CollisionEvent>([this](const CollisionEvent &event) {
-                return;
                 auto &transf = _coord.getComponent<ecs::components::physics::transform_t>(event.entity1);
                 auto &collider = _coord.getComponent<ecs::components::physics::collider_t>(event.entity1);
                 Vector3 displacementVector = getCollisionResponse(event);
-                std::cout << "colision!" << std::endl;
                 transf.pos.x += displacementVector.x;
                 transf.pos.y += displacementVector.y;
                 transf.pos.z += displacementVector.z;
