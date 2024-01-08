@@ -3,7 +3,7 @@ var searchData=
   ['ecs_0',['ECS',['../ecs_readme.html',1,'']]],
   ['emitevent_1',['emitEvent',['../classecs_1_1event_1_1_event_manager.html#a571be10ac07fcd10e83954327a9eb39e',1,'ecs::event::EventManager']]],
   ['empty_2',['empty',['../classrtype_1_1net_1_1_ts_queue.html#ae2ead6b2bf877e652f8584d4863269aa',1,'rtype::net::TsQueue']]],
-  ['enemynetwork_3',['EnemyNetwork',['../classclient_1_1_enemy_network.html',1,'client']]],
+  ['enemynetwork_3',['EnemyNetwork',['../classclient_1_1_enemy_network.html',1,'client::EnemyNetwork'],['../classserver_1_1_enemy_network.html',1,'server::EnemyNetwork']]],
   ['enemyspawner_4',['EnemySpawner',['../classecs_1_1components_1_1behaviour_1_1_enemy_spawner.html',1,'ecs::components::behaviour']]],
   ['engine_5',['Engine',['../classengine_1_1_engine.html',1,'engine']]],
   ['entity_6',['Entity',['../classcommon_1_1game_1_1_entity.html',1,'common::game']]],

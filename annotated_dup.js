@@ -113,6 +113,7 @@ var annotated_dup =
     ] ],
     [ "server", null, [
       [ "BulletNetwork", "classserver_1_1_bullet_network.html", "classserver_1_1_bullet_network" ],
+      [ "EnemyNetwork", "classserver_1_1_enemy_network.html", "classserver_1_1_enemy_network" ],
       [ "NetServer", "classserver_1_1_net_server.html", "classserver_1_1_net_server" ],
       [ "PlayerNetwork", "classserver_1_1_player_network.html", "classserver_1_1_player_network" ],
       [ "Server", "classserver_1_1_server.html", null ]
