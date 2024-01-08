@@ -122,7 +122,7 @@ $(document).ready(function(){initNavTree('_game_engine_8hpp_source.html',''); in
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keyword">namespace </span>engine {</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="classengine_1_1_engine.html">   41</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classengine_1_1_engine.html">Engine</a> {</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classengine_1_1_engine.html#a05152770c0742ec74bc36dda04d0503c">init</a>(<span class="keywordtype">bool</span> disableRender = <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classengine_1_1_engine.html#a9afffe83aae5e96ab689abf06a4d31e9">init</a>(<span class="keywordtype">bool</span> disableRender = <span class="keyword">false</span>, <span class="keywordtype">int</span> windowWidth = 1920, <span class="keywordtype">int</span> windowHeight = 1080);</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            ecs::Entity <a class="code hl_function" href="classengine_1_1_engine.html#a9b925280e91e1e0789f25058c1eb62d0">addEntity</a>(<a class="code hl_struct" href="structecs_1_1components_1_1physics_1_1transform__s.html">ecs::components::physics::transform_t</a> transf = {{0, 1, 0}, {0}, {0}},</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>                                    <a class="code hl_struct" href="structecs_1_1components_1_1render_1_1render__s.html">ecs::components::render::render_t</a> render = {ecs::components::ShapeType::CUBE, <span class="keyword">true</span>, std::make_shared&lt;ecs::components::Cube&gt;()}</div>
@@ -149,109 +149,132 @@ $(document).ready(function(){initNavTree('_game_engine_8hpp_source.html',''); in
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                _coordinator-&gt;registerListener&lt;T&gt;(listener);</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            }</div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="classengine_1_1_engine.html#a0399eb84d58a5b6a151065bd27c9165e">  101</a></span>            <span class="keywordtype">bool</span> <a class="code hl_function" href="classengine_1_1_engine.html#a0399eb84d58a5b6a151065bd27c9165e">isWindowOpen</a>(<span class="keywordtype">void</span>)</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            {</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>                <span class="keywordflow">if</span> (_disableRender)</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                <span class="keywordflow">return</span> _window-&gt;isOpen();</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            }</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classengine_1_1_engine.html#a26915cb758c2ef7ed6c96d1dfb1e3136">run</a>();</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            <span class="keywordtype">void</span> runTextureMode(RenderTexture&amp; ViewTexture);</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="classengine_1_1_engine.html#aeef234f6dc764a620ebbeb57924be12a">  119</a></span>            [[nodiscard]] <span class="keywordtype">double</span> <a class="code hl_function" href="classengine_1_1_engine.html#aeef234f6dc764a620ebbeb57924be12a">getElapsedTime</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="keyword">            </span>{</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                <span class="keywordflow">return</span> _chrono.getElapsedTime();</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>            }</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            std::shared_ptr&lt;ecs::Coordinator&gt; _coordinator;</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            std::shared_ptr&lt;ecs::system::PhysicsSystem&gt; _physicSystem;</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            std::shared_ptr&lt;ecs::system::RenderSystem&gt; _renderSystem;</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            std::shared_ptr&lt;ecs::system::BehaviourSystem&gt; _behaviourSystem;</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            std::shared_ptr&lt;ecs::system::AnimationSystem&gt; _animationSystem;</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            std::shared_ptr&lt;ecs::system::CollisionResponse&gt; _collisionResponseSystem;</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            std::shared_ptr&lt;ecs::system::ColisionDetectionSystem&gt; _collisionDetectionSystem;</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            std::shared_ptr&lt;ecs::system::InputSystem&gt; _inputSystem;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="classengine_1_1_engine.html#aa011aff7a9a0d6a65373330aa7526712">  100</a></span>            [[nodiscard]] std::shared_ptr&lt;engine::core::Window&gt; <a class="code hl_function" href="classengine_1_1_engine.html#aa011aff7a9a0d6a65373330aa7526712">getWindow</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="keyword">            </span>{</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>                <span class="keywordflow">return</span> _window;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            }</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="classengine_1_1_engine.html#a0399eb84d58a5b6a151065bd27c9165e">  111</a></span>            <span class="keywordtype">bool</span> <a class="code hl_function" href="classengine_1_1_engine.html#a0399eb84d58a5b6a151065bd27c9165e">isWindowOpen</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            {</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                <span class="keywordflow">if</span> (_disableRender)</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>                <span class="keywordflow">return</span> _window-&gt;isOpen();</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>            }</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classengine_1_1_engine.html#a26915cb758c2ef7ed6c96d1dfb1e3136">run</a>();</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            <span class="keywordtype">void</span> runTextureMode(RenderTexture&amp; ViewTexture);</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="classengine_1_1_engine.html#aeef234f6dc764a620ebbeb57924be12a">  129</a></span>            [[nodiscard]] <span class="keywordtype">double</span> <a class="code hl_function" href="classengine_1_1_engine.html#aeef234f6dc764a620ebbeb57924be12a">getElapsedTime</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="keyword">            </span>{</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>                <span class="keywordflow">return</span> _chrono.getElapsedTime();</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            }</div>
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>            std::shared_ptr&lt;core::Window&gt; _window;</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>            <span class="keywordtype">bool</span> _disableRender = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>            <a class="code hl_class" href="classcommon_1_1utils_1_1_chrono.html">common::utils::Chrono</a> _chrono;</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>            <span class="keyword">static</span> <a class="code hl_class" href="classengine_1_1_engine.html">Engine</a> *engine;</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>            <span class="keyword">static</span> std::mutex _mutex;</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>            <a class="code hl_class" href="classengine_1_1_engine.html">Engine</a>() {};</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>            ~Engine()</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>            {</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                std::cout &lt;&lt; <span class="stringliteral">&quot;Engine destroyed&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>            };</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>            Engine(Engine &amp;other) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>            <span class="keywordtype">void</span> operator=(<span class="keyword">const</span> Engine &amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>            <span class="keyword">static</span> Engine *getInstance() {</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                std::lock_guard&lt;std::mutex&gt; lock(_mutex);</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                <span class="keywordflow">if</span> (engine == <span class="keyword">nullptr</span>)</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>                    engine = <span class="keyword">new</span> Engine;</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>                <span class="keywordflow">return</span> engine;</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            };</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    };</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <span class="keywordtype">void</span> initEngine(<span class="keywordtype">bool</span> disableRender = <span class="keyword">false</span>);</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <span class="keywordtype">void</span> runEngine();</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <span class="keywordtype">void</span> runEngineTextureMode(RenderTexture&amp; ViewTexture);</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    ecs::Entity createCube(Vector3 pos, <span class="keywordtype">float</span> width, <span class="keywordtype">float</span> height, <span class="keywordtype">float</span> length, Color color = RED, <span class="keywordtype">bool</span> toggleWire = <span class="keyword">false</span>, Color wireColor = BLACK);</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    ecs::Entity createModel3D(<span class="keyword">const</span> <span class="keywordtype">char</span> *filename, Vector3 pos, Color color = WHITE);</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    ecs::Entity createSkybox(<span class="keyword">const</span> <span class="keywordtype">char</span> *filename, Vector3 pos, Color color = WHITE);</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... Args&gt;</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    std::shared_ptr&lt;T&gt; createBehavior(Args&amp;&amp;... args)</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    {</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        <span class="keywordflow">return</span> std::make_shared&lt;T&gt;(std::forward&lt;Args&gt;(args)...);</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    }</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span> </div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    <span class="keywordtype">void</span> attachBehavior(ecs::Entity entity, std::shared_ptr&lt;ecs::components::behaviour::Behaviour&gt; behaviour);</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    <span class="keywordtype">bool</span> isWindowOpen(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    <span class="keywordtype">bool</span> isKeyPressed(ecs::components::input::Keys key);</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    <span class="keywordtype">bool</span> isKeyReleased(ecs::components::input::Keys key);</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    <span class="keywordtype">bool</span> isKeyDown(ecs::components::input::Keys key);</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    <span class="keywordtype">bool</span> isKeyUp(ecs::components::input::Keys key);</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span> </div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    <span class="keywordtype">void</span> rotate(ecs::Entity entity, Vector3 rotation);</div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    <span class="keywordtype">void</span> scale(ecs::Entity entity, Vector3 scale);</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>    <span class="keywordtype">void</span> setAnimation(ecs::Entity entity, <span class="keyword">const</span> <span class="keywordtype">char</span> *filename);</div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span> </div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    <span class="keywordtype">void</span> registerListener(std::function&lt;<span class="keywordtype">void</span>(<span class="keyword">const</span> T&amp;)&gt; listener)</div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>    {</div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>        Engine::getInstance()-&gt;registerListener&lt;T&gt;(listener);</div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    }</div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>}</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>            std::shared_ptr&lt;ecs::Coordinator&gt; _coordinator;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>            std::shared_ptr&lt;ecs::system::PhysicsSystem&gt; _physicSystem;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>            std::shared_ptr&lt;ecs::system::RenderSystem&gt; _renderSystem;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            std::shared_ptr&lt;ecs::system::BehaviourSystem&gt; _behaviourSystem;</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>            std::shared_ptr&lt;ecs::system::AnimationSystem&gt; _animationSystem;</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>            std::shared_ptr&lt;ecs::system::CollisionResponse&gt; _collisionResponseSystem;</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>            std::shared_ptr&lt;ecs::system::ColisionDetectionSystem&gt; _collisionDetectionSystem;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>            std::shared_ptr&lt;ecs::system::InputSystem&gt; _inputSystem;</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>            std::shared_ptr&lt;core::Window&gt; _window;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>            <span class="keywordtype">bool</span> _disableRender = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>            <a class="code hl_class" href="classcommon_1_1utils_1_1_chrono.html">common::utils::Chrono</a> _chrono;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            <span class="keyword">static</span> <a class="code hl_class" href="classengine_1_1_engine.html">Engine</a> *engine;</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>            <span class="keyword">static</span> std::mutex _mutex;</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>            <a class="code hl_class" href="classengine_1_1_engine.html">Engine</a>() {};</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>            ~Engine()</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            {</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>                std::cout &lt;&lt; <span class="stringliteral">&quot;Engine destroyed&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>            };</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>            Engine(Engine &amp;other) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>            <span class="keywordtype">void</span> operator=(<span class="keyword">const</span> Engine &amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>            <span class="keyword">static</span> Engine *getInstance() {</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>                std::lock_guard&lt;std::mutex&gt; lock(_mutex);</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>                <span class="keywordflow">if</span> (engine == <span class="keyword">nullptr</span>)</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>                    engine = <span class="keyword">new</span> Engine;</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>                <span class="keywordflow">return</span> engine;</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>            };</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    };</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <span class="keywordtype">void</span> initEngine(<span class="keywordtype">bool</span> disableRender = <span class="keyword">false</span>, <span class="keywordtype">int</span> windowWidth = 1920, <span class="keywordtype">int</span> windowHeight = 1080);</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    <span class="keywordtype">void</span> runEngine();</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <span class="keywordtype">void</span> runEngineTextureMode(RenderTexture&amp; ViewTexture);</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    ecs::Entity createCube(Vector3 pos, <span class="keywordtype">float</span> width, <span class="keywordtype">float</span> height, <span class="keywordtype">float</span> length, Color color = RED, <span class="keywordtype">bool</span> toggleWire = <span class="keyword">false</span>, Color wireColor = BLACK);</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    ecs::Entity createModel3D(<span class="keyword">const</span> <span class="keywordtype">char</span> *filename, Vector3 pos, Color color = WHITE);</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    ecs::Entity createSkybox(<span class="keyword">const</span> <span class="keywordtype">char</span> *filename, Vector3 pos, Color color = WHITE);</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... Args&gt;</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    std::shared_ptr&lt;T&gt; createBehavior(Args&amp;&amp;... args)</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    {</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>        <span class="keywordflow">return</span> std::make_shared&lt;T&gt;(std::forward&lt;Args&gt;(args)...);</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    }</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span> </div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    <span class="keywordtype">void</span> attachBehavior(ecs::Entity entity, std::shared_ptr&lt;ecs::components::behaviour::Behaviour&gt; behaviour);</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span> </div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    <span class="keywordtype">bool</span> isWindowOpen(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span> </div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <span class="keywordtype">bool</span> isKeyPressed(ecs::components::input::Keys key);</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span> </div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    <span class="keywordtype">bool</span> isKeyReleased(ecs::components::input::Keys key);</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span> </div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    <span class="keywordtype">bool</span> isKeyDown(ecs::components::input::Keys key);</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    <span class="keywordtype">bool</span> isKeyUp(ecs::components::input::Keys key);</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span> </div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    <span class="keywordtype">void</span> rotate(ecs::Entity entity, Vector3 rotation);</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    <span class="keywordtype">void</span> scale(ecs::Entity entity, Vector3 scale);</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    <span class="keywordtype">void</span> setAnimation(ecs::Entity entity, <span class="keyword">const</span> <span class="keywordtype">char</span> *filename);</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span> </div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    <span class="keywordtype">void</span> registerListener(std::function&lt;<span class="keywordtype">void</span>(<span class="keyword">const</span> T&amp;)&gt; listener)</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>    {</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>        Engine::getInstance()-&gt;registerListener&lt;T&gt;(listener);</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    }</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span> </div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> </div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    <span class="keyword">namespace </span>camera {</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>        <span class="keywordtype">void</span> setPosition(Vector3 pos);</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span> </div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>        Vector3 getPosition();</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span> </div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>        <span class="keywordtype">void</span> setTarget(Vector3 pos);</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span> </div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>        Vector3 getTarget();</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span> </div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>        <span class="keywordtype">void</span> setFov(<span class="keywordtype">float</span> fov);</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span> </div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>        <span class="keywordtype">float</span> getFov();</div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>    }</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>}</div>
 <div class="ttc" id="aclasscommon_1_1utils_1_1_chrono_html"><div class="ttname"><a href="classcommon_1_1utils_1_1_chrono.html">common::utils::Chrono</a></div><div class="ttdef"><b>Definition:</b> Chrono.hpp:16</div></div>
 <div class="ttc" id="aclassengine_1_1_engine_html"><div class="ttname"><a href="classengine_1_1_engine.html">engine::Engine</a></div><div class="ttdoc">Main engine class responsible for initializing and managing game components.</div><div class="ttdef"><b>Definition:</b> GameEngine.hpp:41</div></div>
-<div class="ttc" id="aclassengine_1_1_engine_html_a0399eb84d58a5b6a151065bd27c9165e"><div class="ttname"><a href="classengine_1_1_engine.html#a0399eb84d58a5b6a151065bd27c9165e">engine::Engine::isWindowOpen</a></div><div class="ttdeci">bool isWindowOpen(void)</div><div class="ttdoc">Checks if the window of the game engine is open.</div><div class="ttdef"><b>Definition:</b> GameEngine.hpp:101</div></div>
-<div class="ttc" id="aclassengine_1_1_engine_html_a05152770c0742ec74bc36dda04d0503c"><div class="ttname"><a href="classengine_1_1_engine.html#a05152770c0742ec74bc36dda04d0503c">engine::Engine::init</a></div><div class="ttdeci">void init(bool disableRender=false)</div><div class="ttdoc">Initializes the engine, setting up necessary components and systems.</div><div class="ttdef"><b>Definition:</b> GameEngine.cpp:18</div></div>
+<div class="ttc" id="aclassengine_1_1_engine_html_a0399eb84d58a5b6a151065bd27c9165e"><div class="ttname"><a href="classengine_1_1_engine.html#a0399eb84d58a5b6a151065bd27c9165e">engine::Engine::isWindowOpen</a></div><div class="ttdeci">bool isWindowOpen(void)</div><div class="ttdoc">Checks if the window of the game engine is open.</div><div class="ttdef"><b>Definition:</b> GameEngine.hpp:111</div></div>
 <div class="ttc" id="aclassengine_1_1_engine_html_a26915cb758c2ef7ed6c96d1dfb1e3136"><div class="ttname"><a href="classengine_1_1_engine.html#a26915cb758c2ef7ed6c96d1dfb1e3136">engine::Engine::run</a></div><div class="ttdeci">void run()</div><div class="ttdoc">Starts and runs the game engine.</div><div class="ttdef"><b>Definition:</b> GameEngine.cpp:87</div></div>
 <div class="ttc" id="aclassengine_1_1_engine_html_a279309a18b8fcf6968ebf2b64bbe9289"><div class="ttname"><a href="classengine_1_1_engine.html#a279309a18b8fcf6968ebf2b64bbe9289">engine::Engine::addComponent</a></div><div class="ttdeci">void addComponent(ecs::Entity entity, T component)</div><div class="ttdoc">Adds a component to an entity.</div><div class="ttdef"><b>Definition:</b> GameEngine.hpp:66</div></div>
 <div class="ttc" id="aclassengine_1_1_engine_html_a89b529e7bf2e61e61916cd9f009679c4"><div class="ttname"><a href="classengine_1_1_engine.html#a89b529e7bf2e61e61916cd9f009679c4">engine::Engine::getComponent</a></div><div class="ttdeci">T &amp; getComponent(ecs::Entity entity)</div><div class="ttdoc">Retrieves a component from an entity.</div><div class="ttdef"><b>Definition:</b> GameEngine.hpp:77</div></div>
+<div class="ttc" id="aclassengine_1_1_engine_html_a9afffe83aae5e96ab689abf06a4d31e9"><div class="ttname"><a href="classengine_1_1_engine.html#a9afffe83aae5e96ab689abf06a4d31e9">engine::Engine::init</a></div><div class="ttdeci">void init(bool disableRender=false, int windowWidth=1920, int windowHeight=1080)</div><div class="ttdoc">Initializes the engine, setting up necessary components and systems.</div><div class="ttdef"><b>Definition:</b> GameEngine.cpp:18</div></div>
 <div class="ttc" id="aclassengine_1_1_engine_html_a9b925280e91e1e0789f25058c1eb62d0"><div class="ttname"><a href="classengine_1_1_engine.html#a9b925280e91e1e0789f25058c1eb62d0">engine::Engine::addEntity</a></div><div class="ttdeci">ecs::Entity addEntity(ecs::components::physics::transform_t transf={{0, 1, 0}, {0}, {0}}, ecs::components::render::render_t render={ecs::components::ShapeType::CUBE, true, std::make_shared&lt; ecs::components::Cube &gt;()})</div><div class="ttdoc">Adds a new entity to the game with optional physics and render components.</div><div class="ttdef"><b>Definition:</b> GameEngine.cpp:80</div></div>
+<div class="ttc" id="aclassengine_1_1_engine_html_aa011aff7a9a0d6a65373330aa7526712"><div class="ttname"><a href="classengine_1_1_engine.html#aa011aff7a9a0d6a65373330aa7526712">engine::Engine::getWindow</a></div><div class="ttdeci">std::shared_ptr&lt; engine::core::Window &gt; getWindow() const</div><div class="ttdoc">Get the window object.</div><div class="ttdef"><b>Definition:</b> GameEngine.hpp:100</div></div>
 <div class="ttc" id="aclassengine_1_1_engine_html_ac614e22b9ce2e97f9b5b3fdeb82a5d03"><div class="ttname"><a href="classengine_1_1_engine.html#ac614e22b9ce2e97f9b5b3fdeb82a5d03">engine::Engine::registerListener</a></div><div class="ttdeci">void registerListener(std::function&lt; void(const T &amp;)&gt; listener)</div><div class="ttdoc">Registers an event listener.</div><div class="ttdef"><b>Definition:</b> GameEngine.hpp:92</div></div>
-<div class="ttc" id="aclassengine_1_1_engine_html_aeef234f6dc764a620ebbeb57924be12a"><div class="ttname"><a href="classengine_1_1_engine.html#aeef234f6dc764a620ebbeb57924be12a">engine::Engine::getElapsedTime</a></div><div class="ttdeci">double getElapsedTime() const</div><div class="ttdoc">Gets the elapsed time since the engine started.</div><div class="ttdef"><b>Definition:</b> GameEngine.hpp:119</div></div>
+<div class="ttc" id="aclassengine_1_1_engine_html_aeef234f6dc764a620ebbeb57924be12a"><div class="ttname"><a href="classengine_1_1_engine.html#aeef234f6dc764a620ebbeb57924be12a">engine::Engine::getElapsedTime</a></div><div class="ttdeci">double getElapsedTime() const</div><div class="ttdoc">Gets the elapsed time since the engine started.</div><div class="ttdef"><b>Definition:</b> GameEngine.hpp:129</div></div>
 <div class="ttc" id="astructecs_1_1components_1_1physics_1_1transform__s_html"><div class="ttname"><a href="structecs_1_1components_1_1physics_1_1transform__s.html">ecs::components::physics::transform_s</a></div><div class="ttdef"><b>Definition:</b> Physics.hpp:27</div></div>
 <div class="ttc" id="astructecs_1_1components_1_1render_1_1render__s_html"><div class="ttname"><a href="structecs_1_1components_1_1render_1_1render__s.html">ecs::components::render::render_s</a></div><div class="ttdef"><b>Definition:</b> Render.hpp:27</div></div>
 </div><!-- fragment --></div><!-- contents -->
