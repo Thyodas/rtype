@@ -59,3 +59,10 @@ include("${CMAKE_CURRENT_SOURCE_DIR}/external/rlImGui/CMakeLists.txt")
 include("${CMAKE_CURRENT_SOURCE_DIR}/src/client/CMakeLists.txt")
 include("${CMAKE_CURRENT_SOURCE_DIR}/src/server/CMakeLists.txt")
 include("${CMAKE_CURRENT_SOURCE_DIR}/src/game_engine/CMakeLists.txt")
+
+#Creating archive
+execute_process(COMMAND
+    tar "-cf" "package.tar" "${CMAKE_BINARY_DIR}"
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    RESULT_VARIABLE TAR_RESULT
+)
