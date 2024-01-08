@@ -86,3 +86,5 @@ endif()
 include_directories(include)
 include_directories("./include/game_engine")
 include_directories("./include/common")
+
+add_dependencies(game_engine package)

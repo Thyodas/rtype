@@ -11,7 +11,7 @@ project(client CXX)
 
 find_package(Git QUIET)
 
-if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
+if(false OR GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
     # Update submodules as needed
     option(GIT_SUBMODULE "Check submodules during build" ON)
     if(GIT_SUBMODULE)
@@ -61,8 +61,10 @@ include("${CMAKE_CURRENT_SOURCE_DIR}/src/server/CMakeLists.txt")
 include("${CMAKE_CURRENT_SOURCE_DIR}/src/game_engine/CMakeLists.txt")
 
 #Creating archive
-execute_process(COMMAND
-    tar "-cf" "package.tar" "${CMAKE_BINARY_DIR}"
+add_custom_target(
+    package
+    COMMAND ${CMAKE_COMMAND} -E tar "cf" "package.tar" "${CMAKE_BINARY_DIR}"
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    RESULT_VARIABLE TAR_RESULT
+    COMMENT "Creating package.tar"
+    VERBATIM
 )
