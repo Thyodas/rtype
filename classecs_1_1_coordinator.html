@@ -114,6 +114,10 @@ template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a83bb9e25266f02529bfead3db3ad336e"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>registerComponent</b> ()</td></tr>
 <tr class="memdesc:a83bb9e25266f02529bfead3db3ad336e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a new component type within the ComponentManager. <br /></td></tr>
 <tr class="separator:a83bb9e25266f02529bfead3db3ad336e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f964eab08ad5af619b57b57d5f59805"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a8f964eab08ad5af619b57b57d5f59805"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classecs_1_1_coordinator.html#a8f964eab08ad5af619b57b57d5f59805">registerSingletonComponent</a> (T component)</td></tr>
+<tr class="memdesc:a8f964eab08ad5af619b57b57d5f59805"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a new singleton component.  <a href="classecs_1_1_coordinator.html#a8f964eab08ad5af619b57b57d5f59805">More...</a><br /></td></tr>
+<tr class="separator:a8f964eab08ad5af619b57b57d5f59805"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1388912a7b8e3cb6e9a88613e9119bb9"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a1388912a7b8e3cb6e9a88613e9119bb9"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classecs_1_1_coordinator.html#a1388912a7b8e3cb6e9a88613e9119bb9">addComponent</a> (Entity entity, T component)</td></tr>
 <tr class="memdesc:a1388912a7b8e3cb6e9a88613e9119bb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a component to an entity, updates its signature, and notifies systems.  <a href="classecs_1_1_coordinator.html#a1388912a7b8e3cb6e9a88613e9119bb9">More...</a><br /></td></tr>
@@ -122,10 +126,18 @@ template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a627903a7b6a351633f4ad59d610e03b5"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classecs_1_1_coordinator.html#a627903a7b6a351633f4ad59d610e03b5">removeComponent</a> (Entity entity)</td></tr>
 <tr class="memdesc:a627903a7b6a351633f4ad59d610e03b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a component from an entity, updates its signature, and notifies systems.  <a href="classecs_1_1_coordinator.html#a627903a7b6a351633f4ad59d610e03b5">More...</a><br /></td></tr>
 <tr class="separator:a627903a7b6a351633f4ad59d610e03b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad944fbd0b826be86889c5efa71f28aca"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ad944fbd0b826be86889c5efa71f28aca"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classecs_1_1_coordinator.html#ad944fbd0b826be86889c5efa71f28aca">removeSingletonComponent</a> (void)</td></tr>
+<tr class="memdesc:ad944fbd0b826be86889c5efa71f28aca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a singleton component.  <a href="classecs_1_1_coordinator.html#ad944fbd0b826be86889c5efa71f28aca">More...</a><br /></td></tr>
+<tr class="separator:ad944fbd0b826be86889c5efa71f28aca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71aea34b19a7bf5fbdb42ed232199968"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a71aea34b19a7bf5fbdb42ed232199968"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classecs_1_1_coordinator.html#a71aea34b19a7bf5fbdb42ed232199968">getComponent</a> (Entity entity)</td></tr>
 <tr class="memdesc:a71aea34b19a7bf5fbdb42ed232199968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a reference to a component of an entity.  <a href="classecs_1_1_coordinator.html#a71aea34b19a7bf5fbdb42ed232199968">More...</a><br /></td></tr>
 <tr class="separator:a71aea34b19a7bf5fbdb42ed232199968"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e0f4b9d5b32186cea15014ae65bc6aa"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a9e0f4b9d5b32186cea15014ae65bc6aa"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classecs_1_1_coordinator.html#a9e0f4b9d5b32186cea15014ae65bc6aa">getSingletonComponent</a> (void)</td></tr>
+<tr class="memdesc:a9e0f4b9d5b32186cea15014ae65bc6aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Singleton Component object.  <a href="classecs_1_1_coordinator.html#a9e0f4b9d5b32186cea15014ae65bc6aa">More...</a><br /></td></tr>
+<tr class="separator:a9e0f4b9d5b32186cea15014ae65bc6aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e3419f884cef2c133a173640a9868c2"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a8e3419f884cef2c133a173640a9868c2"><td class="memTemplItemLeft" align="right" valign="top">components::ComponentType&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classecs_1_1_coordinator.html#a8e3419f884cef2c133a173640a9868c2">getComponentType</a> ()</td></tr>
 <tr class="memdesc:a8e3419f884cef2c133a173640a9868c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the component type ID for a specific component type.  <a href="classecs_1_1_coordinator.html#a8e3419f884cef2c133a173640a9868c2">More...</a><br /></td></tr>
@@ -216,6 +228,48 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>dispatchEvents</b> ()
 
 </div>
 </div>
+<a id="a8f964eab08ad5af619b57b57d5f59805" name="a8f964eab08ad5af619b57b57d5f59805"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f964eab08ad5af619b57b57d5f59805">&#9670;&nbsp;</a></span>registerSingletonComponent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ecs::Coordinator::registerSingletonComponent </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>component</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Registers a new singleton component. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Class that should inherit from <a class="el" href="classecs_1_1_singleton_component.html">SingletonComponent</a> class </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">component</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a1388912a7b8e3cb6e9a88613e9119bb9" name="a1388912a7b8e3cb6e9a88613e9119bb9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1388912a7b8e3cb6e9a88613e9119bb9">&#9670;&nbsp;</a></span>addComponent()</h2>
 
@@ -299,6 +353,42 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="ad944fbd0b826be86889c5efa71f28aca" name="ad944fbd0b826be86889c5efa71f28aca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad944fbd0b826be86889c5efa71f28aca">&#9670;&nbsp;</a></span>removeSingletonComponent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ecs::Coordinator::removeSingletonComponent </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Remove a singleton component. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Class that should inherit from the <a class="el" href="classecs_1_1_singleton_component.html">SingletonComponent</a> class </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a71aea34b19a7bf5fbdb42ed232199968" name="a71aea34b19a7bf5fbdb42ed232199968"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a71aea34b19a7bf5fbdb42ed232199968">&#9670;&nbsp;</a></span>getComponent()</h2>
 
@@ -333,6 +423,43 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>T&amp; - Reference to the requested component. </dd></dl>
+
+</div>
+</div>
+<a id="a9e0f4b9d5b32186cea15014ae65bc6aa" name="a9e0f4b9d5b32186cea15014ae65bc6aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e0f4b9d5b32186cea15014ae65bc6aa">&#9670;&nbsp;</a></span>getSingletonComponent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T &amp; ecs::Coordinator::getSingletonComponent </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the Singleton Component object. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Class that should inherit from the <a class="el" href="classecs_1_1_singleton_component.html">SingletonComponent</a> class </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>T&amp; The instance of the desired singleton component </dd></dl>
 
 </div>
 </div>

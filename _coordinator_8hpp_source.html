@@ -101,109 +101,130 @@ $(document).ready(function(){initNavTree('_coordinator_8hpp_source.html',''); in
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;System.hpp&quot;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;../core/event/Event.hpp&quot;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span>ecs {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classecs_1_1_coordinator.html">   25</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classecs_1_1_coordinator.html">Coordinator</a> {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="classecs_1_1_coordinator.html#ab46a8bb85ea4051ec691ec5cd707cd95">   31</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classecs_1_1_coordinator.html#ab46a8bb85ea4051ec691ec5cd707cd95">init</a>() {</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                _componentManager = std::make_shared&lt;components::ComponentManager&gt;();</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>                _entityManager = std::make_shared&lt;EntityManager&gt;();</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                _systemManager = std::make_shared&lt;system::SystemManager&gt;();</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>                _eventManager = std::make_shared&lt;ecs::event::EventManager&gt;();</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            }</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="classecs_1_1_coordinator.html#aac56a323413251472037bf5a85e79410">   43</a></span>            Entity <a class="code hl_function" href="classecs_1_1_coordinator.html#aac56a323413251472037bf5a85e79410">createEntity</a>() {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                <span class="keywordflow">return</span> _entityManager-&gt;createEntity();</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            }</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="classecs_1_1_coordinator.html#a33cfb7ebde4e9bce6ef84ccac89f4ca3">   52</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classecs_1_1_coordinator.html#a33cfb7ebde4e9bce6ef84ccac89f4ca3">destroyEntity</a>(Entity entity) {</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                _entityManager-&gt;destroyEntity(entity);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                _componentManager-&gt;entityDestroyed(entity);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>                _systemManager-&gt;entityDestroyed(entity);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            }</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="classecs_1_1_coordinator.html#a83bb9e25266f02529bfead3db3ad336e">   62</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classecs_1_1_coordinator.html#a83bb9e25266f02529bfead3db3ad336e">registerComponent</a>() {</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                _componentManager-&gt;registerComponent&lt;T&gt;();</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            }</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="classecs_1_1_coordinator.html#a1388912a7b8e3cb6e9a88613e9119bb9">   73</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classecs_1_1_coordinator.html#a1388912a7b8e3cb6e9a88613e9119bb9">addComponent</a>(Entity entity, T component) {</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                _componentManager-&gt;addComponent&lt;T&gt;(entity, component);</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                <span class="keyword">auto</span> signature = _entityManager-&gt;getSignature(entity);</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                signature.set(_componentManager-&gt;getComponentType&lt;T&gt;(), <span class="keyword">true</span>);</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                _entityManager-&gt;setSignature(entity, signature);</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                _systemManager-&gt;entitySignatureChanged(entity, signature);</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            }</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="classecs_1_1_coordinator.html#a627903a7b6a351633f4ad59d610e03b5">   89</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classecs_1_1_coordinator.html#a627903a7b6a351633f4ad59d610e03b5">removeComponent</a>(Entity entity) {</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                _componentManager-&gt;removeComponent&lt;T&gt;(entity);</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>                <span class="keyword">auto</span> signature = _entityManager-&gt;getSignature(entity);</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                signature.set(_componentManager-&gt;getComponentType&lt;T&gt;(), <span class="keyword">false</span>);</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                _entityManager-&gt;setSignature(entity, signature);</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;SingletonComponent.hpp&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span>ecs {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="classecs_1_1_coordinator.html">   26</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classecs_1_1_coordinator.html">Coordinator</a> {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="classecs_1_1_coordinator.html#ab46a8bb85ea4051ec691ec5cd707cd95">   32</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classecs_1_1_coordinator.html#ab46a8bb85ea4051ec691ec5cd707cd95">init</a>() {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>                _componentManager = std::make_shared&lt;components::ComponentManager&gt;();</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                _entityManager = std::make_shared&lt;EntityManager&gt;();</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>                _systemManager = std::make_shared&lt;system::SystemManager&gt;();</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>                _eventManager = std::make_shared&lt;ecs::event::EventManager&gt;();</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                _singletonComponentManager = std::make_shared&lt;ecs::SingletonComponentManager&gt;();</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            }</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="classecs_1_1_coordinator.html#aac56a323413251472037bf5a85e79410">   45</a></span>            Entity <a class="code hl_function" href="classecs_1_1_coordinator.html#aac56a323413251472037bf5a85e79410">createEntity</a>() {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                <span class="keywordflow">return</span> _entityManager-&gt;createEntity();</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            }</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="classecs_1_1_coordinator.html#a33cfb7ebde4e9bce6ef84ccac89f4ca3">   54</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classecs_1_1_coordinator.html#a33cfb7ebde4e9bce6ef84ccac89f4ca3">destroyEntity</a>(Entity entity) {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>                _entityManager-&gt;destroyEntity(entity);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>                _componentManager-&gt;entityDestroyed(entity);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                _systemManager-&gt;entityDestroyed(entity);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            }</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="classecs_1_1_coordinator.html#a83bb9e25266f02529bfead3db3ad336e">   64</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classecs_1_1_coordinator.html#a83bb9e25266f02529bfead3db3ad336e">registerComponent</a>() {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                _componentManager-&gt;registerComponent&lt;T&gt;();</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            }</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="classecs_1_1_coordinator.html#a8f964eab08ad5af619b57b57d5f59805">   75</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classecs_1_1_coordinator.html#a8f964eab08ad5af619b57b57d5f59805">registerSingletonComponent</a>(T component) {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                _singletonComponentManager-&gt;registerSingletonComponent&lt;T&gt;(component);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            }</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="classecs_1_1_coordinator.html#a1388912a7b8e3cb6e9a88613e9119bb9">   86</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classecs_1_1_coordinator.html#a1388912a7b8e3cb6e9a88613e9119bb9">addComponent</a>(Entity entity, T component) {</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                _componentManager-&gt;addComponent&lt;T&gt;(entity, component);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                <span class="keyword">auto</span> signature = _entityManager-&gt;getSignature(entity);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                signature.set(_componentManager-&gt;getComponentType&lt;T&gt;(), <span class="keyword">true</span>);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>                _entityManager-&gt;setSignature(entity, signature);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                _systemManager-&gt;entitySignatureChanged(entity, signature);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            }</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>                _systemManager-&gt;entitySignatureChanged(entity, signature);</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            }</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="classecs_1_1_coordinator.html#a71aea34b19a7bf5fbdb42ed232199968">  106</a></span>            T &amp;<a class="code hl_function" href="classecs_1_1_coordinator.html#a71aea34b19a7bf5fbdb42ed232199968">getComponent</a>(Entity entity) {</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                <span class="keywordflow">return</span> _componentManager-&gt;getComponent&lt;T&gt;(entity);</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            }</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="classecs_1_1_coordinator.html#a8e3419f884cef2c133a173640a9868c2">  116</a></span>            components::ComponentType <a class="code hl_function" href="classecs_1_1_coordinator.html#a8e3419f884cef2c133a173640a9868c2">getComponentType</a>() {</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>                <span class="keywordflow">return</span> _componentManager-&gt;getComponentType&lt;T&gt;();</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            }</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="classecs_1_1_coordinator.html#a5dfbbc219c959351b5cd1cf3f4a0e4e8">  126</a></span>            std::shared_ptr&lt;T&gt; <a class="code hl_function" href="classecs_1_1_coordinator.html#a5dfbbc219c959351b5cd1cf3f4a0e4e8">registerSystem</a>() {</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                <span class="keywordflow">return</span> _systemManager-&gt;registerSystem&lt;T&gt;();</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            }</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>            <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno"><a class="line" href="classecs_1_1_coordinator.html#abfa8b26113c1fdab820d730bc884cd61">  136</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classecs_1_1_coordinator.html#abfa8b26113c1fdab820d730bc884cd61">setSystemSignature</a>(Signature signature) {</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                _systemManager-&gt;setSignature&lt;T&gt;(signature);</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            }</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>            <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>            <span class="keywordtype">void</span> registerListener(std::function&lt;<span class="keywordtype">void</span>(<span class="keyword">const</span> T&amp;)&gt; listener)</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>            {</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>                _eventManager-&gt;registerListener&lt;T&gt;(listener);</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>            }</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>            <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>            <span class="keywordtype">void</span> emitEvent(<span class="keyword">const</span> T&amp; event)</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>            {</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>                _eventManager-&gt;emitEvent&lt;T&gt;(event);</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            }</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>            <span class="keywordtype">void</span> dispatchEvents()</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>            {</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>                _eventManager-&gt;dispatchEvents();</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>            }</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>            std::shared_ptr&lt;components::ComponentManager&gt; _componentManager;</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            std::shared_ptr&lt;EntityManager&gt; _entityManager;</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            std::shared_ptr&lt;system::SystemManager&gt; _systemManager;</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>            std::shared_ptr&lt;ecs::event::EventManager&gt; _eventManager;</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    };</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>}</div>
-<div class="ttc" id="aclassecs_1_1_coordinator_html"><div class="ttname"><a href="classecs_1_1_coordinator.html">ecs::Coordinator</a></div><div class="ttdoc">Central orchestrator for the Entity-Component-System (ECS) architecture.</div><div class="ttdef"><b>Definition:</b> Coordinator.hpp:25</div></div>
-<div class="ttc" id="aclassecs_1_1_coordinator_html_a1388912a7b8e3cb6e9a88613e9119bb9"><div class="ttname"><a href="classecs_1_1_coordinator.html#a1388912a7b8e3cb6e9a88613e9119bb9">ecs::Coordinator::addComponent</a></div><div class="ttdeci">void addComponent(Entity entity, T component)</div><div class="ttdoc">Adds a component to an entity, updates its signature, and notifies systems.</div><div class="ttdef"><b>Definition:</b> Coordinator.hpp:73</div></div>
-<div class="ttc" id="aclassecs_1_1_coordinator_html_a33cfb7ebde4e9bce6ef84ccac89f4ca3"><div class="ttname"><a href="classecs_1_1_coordinator.html#a33cfb7ebde4e9bce6ef84ccac89f4ca3">ecs::Coordinator::destroyEntity</a></div><div class="ttdeci">void destroyEntity(Entity entity)</div><div class="ttdoc">Destroys an entity and cleans up its components and system references.</div><div class="ttdef"><b>Definition:</b> Coordinator.hpp:52</div></div>
-<div class="ttc" id="aclassecs_1_1_coordinator_html_a5dfbbc219c959351b5cd1cf3f4a0e4e8"><div class="ttname"><a href="classecs_1_1_coordinator.html#a5dfbbc219c959351b5cd1cf3f4a0e4e8">ecs::Coordinator::registerSystem</a></div><div class="ttdeci">std::shared_ptr&lt; T &gt; registerSystem()</div><div class="ttdoc">Registers a new system within the SystemManager.</div><div class="ttdef"><b>Definition:</b> Coordinator.hpp:126</div></div>
-<div class="ttc" id="aclassecs_1_1_coordinator_html_a627903a7b6a351633f4ad59d610e03b5"><div class="ttname"><a href="classecs_1_1_coordinator.html#a627903a7b6a351633f4ad59d610e03b5">ecs::Coordinator::removeComponent</a></div><div class="ttdeci">void removeComponent(Entity entity)</div><div class="ttdoc">Removes a component from an entity, updates its signature, and notifies systems.</div><div class="ttdef"><b>Definition:</b> Coordinator.hpp:89</div></div>
-<div class="ttc" id="aclassecs_1_1_coordinator_html_a71aea34b19a7bf5fbdb42ed232199968"><div class="ttname"><a href="classecs_1_1_coordinator.html#a71aea34b19a7bf5fbdb42ed232199968">ecs::Coordinator::getComponent</a></div><div class="ttdeci">T &amp; getComponent(Entity entity)</div><div class="ttdoc">Retrieves a reference to a component of an entity.</div><div class="ttdef"><b>Definition:</b> Coordinator.hpp:106</div></div>
-<div class="ttc" id="aclassecs_1_1_coordinator_html_a83bb9e25266f02529bfead3db3ad336e"><div class="ttname"><a href="classecs_1_1_coordinator.html#a83bb9e25266f02529bfead3db3ad336e">ecs::Coordinator::registerComponent</a></div><div class="ttdeci">void registerComponent()</div><div class="ttdoc">Registers a new component type within the ComponentManager.</div><div class="ttdef"><b>Definition:</b> Coordinator.hpp:62</div></div>
-<div class="ttc" id="aclassecs_1_1_coordinator_html_a8e3419f884cef2c133a173640a9868c2"><div class="ttname"><a href="classecs_1_1_coordinator.html#a8e3419f884cef2c133a173640a9868c2">ecs::Coordinator::getComponentType</a></div><div class="ttdeci">components::ComponentType getComponentType()</div><div class="ttdoc">Gets the component type ID for a specific component type.</div><div class="ttdef"><b>Definition:</b> Coordinator.hpp:116</div></div>
-<div class="ttc" id="aclassecs_1_1_coordinator_html_aac56a323413251472037bf5a85e79410"><div class="ttname"><a href="classecs_1_1_coordinator.html#aac56a323413251472037bf5a85e79410">ecs::Coordinator::createEntity</a></div><div class="ttdeci">Entity createEntity()</div><div class="ttdoc">Creates a new entity.</div><div class="ttdef"><b>Definition:</b> Coordinator.hpp:43</div></div>
-<div class="ttc" id="aclassecs_1_1_coordinator_html_ab46a8bb85ea4051ec691ec5cd707cd95"><div class="ttname"><a href="classecs_1_1_coordinator.html#ab46a8bb85ea4051ec691ec5cd707cd95">ecs::Coordinator::init</a></div><div class="ttdeci">void init()</div><div class="ttdoc">Initializes the Coordinator, creating instances of EntityManager, ComponentManager,...</div><div class="ttdef"><b>Definition:</b> Coordinator.hpp:31</div></div>
-<div class="ttc" id="aclassecs_1_1_coordinator_html_abfa8b26113c1fdab820d730bc884cd61"><div class="ttname"><a href="classecs_1_1_coordinator.html#abfa8b26113c1fdab820d730bc884cd61">ecs::Coordinator::setSystemSignature</a></div><div class="ttdeci">void setSystemSignature(Signature signature)</div><div class="ttdoc">Sets the signature for a system, defining which entities it will process.</div><div class="ttdef"><b>Definition:</b> Coordinator.hpp:136</div></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="classecs_1_1_coordinator.html#a627903a7b6a351633f4ad59d610e03b5">  102</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classecs_1_1_coordinator.html#a627903a7b6a351633f4ad59d610e03b5">removeComponent</a>(Entity entity) {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>                _componentManager-&gt;removeComponent&lt;T&gt;(entity);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                <span class="keyword">auto</span> signature = _entityManager-&gt;getSignature(entity);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                signature.set(_componentManager-&gt;getComponentType&lt;T&gt;(), <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                _entityManager-&gt;setSignature(entity, signature);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>                _systemManager-&gt;entitySignatureChanged(entity, signature);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            }</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="classecs_1_1_coordinator.html#ad944fbd0b826be86889c5efa71f28aca">  118</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classecs_1_1_coordinator.html#ad944fbd0b826be86889c5efa71f28aca">removeSingletonComponent</a>(<span class="keywordtype">void</span>) {</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>                _singletonComponentManager-&gt;unregisterSingletonComponent&lt;T&gt;();</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            }</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="classecs_1_1_coordinator.html#a71aea34b19a7bf5fbdb42ed232199968">  129</a></span>            T &amp;<a class="code hl_function" href="classecs_1_1_coordinator.html#a71aea34b19a7bf5fbdb42ed232199968">getComponent</a>(Entity entity) {</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>                <span class="keywordflow">return</span> _componentManager-&gt;getComponent&lt;T&gt;(entity);</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            }</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>            <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="classecs_1_1_coordinator.html#a9e0f4b9d5b32186cea15014ae65bc6aa">  140</a></span>            T &amp;<a class="code hl_function" href="classecs_1_1_coordinator.html#a9e0f4b9d5b32186cea15014ae65bc6aa">getSingletonComponent</a>(<span class="keywordtype">void</span>) {</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>                <span class="keywordflow">return</span> _singletonComponentManager-&gt;getSingletonComponent&lt;T&gt;();</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>            }</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>            <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno"><a class="line" href="classecs_1_1_coordinator.html#a8e3419f884cef2c133a173640a9868c2">  150</a></span>            components::ComponentType <a class="code hl_function" href="classecs_1_1_coordinator.html#a8e3419f884cef2c133a173640a9868c2">getComponentType</a>() {</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>                <span class="keywordflow">return</span> _componentManager-&gt;getComponentType&lt;T&gt;();</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>            }</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno"><a class="line" href="classecs_1_1_coordinator.html#a5dfbbc219c959351b5cd1cf3f4a0e4e8">  160</a></span>            std::shared_ptr&lt;T&gt; <a class="code hl_function" href="classecs_1_1_coordinator.html#a5dfbbc219c959351b5cd1cf3f4a0e4e8">registerSystem</a>() {</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>                <span class="keywordflow">return</span> _systemManager-&gt;registerSystem&lt;T&gt;();</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>            }</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>            <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno"><a class="line" href="classecs_1_1_coordinator.html#abfa8b26113c1fdab820d730bc884cd61">  170</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classecs_1_1_coordinator.html#abfa8b26113c1fdab820d730bc884cd61">setSystemSignature</a>(Signature signature) {</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>                _systemManager-&gt;setSignature&lt;T&gt;(signature);</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>            }</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>            <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>            <span class="keywordtype">void</span> registerListener(std::function&lt;<span class="keywordtype">void</span>(<span class="keyword">const</span> T&amp;)&gt; listener)</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>            {</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>                _eventManager-&gt;registerListener&lt;T&gt;(listener);</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>            }</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>            <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>            <span class="keywordtype">void</span> emitEvent(<span class="keyword">const</span> T&amp; event)</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>            {</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>                _eventManager-&gt;emitEvent&lt;T&gt;(event);</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>            }</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>            <span class="keywordtype">void</span> dispatchEvents()</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>            {</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>                _eventManager-&gt;dispatchEvents();</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>            }</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>            std::shared_ptr&lt;components::ComponentManager&gt; _componentManager;</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>            std::shared_ptr&lt;EntityManager&gt; _entityManager;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>            std::shared_ptr&lt;system::SystemManager&gt; _systemManager;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>            std::shared_ptr&lt;ecs::event::EventManager&gt; _eventManager;</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>            std::shared_ptr&lt;ecs::SingletonComponentManager&gt; _singletonComponentManager;</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    };</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>}</div>
+<div class="ttc" id="aclassecs_1_1_coordinator_html"><div class="ttname"><a href="classecs_1_1_coordinator.html">ecs::Coordinator</a></div><div class="ttdoc">Central orchestrator for the Entity-Component-System (ECS) architecture.</div><div class="ttdef"><b>Definition:</b> Coordinator.hpp:26</div></div>
+<div class="ttc" id="aclassecs_1_1_coordinator_html_a1388912a7b8e3cb6e9a88613e9119bb9"><div class="ttname"><a href="classecs_1_1_coordinator.html#a1388912a7b8e3cb6e9a88613e9119bb9">ecs::Coordinator::addComponent</a></div><div class="ttdeci">void addComponent(Entity entity, T component)</div><div class="ttdoc">Adds a component to an entity, updates its signature, and notifies systems.</div><div class="ttdef"><b>Definition:</b> Coordinator.hpp:86</div></div>
+<div class="ttc" id="aclassecs_1_1_coordinator_html_a33cfb7ebde4e9bce6ef84ccac89f4ca3"><div class="ttname"><a href="classecs_1_1_coordinator.html#a33cfb7ebde4e9bce6ef84ccac89f4ca3">ecs::Coordinator::destroyEntity</a></div><div class="ttdeci">void destroyEntity(Entity entity)</div><div class="ttdoc">Destroys an entity and cleans up its components and system references.</div><div class="ttdef"><b>Definition:</b> Coordinator.hpp:54</div></div>
+<div class="ttc" id="aclassecs_1_1_coordinator_html_a5dfbbc219c959351b5cd1cf3f4a0e4e8"><div class="ttname"><a href="classecs_1_1_coordinator.html#a5dfbbc219c959351b5cd1cf3f4a0e4e8">ecs::Coordinator::registerSystem</a></div><div class="ttdeci">std::shared_ptr&lt; T &gt; registerSystem()</div><div class="ttdoc">Registers a new system within the SystemManager.</div><div class="ttdef"><b>Definition:</b> Coordinator.hpp:160</div></div>
+<div class="ttc" id="aclassecs_1_1_coordinator_html_a627903a7b6a351633f4ad59d610e03b5"><div class="ttname"><a href="classecs_1_1_coordinator.html#a627903a7b6a351633f4ad59d610e03b5">ecs::Coordinator::removeComponent</a></div><div class="ttdeci">void removeComponent(Entity entity)</div><div class="ttdoc">Removes a component from an entity, updates its signature, and notifies systems.</div><div class="ttdef"><b>Definition:</b> Coordinator.hpp:102</div></div>
+<div class="ttc" id="aclassecs_1_1_coordinator_html_a71aea34b19a7bf5fbdb42ed232199968"><div class="ttname"><a href="classecs_1_1_coordinator.html#a71aea34b19a7bf5fbdb42ed232199968">ecs::Coordinator::getComponent</a></div><div class="ttdeci">T &amp; getComponent(Entity entity)</div><div class="ttdoc">Retrieves a reference to a component of an entity.</div><div class="ttdef"><b>Definition:</b> Coordinator.hpp:129</div></div>
+<div class="ttc" id="aclassecs_1_1_coordinator_html_a83bb9e25266f02529bfead3db3ad336e"><div class="ttname"><a href="classecs_1_1_coordinator.html#a83bb9e25266f02529bfead3db3ad336e">ecs::Coordinator::registerComponent</a></div><div class="ttdeci">void registerComponent()</div><div class="ttdoc">Registers a new component type within the ComponentManager.</div><div class="ttdef"><b>Definition:</b> Coordinator.hpp:64</div></div>
+<div class="ttc" id="aclassecs_1_1_coordinator_html_a8e3419f884cef2c133a173640a9868c2"><div class="ttname"><a href="classecs_1_1_coordinator.html#a8e3419f884cef2c133a173640a9868c2">ecs::Coordinator::getComponentType</a></div><div class="ttdeci">components::ComponentType getComponentType()</div><div class="ttdoc">Gets the component type ID for a specific component type.</div><div class="ttdef"><b>Definition:</b> Coordinator.hpp:150</div></div>
+<div class="ttc" id="aclassecs_1_1_coordinator_html_a8f964eab08ad5af619b57b57d5f59805"><div class="ttname"><a href="classecs_1_1_coordinator.html#a8f964eab08ad5af619b57b57d5f59805">ecs::Coordinator::registerSingletonComponent</a></div><div class="ttdeci">void registerSingletonComponent(T component)</div><div class="ttdoc">Registers a new singleton component.</div><div class="ttdef"><b>Definition:</b> Coordinator.hpp:75</div></div>
+<div class="ttc" id="aclassecs_1_1_coordinator_html_a9e0f4b9d5b32186cea15014ae65bc6aa"><div class="ttname"><a href="classecs_1_1_coordinator.html#a9e0f4b9d5b32186cea15014ae65bc6aa">ecs::Coordinator::getSingletonComponent</a></div><div class="ttdeci">T &amp; getSingletonComponent(void)</div><div class="ttdoc">Get the Singleton Component object.</div><div class="ttdef"><b>Definition:</b> Coordinator.hpp:140</div></div>
+<div class="ttc" id="aclassecs_1_1_coordinator_html_aac56a323413251472037bf5a85e79410"><div class="ttname"><a href="classecs_1_1_coordinator.html#aac56a323413251472037bf5a85e79410">ecs::Coordinator::createEntity</a></div><div class="ttdeci">Entity createEntity()</div><div class="ttdoc">Creates a new entity.</div><div class="ttdef"><b>Definition:</b> Coordinator.hpp:45</div></div>
+<div class="ttc" id="aclassecs_1_1_coordinator_html_ab46a8bb85ea4051ec691ec5cd707cd95"><div class="ttname"><a href="classecs_1_1_coordinator.html#ab46a8bb85ea4051ec691ec5cd707cd95">ecs::Coordinator::init</a></div><div class="ttdeci">void init()</div><div class="ttdoc">Initializes the Coordinator, creating instances of EntityManager, ComponentManager,...</div><div class="ttdef"><b>Definition:</b> Coordinator.hpp:32</div></div>
+<div class="ttc" id="aclassecs_1_1_coordinator_html_abfa8b26113c1fdab820d730bc884cd61"><div class="ttname"><a href="classecs_1_1_coordinator.html#abfa8b26113c1fdab820d730bc884cd61">ecs::Coordinator::setSystemSignature</a></div><div class="ttdeci">void setSystemSignature(Signature signature)</div><div class="ttdoc">Sets the signature for a system, defining which entities it will process.</div><div class="ttdef"><b>Definition:</b> Coordinator.hpp:170</div></div>
+<div class="ttc" id="aclassecs_1_1_coordinator_html_ad944fbd0b826be86889c5efa71f28aca"><div class="ttname"><a href="classecs_1_1_coordinator.html#ad944fbd0b826be86889c5efa71f28aca">ecs::Coordinator::removeSingletonComponent</a></div><div class="ttdeci">void removeSingletonComponent(void)</div><div class="ttdoc">Remove a singleton component.</div><div class="ttdef"><b>Definition:</b> Coordinator.hpp:118</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
