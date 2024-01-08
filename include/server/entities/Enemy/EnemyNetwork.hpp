@@ -29,6 +29,8 @@ namespace server {
                     return;
                 }
 
+                std::cout << "shooting" << std::endl;
+
                 _lastShot = now;
 
                 auto &transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_entity);
@@ -45,15 +47,15 @@ namespace server {
                     {0.025, 0.025, 0.025}
                 }, common::game::ObjectFormat::GLB);
                 auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(bullet);
-                rigidBody.velocity = {0, 0, -2};
-                auto bulletBehave = engine::createBehavior<server::BulletNetwork>(_networkManager, _entity, bullet);
+                rigidBody.velocity = {0, 0, -1};
+                auto bulletBehave = engine::createBehavior<server::BulletNetwork>(_networkManager, bullet);
                 engine::attachBehavior(bullet, bulletBehave);
 
 
                 common::game::netbody::ServerFireBullet body = {
                     .entityNetId = _entity,
                     .pos = transform.pos,
-                    .direction = {0, 0, -5},
+                    .direction = {0, 0, -1},
                     .speed = 10,
                 };
 
@@ -66,7 +68,7 @@ namespace server {
 
             void update() override
             {
-                // this->shoot();
+                this->shoot();
             }
 
         private:

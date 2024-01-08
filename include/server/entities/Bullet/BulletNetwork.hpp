@@ -15,6 +15,8 @@
 
 namespace server {
 
+    constexpr float BULLET_SPEED = 2;
+    constexpr float BULLET_TTL = 10;
     constexpr float BULLET_SPEED = 4;
     constexpr float BULLET_TTL = 2.5;
 
