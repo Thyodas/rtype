@@ -150,7 +150,7 @@ engine::editor::GameEngineEditor::~GameEngineEditor()
 
 void engine::editor::GameEngineEditor::init()
 {
-	for (const auto& window: _windows | std::views::values) {
+	for (const auto& [_, window]: _windows) {
 		window->setup();
 	}
 }
@@ -158,7 +158,7 @@ void engine::editor::GameEngineEditor::init()
 void engine::editor::GameEngineEditor::update()
 {
 	//engine::runEngineTextureMode();
-	for (const auto& window: _windows | std::views::values) {
+	for (const auto& [_, window]: _windows) {
 		window->update();
 	}
 }
@@ -175,7 +175,7 @@ void engine::editor::GameEngineEditor::render()
 	drawMenuBar();
 	ImGui::ShowDemoWindow();
 
-	for (const auto& window: _windows | std::views::values) {
+	for (const auto& [_, window]: _windows) {
 		if (window->isOpened())
 			window->show();
 	}
@@ -187,7 +187,7 @@ void engine::editor::GameEngineEditor::render()
 
 void engine::editor::GameEngineEditor::destroy()
 {
-	for (const auto& window: _windows | std::views::values) {
+	for (const auto& [_, window]: _windows) {
 		window->shutdown();
 	}
 }
