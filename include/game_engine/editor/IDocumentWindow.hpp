@@ -15,7 +15,9 @@ namespace engine::editor {
             virtual void shutdown() = 0;
             virtual void show() = 0;
             virtual void update() = 0;
+
             [[nodiscard]] virtual bool isFocused() const = 0;
             [[nodiscard]] virtual bool isOpened() const = 0;
+            [[nodiscard]] virtual bool &getOpened() = 0;
     };
 } // namespace engine::editor
