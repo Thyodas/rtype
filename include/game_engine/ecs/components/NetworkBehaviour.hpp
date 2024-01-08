@@ -14,7 +14,6 @@
 
 #include <type_traits>
 
-
 namespace ecs::components::behaviour
 {
     /*template <typename T>
@@ -22,15 +21,15 @@ namespace ecs::components::behaviour
 
 
     template<NetworkManagerBase NetworkManager>*/
-    template<typename NetworkManager>
-    class NetworkBehaviour : public Behaviour {
-        public:
-        explicit NetworkBehaviour(NetworkManager& networkManager, uint32_t entityNetId = 0, uint32_t connectionId = 0)
-        : _networkManager(networkManager), _entityNetId(entityNetId), _connectionId(connectionId)
+    template <typename NetworkManager>
+    class NetworkBehaviour : public Behaviour
+    {
+    public:
+        explicit NetworkBehaviour(NetworkManager &networkManager, uint32_t entityNetId = 0, uint32_t connectionId = 0)
+            : _networkManager(networkManager), _entityNetId(entityNetId), _connectionId(connectionId)
         {
             /*auto &networkManager = reinterpret_cast<rtype::net::ClientInterface<std::any>&>(_networkManager);
             networkManager.*/
-
         }
 
         void setEntity(ecs::Entity entity) override
@@ -42,7 +41,6 @@ namespace ecs::components::behaviour
             net.entityNetId = _entityNetId;
             net.connectionId = _connectionId;
         }
-
 
         [[nodiscard]] uint32_t getNetId() const
         {
@@ -72,12 +70,12 @@ namespace ecs::components::behaviour
             responses[name] = func;
         }*/
 
-        protected:
-            //std::map<std::string, ResponseFunction> responses;
-            NetworkManager& _networkManager;
+    protected:
+        // std::map<std::string, ResponseFunction> responses;
+        NetworkManager &_networkManager;
 
-        private:
-            uint32_t _entityNetId;
-            uint32_t _connectionId;
+    private:
+        uint32_t _entityNetId;
+        uint32_t _connectionId;
     };
 } // namespace ecs::components::behaviour

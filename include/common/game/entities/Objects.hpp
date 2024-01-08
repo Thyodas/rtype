@@ -44,5 +44,6 @@ namespace common::game {
         GLB,
         OBJ,
         PNG,
+        F_NONE
     };
 }
