@@ -15,8 +15,8 @@ namespace client {
 
     class EnemyNetwork : public ecs::components::behaviour::NetworkBehaviour<client::NetClient> {
         public:
-            explicit EnemyNetwork(client::NetClient& networkManager)
-                : NetworkBehaviour(networkManager)
+            explicit EnemyNetwork(client::NetClient& networkManager, uint32_t netId = 0)
+                : NetworkBehaviour(networkManager, netId)
             {
                 _networkManager.registerResponse({
                     {common::NetworkMessage::serverUpdateEnemyVelocity, [this](rtype::net::Message<common::NetworkMessage> msg) {

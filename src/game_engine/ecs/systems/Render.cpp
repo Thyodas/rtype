@@ -18,8 +18,14 @@ namespace ecs {
                 auto& transf = _coord->getComponent<components::physics::transform_t>(entity);
                 auto& render = _coord->getComponent<components::render::render_t>(entity);
 
-                if (render.isRendered)
+                if (render.isRendered) {
+                    if (render.type == components::ShapeType::MODEL) {
+                        auto& collider = _coord->getComponent<components::physics::collider_t>(entity);
+                        auto bb = render.data->getBoundingBox(collider);
+                        DrawBoundingBox(bb, RED);
+                    }
                     render.data->draw(transf);
+                }
             }
         }
     }

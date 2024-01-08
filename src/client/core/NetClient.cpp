@@ -80,7 +80,7 @@ namespace client {
                 {0, 0, 0},
                 {1, 1, 1}
             });
-            auto behave = engine::createBehavior<client::EnemyNetwork>(*this);
+            auto behave = engine::createBehavior<client::EnemyNetwork>(*this, body.entityNetId);
             engine::attachBehavior(cube, behave);
 
             std::cout << "Enemy created with id " << body.entityNetId << std::endl;

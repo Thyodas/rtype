@@ -11,7 +11,7 @@
 #include "common/game/NetworkBody.hpp"
 #include "server/core/NetServer.hpp"
 #include "common/game/entities/EntityFactory.hpp"
-#include "server/entities/Bullet/BulletNetwork.hpp"
+#include "server/entities/Enemy/EnemyNetwork.hpp"
 
 namespace ecs::components::behaviour
 {
@@ -35,6 +35,8 @@ namespace ecs::components::behaviour
                     {0, 180, 0},
                     {1, 1, 1}
                 }, common::game::ObjectFormat::OBJ);
+                auto behave = engine::createBehavior<server::EnemyNetwork>(_networkManager, entity);
+                engine::attachBehavior(entity, behave);
 
                 rtype::net::Message<common::NetworkMessage> resMsg;
                 resMsg.header.id = common::NetworkMessage::serverCreateEnemy;
@@ -45,7 +47,7 @@ namespace ecs::components::behaviour
                     .pos = {0, 0, 10},
                 };
                resMsg << body;
-               std::cout << "creating enemy" << std::endl;
+
                 _networkManager.messageAllClients(resMsg);
 
                 _ennemies.emplace(entity);
@@ -56,7 +58,7 @@ namespace ecs::components::behaviour
                 _ennemies.erase(entity);
             }
 
-            void update()
+            void update() override
             {
                 if (_ennemies.size() == 0) {
                     addEnemy();
