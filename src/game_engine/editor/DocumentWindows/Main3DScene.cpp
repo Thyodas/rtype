@@ -60,7 +60,7 @@ void engine::editor::Main3DScene::show()
     {
         _focused = ImGui::IsWindowFocused(ImGuiFocusedFlags_ChildWindows);
         _prevWindowSize = _currentwindowSize;
-        _currentwindowSize = ImGui::GetContentRegionAvail();
+        _currentwindowSize = ImGui::GetWindowSize();
         // draw the view
         rlImGuiImageRenderTexture(&_viewTexture);
     }

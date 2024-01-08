@@ -17,6 +17,13 @@ namespace engine::editor {
 
             [[nodiscard]] bool isFocused() const override { return _focused; }
             [[nodiscard]] bool isOpened() const override { return _opened; }
+
+            /**
+             * @brief Get the opened value
+             * @note Used to give a ref to ImGui
+             * @return ref to bool _opened
+             */
+            [[nodiscard]] bool &getOpened() override { return _opened; }
         protected:
             bool _opened = true;
             bool _focused = false;

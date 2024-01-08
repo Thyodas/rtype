@@ -126,12 +126,9 @@ void engine::editor::GameEngineEditor::drawMenuBar()
 
 		if (ImGui::BeginMenu("Window"))
 		{
-			/*
-			ImGui::MenuItem("ImGui Demo", nullptr, &ImGuiDemoOpen);
-			//ImGui::MenuItem("Image Viewer", nullptr, &ImageViewer.Open);
-			ImGui::MenuItem("3D View", nullptr, &SceneView.Open);
-			*/
-
+			for (const auto& [name, window]: _windows) {
+				ImGui::MenuItem(name.c_str(), nullptr, &window->getOpened(), &window->getOpened());
+			}
 			ImGui::EndMenu();
 		}
 		ImGui::EndMainMenuBar();
