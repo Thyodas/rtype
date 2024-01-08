@@ -11,17 +11,19 @@
 #include "common/game/NetworkBody.hpp"
 #include "server/core/NetServer.hpp"
 #include "common/game/entities/EntityFactory.hpp"
-#include "server/entities/Enemy/EnemyNetwork.hpp"
+#include "server/entities/Bullet/BulletNetwork.hpp"
 
 namespace ecs::components::behaviour
 {
     class EnemySpawner: public ecs::components::behaviour::NetworkBehaviour<server::NetServer> {
+    // class EnemySpawner : public Behaviour {
         public:
             explicit EnemySpawner(server::NetServer& networkManager, uint32_t entityNetId = 0, uint32_t connectionId = 0)
                 : NetworkBehaviour(networkManager, entityNetId, connectionId) {}
 
             void addEnemy()
             {
+                // spawn enemy, pass position ? and add to the set _> add remove method
                 common::game::EntityFactory factory;
                 ecs::Entity entity = factory.createEntity(common::game::ObjectType::Model3D, common::game::ObjectName::Transtellar, {
                     {0, 0, 10},
@@ -34,10 +36,6 @@ namespace ecs::components::behaviour
                     {0, 180, 0},
                     {1, 1, 1}
                 }, common::game::ObjectFormat::OBJ);
-                auto behave = engine::createBehavior<server::EnemyNetwork>(_networkManager, entity);
-                engine::attachBehavior(entity, behave);
-                auto &health = engine::Engine::getInstance()->getComponent<ecs::components::health::health_t>(entity);
-                health.healthPoints = 100;
 
                 rtype::net::Message<common::NetworkMessage> resMsg;
                 resMsg.header.id = common::NetworkMessage::serverCreateEnemy;
@@ -48,7 +46,6 @@ namespace ecs::components::behaviour
                     .pos = {0, 0, 10},
                 };
                resMsg << body;
-
                 _networkManager.messageAllClients(resMsg);
 
                 _ennemies.emplace(entity);
@@ -57,10 +54,9 @@ namespace ecs::components::behaviour
             void removeEnemy(Entity entity)
             {
                 _ennemies.erase(entity);
-                _coord->destroyEntity(entity);
             }
 
-            void update() override
+            void update()
             {
                 if (_ennemies.size() == 0) {
                     addEnemy();
