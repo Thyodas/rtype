@@ -12,6 +12,7 @@ var hierarchy =
         [ "client::PlayerNetwork", "classclient_1_1_player_network.html", null ]
       ] ],
       [ "ecs::components::behaviour::NetworkBehaviour< server::NetServer >", "classecs_1_1components_1_1behaviour_1_1_network_behaviour.html", [
+        [ "ecs::components::behaviour::EnemySpawner", "classecs_1_1components_1_1behaviour_1_1_enemy_spawner.html", null ],
         [ "server::BulletNetwork", "classserver_1_1_bullet_network.html", null ],
         [ "server::PlayerNetwork", "classserver_1_1_player_network.html", null ]
       ] ],

@@ -49,6 +49,7 @@ var annotated_dup =
         ] ],
         [ "behaviour", null, [
           [ "Behaviour", "classecs_1_1components_1_1behaviour_1_1_behaviour.html", "classecs_1_1components_1_1behaviour_1_1_behaviour" ],
+          [ "EnemySpawner", "classecs_1_1components_1_1behaviour_1_1_enemy_spawner.html", "classecs_1_1components_1_1behaviour_1_1_enemy_spawner" ],
           [ "NetworkBehaviour", "classecs_1_1components_1_1behaviour_1_1_network_behaviour.html", "classecs_1_1components_1_1behaviour_1_1_network_behaviour" ]
         ] ],
         [ "direction", null, [
