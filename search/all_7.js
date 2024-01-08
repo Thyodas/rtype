@@ -20,6 +20,5 @@ var searchData=
   ['getmodel_17',['getModel',['../classecs_1_1components_1_1_i_shape.html#a03e8f03c696b607f7ad5f7cb43ea34e8',1,'ecs::components::IShape']]],
   ['getsignature_18',['getSignature',['../classecs_1_1_entity_manager.html#ae21219b3d91d4b90a5100fa1b050a148',1,'ecs::EntityManager']]],
   ['getsingletoncomponent_19',['getSingletonComponent',['../classecs_1_1_coordinator.html#a9e0f4b9d5b32186cea15014ae65bc6aa',1,'ecs::Coordinator']]],
-  ['getwidth_20',['getWidth',['../classengine_1_1core_1_1_window.html#a29f74683fa9772f4d866f10114c45bad',1,'engine::core::Window']]],
-  ['getwindow_21',['getWindow',['../classengine_1_1_engine.html#aa011aff7a9a0d6a65373330aa7526712',1,'engine::Engine']]]
+  ['getwidth_20',['getWidth',['../classengine_1_1core_1_1_window.html#a29f74683fa9772f4d866f10114c45bad',1,'engine::core::Window']]]
 ];

@@ -136,17 +136,12 @@ var annotated_dup =
       [ "Server", "classserver_1_1_server.html", null ]
     ] ],
     [ "animation_t", "structanimation__t.html", null ],
-    [ "BPLayerInterfaceImpl", "class_b_p_layer_interface_impl.html", null ],
     [ "collider_t", "structcollider__t.html", null ],
     [ "CollisionDetectionSystem", "class_collision_detection_system.html", null ],
     [ "CollisionEvent", "class_collision_event.html", null ],
     [ "ComponentArray< T >", "class_component_array_3_01_t_01_4.html", null ],
     [ "input", "classinput.html", "classinput" ],
     [ "movement", "classmovement.html", "classmovement" ],
-    [ "MyBodyActivationListener", "class_my_body_activation_listener.html", null ],
-    [ "MyContactListener", "class_my_contact_listener.html", null ],
-    [ "ObjectLayerPairFilterImpl", "class_object_layer_pair_filter_impl.html", null ],
-    [ "ObjectVsBroadPhaseLayerFilterImpl", "class_object_vs_broad_phase_layer_filter_impl.html", null ],
     [ "render_t", "structrender__t.html", null ],
     [ "rigidBody_t", "structrigid_body__t.html", null ],
     [ "transform_t", "structtransform__t.html", null ]

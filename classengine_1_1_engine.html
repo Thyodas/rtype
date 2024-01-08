@@ -100,9 +100,9 @@ $(document).ready(function(){initNavTree('classengine_1_1_engine.html',''); init
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9afffe83aae5e96ab689abf06a4d31e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#a9afffe83aae5e96ab689abf06a4d31e9">init</a> (bool disableRender=false, int windowWidth=1920, int windowHeight=1080)</td></tr>
-<tr class="memdesc:a9afffe83aae5e96ab689abf06a4d31e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the engine, setting up necessary components and systems.  <a href="classengine_1_1_engine.html#a9afffe83aae5e96ab689abf06a4d31e9">More...</a><br /></td></tr>
-<tr class="separator:a9afffe83aae5e96ab689abf06a4d31e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05152770c0742ec74bc36dda04d0503c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#a05152770c0742ec74bc36dda04d0503c">init</a> (bool disableRender=false)</td></tr>
+<tr class="memdesc:a05152770c0742ec74bc36dda04d0503c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the engine, setting up necessary components and systems.  <a href="classengine_1_1_engine.html#a05152770c0742ec74bc36dda04d0503c">More...</a><br /></td></tr>
+<tr class="separator:a05152770c0742ec74bc36dda04d0503c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b925280e91e1e0789f25058c1eb62d0"><td class="memItemLeft" align="right" valign="top">ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#a9b925280e91e1e0789f25058c1eb62d0">addEntity</a> (<a class="el" href="structecs_1_1components_1_1physics_1_1transform__s.html">ecs::components::physics::transform_t</a> transf={{0, 1, 0}, {0}, {0}}, <a class="el" href="structecs_1_1components_1_1render_1_1render__s.html">ecs::components::render::render_t</a> render={ecs::components::ShapeType::CUBE, true, std::make_shared&lt; <a class="el" href="classecs_1_1components_1_1_cube.html">ecs::components::Cube</a> &gt;()})</td></tr>
 <tr class="memdesc:a9b925280e91e1e0789f25058c1eb62d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new entity to the game with optional physics and render components.  <a href="classengine_1_1_engine.html#a9b925280e91e1e0789f25058c1eb62d0">More...</a><br /></td></tr>
 <tr class="separator:a9b925280e91e1e0789f25058c1eb62d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -122,10 +122,6 @@ template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ac614e22b9ce2e97f9b5b3fdeb82a5d03"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#ac614e22b9ce2e97f9b5b3fdeb82a5d03">registerListener</a> (std::function&lt; void(const T &amp;)&gt; listener)</td></tr>
 <tr class="memdesc:ac614e22b9ce2e97f9b5b3fdeb82a5d03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers an event listener.  <a href="classengine_1_1_engine.html#ac614e22b9ce2e97f9b5b3fdeb82a5d03">More...</a><br /></td></tr>
 <tr class="separator:ac614e22b9ce2e97f9b5b3fdeb82a5d03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa011aff7a9a0d6a65373330aa7526712"><td class="memItemLeft" align="right" valign="top"><a id="aa011aff7a9a0d6a65373330aa7526712" name="aa011aff7a9a0d6a65373330aa7526712"></a>
-std::shared_ptr&lt; <a class="el" href="classengine_1_1core_1_1_window.html">engine::core::Window</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getWindow</b> () const</td></tr>
-<tr class="memdesc:aa011aff7a9a0d6a65373330aa7526712"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the window object. <br /></td></tr>
-<tr class="separator:aa011aff7a9a0d6a65373330aa7526712"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0399eb84d58a5b6a151065bd27c9165e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#a0399eb84d58a5b6a151065bd27c9165e">isWindowOpen</a> (void)</td></tr>
 <tr class="memdesc:a0399eb84d58a5b6a151065bd27c9165e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the window of the game engine is open.  <a href="classengine_1_1_engine.html#a0399eb84d58a5b6a151065bd27c9165e">More...</a><br /></td></tr>
 <tr class="separator:a0399eb84d58a5b6a151065bd27c9165e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -156,8 +152,8 @@ static <a class="el" href="classengine_1_1_engine.html">Engine</a> *&#160;</td><
 <div class="textblock"><p >Main engine class responsible for initializing and managing game components. </p>
 <p >The <a class="el" href="classengine_1_1_engine.html" title="Main engine class responsible for initializing and managing game components.">Engine</a> class is the core of the game engine, handling the initialization and management of various systems like physics, rendering, behaviors, and animations. It also manages entities and provides interfaces to interact with the ECS Coordinator. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9afffe83aae5e96ab689abf06a4d31e9" name="a9afffe83aae5e96ab689abf06a4d31e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9afffe83aae5e96ab689abf06a4d31e9">&#9670;&nbsp;</a></span>init()</h2>
+<a id="a05152770c0742ec74bc36dda04d0503c" name="a05152770c0742ec74bc36dda04d0503c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05152770c0742ec74bc36dda04d0503c">&#9670;&nbsp;</a></span>init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -166,24 +162,8 @@ static <a class="el" href="classengine_1_1_engine.html">Engine</a> *&#160;</td><
           <td class="memname">void engine::Engine::init </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>disableRender</em> = <code>false</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>disableRender</em> = <code>false</code></td><td>)</td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>windowWidth</em> = <code>1920</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>windowHeight</em> = <code>1080</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
