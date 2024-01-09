@@ -61,10 +61,11 @@ include("${CMAKE_CURRENT_SOURCE_DIR}/src/server/CMakeLists.txt")
 include("${CMAKE_CURRENT_SOURCE_DIR}/src/game_engine/CMakeLists.txt")
 
 #Creating archive
-add_custom_target(
-    package
-    COMMAND ${CMAKE_COMMAND} -E tar "cf" "package.tar" "${CMAKE_BINARY_DIR}"
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    COMMENT "Creating package.tar"
-    VERBATIM
-)
+# add_custom_target(
+#     package
+#     COMMAND ${CMAKE_COMMAND} -E tar "cf" "package.tar" "${CMAKE_BINARY_DIR}"
+#     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+#     COMMENT "Creating package.tar"
+#     VERBATIM
+# )
+
