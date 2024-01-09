@@ -64,11 +64,6 @@ namespace ecs {
                  * @param transf Reference to the transformation component.
                  */
                 virtual void draw(physics::transform_t &transf) const = 0;
-                // TEST
-                void drawBoundingBox(physics::collider_t &collider) const {
-                    DrawBoundingBox(getBoundingBox(collider), WHITE);
-                }
-                //
                 /**
                  * @brief Gets the model associated with the shape.
                  * @return Reference to the Model object.

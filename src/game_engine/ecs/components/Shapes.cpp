@@ -94,11 +94,11 @@ namespace ecs {
 
         void Skybox::draw(physics::transform_t &transf) const
         {
-            rlDisableBackfaceCulling();
-            rlDisableDepthMask();
-            DrawModel(_model, transf.pos, 50.0f, WHITE);
-            rlEnableBackfaceCulling();
-            rlEnableDepthMask();
+            // rlDisableBackfaceCulling();
+            // rlDisableDepthMask();
+            // DrawModel(_model, transf.pos, 50.0f, WHITE);
+            // rlEnableBackfaceCulling();
+            // rlEnableDepthMask();
         }
     }
 }
