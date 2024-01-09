@@ -108,6 +108,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9f48edd44ae0ee4f6b2e067e8d7fa620"><td class="memItemLeft" align="right" valign="top"><a id="a9f48edd44ae0ee4f6b2e067e8d7fa620" name="a9f48edd44ae0ee4f6b2e067e8d7fa620"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>PlayerNetwork</b> (<a class="el" href="classclient_1_1_net_client.html">client::NetClient</a> &amp;networkManager, uint32_t netId=0)</td></tr>
 <tr class="separator:a9f48edd44ae0ee4f6b2e067e8d7fa620"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab36f10fc5ee9f27e88ac9818329806b4"><td class="memItemLeft" align="right" valign="top"><a id="ab36f10fc5ee9f27e88ac9818329806b4" name="ab36f10fc5ee9f27e88ac9818329806b4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>onFire</b> (<a class="el" href="structrtype_1_1net_1_1_message.html">rtype::net::Message</a>&lt; common::NetworkMessage &gt; &amp;msg)</td></tr>
+<tr class="separator:ab36f10fc5ee9f27e88ac9818329806b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e16519f2a5a464f34d53ad4faf8a56c"><td class="memItemLeft" align="right" valign="top"><a id="a7e16519f2a5a464f34d53ad4faf8a56c" name="a7e16519f2a5a464f34d53ad4faf8a56c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>onUpdatePosition</b> (<a class="el" href="structrtype_1_1net_1_1_message.html">rtype::net::Message</a>&lt; common::NetworkMessage &gt; &amp;msg)</td></tr>
 <tr class="separator:a7e16519f2a5a464f34d53ad4faf8a56c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,18 +145,12 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>getNetId</b> () c
 <tr class="memitem:af2f373c6269bc42c85ec3688a4164a10 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="memItemLeft" align="right" valign="top"><a id="af2f373c6269bc42c85ec3688a4164a10" name="af2f373c6269bc42c85ec3688a4164a10"></a>
 uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>getConnectionId</b> () const</td></tr>
 <tr class="separator:af2f373c6269bc42c85ec3688a4164a10 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdb9149d31e9cb6947abe72e476ceb20 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html#abdb9149d31e9cb6947abe72e476ceb20">onAttach</a> (Entity entity)</td></tr>
-<tr class="memdesc:abdb9149d31e9cb6947abe72e476ceb20 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the entity is attached to the scene Callback: Function made to be overriden.  <a href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html#abdb9149d31e9cb6947abe72e476ceb20">More...</a><br /></td></tr>
-<tr class="separator:abdb9149d31e9cb6947abe72e476ceb20 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a7482053d42cb9114c7dabc6596c27d2d"><td class="memItemLeft" align="right" valign="top"><a id="a7482053d42cb9114c7dabc6596c27d2d" name="a7482053d42cb9114c7dabc6596c27d2d"></a>
 Vector3&#160;</td><td class="memItemRight" valign="bottom"><b>_lastDirection</b> {0, 0, 0}</td></tr>
 <tr class="separator:a7482053d42cb9114c7dabc6596c27d2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a951ff4a86ce42130da670aaaf14e41fe"><td class="memItemLeft" align="right" valign="top"><a id="a951ff4a86ce42130da670aaaf14e41fe" name="a951ff4a86ce42130da670aaaf14e41fe"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>_lastBulletFire</b> = 0</td></tr>
-<tr class="separator:a951ff4a86ce42130da670aaaf14e41fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classecs_1_1components_1_1behaviour_1_1_network_behaviour')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html">ecs::components::behaviour::NetworkBehaviour&lt; client::NetClient &gt;</a></td></tr>
 <tr class="memitem:a30d5401f099cfa35546a7ff80c742295 inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="memItemLeft" align="right" valign="top"><a id="a30d5401f099cfa35546a7ff80c742295" name="a30d5401f099cfa35546a7ff80c742295"></a>
 <a class="el" href="classclient_1_1_net_client.html">client::NetClient</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>_networkManager</b></td></tr>
