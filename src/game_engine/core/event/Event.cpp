@@ -14,12 +14,18 @@ namespace ecs {
         {
             while (!_eventQueue.empty()) {
                 auto& event = _eventQueue.front();
-                auto& type_index = _listeners.get<type>();
-                auto range = type_index.equal_range(typeid(*event));
-                for (auto it = range.first; it != range.second; ++it) {
-                    if (it->listener) {
-                        (*(it->listener))(*event);
+                auto& handlers = _listeners[typeid(*event)];
+                std::vector<decltype(handlers.begin())> toRemove;
+                for (auto it = handlers.begin(); it != handlers.end(); ++it) {
+                    if (event->isConsumed) {
+                        break;
                     }
+                    if ((*it)(*event)) {
+                        toRemove.push_back(it);
+                    }
+                }
+                for (auto& it : toRemove) {
+                    handlers.erase(it);
                 }
                 _eventQueue.pop();
             }

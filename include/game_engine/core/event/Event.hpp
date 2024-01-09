@@ -74,14 +74,27 @@ namespace ecs {
                  * @param listener The function to be called when the event of type T occurs.
                  */
                 template<typename T, typename ClosureWeakPtr = std::shared_ptr<int>>
-                int registerListener(std::shared_ptr<std::function<void(T&)>> listener, std::shared_ptr<ClosureWeakPtr> closure = nullptr)
+                void registerListener(std::function<void(T&)> listener, std::shared_ptr<ClosureWeakPtr> closure = nullptr)
                 {
-                    int id = _nextId++;
-                    auto wrapper = std::make_shared<std::function<void(AEvent&)>>([listener](AEvent &event) -> void {
-                        (*listener)(static_cast<T&>(event));
-                    });
-                    _listeners.insert(ListenerRecord(id, typeid(T), wrapper));
-                    return id;
+                    if (closure == nullptr) {
+                        _listeners[typeid(T)].push_back(
+                            [listener](AEvent &event) -> bool {
+                                listener(static_cast<T&>(event));
+                                return false;
+                            }
+                        );
+                        return;
+                    }
+                    std::weak_ptr<ClosureWeakPtr> weakClosure = closure;
+                    _listeners[typeid(T)].push_back(
+                        [listener, weakClosure](AEvent &event) -> bool {
+                            if (auto closurePtr = weakClosure.lock()) {
+                                listener(static_cast<T&>(event));
+                                return false;
+                            }
+                            return true;
+                        }
+                    );
                 }
 
                 void unregisterListener(int listenerId)
@@ -110,9 +123,8 @@ namespace ecs {
                 void dispatchEvents();
 
             private:
-                ListenerSet _listeners;
+                std::unordered_map<std::type_index, std::vector<std::function<bool (AEvent&)>>> _listeners;
                 std::queue<std::shared_ptr<AEvent>> _eventQueue;
-                int _nextId;
         };
     }
 }
