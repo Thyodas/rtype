@@ -18,16 +18,18 @@
 namespace ecs {
     namespace event {
         /**
-         * @class IEvent
+         * @class AEvent
          * @brief Interface class representing a generic event in the ECS system.
          *
          * This class serves as a base for all events within the ECS framework. It allows
          * for polymorphic handling of different event types without knowing their specific
          * classes.
          */
-        class IEvent {
+        class AEvent {
             public:
-                virtual ~IEvent() = default;
+                virtual ~AEvent() = default;
+
+                bool isConsumed = false;
         };
 
         /**
@@ -50,12 +52,26 @@ namespace ecs {
                  * @brief Registers a listener for a specific event type.
                  * @param listener The function to be called when the event of type T occurs.
                  */
-                template<typename T>
-                void registerListener(std::function<void(const T&)> listener)
+                template<typename T, typename ClosureWeakPtr = std::shared_ptr<int>>
+                void registerListener(std::function<void(T&)> listener, std::shared_ptr<ClosureWeakPtr> closure = nullptr)
                 {
+                    if (closure == nullptr) {
+                        _listeners[typeid(T)].push_back(
+                            [listener](AEvent &event) -> bool {
+                                listener(static_cast<T&>(event));
+                                return false;
+                            }
+                        );
+                        return;
+                    }
+                    std::weak_ptr<ClosureWeakPtr> weakClosure = closure;
                     _listeners[typeid(T)].push_back(
-                        [listener](const IEvent &event) {
-                            listener(static_cast<const T&>(event));
+                        [listener, weakClosure](AEvent &event) -> bool {
+                            if (auto closurePtr = weakClosure.lock()) {
+                                listener(static_cast<T&>(event));
+                                return false;
+                            }
+                            return true;
                         }
                     );
                 }
@@ -80,8 +96,8 @@ namespace ecs {
                 void dispatchEvents();
 
             private:
-                std::unordered_map<std::type_index, std::vector<std::function<void(const IEvent&)>>> _listeners;
-                std::queue<std::shared_ptr<IEvent>> _eventQueue;
+                std::unordered_map<std::type_index, std::vector<std::function<bool (AEvent&)>>> _listeners;
+                std::queue<std::shared_ptr<AEvent>> _eventQueue;
         };
     }
 }

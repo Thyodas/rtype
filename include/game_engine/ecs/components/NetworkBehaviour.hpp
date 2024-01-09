@@ -22,13 +22,12 @@ namespace ecs::components::behaviour
 
     template<NetworkManagerBase NetworkManager>*/
     template <typename NetworkManager>
-    class NetworkBehaviour : public Behaviour
+    class NetworkBehaviour : public Behaviour, public std::enable_shared_from_this<NetworkBehaviour<NetworkManager>>
     {
     public:
         explicit NetworkBehaviour(NetworkManager &networkManager, uint32_t entityNetId = 0, uint32_t connectionId = 0)
             : _networkManager(networkManager), _entityNetId(entityNetId), _connectionId(connectionId)
         {
-            _entity = entityNetId;
             /*auto &networkManager = reinterpret_cast<rtype::net::ClientInterface<std::any>&>(_networkManager);
             networkManager.*/
         }

@@ -11,7 +11,7 @@
 #include "game_engine/ecs/components/EnemySpawner.hpp"
 
 server::Server::Server()
-    : _netServer(60000)
+    : _netServer(5454)
 {
 
 }

@@ -26,16 +26,23 @@ namespace server {
                 double now = engine::Engine::getInstance()->getElapsedTime() / 1000;
                 _lastUpdate = now;
                 _spawnedAt = now;
+            }
 
-                _coord->registerListener<CollisionEvent>([this](const CollisionEvent &event) {
-                    std::cout << "in collision" << std::endl;
+            void onAttach(ecs::Entity entity) override
+            {
+                auto shared = shared_from_this();
+
+                _coord->registerListener<CollisionEvent>([this](CollisionEvent &event) {
+
                     if (event.entity1 == _sender || event.entity2 == _sender) {
                         std::cout << "no collision return" << std::endl;
                         return;
                     }
+                    std::cout << "in collision " << _entity << std::endl;
                     auto &life = engine::Engine::getInstance()->getComponent<ecs::components::health::health_t>(event.entity1);
                     destroyBullet();
                     _coord->destroyEntity(_entity);
+                    event.isConsumed = true;
                     return;
                     // if (life.healthPoints - 30 < 0) {
                     //     _coord->destroyEntity(event.entity1);
@@ -43,7 +50,7 @@ namespace server {
 
                     life.healthPoints -= 30;
                     std::cout << "out of collision" << std::endl;
-                });
+                }, shared);
             }
 
             void destroyBullet()

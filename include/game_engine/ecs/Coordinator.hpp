@@ -171,10 +171,10 @@ namespace ecs {
                 _systemManager->setSignature<T>(signature);
             }
 
-            template<typename T>
-            void registerListener(std::function<void(const T&)> listener)
+            template<typename T, typename ClosureWeakPtr = std::shared_ptr<int>>
+            void registerListener(std::function<void(T&)> listener, std::shared_ptr<ClosureWeakPtr> closure = nullptr)
             {
-                _eventManager->registerListener<T>(listener);
+                _eventManager->registerListener<T, ClosureWeakPtr>(listener, closure);
             }
 
             template <typename T>

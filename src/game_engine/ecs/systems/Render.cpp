@@ -20,7 +20,7 @@ namespace ecs {
                 auto& collision = _coord->getComponent<components::physics::collider_t>(entity);
 
                 if (render.isRendered) {
-                    // if (render.type == components::ShapeType::MODEL) {
+                    if (render.type == components::ShapeType::MODEL) {
                         auto bb = GetMeshBoundingBox(render.data->getModel().meshes[0]);
                         // apply scale to bb
                         bb.min.x *= transf.scale.x;
@@ -39,7 +39,7 @@ namespace ecs {
                         collision.box = bb;
                         // change bb of model
                         DrawBoundingBox(bb, RED);
-                    //}
+                    }
                     render.data->draw(transf);
                 }
             }
