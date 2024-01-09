@@ -56,6 +56,7 @@ namespace ecs::components::behaviour
         [[nodiscard]] uint32_t getNetId() const
         {
             auto &netData = _coord->getComponent<ecs::components::network::network_t>(_entity);
+            std::cout << "id is " << _entity << std::endl;
             return netData.entityNetId;
         }
 
