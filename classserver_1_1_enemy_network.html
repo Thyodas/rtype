@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Arcade: client::EnemyNetwork Class Reference</title>
+<title>Arcade: server::EnemyNetwork Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('classclient_1_1_enemy_network.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('classserver_1_1_enemy_network.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -87,41 +87,35 @@ $(document).ready(function(){initNavTree('classclient_1_1_enemy_network.html',''
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="classclient_1_1_enemy_network-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">client::EnemyNetwork Class Reference</div></div>
+<a href="classserver_1_1_enemy_network-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">server::EnemyNetwork Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="dynheader">
-Inheritance diagram for client::EnemyNetwork:</div>
+Inheritance diagram for server::EnemyNetwork:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="classclient_1_1_enemy_network.png" usemap="#client::EnemyNetwork_map" alt=""/>
-  <map id="client::EnemyNetwork_map" name="client::EnemyNetwork_map">
-<area href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html" alt="ecs::components::behaviour::NetworkBehaviour&lt; client::NetClient &gt;" shape="rect" coords="0,56,389,80"/>
-<area href="classecs_1_1components_1_1behaviour_1_1_behaviour.html" title="Abstract class representing a behaviour component, akin to Unity&#39;s behaviour scripts." alt="ecs::components::behaviour::Behaviour" shape="rect" coords="0,0,389,24"/>
+  <img src="classserver_1_1_enemy_network.png" usemap="#server::EnemyNetwork_map" alt=""/>
+  <map id="server::EnemyNetwork_map" name="server::EnemyNetwork_map">
+<area href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html" alt="ecs::components::behaviour::NetworkBehaviour&lt; server::NetServer &gt;" shape="rect" coords="0,56,403,80"/>
+<area href="classecs_1_1components_1_1behaviour_1_1_behaviour.html" title="Abstract class representing a behaviour component, akin to Unity&#39;s behaviour scripts." alt="ecs::components::behaviour::Behaviour" shape="rect" coords="0,0,403,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7673f2bb618bb63549b5bc0a6ac0cd5f"><td class="memItemLeft" align="right" valign="top"><a id="a7673f2bb618bb63549b5bc0a6ac0cd5f" name="a7673f2bb618bb63549b5bc0a6ac0cd5f"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>EnemyNetwork</b> (<a class="el" href="classclient_1_1_net_client.html">client::NetClient</a> &amp;networkManager, uint32_t netId=0)</td></tr>
-<tr class="separator:a7673f2bb618bb63549b5bc0a6ac0cd5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0cd397624f8f33df4a18c322841791d"><td class="memItemLeft" align="right" valign="top"><a id="ab0cd397624f8f33df4a18c322841791d" name="ab0cd397624f8f33df4a18c322841791d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>onUpdateVelocity</b> (<a class="el" href="structrtype_1_1net_1_1_message.html">rtype::net::Message</a>&lt; common::NetworkMessage &gt; &amp;msg)</td></tr>
-<tr class="separator:ab0cd397624f8f33df4a18c322841791d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad5399cab6f69e0dcba0e1b7a66ba314"><td class="memItemLeft" align="right" valign="top"><a id="aad5399cab6f69e0dcba0e1b7a66ba314" name="aad5399cab6f69e0dcba0e1b7a66ba314"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>onDamageReceive</b> (<a class="el" href="structrtype_1_1net_1_1_message.html">rtype::net::Message</a>&lt; common::NetworkMessage &gt; &amp;msg)</td></tr>
-<tr class="separator:aad5399cab6f69e0dcba0e1b7a66ba314"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d45f294718b3396e00a31053f69a879"><td class="memItemLeft" align="right" valign="top"><a id="a0d45f294718b3396e00a31053f69a879" name="a0d45f294718b3396e00a31053f69a879"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>onDestroy</b> (<a class="el" href="structrtype_1_1net_1_1_message.html">rtype::net::Message</a>&lt; common::NetworkMessage &gt; &amp;msg)</td></tr>
-<tr class="separator:a0d45f294718b3396e00a31053f69a879"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bd01039887601c0564f0b78e59725d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclient_1_1_enemy_network.html#a6bd01039887601c0564f0b78e59725d9">update</a> () override</td></tr>
-<tr class="memdesc:a6bd01039887601c0564f0b78e59725d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract method to be implemented by derived classes for updating the behaviour.  <a href="classclient_1_1_enemy_network.html#a6bd01039887601c0564f0b78e59725d9">More...</a><br /></td></tr>
-<tr class="separator:a6bd01039887601c0564f0b78e59725d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html">ecs::components::behaviour::NetworkBehaviour&lt; client::NetClient &gt;</a></td></tr>
+<tr class="memitem:af361870ad3bdbae5e3412a2fecbfa14a"><td class="memItemLeft" align="right" valign="top"><a id="af361870ad3bdbae5e3412a2fecbfa14a" name="af361870ad3bdbae5e3412a2fecbfa14a"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>EnemyNetwork</b> (<a class="el" href="classserver_1_1_net_server.html">server::NetServer</a> &amp;networkManager, uint32_t entityNetId=0, uint32_t connectionId=0)</td></tr>
+<tr class="separator:af361870ad3bdbae5e3412a2fecbfa14a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a377885414a5d78f49a8c2dde07927698"><td class="memItemLeft" align="right" valign="top"><a id="a377885414a5d78f49a8c2dde07927698" name="a377885414a5d78f49a8c2dde07927698"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>shoot</b> ()</td></tr>
+<tr class="separator:a377885414a5d78f49a8c2dde07927698"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a3b64fbb7910fb8f4b8bc7bd0c0968d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classserver_1_1_enemy_network.html#a6a3b64fbb7910fb8f4b8bc7bd0c0968d">update</a> () override</td></tr>
+<tr class="memdesc:a6a3b64fbb7910fb8f4b8bc7bd0c0968d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract method to be implemented by derived classes for updating the behaviour.  <a href="classserver_1_1_enemy_network.html#a6a3b64fbb7910fb8f4b8bc7bd0c0968d">More...</a><br /></td></tr>
+<tr class="separator:a6a3b64fbb7910fb8f4b8bc7bd0c0968d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html">ecs::components::behaviour::NetworkBehaviour&lt; server::NetServer &gt;</a></td></tr>
 <tr class="memitem:ab527c9cf359696723a71d7d4991b2d8e inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="memItemLeft" align="right" valign="top"><a id="ab527c9cf359696723a71d7d4991b2d8e" name="ab527c9cf359696723a71d7d4991b2d8e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>NetworkBehaviour</b> (<a class="el" href="classclient_1_1_net_client.html">client::NetClient</a> &amp;networkManager, uint32_t entityNetId=0, uint32_t connectionId=0)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>NetworkBehaviour</b> (<a class="el" href="classserver_1_1_net_server.html">server::NetServer</a> &amp;networkManager, uint32_t entityNetId=0, uint32_t connectionId=0)</td></tr>
 <tr class="separator:ab527c9cf359696723a71d7d4991b2d8e inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a709b7c313e03c61e21788a39fd7d2279 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html#a709b7c313e03c61e21788a39fd7d2279">setEntity</a> (ecs::Entity entity) override</td></tr>
 <tr class="memdesc:a709b7c313e03c61e21788a39fd7d2279 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the entity associated with this behaviour.  <a href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html#a709b7c313e03c61e21788a39fd7d2279">More...</a><br /></td></tr>
@@ -140,9 +134,9 @@ Additional Inherited Members</h2></td></tr>
 static std::shared_ptr&lt; <a class="el" href="classecs_1_1_coordinator.html">ecs::Coordinator</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_coord</b> = nullptr</td></tr>
 <tr class="memdesc:a81dc1d0b88499f5b47d6e04c21cfdea0 inherit pub_static_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shared pointer to the ECS coordinator. <br /></td></tr>
 <tr class="separator:a81dc1d0b88499f5b47d6e04c21cfdea0 inherit pub_static_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_attribs_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classecs_1_1components_1_1behaviour_1_1_network_behaviour')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html">ecs::components::behaviour::NetworkBehaviour&lt; client::NetClient &gt;</a></td></tr>
+<tr class="inherit_header pro_attribs_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classecs_1_1components_1_1behaviour_1_1_network_behaviour')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html">ecs::components::behaviour::NetworkBehaviour&lt; server::NetServer &gt;</a></td></tr>
 <tr class="memitem:a30d5401f099cfa35546a7ff80c742295 inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="memItemLeft" align="right" valign="top"><a id="a30d5401f099cfa35546a7ff80c742295" name="a30d5401f099cfa35546a7ff80c742295"></a>
-<a class="el" href="classclient_1_1_net_client.html">client::NetClient</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>_networkManager</b></td></tr>
+<a class="el" href="classserver_1_1_net_server.html">server::NetServer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>_networkManager</b></td></tr>
 <tr class="separator:a30d5401f099cfa35546a7ff80c742295 inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classecs_1_1components_1_1behaviour_1_1_behaviour.html">ecs::components::behaviour::Behaviour</a></td></tr>
 <tr class="memitem:a5b9c4e5b0d03fe31e0de0cd6f8f1e3ec inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memItemLeft" align="right" valign="top"><a id="a5b9c4e5b0d03fe31e0de0cd6f8f1e3ec" name="a5b9c4e5b0d03fe31e0de0cd6f8f1e3ec"></a>
@@ -150,8 +144,8 @@ ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><b>_entity</b></t
 <tr class="separator:a5b9c4e5b0d03fe31e0de0cd6f8f1e3ec inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6bd01039887601c0564f0b78e59725d9" name="a6bd01039887601c0564f0b78e59725d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6bd01039887601c0564f0b78e59725d9">&#9670;&nbsp;</a></span>update()</h2>
+<a id="a6a3b64fbb7910fb8f4b8bc7bd0c0968d" name="a6a3b64fbb7910fb8f4b8bc7bd0c0968d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a3b64fbb7910fb8f4b8bc7bd0c0968d">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -160,7 +154,7 @@ ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><b>_entity</b></t
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void client::EnemyNetwork::update </td>
+          <td class="memname">void server::EnemyNetwork::update </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -181,14 +175,14 @@ ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><b>_entity</b></t
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/client/entities/Enemy/<a class="el" href="client_2entities_2_enemy_2_enemy_network_8hpp_source.html">EnemyNetwork.hpp</a></li>
+<li>include/server/entities/Enemy/<a class="el" href="server_2entities_2_enemy_2_enemy_network_8hpp_source.html">EnemyNetwork.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>client</b></li><li class="navelem"><a class="el" href="classclient_1_1_enemy_network.html">EnemyNetwork</a></li>
+    <li class="navelem"><b>server</b></li><li class="navelem"><a class="el" href="classserver_1_1_enemy_network.html">EnemyNetwork</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2 </li>
   </ul>
 </div>
