@@ -97,8 +97,8 @@ Inheritance diagram for server::BulletNetwork:</div>
  <div class="center">
   <img src="classserver_1_1_bullet_network.png" usemap="#server::BulletNetwork_map" alt=""/>
   <map id="server::BulletNetwork_map" name="server::BulletNetwork_map">
-<area href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html" alt="ecs::components::behaviour::NetworkBehaviour&lt; server::NetServer &gt;" shape="rect" coords="0,56,403,80"/>
-<area href="classecs_1_1components_1_1behaviour_1_1_behaviour.html" title="Abstract class representing a behaviour component, akin to Unity&#39;s behaviour scripts." alt="ecs::components::behaviour::Behaviour" shape="rect" coords="0,0,403,24"/>
+<area href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html" alt="ecs::components::behaviour::NetworkBehaviour&lt; server::NetServer &gt;" shape="rect" coords="219,56,648,80"/>
+<area href="classecs_1_1components_1_1behaviour_1_1_behaviour.html" title="Abstract class representing a behaviour component, akin to Unity&#39;s behaviour scripts." alt="ecs::components::behaviour::Behaviour" shape="rect" coords="0,0,429,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -107,6 +107,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac7957f45cbbfb8e2dca25708df87fe86"><td class="memItemLeft" align="right" valign="top"><a id="ac7957f45cbbfb8e2dca25708df87fe86" name="ac7957f45cbbfb8e2dca25708df87fe86"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>BulletNetwork</b> (<a class="el" href="classserver_1_1_net_server.html">server::NetServer</a> &amp;networkManager, ecs::Entity sender, uint32_t entityNetId=0, uint32_t connectionId=0)</td></tr>
 <tr class="separator:ac7957f45cbbfb8e2dca25708df87fe86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accc3ea14a7b38a7cbe3c0e120e1b400c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classserver_1_1_bullet_network.html#accc3ea14a7b38a7cbe3c0e120e1b400c">onAttach</a> (ecs::Entity entity) override</td></tr>
+<tr class="memdesc:accc3ea14a7b38a7cbe3c0e120e1b400c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the entity is attached to the scene Callback: Function made to be overriden.  <a href="classserver_1_1_bullet_network.html#accc3ea14a7b38a7cbe3c0e120e1b400c">More...</a><br /></td></tr>
+<tr class="separator:accc3ea14a7b38a7cbe3c0e120e1b400c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adad4938b3117561935ee523f71b2d514"><td class="memItemLeft" align="right" valign="top"><a id="adad4938b3117561935ee523f71b2d514" name="adad4938b3117561935ee523f71b2d514"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>destroyBullet</b> ()</td></tr>
 <tr class="separator:adad4938b3117561935ee523f71b2d514"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -147,6 +150,37 @@ ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><b>_entity</b></t
 <tr class="separator:a5b9c4e5b0d03fe31e0de0cd6f8f1e3ec inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="accc3ea14a7b38a7cbe3c0e120e1b400c" name="accc3ea14a7b38a7cbe3c0e120e1b400c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accc3ea14a7b38a7cbe3c0e120e1b400c">&#9670;&nbsp;</a></span>onAttach()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void server::BulletNetwork::onAttach </td>
+          <td>(</td>
+          <td class="paramtype">ecs::Entity&#160;</td>
+          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the entity is attached to the scene Callback: Function made to be overriden. </p>
+<dl class="section note"><dt>Note</dt><dd>You can for example register the network responses here </dd></dl>
+
+<p>Reimplemented from <a class="el" href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html#abdb9149d31e9cb6947abe72e476ceb20">ecs::components::behaviour::NetworkBehaviour&lt; server::NetServer &gt;</a>.</p>
+
+</div>
+</div>
 <a id="a2dadd84b8f6c4e1f0695f639aa0f3b58" name="a2dadd84b8f6c4e1f0695f639aa0f3b58"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2dadd84b8f6c4e1f0695f639aa0f3b58">&#9670;&nbsp;</a></span>update()</h2>
 

@@ -150,10 +150,10 @@ template&lt;typename T &gt; </td></tr>
 <tr class="memitem:abfa8b26113c1fdab820d730bc884cd61"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classecs_1_1_coordinator.html#abfa8b26113c1fdab820d730bc884cd61">setSystemSignature</a> (Signature signature)</td></tr>
 <tr class="memdesc:abfa8b26113c1fdab820d730bc884cd61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the signature for a system, defining which entities it will process.  <a href="classecs_1_1_coordinator.html#abfa8b26113c1fdab820d730bc884cd61">More...</a><br /></td></tr>
 <tr class="separator:abfa8b26113c1fdab820d730bc884cd61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44d2a012f8cd6b5bee3c735d67d0aaa0"><td class="memTemplParams" colspan="2"><a id="a44d2a012f8cd6b5bee3c735d67d0aaa0" name="a44d2a012f8cd6b5bee3c735d67d0aaa0"></a>
-template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a44d2a012f8cd6b5bee3c735d67d0aaa0"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>registerListener</b> (std::function&lt; void(const T &amp;)&gt; listener)</td></tr>
-<tr class="separator:a44d2a012f8cd6b5bee3c735d67d0aaa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10914f406ced8c17ce3f25a4a50480ad"><td class="memTemplParams" colspan="2"><a id="a10914f406ced8c17ce3f25a4a50480ad" name="a10914f406ced8c17ce3f25a4a50480ad"></a>
+template&lt;typename T , typename ClosureWeakPtr  = std::shared_ptr&lt;int&gt;&gt; </td></tr>
+<tr class="memitem:a10914f406ced8c17ce3f25a4a50480ad"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>registerListener</b> (std::function&lt; void(T &amp;)&gt; listener, std::shared_ptr&lt; ClosureWeakPtr &gt; closure=nullptr)</td></tr>
+<tr class="separator:a10914f406ced8c17ce3f25a4a50480ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5d239dbde39738ffb8f8d611d896dc9"><td class="memTemplParams" colspan="2"><a id="aa5d239dbde39738ffb8f8d611d896dc9" name="aa5d239dbde39738ffb8f8d611d896dc9"></a>
 template&lt;typename T &gt; </td></tr>
 <tr class="memitem:aa5d239dbde39738ffb8f8d611d896dc9"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>emitEvent</b> (const T &amp;event)</td></tr>

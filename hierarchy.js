@@ -1,5 +1,8 @@
 var hierarchy =
 [
+    [ "ecs::event::AEvent", "classecs_1_1event_1_1_a_event.html", [
+      [ "CollisionEvent", "class_collision_event.html", null ]
+    ] ],
     [ "ecs::components::animations::animation_s", "structecs_1_1components_1_1animations_1_1animation__s.html", null ],
     [ "animation_t", "structanimation__t.html", null ],
     [ "ecs::components::behaviour::Behaviour", "classecs_1_1components_1_1behaviour_1_1_behaviour.html", [
@@ -39,6 +42,9 @@ var hierarchy =
     [ "ecs::Coordinator", "classecs_1_1_coordinator.html", null ],
     [ "ecs::components::direction::direction_s", "structecs_1_1components_1_1direction_1_1direction__s.html", null ],
     [ "std::enable_shared_from_this", null, [
+      [ "ecs::components::behaviour::NetworkBehaviour< client::NetClient >", "classecs_1_1components_1_1behaviour_1_1_network_behaviour.html", null ],
+      [ "ecs::components::behaviour::NetworkBehaviour< server::NetServer >", "classecs_1_1components_1_1behaviour_1_1_network_behaviour.html", null ],
+      [ "ecs::components::behaviour::NetworkBehaviour< NetworkManager >", "classecs_1_1components_1_1behaviour_1_1_network_behaviour.html", null ],
       [ "rtype::net::Connection< T >", "classrtype_1_1net_1_1_connection.html", null ]
     ] ],
     [ "engine::Engine", "classengine_1_1_engine.html", null ],
@@ -61,9 +67,6 @@ var hierarchy =
         [ "engine::editor::Main3DScene", "classengine_1_1editor_1_1_main3_d_scene.html", null ],
         [ "engine::editor::SceneTreeWindow", "classengine_1_1editor_1_1_scene_tree_window.html", null ]
       ] ]
-    ] ],
-    [ "ecs::event::IEvent", "classecs_1_1event_1_1_i_event.html", [
-      [ "CollisionEvent", "class_collision_event.html", null ]
     ] ],
     [ "ecs::components::IShape", "classecs_1_1components_1_1_i_shape.html", [
       [ "ecs::components::Cube", "classecs_1_1components_1_1_cube.html", null ],

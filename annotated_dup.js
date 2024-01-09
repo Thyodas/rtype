@@ -82,8 +82,8 @@ var annotated_dup =
         [ "Skybox", "classecs_1_1components_1_1_skybox.html", "classecs_1_1components_1_1_skybox" ]
       ] ],
       [ "event", null, [
-        [ "EventManager", "classecs_1_1event_1_1_event_manager.html", "classecs_1_1event_1_1_event_manager" ],
-        [ "IEvent", "classecs_1_1event_1_1_i_event.html", null ]
+        [ "AEvent", "classecs_1_1event_1_1_a_event.html", null ],
+        [ "EventManager", "classecs_1_1event_1_1_event_manager.html", "classecs_1_1event_1_1_event_manager" ]
       ] ],
       [ "system", null, [
         [ "AnimationSystem", "classecs_1_1system_1_1_animation_system.html", "classecs_1_1system_1_1_animation_system" ],
