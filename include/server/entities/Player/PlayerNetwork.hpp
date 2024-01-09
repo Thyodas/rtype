@@ -93,7 +93,7 @@ namespace server {
                 auto &transf = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_entity);
                 auto &collider = engine::Engine::getInstance()->getComponent<ecs::components::physics::collider_t>(_entity);
 
-                Vector3 newPos = {transf.pos.x, transf.pos.y, transf.pos.z + 3};
+                Vector3 newPos = {transf.pos.x, transf.pos.y, transf.pos.z};
                 common::game::EntityFactory factory;
                 ecs::Entity gunBullet = factory.createEntity(common::game::ObjectType::Model3D, common::game::ObjectName::GunBullet, {
                     newPos,
@@ -109,8 +109,8 @@ namespace server {
                 /*auto &direction = engine::Engine::getInstance()->getComponent<ecs::components::direction::direction_t>(gunBullet);
                 direction.direction = body.direction;*/
                 auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(gunBullet);
-                rigidBody.velocity = {0, 0, 1};
-                auto behave = engine::createBehavior<server::BulletNetwork>(_networkManager, gunBullet, client->getID());
+                rigidBody.velocity = {0, 0, 5};
+                auto behave = engine::createBehavior<server::BulletNetwork>(_networkManager, _entity, gunBullet, client->getID());
                 engine::attachBehavior(gunBullet, behave);
                 _networkManager.allServerFireBullet(gunBullet);
             }

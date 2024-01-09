@@ -16,7 +16,6 @@
 namespace ecs::components::behaviour
 {
     class EnemySpawner: public ecs::components::behaviour::NetworkBehaviour<server::NetServer> {
-    // class EnemySpawner : public Behaviour {
         public:
             explicit EnemySpawner(server::NetServer& networkManager, uint32_t entityNetId = 0, uint32_t connectionId = 0)
                 : NetworkBehaviour(networkManager, entityNetId, connectionId) {}
@@ -37,6 +36,8 @@ namespace ecs::components::behaviour
                 }, common::game::ObjectFormat::OBJ);
                 auto behave = engine::createBehavior<server::EnemyNetwork>(_networkManager, entity);
                 engine::attachBehavior(entity, behave);
+                auto &health = engine::Engine::getInstance()->getComponent<ecs::components::health::health_t>(entity);
+                health.healthPoints = 100;
 
                 rtype::net::Message<common::NetworkMessage> resMsg;
                 resMsg.header.id = common::NetworkMessage::serverCreateEnemy;
@@ -56,6 +57,7 @@ namespace ecs::components::behaviour
             void removeEnemy(Entity entity)
             {
                 _ennemies.erase(entity);
+                _coord->destroyEntity(entity);
             }
 
             void update() override

@@ -16,7 +16,6 @@
 #include "common/utils/Chrono.hpp"
 #include <chrono>
 
-
 namespace client {
 
     class NetClient : public rtype::net::ClientInterface<common::NetworkMessage>
@@ -38,8 +37,13 @@ namespace client {
                 {common::NetworkMessage::serverCreateEnemy, [this](rtype::net::Message<common::NetworkMessage> msg) {
                     resServerCreateEnemy(msg);
                 }},
+                {common::NetworkMessage::serverFireBullet, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                    resServerFireBullet(msg);
+                }},
             });
         }
+
+        void resServerFireBullet(rtype::net::Message<common::NetworkMessage>& msg);
 
         void resPingServer(rtype::net::Message<common::NetworkMessage>& msg)
         {

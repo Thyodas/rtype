@@ -15,12 +15,12 @@
 
 namespace server {
 
-    constexpr float BULLET_SPEED = 2;
-    constexpr float BULLET_TTL = 10;
+    constexpr float BULLET_SPEED = 4;
+    constexpr float BULLET_TTL = 2.5;
 
     class BulletNetwork : public ecs::components::behaviour::NetworkBehaviour<server::NetServer> {
         public:
-            BulletNetwork(server::NetServer& networkManager, uint32_t entityNetId = 0, uint32_t connectionId = 0)
+            BulletNetwork(server::NetServer& networkManager, ecs::Entity sender, uint32_t entityNetId = 0, uint32_t connectionId = 0)
                 : NetworkBehaviour(networkManager, entityNetId, connectionId)
             {
                 double now = engine::Engine::getInstance()->getElapsedTime() / 1000;
@@ -28,23 +28,42 @@ namespace server {
                 _spawnedAt = now;
 
                 _coord->registerListener<CollisionEvent>([this](const CollisionEvent &event) {
-                    // std::cout << "Bullet collides with " << event.entity2 << std::endl;
+                    std::cout << "in collision" << std::endl;
+                    if (event.entity1 == _sender || event.entity2 == _sender) {
+                        std::cout << "no collision return" << std::endl;
+                        return;
+                    }
+                    auto &life = engine::Engine::getInstance()->getComponent<ecs::components::health::health_t>(event.entity1);
+                    destroyBullet();
+                    _coord->destroyEntity(_entity);
+                    return;
+                    // if (life.healthPoints - 30 < 0) {
+                    //     _coord->destroyEntity(event.entity1);
+                    // }
+
+                    life.healthPoints -= 30;
+                    std::cout << "out of collision" << std::endl;
                 });
+            }
+
+            void destroyBullet()
+            {
+                common::game::netbody::ServerDestroyBullet body = {
+                    .entityNetId = _entity,
+                };
+
+                rtype::net::Message<common::NetworkMessage> msg;
+                msg.header.id = common::NetworkMessage::serverDestroyBullet;
+                msg << body;
+
+                _networkManager.messageAllClients(msg);
             }
 
             bool verifyBulletExpire()
             {
                 double now = engine::Engine::getInstance()->getElapsedTime() / 1000;
                 if (now - _spawnedAt > BULLET_TTL) {
-                    common::game::netbody::ServerDestroyBullet body = {
-                        .entityNetId = _entity,
-                    };
-
-                    rtype::net::Message<common::NetworkMessage> msg;
-                    msg.header.id = common::NetworkMessage::serverDestroyBullet;
-                    msg << body;
-
-                    _networkManager.messageAllClients(msg);
+                    this->destroyBullet();
                     std::cout << "destroyed bullet" << std::endl;
                     return true;
                 }
@@ -56,9 +75,7 @@ namespace server {
                 double now = engine::Engine::getInstance()->getElapsedTime() / 1000;
 
                 // if (verifyBulletExpire()) {
-                //     std::cout << "before" << std::endl;
                 //     _coord->destroyEntity(_entity);
-                //     std::cout << "after" << std::endl;
                 //     return;
                 // }
 
@@ -84,5 +101,7 @@ namespace server {
         private:
             double _lastUpdate = 0;
             double _spawnedAt = 0;
+            // save the origin
+            ecs::Entity _sender;
     };
 }

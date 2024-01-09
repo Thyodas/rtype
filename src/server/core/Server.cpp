@@ -34,7 +34,7 @@ void server::Server::run()
             {0, 0, 0},
             {50, 50, 50}
     }, common::game::ObjectFormat::F_NONE);
-    auto behave = engine::createBehavior<ecs::components::behaviour::EnemySpawner>(_netServer);
+    auto behave = engine::createBehavior<ecs::components::behaviour::EnemySpawner>(_netServer, cube);
     engine::attachBehavior(cube, behave);
     while (true) {
         _netServer.update(-1, true);

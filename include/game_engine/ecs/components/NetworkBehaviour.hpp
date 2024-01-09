@@ -28,18 +28,23 @@ namespace ecs::components::behaviour
         explicit NetworkBehaviour(NetworkManager &networkManager, uint32_t entityNetId = 0, uint32_t connectionId = 0)
             : _networkManager(networkManager), _entityNetId(entityNetId), _connectionId(connectionId)
         {
+            _entity = entityNetId;
             /*auto &networkManager = reinterpret_cast<rtype::net::ClientInterface<std::any>&>(_networkManager);
             networkManager.*/
         }
 
         void setEntity(ecs::Entity entity) override
         {
-            ecs::components::network::network_t network = {0};
+            ecs::components::network::network_t network = {
+                .entityNetId = _entityNetId,
+                .connectionId = _connectionId,
+            };
             engine::Engine::getInstance()->addComponent<ecs::components::network::network_t>(entity, network);
             Behaviour::setEntity(entity);
-            auto &net = _coord->getComponent<ecs::components::network::network_t>(_entity);
-            net.entityNetId = _entityNetId;
-            net.connectionId = _connectionId;
+
+            // auto &net = _coord->getComponent<ecs::components::network::network_t>(_entity);
+            // net.entityNetId = _entityNetId;
+            // net.connectionId = _connectionId;
         }
 
         [[nodiscard]] uint32_t getNetId() const
