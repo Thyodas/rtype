@@ -41,6 +41,7 @@ namespace ecs::components::behaviour
             };
             engine::Engine::getInstance()->addComponent<ecs::components::network::network_t>(entity, network);
             Behaviour::setEntity(entity);
+            onAttach(entity);
 
             // auto &net = _coord->getComponent<ecs::components::network::network_t>(_entity);
             // net.entityNetId = _entityNetId;
@@ -50,6 +51,7 @@ namespace ecs::components::behaviour
         [[nodiscard]] uint32_t getNetId() const
         {
             auto &netData = _coord->getComponent<ecs::components::network::network_t>(_entity);
+            std::cout << "id is " << _entity << std::endl;
             return netData.entityNetId;
         }
 
@@ -59,21 +61,14 @@ namespace ecs::components::behaviour
             return netData.connectionId;
         }
 
-        /*template<typename TEvent>
-        using ResponseFunction = std::function<void(TEvent &event)>;
-
-        template<typename TEvent>
-        void registerResponse(ResponseFunction<TEvent>)
+        /**
+         * @brief Called when the entity is attached to the scene
+         * Callback: Function made to be overriden
+         * @note You can for example register the network responses here
+         */
+        virtual void onAttach([[maybe_unused]] Entity entity)
         {
-
-        }*/
-
-        /*
-        using ResponseFunction = std::function<void(rtype::net::Message<>)>;
-
-        void registerResponse(const std::string& name, ResponseFunction func) {
-            responses[name] = func;
-        }*/
+        };
 
     protected:
         // std::map<std::string, ResponseFunction> responses;

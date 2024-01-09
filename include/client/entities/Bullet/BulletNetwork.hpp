@@ -20,6 +20,10 @@ namespace client
         explicit BulletNetwork(client::NetClient &networkManager, uint32_t netId = 0)
             : NetworkBehaviour(networkManager, netId)
         {
+        }
+
+        void onAttach(ecs::Entity entity) override
+        {
             _networkManager.registerResponse({
                 {common::NetworkMessage::serverDestroyBullet,
                 [this](rtype::net::Message<common::NetworkMessage> msg)
@@ -48,11 +52,11 @@ namespace client
 
         void updatePosition(rtype::net::Message<common::NetworkMessage> &msg)
         {
-            // std::cout << "before update for bullet " << _entity << std::endl;
+            //std::cout << "before update for bullet " << _entity << std::endl;
             common::game::netbody::ServerUpdateBulletPosition body;
             msg >> body;
 
-            // std::cout << "before with id " << body.entityNetId << std::endl;
+            std::cout << "before with id " << body.entityNetId << std::endl;
 
             if (body.entityNetId != getNetId())
                 return;
