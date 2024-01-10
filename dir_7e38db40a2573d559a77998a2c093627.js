@@ -1,6 +1,7 @@
 var dir_7e38db40a2573d559a77998a2c093627 =
 [
     [ "Animations.hpp", "components_2_animations_8hpp_source.html", null ],
+    [ "Audio.hpp", "components_2_audio_8hpp_source.html", null ],
     [ "Behaviour.hpp", "components_2_behaviour_8hpp_source.html", null ],
     [ "Direction.hpp", "_direction_8hpp_source.html", null ],
     [ "Health.hpp", "_health_8hpp_source.html", null ],

@@ -2,6 +2,7 @@ var hierarchy =
 [
     [ "ecs::components::animations::animation_s", "structecs_1_1components_1_1animations_1_1animation__s.html", null ],
     [ "animation_t", "structanimation__t.html", null ],
+    [ "ecs::components::sound::AudioSource", "structecs_1_1components_1_1sound_1_1_audio_source.html", null ],
     [ "ecs::components::behaviour::Behaviour", "classecs_1_1components_1_1behaviour_1_1_behaviour.html", [
       [ "ecs::components::behaviour::NetworkBehaviour< client::NetClient >", "classecs_1_1components_1_1behaviour_1_1_network_behaviour.html", [
         [ "client::AllyNetwork", "classclient_1_1_ally_network.html", null ],
@@ -106,8 +107,10 @@ var hierarchy =
     [ "common::game::netbody::ServerUpdateShipPosition", "structcommon_1_1game_1_1netbody_1_1_server_update_ship_position.html", null ],
     [ "common::game::netbody::ServerUpdateShipVelocity", "structcommon_1_1game_1_1netbody_1_1_server_update_ship_velocity.html", null ],
     [ "ecs::SingletonComponentManager", "classecs_1_1_singleton_component_manager.html", null ],
+    [ "ecs::components::sound::SoundData", "structecs_1_1components_1_1sound_1_1_sound_data.html", null ],
     [ "ecs::system::System", "classecs_1_1system_1_1_system.html", [
       [ "ecs::system::AnimationSystem", "classecs_1_1system_1_1_animation_system.html", null ],
+      [ "ecs::system::AudioSystem", "classecs_1_1system_1_1_audio_system.html", null ],
       [ "ecs::system::BehaviourSystem", "classecs_1_1system_1_1_behaviour_system.html", null ],
       [ "ecs::system::ColisionDetectionSystem", "classecs_1_1system_1_1_colision_detection_system.html", null ],
       [ "ecs::system::InputSystem", "classecs_1_1system_1_1_input_system.html", null ],

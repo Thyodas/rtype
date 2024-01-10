@@ -72,6 +72,10 @@ var annotated_dup =
         [ "render", null, [
           [ "render_s", "structecs_1_1components_1_1render_1_1render__s.html", "structecs_1_1components_1_1render_1_1render__s" ]
         ] ],
+        [ "sound", null, [
+          [ "AudioSource", "structecs_1_1components_1_1sound_1_1_audio_source.html", null ],
+          [ "SoundData", "structecs_1_1components_1_1sound_1_1_sound_data.html", null ]
+        ] ],
         [ "ComponentArray", "classecs_1_1components_1_1_component_array.html", "classecs_1_1components_1_1_component_array" ],
         [ "ComponentManager", "classecs_1_1components_1_1_component_manager.html", "classecs_1_1components_1_1_component_manager" ],
         [ "Cube", "classecs_1_1components_1_1_cube.html", "classecs_1_1components_1_1_cube" ],
@@ -86,6 +90,7 @@ var annotated_dup =
       ] ],
       [ "system", null, [
         [ "AnimationSystem", "classecs_1_1system_1_1_animation_system.html", "classecs_1_1system_1_1_animation_system" ],
+        [ "AudioSystem", "classecs_1_1system_1_1_audio_system.html", null ],
         [ "BehaviourSystem", "classecs_1_1system_1_1_behaviour_system.html", "classecs_1_1system_1_1_behaviour_system" ],
         [ "ColisionDetectionSystem", "classecs_1_1system_1_1_colision_detection_system.html", "classecs_1_1system_1_1_colision_detection_system" ],
         [ "CollisionResponse", "classecs_1_1system_1_1_collision_response.html", "classecs_1_1system_1_1_collision_response" ],
