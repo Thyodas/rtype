@@ -9,6 +9,7 @@ set(SRCS
     src/game_engine/editor/DocumentWindows/SceneTreeWindow.cpp
     src/game_engine/editor/DocumentWindows/EntityPropertiesWindow.cpp
     src/game_engine/editor/DocumentWindows/ModelViewerWindow.cpp
+    src/game_engine/editor/DocumentWindows/ConsoleWindow.cpp
     src/game_engine/core/GameEngine.cpp
     src/game_engine/core/window/Window.cpp
     src/game_engine/core/event/Event.cpp
@@ -93,6 +94,11 @@ include_directories(${raylib_INCLUDE_DIRS})
 find_package(imgui QUIET)
 include_directories(${imgui_INCLUDE_DIRS})
 
+# Find loguru package
+find_path(LOGURU_INCLUDE_DIRS "loguru/loguru.cpp")
+target_include_directories(game_engine PRIVATE ${LOGURU_INCLUDE_DIRS})
+
+target_sources(game_engine PRIVATE ${LOGURU_INCLUDE_DIRS}/loguru/loguru.cpp)
 
 # Linking the libraries
 target_link_libraries(game_engine PRIVATE raylib imgui::imgui rlimgui)
