@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Arcade: BPLayerInterfaceImpl Class Reference</title>
+<title>Arcade: ecs::event::ListenerRecord Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('class_b_p_layer_interface_impl.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('structecs_1_1event_1_1_listener_record.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -87,35 +87,39 @@ $(document).ready(function(){initNavTree('class_b_p_layer_interface_impl.html','
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="class_b_p_layer_interface_impl-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">BPLayerInterfaceImpl Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div></div>
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="structecs_1_1event_1_1_listener_record-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">ecs::event::ListenerRecord Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="dynheader">
-Inheritance diagram for BPLayerInterfaceImpl:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="class_b_p_layer_interface_impl.png" alt=""/>
- </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa066f6f4c1e7535ceac7e031e36abb68"><td class="memItemLeft" align="right" valign="top"><a id="aa066f6f4c1e7535ceac7e031e36abb68" name="aa066f6f4c1e7535ceac7e031e36abb68"></a>
-virtual uint&#160;</td><td class="memItemRight" valign="bottom"><b>GetNumBroadPhaseLayers</b> () const override</td></tr>
-<tr class="separator:aa066f6f4c1e7535ceac7e031e36abb68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e3ee7b54755a0d1b7c3ba288d8068fe"><td class="memItemLeft" align="right" valign="top"><a id="a2e3ee7b54755a0d1b7c3ba288d8068fe" name="a2e3ee7b54755a0d1b7c3ba288d8068fe"></a>
-virtual BroadPhaseLayer&#160;</td><td class="memItemRight" valign="bottom"><b>GetBroadPhaseLayer</b> (ObjectLayer inLayer) const override</td></tr>
-<tr class="separator:a2e3ee7b54755a0d1b7c3ba288d8068fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74b175eff8a2f9cc746051e915262a4e"><td class="memItemLeft" align="right" valign="top"><a id="a74b175eff8a2f9cc746051e915262a4e" name="a74b175eff8a2f9cc746051e915262a4e"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>ListenerRecord</b> (int <a class="el" href="structecs_1_1event_1_1id.html">id</a>, std::type_index <a class="el" href="structecs_1_1event_1_1type.html">type</a>, std::shared_ptr&lt; std::function&lt; void(<a class="el" href="classecs_1_1event_1_1_a_event.html">AEvent</a> &amp;)&gt; &gt; listener)</td></tr>
+<tr class="separator:a74b175eff8a2f9cc746051e915262a4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a6689251bf11737284db6ab820541f23a"><td class="memItemLeft" align="right" valign="top"><a id="a6689251bf11737284db6ab820541f23a" name="a6689251bf11737284db6ab820541f23a"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>id</b></td></tr>
+<tr class="separator:a6689251bf11737284db6ab820541f23a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c7f5936a5412670383ff134484fb3bd"><td class="memItemLeft" align="right" valign="top"><a id="a1c7f5936a5412670383ff134484fb3bd" name="a1c7f5936a5412670383ff134484fb3bd"></a>
+std::type_index&#160;</td><td class="memItemRight" valign="bottom"><b>type</b></td></tr>
+<tr class="separator:a1c7f5936a5412670383ff134484fb3bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0e0cbf9853fc71919a080f2a39d3b5f"><td class="memItemLeft" align="right" valign="top"><a id="af0e0cbf9853fc71919a080f2a39d3b5f" name="af0e0cbf9853fc71919a080f2a39d3b5f"></a>
+std::shared_ptr&lt; std::function&lt; void(<a class="el" href="classecs_1_1event_1_1_a_event.html">AEvent</a> &amp;)&gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>listener</b></td></tr>
+<tr class="separator:af0e0cbf9853fc71919a080f2a39d3b5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>joltSample.cpp</li>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/game_engine/core/event/<a class="el" href="_event_8hpp_source.html">Event.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="class_b_p_layer_interface_impl.html">BPLayerInterfaceImpl</a></li>
+    <li class="navelem"><b>ecs</b></li><li class="navelem"><b>event</b></li><li class="navelem"><a class="el" href="structecs_1_1event_1_1_listener_record.html">ListenerRecord</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2 </li>
   </ul>
 </div>
