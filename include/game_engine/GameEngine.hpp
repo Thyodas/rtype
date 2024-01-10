@@ -142,7 +142,7 @@ namespace engine {
                         auto audioEntity = this->_coordinator->createEntity();
                         ecs::components::sound::AudioSource audioSrc{audioPath};
                         this->_coordinator->addComponent(audioEntity, audioSrc);
-                        _audioSystem.playSoundFromPath(audioPath);
+                        _audioSystem->playSoundFromPath(audioPath);
                     }
                 });
             }

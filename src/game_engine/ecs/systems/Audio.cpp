@@ -14,6 +14,7 @@ using namespace ecs::system;
 using ecs::components::sound::SoundData;
 
 AudioSystem::AudioSystem() {
+    // initialize();
 }
 
 AudioSystem::~AudioSystem() {
@@ -52,7 +53,7 @@ void AudioSystem::playSoundFromPath(const std::string& path) {
     if (sound.stream.buffer == NULL) {
         return;
     }
-    PlaySound(soundData.sound);
+    PlaySound(sound);
 }
 
 void AudioSystem::update() {
