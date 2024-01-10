@@ -9,6 +9,7 @@
 
 #include "game_engine/ecs/components/NetworkBehaviour.hpp"
 #include "game_engine/ecs/systems/Audio.hpp"
+// #include "game_engine/GameEngine.hpp"
 #include "common/game/NetworkBody.hpp"
 #include "client/core/NetClient.hpp"
 
@@ -42,6 +43,9 @@ namespace client {
                 });
                 _audioSystem.initialize();
                 _audioSystem.addSound("../../ressources/audio/shoot.wav", "PlayerShoot");
+                // engine::Engine::getInstance()->triggerAudioOn<PlayerActionEvent>("../../ressources/audio/shoot.wav", [](const PlayerActionEvent& event) {
+                //     return event.spacePressed;
+                // });
             }
 
 
@@ -177,7 +181,10 @@ namespace client {
 
                 if (IsKeyDown(KEY_SPACE) && (engine::Engine::getInstance()->getElapsedTime() / 1000) - _lastBulletFire > 1.0) {
                     std::cout << "PRESSED SPACE -> FIRE BULLET" << std::endl;
-                    _audioSystem.playSound("PlayerShoot");
+                    // _audioSystem.playSound("PlayerShoot");
+                    _audioSystem.playSoundFromPath("../../ressources/audio/shoot.wav");
+                    // PlayerActionEvent event{true};
+                    // engine::Engine::getInstance()->getCoordinator()->emitEvent(event);
                     fireBullet();
                     _lastBulletFire = engine::Engine::getInstance()->getElapsedTime() / 1000;
                 }

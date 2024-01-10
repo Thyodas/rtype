@@ -14,6 +14,10 @@
 #include <vector>
 #include <string>
 
+// struct PlayerActionEvent {
+//     bool spacePressed;
+// };
+
 namespace ecs {
     namespace system {
 

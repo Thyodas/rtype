@@ -13,14 +13,12 @@
 namespace ecs {
     namespace components {
         namespace sound {
-            struct SoundData
-            {
+            struct SoundData {
                 Sound sound;
                 bool isLooping;
                 std::string name;
             };
-            struct AudioSource
-            {
+            struct AudioSource {
                 std::string filePath;
             };
         }
