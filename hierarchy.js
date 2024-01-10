@@ -1,8 +1,5 @@
 var hierarchy =
 [
-    [ "ecs::event::AEvent", "classecs_1_1event_1_1_a_event.html", [
-      [ "CollisionEvent", "class_collision_event.html", null ]
-    ] ],
     [ "ecs::components::animations::animation_s", "structecs_1_1components_1_1animations_1_1animation__s.html", null ],
     [ "animation_t", "structanimation__t.html", null ],
     [ "ecs::components::behaviour::Behaviour", "classecs_1_1components_1_1behaviour_1_1_behaviour.html", [
@@ -11,12 +8,11 @@ var hierarchy =
         [ "client::AllyNetwork", "classclient_1_1_ally_network.html", null ],
         [ "client::BulletNetwork", "classclient_1_1_bullet_network.html", null ],
         [ "client::EnemyNetwork", "classclient_1_1_enemy_network.html", null ],
+        [ "client::EnemyNetwork", "classclient_1_1_enemy_network.html", null ],
         [ "client::PlayerNetwork", "classclient_1_1_player_network.html", null ]
       ] ],
       [ "ecs::components::behaviour::NetworkBehaviour< server::NetServer >", "classecs_1_1components_1_1behaviour_1_1_network_behaviour.html", [
-        [ "ecs::components::behaviour::EnemySpawner", "classecs_1_1components_1_1behaviour_1_1_enemy_spawner.html", null ],
         [ "server::BulletNetwork", "classserver_1_1_bullet_network.html", null ],
-        [ "server::EnemyNetwork", "classserver_1_1_enemy_network.html", null ],
         [ "server::PlayerNetwork", "classserver_1_1_player_network.html", null ]
       ] ],
       [ "client::SkyboxBehavior", "classclient_1_1_skybox_behavior.html", null ],
@@ -42,9 +38,6 @@ var hierarchy =
     [ "ecs::Coordinator", "classecs_1_1_coordinator.html", null ],
     [ "ecs::components::direction::direction_s", "structecs_1_1components_1_1direction_1_1direction__s.html", null ],
     [ "std::enable_shared_from_this", null, [
-      [ "ecs::components::behaviour::NetworkBehaviour< client::NetClient >", "classecs_1_1components_1_1behaviour_1_1_network_behaviour.html", null ],
-      [ "ecs::components::behaviour::NetworkBehaviour< server::NetServer >", "classecs_1_1components_1_1behaviour_1_1_network_behaviour.html", null ],
-      [ "ecs::components::behaviour::NetworkBehaviour< NetworkManager >", "classecs_1_1components_1_1behaviour_1_1_network_behaviour.html", null ],
       [ "rtype::net::Connection< T >", "classrtype_1_1net_1_1_connection.html", null ]
     ] ],
     [ "engine::Engine", "classengine_1_1_engine.html", null ],
@@ -61,15 +54,15 @@ var hierarchy =
     [ "ecs::components::IComponentArray", "classecs_1_1components_1_1_i_component_array.html", [
       [ "ecs::components::ComponentArray< T >", "classecs_1_1components_1_1_component_array.html", null ]
     ] ],
-    [ "client::NetClient::id", "structclient_1_1_net_client_1_1id.html", null ],
-    [ "ecs::event::id", "structecs_1_1event_1_1id.html", null ],
-    [ "server::NetServer::id", "structserver_1_1_net_server_1_1id.html", null ],
     [ "engine::editor::IDocumentWindow", "classengine_1_1editor_1_1_i_document_window.html", [
       [ "engine::editor::ADocumentWindow", "classengine_1_1editor_1_1_a_document_window.html", [
         [ "engine::editor::EntityPropertiesWindow", "classengine_1_1editor_1_1_entity_properties_window.html", null ],
         [ "engine::editor::Main3DScene", "classengine_1_1editor_1_1_main3_d_scene.html", null ],
         [ "engine::editor::SceneTreeWindow", "classengine_1_1editor_1_1_scene_tree_window.html", null ]
       ] ]
+    ] ],
+    [ "ecs::event::IEvent", "classecs_1_1event_1_1_i_event.html", [
+      [ "CollisionEvent", "class_collision_event.html", null ]
     ] ],
     [ "ecs::components::IShape", "classecs_1_1components_1_1_i_shape.html", [
       [ "ecs::components::Cube", "classecs_1_1components_1_1_cube.html", null ],
@@ -81,10 +74,7 @@ var hierarchy =
       [ "ecs::components::input::Input", "structecs_1_1components_1_1input_1_1_input.html", null ]
     ] ],
     [ "ecs::components::input::keyState", "structecs_1_1components_1_1input_1_1key_state.html", null ],
-    [ "ecs::event::ListenerRecord", "structecs_1_1event_1_1_listener_record.html", null ],
     [ "rtype::net::Message< T >", "structrtype_1_1net_1_1_message.html", null ],
-    [ "client::NetClient::message_type", "structclient_1_1_net_client_1_1message__type.html", null ],
-    [ "server::NetServer::message_type", "structserver_1_1_net_server_1_1message__type.html", null ],
     [ "rtype::net::MessageHeader< T >", "structrtype_1_1net_1_1_message_header.html", null ],
     [ "ecs::components::network::network_s", "structecs_1_1components_1_1network_1_1network__s.html", null ],
     [ "common::game::ObjectParams", "structcommon_1_1game_1_1_object_params.html", null ],
@@ -92,8 +82,6 @@ var hierarchy =
     [ "common::game::netbody::PingServer", "structcommon_1_1game_1_1netbody_1_1_ping_server.html", null ],
     [ "ecs::components::render::render_s", "structecs_1_1components_1_1render_1_1render__s.html", null ],
     [ "render_t", "structrender__t.html", null ],
-    [ "client::NetClient::ResponseRecord", "structclient_1_1_net_client_1_1_response_record.html", null ],
-    [ "server::NetServer::ResponseRecord", "structserver_1_1_net_server_1_1_response_record.html", null ],
     [ "ecs::components::physics::rigidBody_s", "structecs_1_1components_1_1physics_1_1rigid_body__s.html", null ],
     [ "rigidBody_t", "structrigid_body__t.html", null ],
     [ "server::Server", "classserver_1_1_server.html", null ],
@@ -130,6 +118,5 @@ var hierarchy =
     [ "ecs::components::physics::transform_s", "structecs_1_1components_1_1physics_1_1transform__s.html", null ],
     [ "transform_t", "structtransform__t.html", null ],
     [ "rtype::net::TsQueue< T >", "classrtype_1_1net_1_1_ts_queue.html", null ],
-    [ "ecs::event::type", "structecs_1_1event_1_1type.html", null ],
     [ "engine::core::Window", "classengine_1_1core_1_1_window.html", null ]
 ];
