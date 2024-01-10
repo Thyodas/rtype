@@ -5,7 +5,7 @@ var annotated_dup =
       [ "BulletNetwork", "classclient_1_1_bullet_network.html", "classclient_1_1_bullet_network" ],
       [ "Client", "classclient_1_1_client.html", null ],
       [ "EnemyNetwork", "classclient_1_1_enemy_network.html", "classclient_1_1_enemy_network" ],
-      [ "NetClient", "classclient_1_1_net_client.html", null ],
+      [ "NetClient", "classclient_1_1_net_client.html", "classclient_1_1_net_client" ],
       [ "PlayerNetwork", "classclient_1_1_player_network.html", "classclient_1_1_player_network" ],
       [ "SkyboxBehavior", "classclient_1_1_skybox_behavior.html", "classclient_1_1_skybox_behavior" ]
     ] ],
@@ -49,6 +49,7 @@ var annotated_dup =
         ] ],
         [ "behaviour", null, [
           [ "Behaviour", "classecs_1_1components_1_1behaviour_1_1_behaviour.html", "classecs_1_1components_1_1behaviour_1_1_behaviour" ],
+          [ "EnemySpawner", "classecs_1_1components_1_1behaviour_1_1_enemy_spawner.html", "classecs_1_1components_1_1behaviour_1_1_enemy_spawner" ],
           [ "NetworkBehaviour", "classecs_1_1components_1_1behaviour_1_1_network_behaviour.html", "classecs_1_1components_1_1behaviour_1_1_network_behaviour" ]
         ] ],
         [ "direction", null, [
@@ -81,8 +82,11 @@ var annotated_dup =
         [ "Skybox", "classecs_1_1components_1_1_skybox.html", "classecs_1_1components_1_1_skybox" ]
       ] ],
       [ "event", null, [
+        [ "AEvent", "classecs_1_1event_1_1_a_event.html", null ],
         [ "EventManager", "classecs_1_1event_1_1_event_manager.html", "classecs_1_1event_1_1_event_manager" ],
-        [ "IEvent", "classecs_1_1event_1_1_i_event.html", null ]
+        [ "id", "structecs_1_1event_1_1id.html", null ],
+        [ "ListenerRecord", "structecs_1_1event_1_1_listener_record.html", null ],
+        [ "type", "structecs_1_1event_1_1type.html", null ]
       ] ],
       [ "system", null, [
         [ "AnimationSystem", "classecs_1_1system_1_1_animation_system.html", "classecs_1_1system_1_1_animation_system" ],
@@ -98,14 +102,11 @@ var annotated_dup =
       [ "Coordinator", "classecs_1_1_coordinator.html", "classecs_1_1_coordinator" ],
       [ "EntityManager", "classecs_1_1_entity_manager.html", "classecs_1_1_entity_manager" ],
       [ "ISingletonComponent", "classecs_1_1_i_singleton_component.html", null ],
-      [ "Scene", "classecs_1_1_scene.html", null ],
-      [ "SceneManager", "classecs_1_1_scene_manager.html", null ],
       [ "SingletonComponent", "classecs_1_1_singleton_component.html", null ],
       [ "SingletonComponentManager", "classecs_1_1_singleton_component_manager.html", null ]
     ] ],
     [ "engine", null, [
       [ "core", null, [
-        [ "EngineCamera", "classengine_1_1core_1_1_engine_camera.html", "classengine_1_1core_1_1_engine_camera" ],
         [ "Window", "classengine_1_1core_1_1_window.html", "classengine_1_1core_1_1_window" ]
       ] ],
       [ "editor", null, [
@@ -134,12 +135,12 @@ var annotated_dup =
     ] ],
     [ "server", null, [
       [ "BulletNetwork", "classserver_1_1_bullet_network.html", "classserver_1_1_bullet_network" ],
+      [ "EnemyNetwork", "classserver_1_1_enemy_network.html", "classserver_1_1_enemy_network" ],
       [ "NetServer", "classserver_1_1_net_server.html", "classserver_1_1_net_server" ],
       [ "PlayerNetwork", "classserver_1_1_player_network.html", "classserver_1_1_player_network" ],
       [ "Server", "classserver_1_1_server.html", null ]
     ] ],
     [ "animation_t", "structanimation__t.html", null ],
-    [ "Camera", "class_camera.html", null ],
     [ "collider_t", "structcollider__t.html", null ],
     [ "CollisionDetectionSystem", "class_collision_detection_system.html", null ],
     [ "CollisionEvent", "class_collision_event.html", null ],
