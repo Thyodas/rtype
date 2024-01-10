@@ -8,14 +8,17 @@
 #pragma once
 
 #include "Entity.hpp"
+#include "core/Camera.hpp"
 
 #include <cstddef>
 #include <set>
 #include <unordered_map>
+#include <map>
 #include <iostream>
 
 namespace ecs {
     using SceneID = std::size_t;
+    using CameraID = std::size_t;
 
     class Scene {
         public:
@@ -77,14 +80,12 @@ namespace ecs {
             void activateScene(SceneID sceneID)
             {
                 activeScenes.insert(sceneID);
-                inactiveScenes.erase(sceneID);
                 updateActiveEntities();
             }
 
             void deactivateScene(SceneID sceneID)
             {
                 activeScenes.erase(sceneID);
-                inactiveScenes.insert(sceneID);
                 updateActiveEntities();
             }
             const std::set<ecs::Entity> &getActiveEntities(void) const
@@ -95,7 +96,7 @@ namespace ecs {
         private:
             std::unordered_map<SceneID, Scene> scenes;
             std::set<SceneID> activeScenes;
-            std::set<SceneID> inactiveScenes;
             std::set<ecs::Entity> activeEntities;
+            std::unordered_map<CameraID, engine::core::EngineCamera> cameras;
     };
 }
