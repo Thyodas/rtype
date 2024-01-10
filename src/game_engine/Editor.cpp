@@ -19,6 +19,7 @@
 #include <editor/DocumentWindows/EntityPropertiesWindow.hpp>
 #include <editor/DocumentWindows/Main3DScene.hpp>
 #include <editor/DocumentWindows/SceneTreeWindow.hpp>
+#include <editor/DocumentWindows/ModelViewerWindow.hpp>
 
 #include "game_engine/core/Window.hpp"
 #include "game_engine/ecs/Coordinator.hpp"
@@ -29,11 +30,10 @@
 
 #include "game_engine/editor/GameEngineEditor.hpp"
 
-
-
-
 #include "raylib.h"
 #include "raymath.h"
+
+#include <iostream>
 
 int main(int argc, char* argv[])
 {
@@ -42,6 +42,7 @@ int main(int argc, char* argv[])
 	editor.registerWindow("3D View", std::make_shared<engine::editor::Main3DScene>());
 	editor.registerWindow("Scene Tree", std::make_shared<engine::editor::SceneTreeWindow>());
 	editor.registerWindow("Properties", std::make_shared<engine::editor::EntityPropertiesWindow>());
+	editor.registerWindow("ModelViewer", std::make_shared<engine::editor::ModelViewerWindow>());
 	editor.init();
 
 	// Main game loop

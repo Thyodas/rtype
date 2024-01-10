@@ -8,6 +8,7 @@ set(SRCS
     src/game_engine/editor/DocumentWindows/Main3DScene.cpp
     src/game_engine/editor/DocumentWindows/SceneTreeWindow.cpp
     src/game_engine/editor/DocumentWindows/EntityPropertiesWindow.cpp
+    src/game_engine/editor/DocumentWindows/ModelViewerWindow.cpp
     src/game_engine/core/GameEngine.cpp
     src/game_engine/core/window/Window.cpp
     src/game_engine/core/event/Event.cpp
@@ -35,7 +36,16 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(rlimgui)
 
-add_executable(game_engine ${SRCS})
+FetchContent_Declare(
+        tinyfiledialogs
+        GIT_REPOSITORY https://github.com/native-toolkit/libtinyfiledialogs.git
+        GIT_TAG master
+)
+FetchContent_MakeAvailable(tinyfiledialogs)
+
+list(APPEND MY_PROJECT_SOURCES ${tinyfiledialogs_SOURCE_DIR}/tinyfiledialogs.c)
+
+add_executable(game_engine ${SRCS} ${tinyfiledialogs_SOURCE_DIR}/tinyfiledialogs.c)
 
 set_target_properties( game_engine
     PROPERTIES
@@ -86,6 +96,8 @@ include_directories(${imgui_INCLUDE_DIRS})
 
 # Linking the libraries
 target_link_libraries(game_engine PRIVATE raylib imgui::imgui rlimgui)
+
+target_include_directories(game_engine PRIVATE ${tinyfiledialogs_SOURCE_DIR})
 
 # Compiler options for Unix
 if(UNIX)

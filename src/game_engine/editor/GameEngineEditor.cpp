@@ -118,6 +118,9 @@ void engine::editor::GameEngineEditor::drawMenuBar()
 	{
 		if (ImGui::BeginMenu("File"))
 		{
+			if (ImGui::MenuItem("Import"))
+				_windows["ModelViewer"]->getOpened() = true;
+
 			if (ImGui::MenuItem("Exit"))
 				_quit = true;
 
