@@ -34,7 +34,6 @@ namespace ecs::components::behaviour
 
         ~NetworkBehaviour()
         {
-            std::cout << "le destructeur est call" << std::endl;
             unregisterResponses();
         }
 
