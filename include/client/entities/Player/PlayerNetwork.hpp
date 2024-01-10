@@ -8,12 +8,14 @@
 #pragma once
 
 #include "game_engine/ecs/components/NetworkBehaviour.hpp"
+#include "game_engine/ecs/systems/Audio.hpp"
 #include "common/game/NetworkBody.hpp"
 #include "client/core/NetClient.hpp"
 
 namespace client {
 
     class PlayerNetwork : public ecs::components::behaviour::NetworkBehaviour<client::NetClient> {
+        ecs::system::AudioSystem _audioSystem;
         public:
             explicit PlayerNetwork(client::NetClient& networkManager, uint32_t netId = 0)
                 : NetworkBehaviour(networkManager, netId)
@@ -33,11 +35,13 @@ namespace client {
                         onDestroy(msg);
                     }},
                 });
-                // _networkManager.registerResponse({
-                //     {common::NetworkMessage::serverFireBullet, [this](rtype::net::Message<common::NetworkMessage> msg) {
-                //         onFire(msg);
-                //     }},
-                // });
+                _networkManager.registerResponse({
+                    {common::NetworkMessage::serverFireBullet, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                        onFire(msg);
+                    }},
+                });
+                _audioSystem.initialize();
+                _audioSystem.addSound("../../ressources/audio/shoot.wav", "PlayerShoot");
             }
 
 
@@ -173,6 +177,7 @@ namespace client {
 
                 if (IsKeyDown(KEY_SPACE) && (engine::Engine::getInstance()->getElapsedTime() / 1000) - _lastBulletFire > 1.0) {
                     std::cout << "PRESSED SPACE -> FIRE BULLET" << std::endl;
+                    _audioSystem.playSound("PlayerShoot");
                     fireBullet();
                     _lastBulletFire = engine::Engine::getInstance()->getElapsedTime() / 1000;
                 }
