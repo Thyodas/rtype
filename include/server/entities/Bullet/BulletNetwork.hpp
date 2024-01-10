@@ -16,7 +16,7 @@
 namespace server {
 
     constexpr float BULLET_SPEED = 4;
-    constexpr float BULLET_TTL = 2.5;
+    constexpr float BULLET_TTL = 10.0;
 
     class BulletNetwork : public ecs::components::behaviour::NetworkBehaviour<server::NetServer> {
         public:
@@ -40,12 +40,28 @@ namespace server {
                     auto &life = engine::Engine::getInstance()->getComponent<ecs::components::health::health_t>(event.entity1);
                     destroyBullet();
                     engine::destroyEntity(_entity);
-                    // if (life.healthPoints - 30 < 0) {
-                    //     _coord->destroyEntity(event.entity1);
-                    // }
+
+                    if ((int)life.healthPoints - 30 < 0) {
+                        destroyEnemy(event.entity1);
+                        engine::destroyEntity(event.entity1);
+                        return;
+                    }
 
                     life.healthPoints -= 30;
                 });
+            }
+
+            void destroyEnemy(ecs::Entity entity)
+            {
+                common::game::netbody::ServerDestroyEnemy body = {
+                    .entityNetId = entity,
+                };
+
+                rtype::net::Message<common::NetworkMessage> msg;
+                msg.header.id = common::NetworkMessage::serverDestroyEnemy;
+                msg << body;
+
+                _networkManager.messageAllClients(msg);
             }
 
             void destroyBullet()
@@ -75,10 +91,11 @@ namespace server {
             {
                 double now = engine::Engine::getInstance()->getElapsedTime() / 1000;
 
-                // if (verifyBulletExpire()) {
-                //     _coord->destroyEntity(_entity);
-                //     return;
-                // }
+                if (verifyBulletExpire()) {
+                    destroyBullet();
+                    engine::destroyEntity(_entity);
+                    return;
+                }
 
                 if (now - _lastUpdate < 1.0 / 60) {
                     return;

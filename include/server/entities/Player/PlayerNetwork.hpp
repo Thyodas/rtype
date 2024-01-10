@@ -83,7 +83,6 @@ namespace server {
 
             void onPlayerFireBullet(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, rtype::net::Message<common::NetworkMessage>& msg)
             {
-                std::cout << "received fire bullet from client" << std::endl;
                 common::game::netbody::ClientPlayerFireBullet body;
                 msg >> body;
 
@@ -110,7 +109,6 @@ namespace server {
                 direction.direction = body.direction;*/
                 auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(gunBullet);
                 rigidBody.velocity = {0, 0, 5};
-                std::cout << "entity a la creation " << _entity << std::endl;
                 auto behave = engine::createBehavior<server::BulletNetwork>(_networkManager, _entity, gunBullet, client->getID());
                 engine::attachBehavior(gunBullet, behave);
                 _networkManager.allServerFireBullet(gunBullet, _entity);
