@@ -8,6 +8,7 @@
 #pragma once
 
 #include "game_engine/ecs/components/NetworkBehaviour.hpp"
+#include "game_engine/ecs/systems/Audio.hpp"
 #include "common/game/NetworkBody.hpp"
 #include "client/core/NetClient.hpp"
 #include "client/entities/Bullet/BulletNetwork.hpp"
@@ -15,6 +16,7 @@
 namespace client {
 
     class PlayerNetwork : public ecs::components::behaviour::NetworkBehaviour<client::NetClient> {
+        ecs::system::AudioSystem _audioSystem;
         public:
             explicit PlayerNetwork(client::NetClient& networkManager, uint32_t netId = 0)
                 : NetworkBehaviour(networkManager, netId)
@@ -39,6 +41,8 @@ namespace client {
                         onFire(msg);
                     }},
                 });
+                _audioSystem.initialize();
+                _audioSystem.addSound("../../ressources/audio/shoot.wav", "PlayerShoot");
             }
 
             void onFire(rtype::net::Message<common::NetworkMessage>& msg)
@@ -173,6 +177,7 @@ namespace client {
 
                 if (IsKeyDown(KEY_SPACE)) {
                     std::cout << "PRESSED SPACE -> FIRE BULLET" << std::endl;
+                    _audioSystem.playSound("PlayerShoot");
                     fireBullet();
                 }
                 /*if (IsKeyReleased(KEY_SPACE)) {

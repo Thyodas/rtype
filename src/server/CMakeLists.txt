@@ -19,6 +19,7 @@ set(SRCS
     src/game_engine/ecs/systems/Behaviour.cpp
     src/game_engine/ecs/systems/Animations.cpp
     src/game_engine/ecs/systems/Input.cpp
+    src/game_engine/ecs/systems/Audio.cpp
     src/game_engine/ecs/Entity.cpp
 )
 

@@ -18,11 +18,13 @@
 #include "game_engine/ecs/components/Health.hpp"
 #include "game_engine/ecs/components/Direction.hpp"
 #include "game_engine/ecs/components/Input.hpp"
+#include "game_engine/ecs/components/Audio.hpp"
 #include "game_engine/ecs/systems/Render.hpp"
 #include "game_engine/ecs/Entity.hpp"
 #include "game_engine/ecs/components/Animations.hpp"
 #include "game_engine/ecs/systems/Animations.hpp"
 #include "game_engine/ecs/systems/Input.hpp"
+#include "game_engine/ecs/systems/Audio.hpp"
 #include "common/utils/Chrono.hpp"
 #include <memory>
 #include <mutex>
@@ -121,6 +123,30 @@ namespace engine {
                 return _chrono.getElapsedTime();
             }
 
+            /**
+             * @brief Triggers audio playback based on specific game events.
+             *
+             * This template function registers a listener for a given event type. When the event occurs,
+             * it checks a provided condition. If the condition is met, an entity with an AudioSource
+             * component is created, which can be used to play audio.
+             *
+             * @tparam T The type of event to listen for.
+             * @param audioPath The file path of the audio to be played.
+             * @param condition A function that takes an event of type T and returns a boolean.
+             *                  If this function returns true, the audio is triggered.
+             */
+            template<typename T>
+            void triggerAudioOn(const std::string& audioPath, std::function<bool(const T&)> condition) {
+                registerListener<T>([this, audioPath, condition](const T& event) {
+                    if (condition(event)) {
+                        auto audioEntity = this->_coordinator->createEntity();
+                        ecs::components::sound::AudioSource audioSrc{audioPath};
+                        this->_coordinator->addComponent(audioEntity, audioSrc);
+                        _audioSystem.playSoundFromPath(audioPath);
+                    }
+                });
+            }
+
         private:
             std::shared_ptr<ecs::Coordinator> _coordinator;
             std::shared_ptr<ecs::system::PhysicsSystem> _physicSystem;
@@ -130,6 +156,7 @@ namespace engine {
             std::shared_ptr<ecs::system::CollisionResponse> _collisionResponseSystem;
             std::shared_ptr<ecs::system::ColisionDetectionSystem> _collisionDetectionSystem;
             std::shared_ptr<ecs::system::InputSystem> _inputSystem;
+            std::shared_ptr<ecs::system::AudioSystem> _audioSystem;
 
             std::shared_ptr<core::Window> _window;
             bool _disableRender = false;
