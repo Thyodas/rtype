@@ -22,10 +22,101 @@
 #include "game_engine/GameEngine.hpp"
 
 #include "raylib.h"
+#include "loguru/loguru.hpp"
+
+#include <cstdarg>
+#include <cstdio>
+#include <cstdlib>
+#include <string>
+
+std::string formatString(const char* format, va_list args) {
+	// Copy of va_list for the second pass, as va_list can't be reused
+	va_list args_copy;
+	va_copy(args_copy, args);
+
+	// Calculate the length of the formatted string
+	int length = std::vsnprintf(nullptr, 0, format, args);
+	if (length <= 0) {
+		va_end(args_copy);
+		return ""; // Formatting error
+	}
+
+	// Allocate memory for the formatted string
+	char* buffer = static_cast<char*>(std::malloc(length + 1)); // +1 for null terminator
+	if (!buffer) {
+		va_end(args_copy);
+		return ""; // Allocation failure
+	}
+
+	// Format the string
+	std::vsnprintf(buffer, length + 1, format, args_copy);
+	va_end(args_copy);
+
+	// Create a std::string from the buffer
+	std::string formattedString(buffer);
+
+	// Free the buffer
+	std::free(buffer);
+
+	return formattedString;
+}
+
+static constexpr loguru::Verbosity ConvertToLoguruLevel(int level) {
+	switch (level) {
+		case 0:   return loguru::Verbosity_MAX;
+		case 1:   return loguru::Verbosity_1;
+		case 2:    return loguru::Verbosity_INFO;
+		case 3: return loguru::Verbosity_WARNING;
+		case 4:   return loguru::Verbosity_ERROR;
+		default:             return loguru::Verbosity_INFO;
+	}
+}
+
+// raylib TraceLogCallback
+void traceLogCallBack(int logLevel, const char* text, va_list args)
+{
+	auto result = formatString(text, args);
+	VLOG_F(ConvertToLoguruLevel(logLevel), "%s", result.c_str());
+}
+
+
+
+void engine::editor::GameEngineEditor::setupLogs()
+{
+	SetTraceLogCallback(&traceLogCallBack);
+
+	loguru::add_callback(LOGURU_CALLBACK_NAME, &GameEngineEditor::loguruCallback,
+		this, loguru::Verbosity_MAX);
+
+
+	LOG_F(INFO, "GameEngineEditor initialized");
+	VLOG_F(loguru::Verbosity_ERROR, "GameEngineEditor initialized");
+}
+
+void engine::editor::GameEngineEditor::addLog(const engine::editor::LogMessage& message)
+{
+	_logs.push_back(message);
+}
+
+const std::vector<engine::editor::LogMessage>& engine::editor::GameEngineEditor::getLogs() const
+{
+	return _logs;
+}
+
+void engine::editor::GameEngineEditor::loguruCallback([[maybe_unused]] void *user_data, const loguru::Message& message)
+{
+	const auto editor = static_cast<GameEngineEditor*>(user_data);
+	editor->addLog({
+		.verbosity = message.verbosity,
+		.message = message.message,
+		.prefix = message.preamble
+	});
+}
 
 
 engine::editor::GameEngineEditor::GameEngineEditor()
 {
+	setupLogs();
 	setupEngine();
 	setupStyle();
 	setupDockspace();
@@ -90,7 +181,7 @@ void engine::editor::GameEngineEditor::setupFonts()
 
 	float fontSize = 18.0f;
 
-	ImFont* font = io.Fonts->AddFontFromFileTTF("resources/SourceSans3-Regular.ttf", fontSize, &font_config);
+	ImFont* font = io.Fonts->AddFontFromFileTTF("ressources/game_engine/SourceSans3-Regular.ttf", fontSize, &font_config);
 	IM_ASSERT(font != nullptr);
 	io.FontDefault = font;
 
@@ -100,7 +191,7 @@ void engine::editor::GameEngineEditor::setupFonts()
 	fontawesome_config.OversampleH = 3; // Horizontal oversampling
 	fontawesome_config.OversampleV = 3; // Vertical oversampling
 	static const ImWchar icon_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
-	io.Fonts->AddFontFromFileTTF("resources/fontawesome4.ttf", fontSize, &fontawesome_config, icon_ranges);
+	io.Fonts->AddFontFromFileTTF("ressources/game_engine/fontawesome4.ttf", fontSize, &fontawesome_config, icon_ranges);
 	*/
 
 	Imgui_ImplRaylib_BuildFontAtlas();
@@ -138,7 +229,6 @@ void engine::editor::GameEngineEditor::drawMenuBar()
 	}
 }
 
-
 engine::editor::GameEngineEditor::~GameEngineEditor()
 {
 	rlImGuiShutdown();
@@ -146,6 +236,7 @@ engine::editor::GameEngineEditor::~GameEngineEditor()
 	//--------------------------------------------------------------------------------------
 	CloseWindow();       // Close window and OpenGL context
 	//--------------------------------------------------------------------------------------
+	loguru::remove_callback(LOGURU_CALLBACK_NAME);
 }
 
 void engine::editor::GameEngineEditor::init()
