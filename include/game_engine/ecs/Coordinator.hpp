@@ -172,9 +172,14 @@ namespace ecs {
             }
 
             template<typename T, typename ClosureWeakPtr = std::shared_ptr<int>>
-            void registerListener(std::function<void(T&)> listener, std::shared_ptr<ClosureWeakPtr> closure = nullptr)
+            int registerListener(std::shared_ptr<std::function<void(T&)>> listener, std::shared_ptr<ClosureWeakPtr> closure = nullptr)
             {
-                _eventManager->registerListener<T, ClosureWeakPtr>(listener, closure);
+                return _eventManager->registerListener<T, ClosureWeakPtr>(listener, closure);
+            }
+
+            void unregisterListener(int listenerId)
+            {
+                _eventManager->unregisterListener(listenerId);
             }
 
             template <typename T>

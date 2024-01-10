@@ -22,14 +22,12 @@ namespace ecs {
                 if (render.isRendered) {
                     if (render.type == components::ShapeType::MODEL) {
                         auto bb = GetMeshBoundingBox(render.data->getModel().meshes[0]);
-                        // apply scale to bb
                         bb.min.x *= transf.scale.x;
                         bb.min.y *= transf.scale.y;
                         bb.min.z *= transf.scale.z;
                         bb.max.x *= transf.scale.x;
                         bb.max.y *= transf.scale.y;
                         bb.max.z *= transf.scale.z;
-                        // apply change of position
                         bb.min.x += transf.pos.x;
                         bb.min.y += transf.pos.y;
                         bb.min.z += transf.pos.z;
@@ -37,7 +35,6 @@ namespace ecs {
                         bb.max.y += transf.pos.y;
                         bb.max.z += transf.pos.z;
                         collision.box = bb;
-                        // change bb of model
                         DrawBoundingBox(bb, RED);
                     }
                     render.data->draw(transf);

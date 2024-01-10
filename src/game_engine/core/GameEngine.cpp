@@ -89,6 +89,11 @@ namespace engine
         return entity;
     }
 
+    void Engine::destroyEntity(ecs::Entity entity)
+    {
+        _entitiesToDestroy.push(entity);
+    }
+
     void Engine::run(void) {
         _inputSystem->handleInputs();
         _behaviourSystem->handleBehaviours();
@@ -105,6 +110,10 @@ namespace engine
         // DrawGrid(20, 1.0f);
         EndMode3D();
         EndDrawing();
+        while (!_entitiesToDestroy.empty()) {
+            _coordinator->destroyEntity(_entitiesToDestroy.front());
+            _entitiesToDestroy.pop();
+        }
     }
 
     void Engine::runTextureMode(RenderTexture& ViewTexture) {
@@ -202,6 +211,11 @@ namespace engine
         Engine::getInstance()->addComponent<ecs::components::physics::collider_t>(entity, collider);
         Engine::getInstance()->addComponent<ecs::components::physics::rigidBody_t>(entity, body);
         return entity;
+    }
+
+    void destroyEntity(ecs::Entity entity)
+    {
+        Engine::getInstance()->destroyEntity(entity);
     }
 
     void setAnimation(ecs::Entity entity, const char *filename)

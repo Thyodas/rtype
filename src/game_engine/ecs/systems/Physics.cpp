@@ -51,8 +51,9 @@ namespace ecs {
             for (auto it1 = _entities.begin(); it1 != _entities.end(); it1++) {
                 auto& transf1 = _coord->getComponent<components::physics::transform_t>(*it1);
                 auto& collider1 = _coord->getComponent<components::physics::collider_t>(*it1);
-                for (auto it2 = it1; it2 != _entities.end();) {
-                    it2++;
+                auto it2 = it1;
+                it2++;
+                for (; it2 != _entities.end(); it2++) {
                     if (it2 == _entities.end()) break;
                     auto& transf2 = _coord->getComponent<components::physics::transform_t>(*it2);
                     auto& collider2 = _coord->getComponent<components::physics::collider_t>(*it2);
@@ -75,7 +76,7 @@ namespace ecs {
 
         CollisionResponse::CollisionResponse(ecs::Coordinator &coord) : _coord(coord)
         {
-            _coord.registerListener<CollisionEvent>([this](const CollisionEvent &event) {
+            auto lambda = [this](const CollisionEvent &event) {
                 auto &transf = _coord.getComponent<ecs::components::physics::transform_t>(event.entity1);
                 auto &collider = _coord.getComponent<ecs::components::physics::collider_t>(event.entity1);
                 Vector3 displacementVector = getCollisionResponse(event);
@@ -85,7 +86,11 @@ namespace ecs {
                 Matrix translate = MatrixTranslate(displacementVector.x, displacementVector.y, displacementVector.z);
                 collider.matTranslate = MatrixMultiply(collider.matTranslate, translate);
                 CollisionResponse::updateColliderGlobalVerts(collider);
-            });
+            };
+
+            auto shared = std::make_shared<std::function<void(CollisionEvent&)>>(lambda);
+
+            _coord.registerListener<CollisionEvent>(shared);
         }
 
         float CollisionResponse::getOverlap(Vector2 a, Vector2 b)
@@ -111,7 +116,6 @@ namespace ecs {
                 bounds.x = fmin(bounds.x, proj);
                 bounds.y = fmax(bounds.y, proj);
             }
-            //std::cout << bounds.x << " " << bounds.y <<  std::endl;
             return bounds;
         }
 

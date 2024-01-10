@@ -24,7 +24,7 @@ namespace client
 
         void onAttach(ecs::Entity entity) override
         {
-            _networkManager.registerResponse({
+            addResponse({
                 {common::NetworkMessage::serverDestroyBullet,
                 [this](rtype::net::Message<common::NetworkMessage> msg)
                 {
@@ -46,26 +46,20 @@ namespace client
             if (body.entityNetId != getNetId())
                 return;
 
-            std::cout << "destroying bullet " << _entity << std::endl;
-            _coord->destroyEntity(_entity);
+            engine::destroyEntity(_entity);
+            unregisterResponses();
         }
 
         void updatePosition(rtype::net::Message<common::NetworkMessage> &msg)
         {
-            //std::cout << "before update for bullet " << _entity << std::endl;
             common::game::netbody::ServerUpdateBulletPosition body;
             msg >> body;
-
-            std::cout << "before with id " << body.entityNetId << std::endl;
 
             if (body.entityNetId != getNetId())
                 return;
 
-            // std::cout << "after" << std::endl;
-
             auto &transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_entity);
             transform.pos = body.pos;
-            // std::cout << "after update" << std::endl;
         }
 
         void update() override

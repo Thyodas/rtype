@@ -32,6 +32,12 @@ namespace ecs::components::behaviour
             networkManager.*/
         }
 
+        ~NetworkBehaviour()
+        {
+            std::cout << "le destructeur est call" << std::endl;
+            unregisterResponses();
+        }
+
         void setEntity(ecs::Entity entity) override
         {
             ecs::components::network::network_t network = {
@@ -50,7 +56,6 @@ namespace ecs::components::behaviour
         [[nodiscard]] uint32_t getNetId() const
         {
             auto &netData = _coord->getComponent<ecs::components::network::network_t>(_entity);
-            std::cout << "id is " << _entity << std::endl;
             return netData.entityNetId;
         }
 
@@ -69,6 +74,25 @@ namespace ecs::components::behaviour
         {
         };
 
+        using ResponseFunction = std::function<void(rtype::net::Message<common::NetworkMessage> msg)>;
+
+        void addResponse(const std::vector<std::pair<common::NetworkMessage, ResponseFunction>>& responses)
+        {
+            auto responseIds = _networkManager.registerResponse(responses);
+            _responses.insert(_responses.end(), responseIds.begin(), responseIds.end());
+        }
+
+        void addResponse(common::NetworkMessage messageType, const ResponseFunction& func)
+        {
+            _responses.push_back(_networkManager.registerResponse(messageType, func));
+        }
+
+        void unregisterResponses(void)
+        {
+            for (auto id : _responses)
+                _networkManager.unregisterResponse(id);
+        }
+
     protected:
         // std::map<std::string, ResponseFunction> responses;
         NetworkManager &_networkManager;
@@ -76,5 +100,7 @@ namespace ecs::components::behaviour
     private:
         uint32_t _entityNetId;
         uint32_t _connectionId;
+
+        std::vector<int> _responses;
     };
 } // namespace ecs::components::behaviour
