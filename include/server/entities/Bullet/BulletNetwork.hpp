@@ -31,14 +31,12 @@ namespace server {
 
             void onAttach(ecs::Entity entity) override
             {
-                auto shared = shared_from_this();
-
                 addListener<CollisionEvent>([this](CollisionEvent &event) {
-                    std::cout << _sender << std::endl;
                     if (event.entity1 == _sender || event.entity2 == _sender) {
                         return;
                     }
-                    std::cout << "ca collisione entre " << event.entity1 << " et " << event.entity2 << std::endl;
+                    if (event.entity1 != _entity && event.entity2 != _entity)
+                        return;
                     auto &life = engine::Engine::getInstance()->getComponent<ecs::components::health::health_t>(event.entity1);
                     destroyBullet();
                     engine::destroyEntity(_entity);
