@@ -7,6 +7,5 @@ var classengine_1_1_engine =
     [ "registerListener", "classengine_1_1_engine.html#ac614e22b9ce2e97f9b5b3fdeb82a5d03", null ],
     [ "isWindowOpen", "classengine_1_1_engine.html#a0399eb84d58a5b6a151065bd27c9165e", null ],
     [ "run", "classengine_1_1_engine.html#a26915cb758c2ef7ed6c96d1dfb1e3136", null ],
-    [ "getElapsedTime", "classengine_1_1_engine.html#aeef234f6dc764a620ebbeb57924be12a", null ],
-    [ "triggerAudioOn", "classengine_1_1_engine.html#a9cd8656a1bd70916628b8085f4b876cd", null ]
+    [ "getElapsedTime", "classengine_1_1_engine.html#aeef234f6dc764a620ebbeb57924be12a", null ]
 ];
