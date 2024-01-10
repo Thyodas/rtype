@@ -17,9 +17,10 @@ var searchData=
   ['getid_14',['getID',['../classrtype_1_1net_1_1_connection.html#a26a39b4a74b19fc8ae2e1f37e6502f2e',1,'rtype::net::Connection']]],
   ['getincoming_15',['getIncoming',['../classrtype_1_1net_1_1_client_interface.html#a4d61e723e1a35614e893de0f617c04ea',1,'rtype::net::ClientInterface']]],
   ['getmodel_16',['getModel',['../classecs_1_1components_1_1_i_shape.html#a03e8f03c696b607f7ad5f7cb43ea34e8',1,'ecs::components::IShape']]],
-  ['getopened_17',['getOpened',['../classengine_1_1editor_1_1_a_document_window.html#a8af3467ef223fd872875f4f8e3f8d0ce',1,'engine::editor::ADocumentWindow']]],
+  ['getposition_17',['getPosition',['../classengine_1_1core_1_1_engine_camera.html#ab0034b83de593a45b30c506a162b6c26',1,'engine::core::EngineCamera']]],
   ['getsignature_18',['getSignature',['../classecs_1_1_entity_manager.html#ae21219b3d91d4b90a5100fa1b050a148',1,'ecs::EntityManager']]],
   ['getsingletoncomponent_19',['getSingletonComponent',['../classecs_1_1_coordinator.html#a9e0f4b9d5b32186cea15014ae65bc6aa',1,'ecs::Coordinator']]],
-  ['getwidth_20',['getWidth',['../classengine_1_1core_1_1_window.html#a29f74683fa9772f4d866f10114c45bad',1,'engine::core::Window']]],
-  ['getwindow_21',['getWindow',['../classengine_1_1_engine.html#aa011aff7a9a0d6a65373330aa7526712',1,'engine::Engine']]]
+  ['gettarget_20',['getTarget',['../classengine_1_1core_1_1_engine_camera.html#a4eb3706f10fef29801042fd1bd22e1a4',1,'engine::core::EngineCamera']]],
+  ['getup_21',['getUp',['../classengine_1_1core_1_1_engine_camera.html#ae39683a9660950d11a5d506b4a56e6f2',1,'engine::core::EngineCamera']]],
+  ['getwidth_22',['getWidth',['../classengine_1_1core_1_1_window.html#a29f74683fa9772f4d866f10114c45bad',1,'engine::core::Window']]]
 ];

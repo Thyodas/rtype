@@ -103,6 +103,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab56f79ed2c3a4a51be272d865b1be6e8"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classecs_1_1system_1_1_system_manager.html#ab56f79ed2c3a4a51be272d865b1be6e8">registerSystem</a> ()</td></tr>
 <tr class="memdesc:ab56f79ed2c3a4a51be272d865b1be6e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a new system of type T in the ECS framework.  <a href="classecs_1_1system_1_1_system_manager.html#ab56f79ed2c3a4a51be272d865b1be6e8">More...</a><br /></td></tr>
 <tr class="separator:ab56f79ed2c3a4a51be272d865b1be6e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a00ecd5be3c44543b1fdbd3da73162a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classecs_1_1system_1_1_system_manager.html#a4a00ecd5be3c44543b1fdbd3da73162a">updateSystemEntities</a> (const <a class="el" href="classecs_1_1_scene_manager.html">ecs::SceneManager</a> &amp;sceneManager)</td></tr>
+<tr class="memdesc:a4a00ecd5be3c44543b1fdbd3da73162a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates systems entites based on the scenes that are active.  <a href="classecs_1_1system_1_1_system_manager.html#a4a00ecd5be3c44543b1fdbd3da73162a">More...</a><br /></td></tr>
+<tr class="separator:a4a00ecd5be3c44543b1fdbd3da73162a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a219b5490ced9cca82da0465809e282e8"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a219b5490ced9cca82da0465809e282e8"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classecs_1_1system_1_1_system_manager.html#a219b5490ced9cca82da0465809e282e8">setSignature</a> (Signature signature)</td></tr>
 <tr class="memdesc:a219b5490ced9cca82da0465809e282e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the signature for a system.  <a href="classecs_1_1system_1_1_system_manager.html#a219b5490ced9cca82da0465809e282e8">More...</a><br /></td></tr>
@@ -151,6 +154,40 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>std::shared_ptr&lt;T&gt; - Shared pointer to the newly registered system. </dd></dl>
+
+</div>
+</div>
+<a id="a4a00ecd5be3c44543b1fdbd3da73162a" name="a4a00ecd5be3c44543b1fdbd3da73162a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a00ecd5be3c44543b1fdbd3da73162a">&#9670;&nbsp;</a></span>updateSystemEntities()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ecs::system::SystemManager::updateSystemEntities </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classecs_1_1_scene_manager.html">ecs::SceneManager</a> &amp;&#160;</td>
+          <td class="paramname"><em>sceneManager</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Updates systems entites based on the scenes that are active. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sceneManager</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
