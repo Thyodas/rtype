@@ -56,6 +56,8 @@ namespace engine {
                                     ecs::components::render::render_t render = {ecs::components::ShapeType::CUBE, true, std::make_shared<ecs::components::Cube>()}
             );
 
+            ecs::Entity addInvisibleEntity(void);
+
             void destroyEntity(ecs::Entity entity);
 
             /**
@@ -173,7 +175,7 @@ namespace engine {
 
     void runEngineTextureMode(RenderTexture& ViewTexture);
 
-
+    ecs::Entity createEntity(void);
 
     /**
      * @brief Creates a cube entity with specified parameters.

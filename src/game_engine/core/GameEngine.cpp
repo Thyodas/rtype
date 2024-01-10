@@ -89,6 +89,11 @@ namespace engine
         return entity;
     }
 
+    ecs::Entity Engine::addInvisibleEntity(void)
+    {
+        return _coordinator->createEntity();
+    }
+
     void Engine::destroyEntity(ecs::Entity entity)
     {
         _entitiesToDestroy.push(entity);
@@ -146,6 +151,11 @@ namespace engine
     void runEngineTextureMode(RenderTexture& ViewTexture)
     {
         Engine::getInstance()->runTextureMode(ViewTexture);
+    }
+
+    ecs::Entity createEntity(void)
+    {
+        return Engine::getInstance()->addInvisibleEntity();
     }
 
     ecs::Entity createCube(
