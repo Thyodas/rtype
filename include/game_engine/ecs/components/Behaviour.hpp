@@ -48,12 +48,6 @@ namespace ecs {
                      */
                     virtual void setEntity(ecs::Entity entity);
 
-                    /**
-                     * @brief Get the Entity object
-                     * @return ecs::Entity The entity associated with this behaviour.
-                     */
-                    ecs::Entity getEntity(void) const;
-
                     template<typename T>
                     void addListener(std::function<void(T&)> listener)
                     {

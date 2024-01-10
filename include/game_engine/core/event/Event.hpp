@@ -74,27 +74,20 @@ namespace ecs {
                  * @param listener The function to be called when the event of type T occurs.
                  */
                 template<typename T, typename ClosureWeakPtr = std::shared_ptr<int>>
-                void registerListener(std::function<void(T&)> listener, std::shared_ptr<ClosureWeakPtr> closure = nullptr)
+                int registerListener(std::shared_ptr<std::function<void(T&)>> listener, std::shared_ptr<ClosureWeakPtr> closure = nullptr)
                 {
-                    if (closure == nullptr) {
-                        _listeners[typeid(T)].push_back(
-                            [listener](AEvent &event) -> bool {
-                                listener(static_cast<T&>(event));
-                                return false;
-                            }
-                        );
-                        return;
-                    }
-                    std::weak_ptr<ClosureWeakPtr> weakClosure = closure;
-                    _listeners[typeid(T)].push_back(
-                        [listener, weakClosure](AEvent &event) -> bool {
-                            if (auto closurePtr = weakClosure.lock()) {
-                                listener(static_cast<T&>(event));
-                                return false;
-                            }
-                            return true;
-                        }
-                    );
+                    int id = _nextId++;
+                    auto wrapper = std::make_shared<std::function<void(AEvent&)>>([listener](AEvent &event) -> void {
+                        (*listener)(static_cast<T&>(event));
+                    });
+                    _listeners.insert(ListenerRecord(id, typeid(T), wrapper));
+                    return id;
+                }
+
+                void unregisterListener(int listenerId)
+                {
+                    auto& id_index = _listeners.get<id>();
+                    id_index.erase(listenerId);
                 }
 
                 void unregisterListener(int listenerId)
@@ -123,8 +116,9 @@ namespace ecs {
                 void dispatchEvents();
 
             private:
-                std::unordered_map<std::type_index, std::vector<std::function<bool (AEvent&)>>> _listeners;
+                ListenerSet _listeners;
                 std::queue<std::shared_ptr<AEvent>> _eventQueue;
+                int _nextId;
         };
     }
 }
