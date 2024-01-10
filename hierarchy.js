@@ -65,6 +65,7 @@ var hierarchy =
     ] ],
     [ "engine::editor::IDocumentWindow", "classengine_1_1editor_1_1_i_document_window.html", [
       [ "engine::editor::ADocumentWindow", "classengine_1_1editor_1_1_a_document_window.html", [
+        [ "engine::editor::ConsoleWindow", "classengine_1_1editor_1_1_console_window.html", null ],
         [ "engine::editor::EntityPropertiesWindow", "classengine_1_1editor_1_1_entity_properties_window.html", null ],
         [ "engine::editor::Main3DScene", "classengine_1_1editor_1_1_main3_d_scene.html", null ],
         [ "engine::editor::ModelViewerWindow", "classengine_1_1editor_1_1_model_viewer_window.html", null ],
@@ -84,6 +85,7 @@ var hierarchy =
       [ "ecs::components::input::Input", "structecs_1_1components_1_1input_1_1_input.html", null ]
     ] ],
     [ "ecs::components::input::keyState", "structecs_1_1components_1_1input_1_1key_state.html", null ],
+    [ "engine::editor::LogMessage", "structengine_1_1editor_1_1_log_message.html", null ],
     [ "rtype::net::Message< T >", "structrtype_1_1net_1_1_message.html", null ],
     [ "rtype::net::MessageHeader< T >", "structrtype_1_1net_1_1_message_header.html", null ],
     [ "ecs::components::network::network_s", "structecs_1_1components_1_1network_1_1network__s.html", null ],
