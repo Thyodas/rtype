@@ -16,6 +16,11 @@
 #include "common/utils/Chrono.hpp"
 #include <chrono>
 
+#include <boost/multi_index_container.hpp>
+#include <boost/multi_index/ordered_index.hpp>
+#include <boost/multi_index/member.hpp>
+
+using namespace boost::multi_index;
 
 namespace client {
 
@@ -23,7 +28,7 @@ namespace client {
     {
         public:
 
-        NetClient()
+        NetClient() : _nextId(1)
         {
             registerResponse({
                 {common::NetworkMessage::ServerPing, [this](rtype::net::Message<common::NetworkMessage> msg) {
@@ -38,16 +43,18 @@ namespace client {
                 {common::NetworkMessage::serverCreateEnemy, [this](rtype::net::Message<common::NetworkMessage> msg) {
                     resServerCreateEnemy(msg);
                 }},
+                {common::NetworkMessage::serverFireBullet, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                    resServerFireBullet(msg);
+                }},
             });
         }
+
+        void resServerFireBullet(rtype::net::Message<common::NetworkMessage>& msg);
 
         void resPingServer(rtype::net::Message<common::NetworkMessage>& msg)
         {
             common::game::netbody::PingServer body;
             msg >> body;
-
-            // std::cout << "Ping duration: " << engine::Engine::getInstance()->getElapsedTime() - body.timeStart << std::endl;
-
         }
 
         void reqPingServer()
@@ -90,26 +97,59 @@ namespace client {
 
         using ResponseFunction = std::function<void(rtype::net::Message<common::NetworkMessage> msg)>;
 
-        void registerResponse(common::NetworkMessage id, const ResponseFunction& func)
+        struct ResponseRecord {
+                int id;
+                common::NetworkMessage messageType;
+                ResponseFunction func;
+
+                ResponseRecord(int id, common::NetworkMessage messageType, ResponseFunction func)
+                    : id(id), messageType(messageType), func(std::move(func)) {}
+        };
+
+        struct id {};
+        struct message_type {};
+
+        typedef multi_index_container<
+            ResponseRecord,
+            indexed_by<
+                ordered_unique<tag<id>, member<ResponseRecord, int, &ResponseRecord::id>>,
+                ordered_non_unique<tag<message_type>, member<ResponseRecord, common::NetworkMessage, &ResponseRecord::messageType>>
+            >
+        > ResponseSet;
+
+        int registerResponse(common::NetworkMessage messageType, const ResponseFunction& func)
         {
-            _responses.insert(std::make_pair(id, func));
+            int id = _nextId++;
+            _responses.insert(ResponseRecord(id, messageType, func));
+            return id;
         }
 
-        void registerResponse(std::vector<std::pair<common::NetworkMessage, ResponseFunction>> responses)
+        std::vector<int> registerResponse(const std::vector<std::pair<common::NetworkMessage, ResponseFunction>>& responses)
         {
-            for (auto &response : responses)
-                _responses.insert(response);
+            std::vector<int> registeredIds;
+            for (const auto& response : responses) {
+                int id = _nextId++;
+                _responses.insert(ResponseRecord(id, response.first, response.second));
+                registeredIds.push_back(id);
+            }
+            return registeredIds;
+        }
+
+        void unregisterResponse(int responseId)
+        {
+            auto& id_index = _responses.get<id>();
+            id_index.erase(responseId);
         }
 
         void dispatchResponse(rtype::net::Message<common::NetworkMessage>& msg)
         {
             std::vector<ResponseFunction> functionsToCall;
 
-            {
-                const auto &[first, second] = _responses.equal_range(msg.header.id);
-                for (auto it = first; it != second; ++it) {
-                    functionsToCall.push_back(it->second);
-                }
+            auto& message_type_index = _responses.get<message_type>();
+            auto range = message_type_index.equal_range(msg.header.id);
+
+            for (auto it = range.first; it != range.second; ++it) {
+                functionsToCall.push_back(it->func);
             }
 
             for (auto& func : functionsToCall) {
@@ -127,6 +167,7 @@ namespace client {
         }
 
         protected:
-            std::unordered_multimap<common::NetworkMessage, ResponseFunction> _responses;
+            ResponseSet _responses;
+            int _nextId;
     };
 }

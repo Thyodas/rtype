@@ -167,6 +167,7 @@ namespace common::game::netbody {
 
     struct ServerFireBullet {
         uint32_t entityNetId;
+        uint32_t sender;
         Vector3 pos;
         Vector3 direction;
         double speed;

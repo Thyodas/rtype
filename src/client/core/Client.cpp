@@ -39,7 +39,7 @@ void client::Client::run()
     }, common::game::ObjectFormat::PNG);
     engine::attachBehavior(skyBox, skyBehavior);
 
-    _netClient.connect("127.0.0.1", 60000);
+    _netClient.connect("127.0.0.1", 5454);
 
     _netClient.reqPingServer();
     _netClient.reqClientConnect("Jean-Baptiste", common::game::ObjectName::DualStriker);

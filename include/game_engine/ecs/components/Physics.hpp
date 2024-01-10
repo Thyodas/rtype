@@ -51,6 +51,7 @@ namespace ecs {
             enum class CollisionType {
                 COLLIDE, ///< Standard collision.
                 LOOTABLE, ///< Item can be collected or interacted with.
+                NON_COLLIDE ///< Item does not collide with other entities.
             };
 
             /**
@@ -61,7 +62,7 @@ namespace ecs {
              * data describing the shape. It also includes matrices for rotation, scaling, and translation,
              * along with a bounding box and global vertices for collision detection.
              */
-            typedef struct collider_s {
+            typedef struct  collider_s {
                 ShapeType shapeType; ///< Type of the shape used for collision.
                 CollisionType collisionType; ///< Type of collision interaction.
                 std::shared_ptr<IShape> data; ///< Shared pointer to the shape data.

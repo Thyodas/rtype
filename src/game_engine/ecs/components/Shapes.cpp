@@ -8,6 +8,7 @@
 #include "game_engine/ecs/components/Shapes.hpp"
 #include "game_engine/ecs/components/Physics.hpp"
 #include "rlgl.h"
+#include "raymath.h"
 
 namespace ecs {
     namespace components {
@@ -18,7 +19,9 @@ namespace ecs {
 
         BoundingBox IShape::getBoundingBox(physics::collider_t &collider) const
         {
+            return collider.box;
             BoundingBox aabb = collider.box;
+            // BoundingBox aabb = GetMeshBoundingBox(_model.meshes[0]);
             Vector3 corners[8] = {
                 aabb.min,
                 {aabb.max.x, aabb.min.y, aabb.min.z},
@@ -92,11 +95,11 @@ namespace ecs {
 
         void Skybox::draw(physics::transform_t &transf) const
         {
-            rlDisableBackfaceCulling();
-            rlDisableDepthMask();
-            DrawModel(_model, transf.pos, 50.0f, WHITE);
-            rlEnableBackfaceCulling();
-            rlEnableDepthMask();
+            // rlDisableBackfaceCulling();
+            // rlDisableDepthMask();
+            // DrawModel(_model, transf.pos, 50.0f, WHITE);
+            // rlEnableBackfaceCulling();
+            // rlEnableDepthMask();
         }
     }
 }

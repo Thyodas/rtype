@@ -11,14 +11,16 @@
 
 std::shared_ptr<ecs::Coordinator> ecs::components::behaviour::Behaviour::_coord = nullptr;
 std::shared_ptr<ecs::Coordinator> ecs::system::System::_coord = nullptr;
-namespace engine {
+namespace engine
+{
 
     Engine *Engine::engine = nullptr;
     std::mutex Engine::_mutex;
     void Engine::init(bool disableRender)
     {
         _disableRender = disableRender;
-        if (!_disableRender) {
+        if (!_disableRender)
+        {
             _window = std::make_shared<core::Window>();
             _window->setFPS(60);
         }
@@ -45,7 +47,8 @@ namespace engine {
         signaturePhysics.set(_coordinator->getComponentType<ecs::components::physics::transform_t>());
         signaturePhysics.set(_coordinator->getComponentType<ecs::components::physics::rigidBody_t>());
         ecs::Signature signatureRender;
-        if (!_disableRender) {
+        if (!_disableRender)
+        {
             signatureRender.set(_coordinator->getComponentType<ecs::components::physics::transform_t>());
             signatureRender.set(_coordinator->getComponentType<ecs::components::render::render_t>());
         }
@@ -60,7 +63,8 @@ namespace engine {
         _physicSystem = _coordinator->registerSystem<ecs::system::PhysicsSystem>();
         _coordinator->setSystemSignature<ecs::system::PhysicsSystem>(signaturePhysics);
 
-        if (!_disableRender) {
+        if (!_disableRender)
+        {
             _renderSystem = _coordinator->registerSystem<ecs::system::RenderSystem>();
             _coordinator->setSystemSignature<ecs::system::RenderSystem>(signatureRender);
         }
@@ -87,11 +91,22 @@ namespace engine {
         });
     }
 
-    ecs::Entity Engine::addEntity(ecs::components::physics::transform_t transf, ecs::components::render::render_t render) {
+    ecs::Entity Engine::addEntity(ecs::components::physics::transform_t transf, ecs::components::render::render_t render)
+    {
         ecs::Entity entity = _coordinator->createEntity();
         _coordinator->addComponent<ecs::components::physics::transform_t>(entity, transf);
         _coordinator->addComponent<ecs::components::render::render_t>(entity, render);
         return entity;
+    }
+
+    ecs::Entity Engine::addInvisibleEntity(void)
+    {
+        return _coordinator->createEntity();
+    }
+
+    void Engine::destroyEntity(ecs::Entity entity)
+    {
+        _entitiesToDestroy.push(entity);
     }
 
     void Engine::run(void) {
@@ -107,9 +122,13 @@ namespace engine {
         BeginDrawing();
         BeginMode3D(_window->getCamera());
         _renderSystem->render();
-        //DrawGrid(20, 1.0f);
+        // DrawGrid(20, 1.0f);
         EndMode3D();
         EndDrawing();
+        while (!_entitiesToDestroy.empty()) {
+            _coordinator->destroyEntity(_entitiesToDestroy.front());
+            _entitiesToDestroy.pop();
+        }
     }
 
     void Engine::runTextureMode(RenderTexture& ViewTexture) {
@@ -144,6 +163,11 @@ namespace engine {
         Engine::getInstance()->runTextureMode(ViewTexture);
     }
 
+    ecs::Entity createEntity(void)
+    {
+        return Engine::getInstance()->addInvisibleEntity();
+    }
+
     ecs::Entity createCube(
         Vector3 pos,
         float width,
@@ -151,8 +175,7 @@ namespace engine {
         float length,
         Color color,
         bool toggleWire,
-        Color wireColor
-        )
+        Color wireColor)
     {
         auto cube = std::make_shared<ecs::components::Cube>(width, height, length, toggleWire, color, wireColor);
         ecs::components::physics::transform_t transf = {pos, {0}, {0}};
@@ -203,11 +226,16 @@ namespace engine {
         ecs::components::render::render_t render = {ecs::components::ShapeType::MODEL, true, model};
         double now = engine::Engine::getInstance()->getElapsedTime() / 1000;
         ecs::components::physics::rigidBody_t body = {0.0, {0}, {0}, now};
-        ecs::components::physics::collider_t collider = {ecs::components::ShapeType::MODEL, ecs::components::physics::CollisionType::COLLIDE, model};
+        ecs::components::physics::collider_t collider = {ecs::components::ShapeType::MODEL, ecs::components::physics::CollisionType::NON_COLLIDE, model};
         ecs::Entity entity = Engine::getInstance()->addEntity(transf, render);
         Engine::getInstance()->addComponent<ecs::components::physics::collider_t>(entity, collider);
         Engine::getInstance()->addComponent<ecs::components::physics::rigidBody_t>(entity, body);
         return entity;
+    }
+
+    void destroyEntity(ecs::Entity entity)
+    {
+        Engine::getInstance()->destroyEntity(entity);
     }
 
     void setAnimation(ecs::Entity entity, const char *filename)
@@ -247,8 +275,7 @@ namespace engine {
 
     void attachBehavior(
         ecs::Entity entity,
-        std::shared_ptr<ecs::components::behaviour::Behaviour> behaviour
-        )
+        std::shared_ptr<ecs::components::behaviour::Behaviour> behaviour)
     {
         Engine::getInstance()->addComponent<std::shared_ptr<ecs::components::behaviour::Behaviour>>(entity, behaviour);
         behaviour->setEntity(entity);

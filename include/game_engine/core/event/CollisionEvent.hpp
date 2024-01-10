@@ -10,7 +10,7 @@
 #include "./Event.hpp"
 #include "game_engine/ecs/Entity.hpp"
 
-class CollisionEvent : public ecs::event::IEvent {
+class CollisionEvent : public ecs::event::AEvent {
     public:
         CollisionEvent(
             ecs::Entity ent1,

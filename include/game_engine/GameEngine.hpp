@@ -58,6 +58,10 @@ namespace engine {
                                     ecs::components::render::render_t render = {ecs::components::ShapeType::CUBE, true, std::make_shared<ecs::components::Cube>()}
             );
 
+            ecs::Entity addInvisibleEntity(void);
+
+            void destroyEntity(ecs::Entity entity);
+
             /**
              * @brief Adds a component to an entity.
              * @tparam T Type of the component.
@@ -163,16 +167,15 @@ namespace engine {
 
             common::utils::Chrono _chrono;
 
+            std::queue<ecs::Entity> _entitiesToDestroy;
+
         private:
             static Engine *engine;
             static std::mutex _mutex;
 
         protected:
             Engine() {};
-            ~Engine()
-            {
-                std::cout << "Engine destroyed" << std::endl;
-            };
+            ~Engine() {};
 
         public:
             Engine(Engine &other) = delete;
@@ -199,7 +202,7 @@ namespace engine {
 
     void runEngineTextureMode(RenderTexture& ViewTexture);
 
-
+    ecs::Entity createEntity(void);
 
     /**
      * @brief Creates a cube entity with specified parameters.
@@ -229,6 +232,9 @@ namespace engine {
      * @return The created skybox entity.
      */
     ecs::Entity createSkybox(const char *filename, Vector3 pos, Color color = WHITE);
+
+    void destroyEntity(ecs::Entity entity);
+
     /**
      * @brief Creates a behavior component.
      * @tparam T Type of the behavior.

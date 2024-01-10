@@ -38,6 +38,7 @@ namespace server {
             {0, 0, 0},
             {1, 1, 1}
         });
+        std::cout << playerShip << std::endl;
         auto behave = engine::createBehavior<server::PlayerNetwork>(*this, playerShip, client->getID());
         engine::attachBehavior(playerShip, behave);
 
@@ -105,7 +106,7 @@ namespace server {
         messageAllClients(msg);
     }
 
-    void NetServer::allServerFireBullet(ecs::Entity bullet)
+    void NetServer::allServerFireBullet(ecs::Entity bullet, ecs::Entity sender)
     {
         std::cout << "allServerFireBullet" << std::endl;
         rtype::net::Message<common::NetworkMessage> msg;
@@ -113,6 +114,7 @@ namespace server {
 
         common::game::netbody::ServerFireBullet body = {
             .entityNetId = bullet,
+            .sender = sender,
             .pos = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(bullet).pos,
             .direction = engine::Engine::getInstance()->getComponent<ecs::components::direction::direction_t>(bullet).direction,
             .speed = 0,
