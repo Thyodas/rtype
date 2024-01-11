@@ -18,7 +18,13 @@
 
 client::Client::Client()
 {
+    std::cout << "dans le client" << std::endl;
     engine::initEngine();
+    std::function<bool(BulletShotEvent&)> fct = [](BulletShotEvent &event) {
+        // Checker si il faut tirer ou non
+        return true;
+    };
+    //engine::triggerAudioOnEngine<BulletShotEvent>("../../ressources/audio/shoot.wav", fct);
 }
 
 void client::Client::run()

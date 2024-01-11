@@ -95,7 +95,7 @@ namespace ecs {
                  * @param event The event of type T to be emitted.
                  */
                 template <typename T>
-                void emitEvent(const T& event)
+                void emitEvent(T& event)
                 {
                     _eventQueue.push(std::make_shared<T>(event));
                 }

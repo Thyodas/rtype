@@ -83,12 +83,6 @@ namespace engine
         _audioSystem = _coordinator->registerSystem<ecs::system::AudioSystem>();
         _coordinator->registerComponent<ecs::components::sound::AudioSource>();
         _audioSystem->initialize();
-
-        _coordinator->registerListener<PlayerActionEvent>([this](const PlayerActionEvent& event) {
-            if (event.spacePressed) {
-                _audioSystem->playSoundFromPath("../../ressources/audio/shoot.wav");
-            }
-        });
     }
 
     ecs::Entity Engine::addEntity(ecs::components::physics::transform_t transf, ecs::components::render::render_t render)

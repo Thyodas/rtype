@@ -67,7 +67,8 @@ namespace ecs {
                         BoundingBox box2 = collider2.data->getBoundingBox(collider2);
                         bool colliding = CheckCollisionBoxes(box1, box2);
                         if (colliding) {
-                            _coord->emitEvent<CollisionEvent>(CollisionEvent(*it1, box1, collider1.data->getModel().transform, *it2, box2, collider2.data->getModel().transform));
+                            CollisionEvent event(*it1, box1, collider1.data->getModel().transform, *it2, box2, collider2.data->getModel().transform);
+                            _coord->emitEvent<CollisionEvent>(event);
                         }
                     }
                 }

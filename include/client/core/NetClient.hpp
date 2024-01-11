@@ -20,6 +20,9 @@
 #include <boost/multi_index/ordered_index.hpp>
 #include <boost/multi_index/member.hpp>
 
+#include "game_engine/GameEngine.hpp"
+#include "game_engine/core/event/BulletShotEvent.hpp"
+
 using namespace boost::multi_index;
 
 namespace client {
@@ -30,6 +33,7 @@ namespace client {
 
         NetClient() : _nextId(1)
         {
+            std::cout << "dans le net client" << std::endl;
             registerResponse({
                 {common::NetworkMessage::ServerPing, [this](rtype::net::Message<common::NetworkMessage> msg) {
                     resPingServer(msg);
@@ -47,6 +51,21 @@ namespace client {
                     resServerFireBullet(msg);
                 }},
             });
+
+            // engine::Engine::getInstance()->triggerAudioOn("../../ressources/audio/shoot.wav", [this](BulletShotEvent &event) {
+            //     // Checker si il faut tirer ou non
+            //     return true;
+            // });
+
+            // engine::Engine::triggerAudioOn("../../ressources/audio/shoot.wav", [this](BulletShotEvent &event) {
+            //     // Checker si il faut tirer ou non
+            //     return true;
+            // });
+
+            // engine::triggerAudioOnEngine<BulletShotEvent>("../../ressources/audio/shoot.wav", [this](const BulletShotEvent &event) {
+            //     // Checker si il faut tirer ou non
+            //     return true;
+            // });
         }
 
         void resServerFireBullet(rtype::net::Message<common::NetworkMessage>& msg);

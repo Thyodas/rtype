@@ -95,9 +95,10 @@ namespace engine {
              * @param listener Function to handle the event.
              */
             template<typename T>
-            void registerListener(std::function<void(const T&)> listener)
+            void registerListener(std::function<void(T&)> listener)
             {
-                _coordinator->registerListener<T>(listener);
+                auto shared = std::make_shared<std::function<void(T&)>>(listener);
+                _coordinator->registerListener<T>(shared);
             }
 
             /**
@@ -140,8 +141,8 @@ namespace engine {
              *                  If this function returns true, the audio is triggered.
              */
             template<typename T>
-            void triggerAudioOn(const std::string& audioPath, std::function<bool(const T&)> condition) {
-                registerListener<T>([this, audioPath, condition](const T& event) {
+            void triggerAudioOn(const std::string& audioPath, std::function<bool(T&)> condition) {
+                registerListener<T>([this, audioPath, condition](T& event) {
                     if (condition(event)) {
                         auto audioEntity = this->_coordinator->createEntity();
                         ecs::components::sound::AudioSource audioSrc{audioPath};
@@ -149,6 +150,12 @@ namespace engine {
                         _audioSystem->playSoundFromPath(audioPath);
                     }
                 });
+            }
+
+            template<typename T>
+            void emitEvent(T &event)
+            {
+                _coordinator->emitEvent<T>(event);
             }
 
         private:
@@ -322,8 +329,32 @@ namespace engine {
      * @param listener Function to handle the event.
      */
     template<typename T>
-    void registerListener(std::function<void(const T&)> listener)
+    void registerListener(std::function<void(T&)> listener)
     {
         Engine::getInstance()->registerListener<T>(listener);
+    }
+
+    /**
+     * @brief Triggers audio playback based on specific game events.
+     *
+     * This template function registers a listener for a given event type. When the event occurs,
+     * it checks a provided condition. If the condition is met, an entity with an AudioSource
+     * component is created, which can be used to play audio.
+     *
+     * @tparam T The type of event to listen for.
+     * @param audioPath The file path of the audio to be played.
+     * @param condition A function that takes an event of type T and returns a boolean.
+     *                  If this function returns true, the audio is triggered.
+     */
+    template<typename T>
+    void triggerAudioOnEngine(const std::string& audioPath, std::function<bool(T&)> condition)
+    {
+        Engine::getInstance()->triggerAudioOn<T>(audioPath, condition);
+    }
+
+    template<typename T>
+    void emitEvent(T &event)
+    {
+        Engine::getInstance()->emitEvent(event);
     }
 }

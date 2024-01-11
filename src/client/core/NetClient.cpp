@@ -11,6 +11,7 @@
 #include "client/entities/Player/PlayerNetwork.hpp"
 #include "client/entities/Ally/AllyNetwork.hpp"
 #include "client/entities/Enemy/EnemyNetwork.hpp"
+#include "game_engine/core/event/BulletShotEvent.hpp"
 
 
 namespace client {
@@ -114,5 +115,7 @@ namespace client {
 
                 auto behave = engine::createBehavior<client::BulletNetwork>(*this, body.entityNetId);
                 engine::attachBehavior(gunBullet, behave);
+                // BulletShotEvent eventShot;
+                // engine::emitEvent<BulletShotEvent>(eventShot);
         }
 }
