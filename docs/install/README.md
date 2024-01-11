@@ -1,3 +1,4 @@
+\page install_readme Install
 # Install
 
 This document provides an overview of the project and instructions on how to build and use it.
