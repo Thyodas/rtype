@@ -33,7 +33,7 @@ namespace rtype::net {
              * @param socket The socket connection
              * @param qIn The incoming message queue reference
              */
-            Connection(owner parent, asio::io_context& asioContext, asio::ip::tcp::socket socket,
+            Connection(owner parent, asio::io_context& asioContext, asio::ip::udp::socket socket,
                 TsQueue<OwnedMessage<T>>& qIn);
 
             virtual ~Connection() = default;
@@ -106,7 +106,8 @@ namespace rtype::net {
             void addToIncomingMessageQueue();
 
         protected:
-            asio::ip::tcp::socket _socket;
+            asio::ip::udp::socket _socket;
+            asio::ip::udp::endpoint remoteEndpoint;
             asio::io_context& _asioContext;
             TsQueue<Message<T>> _messagesOut;
 
@@ -131,41 +132,11 @@ namespace rtype::net {
     };
 
     template<typename T>
-    Connection<T>::Connection(owner parent, asio::io_context& asioContext, asio::ip::tcp::socket socket,
+    Connection<T>::Connection(owner parent, asio::io_context& asioContext, asio::ip::udp::socket socket,
         TsQueue<OwnedMessage<T>>& qIn)
         : _socket(std::move(socket)), _asioContext(asioContext), _messagesIn(qIn)
     {
         _ownerType = parent;
-    }
-
-    template<typename T>
-    uint32_t Connection<T>::getID() const
-    {
-        return id;
-    }
-
-    template<typename T>
-    void Connection<T>::connectToClient(uint32_t uid)
-    {
-        if (_ownerType == owner::server) {
-            if (_socket.is_open()) {
-                id = uid;
-                readHeader();
-            }
-        }
-    }
-
-    template<typename T>
-    void Connection<T>::connectToServer(const asio::ip::tcp::resolver::results_type& endpoints)
-    {
-        if (_ownerType != owner::client)
-            return;
-        asio::async_connect(_socket, endpoints,
-            [this](std::error_code ec, const asio::ip::tcp::endpoint& endpoint) {
-                if (!ec) {
-                    readHeader();
-                }
-            });
     }
 
     template<typename T>
@@ -188,6 +159,9 @@ namespace rtype::net {
     template<typename T>
     void Connection<T>::startListening()
     {
+        asio::post(_asioContext, [this]() {
+            readBody();
+        });
     }
 
     template<typename T>
@@ -195,96 +169,34 @@ namespace rtype::net {
     {
         asio::post(_asioContext,
             [this, msg]() {
-                const bool bWritingMessage = !_messagesOut.empty();
-                _messagesOut.push_back(msg);
-                if (!bWritingMessage) {
-                    writeHeader();
-                }
-            });
-    }
-
-    template<typename T>
-    void Connection<T>::writeHeader()
-    {
-        asio::async_write(_socket, asio::buffer(&_messagesOut.front().header, sizeof(MessageHeader<T>)),
-            [this](std::error_code ec, std::size_t length) {
-                if (ec) {
-                    std::cout << "[" << id << "] Write Header Fail.\n";
-                    _socket.close();
-                    return;
-                }
-                if (_messagesOut.front().body.size() > 0) {
-                    writeBody();
-                } else {
-                    _messagesOut.pop_front();
-
-                    if (!_messagesOut.empty()) {
-                        writeHeader();
-                    }
-                }
-            });
-    }
-
-    template<typename T>
-    void Connection<T>::writeBody()
-    {
-        asio::async_write(_socket,
-            asio::buffer(_messagesOut.front().body.data(), _messagesOut.front().body.size()),
-            [this](std::error_code ec, std::size_t length) {
-                if (ec) {
-                    std::cout << "[" << id << "] Write Body Fail.\n";
-                    _socket.close();
-                    return;
-                }
-                _messagesOut.pop_front();
-
-                if (!_messagesOut.empty()) {
-                    writeHeader();
-                }
-            });
-    }
-
-    template<typename T>
-    void Connection<T>::readHeader()
-    {
-        asio::async_read(_socket, asio::buffer(&_msgTemporaryIn.header, sizeof(MessageHeader<T>)),
-            [this](std::error_code ec, std::size_t length) {
-                if (ec) {
-                    std::cout << "[" << id << "] Read Header Fail.\n";
-                    _socket.close();
-                    return;
-                }
-                if (_msgTemporaryIn.header.size > 0) {
-                    _msgTemporaryIn.body.resize(_msgTemporaryIn.header.size);
-                    readBody();
-                } else {
-                    addToIncomingMessageQueue();
-                }
+                _socket.send_to(asio::buffer(msg.data(), msg.size()), remoteEndpoint);
             });
     }
 
     template<typename T>
     void Connection<T>::readBody()
     {
-        asio::async_read(_socket, asio::buffer(_msgTemporaryIn.body.data(), _msgTemporaryIn.body.size()),
+        _socket.async_receive_from(asio::buffer(&_msgTemporaryIn, sizeof(Message<T>)), remoteEndpoint,
             [this](std::error_code ec, std::size_t length) {
                 if (ec) {
                     std::cout << "[" << id << "] Read Body Fail.\n";
                     _socket.close();
                     return;
                 }
+
+                // Access remote endpoint information here
+                asio::ip::address senderAddress = remoteEndpoint.address();
+                const uint16_t senderPort = remoteEndpoint.port();
+                std::cout << "Received from: " << senderAddress << ":" << senderPort << std::endl;
+
                 addToIncomingMessageQueue();
+                readBody(); // Continue listening for the next packet
             });
     }
 
     template<typename T>
     void Connection<T>::addToIncomingMessageQueue()
     {
-        if (_ownerType == owner::server)
-            _messagesIn.push_back({this->shared_from_this(), _msgTemporaryIn});
-        else
-            _messagesIn.push_back({nullptr, _msgTemporaryIn});
-
-        readHeader();
+        _messagesIn.push_back({this->shared_from_this(), _msgTemporaryIn});
     }
 }
