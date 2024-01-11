@@ -5,6 +5,6 @@
 
 ([[ -e ./build/Release ]] && cp ./build/Release/* ./build) || ([[ -e ./build/Debug ]] && cp ./build/Debug/* ./build)
 
-cp -r ./ressources ./build/ || (echo "Copy ressources failed" && exit 1)
+([[ -e ./ressources ]] && cp -r ./ressources ./build/) || (echo "Copy ressources failed" && exit 1)
 
 tar -C $(pwd) -cf package.tar build || (echo "Tar failed" && exit 1)

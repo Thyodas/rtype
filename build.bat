@@ -13,7 +13,12 @@ if exist .\build\Release (
 )
 
 REM Copy resources to the build directory
-xcopy /E /I /Y .\ressources .\build\ressources\ || (echo Copying resources failed && exit /b 1)
+if exist .\ressources (
+    xcopy /E /I /Y .\ressources .\build\ressources\
+) else (
+    echo Copying failed
+    exit /b 1
+)
 
 REM Create a tar archive
 tar -C %CD% -cf package.tar build || (echo Tar failed && exit /b 1)
