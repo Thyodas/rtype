@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Arcade: Member List</title>
+<title>Arcade: ecs::event::IEvent Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('classecs_1_1system_1_1_audio_system.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('classecs_1_1event_1_1_i_event.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -85,26 +85,37 @@ $(document).ready(function(){initNavTree('classecs_1_1system_1_1_audio_system.ht
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">ecs::system::AudioSystem Member List</div></div>
+  <div class="summary">
+<a href="classecs_1_1event_1_1_i_event-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">ecs::event::IEvent Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="classecs_1_1system_1_1_audio_system.html">ecs::system::AudioSystem</a>, including all inherited members.</p>
-<table class="directory">
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>_coord</b> (defined in <a class="el" href="classecs_1_1system_1_1_system.html">ecs::system::System</a>)</td><td class="entry"><a class="el" href="classecs_1_1system_1_1_system.html">ecs::system::System</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>_entities</b> (defined in <a class="el" href="classecs_1_1system_1_1_system.html">ecs::system::System</a>)</td><td class="entry"><a class="el" href="classecs_1_1system_1_1_system.html">ecs::system::System</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>addSound</b>(const std::string &amp;soundFile, const std::string &amp;name) (defined in <a class="el" href="classecs_1_1system_1_1_audio_system.html">ecs::system::AudioSystem</a>)</td><td class="entry"><a class="el" href="classecs_1_1system_1_1_audio_system.html">ecs::system::AudioSystem</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>AudioSystem</b>() (defined in <a class="el" href="classecs_1_1system_1_1_audio_system.html">ecs::system::AudioSystem</a>)</td><td class="entry"><a class="el" href="classecs_1_1system_1_1_audio_system.html">ecs::system::AudioSystem</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>initialize</b>() (defined in <a class="el" href="classecs_1_1system_1_1_audio_system.html">ecs::system::AudioSystem</a>)</td><td class="entry"><a class="el" href="classecs_1_1system_1_1_audio_system.html">ecs::system::AudioSystem</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>playSound</b>(const std::string &amp;name, bool loop=false) (defined in <a class="el" href="classecs_1_1system_1_1_audio_system.html">ecs::system::AudioSystem</a>)</td><td class="entry"><a class="el" href="classecs_1_1system_1_1_audio_system.html">ecs::system::AudioSystem</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>playSoundFromPath</b>(const std::string &amp;path) (defined in <a class="el" href="classecs_1_1system_1_1_audio_system.html">ecs::system::AudioSystem</a>)</td><td class="entry"><a class="el" href="classecs_1_1system_1_1_audio_system.html">ecs::system::AudioSystem</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>update</b>() (defined in <a class="el" href="classecs_1_1system_1_1_audio_system.html">ecs::system::AudioSystem</a>)</td><td class="entry"><a class="el" href="classecs_1_1system_1_1_audio_system.html">ecs::system::AudioSystem</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>~AudioSystem</b>() (defined in <a class="el" href="classecs_1_1system_1_1_audio_system.html">ecs::system::AudioSystem</a>)</td><td class="entry"><a class="el" href="classecs_1_1system_1_1_audio_system.html">ecs::system::AudioSystem</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Interface class representing a generic event in the ECS system.  
+ <a href="classecs_1_1event_1_1_i_event.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_event_8hpp_source.html">Event.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for ecs::event::IEvent:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classecs_1_1event_1_1_i_event.png" usemap="#ecs::event::IEvent_map" alt=""/>
+  <map id="ecs::event::IEvent_map" name="ecs::event::IEvent_map">
+<area href="class_collision_event.html" alt="CollisionEvent" shape="rect" coords="0,56,110,80"/>
+  </map>
+</div></div>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >Interface class representing a generic event in the ECS system. </p>
+<p >This class serves as a base for all events within the ECS framework. It allows for polymorphic handling of different event types without knowing their specific classes. </p>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/game_engine/core/event/<a class="el" href="_event_8hpp_source.html">Event.hpp</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><b>ecs</b></li><li class="navelem"><b>event</b></li><li class="navelem"><a class="el" href="classecs_1_1event_1_1_i_event.html">IEvent</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2 </li>
   </ul>
 </div>

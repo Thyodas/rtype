@@ -109,9 +109,9 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1de2e0d5fb6207bef427ffe52a7f1f6d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrtype_1_1net_1_1_connection.html#a1de2e0d5fb6207bef427ffe52a7f1f6d">Connection</a> (owner parent, asio::io_context &amp;asioContext, asio::ip::tcp::socket socket, <a class="el" href="classrtype_1_1net_1_1_ts_queue.html">TsQueue</a>&lt; <a class="el" href="structrtype_1_1net_1_1_owned_message.html">OwnedMessage</a>&lt; T &gt; &gt; &amp;qIn)</td></tr>
-<tr class="memdesc:a1de2e0d5fb6207bef427ffe52a7f1f6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="classrtype_1_1net_1_1_connection.html">Connection</a> object.  <a href="classrtype_1_1net_1_1_connection.html#a1de2e0d5fb6207bef427ffe52a7f1f6d">More...</a><br /></td></tr>
-<tr class="separator:a1de2e0d5fb6207bef427ffe52a7f1f6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6bbeaeb22d6721c887f64afd3d82d31"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrtype_1_1net_1_1_connection.html#ac6bbeaeb22d6721c887f64afd3d82d31">Connection</a> (owner parent, asio::io_context &amp;asioContext, asio::ip::udp::socket socket, <a class="el" href="classrtype_1_1net_1_1_ts_queue.html">TsQueue</a>&lt; <a class="el" href="structrtype_1_1net_1_1_owned_message.html">OwnedMessage</a>&lt; T &gt; &gt; &amp;qIn)</td></tr>
+<tr class="memdesc:ac6bbeaeb22d6721c887f64afd3d82d31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="classrtype_1_1net_1_1_connection.html">Connection</a> object.  <a href="classrtype_1_1net_1_1_connection.html#ac6bbeaeb22d6721c887f64afd3d82d31">More...</a><br /></td></tr>
+<tr class="separator:ac6bbeaeb22d6721c887f64afd3d82d31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a26a39b4a74b19fc8ae2e1f37e6502f2e"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrtype_1_1net_1_1_connection.html#a26a39b4a74b19fc8ae2e1f37e6502f2e">getID</a> () const</td></tr>
 <tr class="memdesc:a26a39b4a74b19fc8ae2e1f37e6502f2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the ID object This ID is used system wide - its how clients will understand other clients exist across the whole system.  <a href="classrtype_1_1net_1_1_connection.html#a26a39b4a74b19fc8ae2e1f37e6502f2e">More...</a><br /></td></tr>
 <tr class="separator:a26a39b4a74b19fc8ae2e1f37e6502f2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,9 +136,12 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>isConnected</b> () co
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a0be601d839462cd7d3be7cdbb1684923"><td class="memItemLeft" align="right" valign="top"><a id="a0be601d839462cd7d3be7cdbb1684923" name="a0be601d839462cd7d3be7cdbb1684923"></a>
-asio::ip::tcp::socket&#160;</td><td class="memItemRight" valign="bottom"><b>_socket</b></td></tr>
-<tr class="separator:a0be601d839462cd7d3be7cdbb1684923"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7da8fedc2d6101f50bc92780cd389223"><td class="memItemLeft" align="right" valign="top"><a id="a7da8fedc2d6101f50bc92780cd389223" name="a7da8fedc2d6101f50bc92780cd389223"></a>
+asio::ip::udp::socket&#160;</td><td class="memItemRight" valign="bottom"><b>_socket</b></td></tr>
+<tr class="separator:a7da8fedc2d6101f50bc92780cd389223"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c3f54e065c7e6992fbceb8870129d39"><td class="memItemLeft" align="right" valign="top"><a id="a7c3f54e065c7e6992fbceb8870129d39" name="a7c3f54e065c7e6992fbceb8870129d39"></a>
+asio::ip::udp::endpoint&#160;</td><td class="memItemRight" valign="bottom"><b>remoteEndpoint</b></td></tr>
+<tr class="separator:a7c3f54e065c7e6992fbceb8870129d39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae48a37625bcefd3f7cf2f44fcea59ac5"><td class="memItemLeft" align="right" valign="top"><a id="ae48a37625bcefd3f7cf2f44fcea59ac5" name="ae48a37625bcefd3f7cf2f44fcea59ac5"></a>
 asio::io_context &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>_asioContext</b></td></tr>
 <tr class="separator:ae48a37625bcefd3f7cf2f44fcea59ac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -159,8 +162,8 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>id</b> = 0</td></
 <tr class="separator:a0826771cee0cc0513c98a467111745e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a1de2e0d5fb6207bef427ffe52a7f1f6d" name="a1de2e0d5fb6207bef427ffe52a7f1f6d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1de2e0d5fb6207bef427ffe52a7f1f6d">&#9670;&nbsp;</a></span>Connection()</h2>
+<a id="ac6bbeaeb22d6721c887f64afd3d82d31" name="ac6bbeaeb22d6721c887f64afd3d82d31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6bbeaeb22d6721c887f64afd3d82d31">&#9670;&nbsp;</a></span>Connection()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -182,7 +185,7 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">asio::ip::tcp::socket&#160;</td>
+          <td class="paramtype">asio::ip::udp::socket&#160;</td>
           <td class="paramname"><em>socket</em>, </td>
         </tr>
         <tr>
@@ -228,7 +231,10 @@ template&lt;typename T &gt; </div>
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t <a class="el" href="classrtype_1_1net_1_1_connection.html">rtype::net::Connection</a>&lt; T &gt;::getID</td>
+          <td class="memname">uint32_t <a class="el" href="classrtype_1_1net_1_1_connection.html">rtype::net::Connection</a>&lt; T &gt;::getID </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">

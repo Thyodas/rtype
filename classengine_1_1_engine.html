@@ -106,12 +106,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9b925280e91e1e0789f25058c1eb62d0"><td class="memItemLeft" align="right" valign="top">ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#a9b925280e91e1e0789f25058c1eb62d0">addEntity</a> (<a class="el" href="structecs_1_1components_1_1physics_1_1transform__s.html">ecs::components::physics::transform_t</a> transf={{0, 1, 0}, {0}, {0}}, <a class="el" href="structecs_1_1components_1_1render_1_1render__s.html">ecs::components::render::render_t</a> render={ecs::components::ShapeType::CUBE, true, std::make_shared&lt; <a class="el" href="classecs_1_1components_1_1_cube.html">ecs::components::Cube</a> &gt;()})</td></tr>
 <tr class="memdesc:a9b925280e91e1e0789f25058c1eb62d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new entity to the game with optional physics and render components.  <a href="classengine_1_1_engine.html#a9b925280e91e1e0789f25058c1eb62d0">More...</a><br /></td></tr>
 <tr class="separator:a9b925280e91e1e0789f25058c1eb62d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e26d630a89f89b0cc1c37c19bf8b671"><td class="memItemLeft" align="right" valign="top"><a id="a9e26d630a89f89b0cc1c37c19bf8b671" name="a9e26d630a89f89b0cc1c37c19bf8b671"></a>
-ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><b>addInvisibleEntity</b> (void)</td></tr>
-<tr class="separator:a9e26d630a89f89b0cc1c37c19bf8b671"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46b9396aada6d7c7e8d76d1218a17843"><td class="memItemLeft" align="right" valign="top"><a id="a46b9396aada6d7c7e8d76d1218a17843" name="a46b9396aada6d7c7e8d76d1218a17843"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>destroyEntity</b> (ecs::Entity entity)</td></tr>
-<tr class="separator:a46b9396aada6d7c7e8d76d1218a17843"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a279309a18b8fcf6968ebf2b64bbe9289"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a279309a18b8fcf6968ebf2b64bbe9289"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#a279309a18b8fcf6968ebf2b64bbe9289">addComponent</a> (ecs::Entity entity, T component)</td></tr>
 <tr class="memdesc:a279309a18b8fcf6968ebf2b64bbe9289"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a component to an entity.  <a href="classengine_1_1_engine.html#a279309a18b8fcf6968ebf2b64bbe9289">More...</a><br /></td></tr>
@@ -124,10 +118,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>destroyEntity</b> (ec
 template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ac5e6d3b9f9965faf38b19a3ff03b69cd"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>getSingletonComponent</b> ()</td></tr>
 <tr class="separator:ac5e6d3b9f9965faf38b19a3ff03b69cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2761afac2517fb26ec4e6383cd862cfe"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a2761afac2517fb26ec4e6383cd862cfe"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#a2761afac2517fb26ec4e6383cd862cfe">registerListener</a> (std::function&lt; void(T &amp;)&gt; listener)</td></tr>
-<tr class="memdesc:a2761afac2517fb26ec4e6383cd862cfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers an event listener.  <a href="classengine_1_1_engine.html#a2761afac2517fb26ec4e6383cd862cfe">More...</a><br /></td></tr>
-<tr class="separator:a2761afac2517fb26ec4e6383cd862cfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac614e22b9ce2e97f9b5b3fdeb82a5d03"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ac614e22b9ce2e97f9b5b3fdeb82a5d03"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#ac614e22b9ce2e97f9b5b3fdeb82a5d03">registerListener</a> (std::function&lt; void(const T &amp;)&gt; listener)</td></tr>
+<tr class="memdesc:ac614e22b9ce2e97f9b5b3fdeb82a5d03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers an event listener.  <a href="classengine_1_1_engine.html#ac614e22b9ce2e97f9b5b3fdeb82a5d03">More...</a><br /></td></tr>
+<tr class="separator:ac614e22b9ce2e97f9b5b3fdeb82a5d03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0399eb84d58a5b6a151065bd27c9165e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#a0399eb84d58a5b6a151065bd27c9165e">isWindowOpen</a> (void)</td></tr>
 <tr class="memdesc:a0399eb84d58a5b6a151065bd27c9165e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the window of the game engine is open.  <a href="classengine_1_1_engine.html#a0399eb84d58a5b6a151065bd27c9165e">More...</a><br /></td></tr>
 <tr class="separator:a0399eb84d58a5b6a151065bd27c9165e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -141,14 +135,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>runTextureMode</b> (R
 <tr class="memitem:aeef234f6dc764a620ebbeb57924be12a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#aeef234f6dc764a620ebbeb57924be12a">getElapsedTime</a> () const</td></tr>
 <tr class="memdesc:aeef234f6dc764a620ebbeb57924be12a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the elapsed time since the engine started.  <a href="classengine_1_1_engine.html#aeef234f6dc764a620ebbeb57924be12a">More...</a><br /></td></tr>
 <tr class="separator:aeef234f6dc764a620ebbeb57924be12a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abae2b25802b0fcfc426666bf58b8def0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:abae2b25802b0fcfc426666bf58b8def0"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#abae2b25802b0fcfc426666bf58b8def0">triggerAudioOn</a> (const std::string &amp;audioPath, std::function&lt; bool(T &amp;)&gt; condition)</td></tr>
-<tr class="memdesc:abae2b25802b0fcfc426666bf58b8def0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers audio playback based on specific game events.  <a href="classengine_1_1_engine.html#abae2b25802b0fcfc426666bf58b8def0">More...</a><br /></td></tr>
-<tr class="separator:abae2b25802b0fcfc426666bf58b8def0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af242d6f7362865538669466080ac7f37"><td class="memTemplParams" colspan="2"><a id="af242d6f7362865538669466080ac7f37" name="af242d6f7362865538669466080ac7f37"></a>
-template&lt;typename T &gt; </td></tr>
-<tr class="memitem:af242d6f7362865538669466080ac7f37"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>emitEvent</b> (T &amp;event)</td></tr>
-<tr class="separator:af242d6f7362865538669466080ac7f37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2067f5ea2c7936c09770610e85c6b02"><td class="memItemLeft" align="right" valign="top"><a id="af2067f5ea2c7936c09770610e85c6b02" name="af2067f5ea2c7936c09770610e85c6b02"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Engine</b> (<a class="el" href="classengine_1_1_engine.html">Engine</a> &amp;other)=delete</td></tr>
 <tr class="separator:af2067f5ea2c7936c09770610e85c6b02"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -326,8 +312,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a2761afac2517fb26ec4e6383cd862cfe" name="a2761afac2517fb26ec4e6383cd862cfe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2761afac2517fb26ec4e6383cd862cfe">&#9670;&nbsp;</a></span>registerListener()</h2>
+<a id="ac614e22b9ce2e97f9b5b3fdeb82a5d03" name="ac614e22b9ce2e97f9b5b3fdeb82a5d03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac614e22b9ce2e97f9b5b3fdeb82a5d03">&#9670;&nbsp;</a></span>registerListener()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -340,7 +326,7 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="memname">void engine::Engine::registerListener </td>
           <td>(</td>
-          <td class="paramtype">std::function&lt; void(T &amp;)&gt;&#160;</td>
+          <td class="paramtype">std::function&lt; void(const T &amp;)&gt;&#160;</td>
           <td class="paramname"><em>listener</em></td><td>)</td>
           <td></td>
         </tr>
@@ -422,60 +408,6 @@ template&lt;typename T &gt; </div>
 
 <p>Gets the elapsed time since the engine started. </p>
 <dl class="section return"><dt>Returns</dt><dd>Elapsed time in seconds. </dd></dl>
-
-</div>
-</div>
-<a id="abae2b25802b0fcfc426666bf58b8def0" name="abae2b25802b0fcfc426666bf58b8def0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abae2b25802b0fcfc426666bf58b8def0">&#9670;&nbsp;</a></span>triggerAudioOn()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void engine::Engine::triggerAudioOn </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>audioPath</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::function&lt; bool(T &amp;)&gt;&#160;</td>
-          <td class="paramname"><em>condition</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Triggers audio playback based on specific game events. </p>
-<p >This template function registers a listener for a given event type. When the event occurs, it checks a provided condition. If the condition is met, an entity with an AudioSource component is created, which can be used to play audio.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The type of event to listen for. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">audioPath</td><td>The file path of the audio to be played. </td></tr>
-    <tr><td class="paramname">condition</td><td>A function that takes an event of type T and returns a boolean. If this function returns true, the audio is triggered. </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
