@@ -167,3 +167,5 @@ server
 .DS_Store
 
 .clangd
+
+*.tar
