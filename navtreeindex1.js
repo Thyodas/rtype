@@ -1,9 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"dir_0a4cac330703ba1a0797960a7fb080a7.html":[6,0,0,2,1,1],
-"dir_12f61f17a93cd08fb1227dd6fc846ce3.html":[6,0,0,2,0,0],
-"dir_14271a6e7b1cdc238195c9578a2f895d.html":[6,0,0,0,1,4],
-"dir_163113198c3a588e53885fd096f3a695.html":[6,0,0,2,2],
 "dir_17db05f17976c21e8c1fe0ea9d05c075.html":[6,0,0,3,1,1],
 "dir_284fae90717d854317cdf4c11b84bcf2.html":[6,0,0,3,1],
 "dir_2dca91b137040604127298b4d7e5acbe.html":[6,0,0,1,1],
@@ -41,7 +37,7 @@ var NAVTREEINDEX1 =
 "functions_vars.html":[5,3,2],
 "game__engine_2_test_behaviour_8hpp_source.html":[6,0,1,1,0],
 "game__engine_2ecs_2_entity_8hpp_source.html":[6,0,0,2,1,4],
-"game__engine_2ecs_2components_2network_8hpp_source.html":[6,0,0,2,1,0,6],
+"game__engine_2ecs_2components_2network_8hpp_source.html":[6,0,0,2,1,0,5],
 "github_parent_page.html":[2],
 "hierarchy.html":[5,2],
 "index.html":[],

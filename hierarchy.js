@@ -8,12 +8,11 @@ var hierarchy =
         [ "client::AllyNetwork", "classclient_1_1_ally_network.html", null ],
         [ "client::BulletNetwork", "classclient_1_1_bullet_network.html", null ],
         [ "client::EnemyNetwork", "classclient_1_1_enemy_network.html", null ],
+        [ "client::EnemyNetwork", "classclient_1_1_enemy_network.html", null ],
         [ "client::PlayerNetwork", "classclient_1_1_player_network.html", null ]
       ] ],
       [ "ecs::components::behaviour::NetworkBehaviour< server::NetServer >", "classecs_1_1components_1_1behaviour_1_1_network_behaviour.html", [
-        [ "ecs::components::behaviour::EnemySpawner", "classecs_1_1components_1_1behaviour_1_1_enemy_spawner.html", null ],
         [ "server::BulletNetwork", "classserver_1_1_bullet_network.html", null ],
-        [ "server::EnemyNetwork", "classserver_1_1_enemy_network.html", null ],
         [ "server::PlayerNetwork", "classserver_1_1_player_network.html", null ]
       ] ],
       [ "client::SkyboxBehavior", "classclient_1_1_skybox_behavior.html", null ],

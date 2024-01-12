@@ -49,7 +49,6 @@ var annotated_dup =
         ] ],
         [ "behaviour", null, [
           [ "Behaviour", "classecs_1_1components_1_1behaviour_1_1_behaviour.html", "classecs_1_1components_1_1behaviour_1_1_behaviour" ],
-          [ "EnemySpawner", "classecs_1_1components_1_1behaviour_1_1_enemy_spawner.html", "classecs_1_1components_1_1behaviour_1_1_enemy_spawner" ],
           [ "NetworkBehaviour", "classecs_1_1components_1_1behaviour_1_1_network_behaviour.html", "classecs_1_1components_1_1behaviour_1_1_network_behaviour" ]
         ] ],
         [ "direction", null, [
@@ -132,7 +131,6 @@ var annotated_dup =
     ] ],
     [ "server", null, [
       [ "BulletNetwork", "classserver_1_1_bullet_network.html", "classserver_1_1_bullet_network" ],
-      [ "EnemyNetwork", "classserver_1_1_enemy_network.html", "classserver_1_1_enemy_network" ],
       [ "NetServer", "classserver_1_1_net_server.html", "classserver_1_1_net_server" ],
       [ "PlayerNetwork", "classserver_1_1_player_network.html", "classserver_1_1_player_network" ],
       [ "Server", "classserver_1_1_server.html", null ]
