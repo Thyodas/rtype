@@ -1,6 +1,6 @@
 var classrtype_1_1net_1_1_connection =
 [
-    [ "Connection", "classrtype_1_1net_1_1_connection.html#ac6bbeaeb22d6721c887f64afd3d82d31", null ],
+    [ "Connection", "classrtype_1_1net_1_1_connection.html#a1de2e0d5fb6207bef427ffe52a7f1f6d", null ],
     [ "getID", "classrtype_1_1net_1_1_connection.html#a26a39b4a74b19fc8ae2e1f37e6502f2e", null ],
     [ "startListening", "classrtype_1_1net_1_1_connection.html#aa866ed2819eb2de097c186341b048a94", null ],
     [ "send", "classrtype_1_1net_1_1_connection.html#aabe3247c95ff17b98975e428f8f971f7", null ],
