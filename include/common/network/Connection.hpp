@@ -50,7 +50,7 @@ namespace rtype::net {
         public:
             void connectToClient(uint32_t uid = 0);
 
-            void connectToServer(const asio::ip::tcp::resolver::results_type& endpoints);
+            void connectToServer(const asio::ip::udp::resolver::results_type& endpoints);
 
             void disconnect();
 
