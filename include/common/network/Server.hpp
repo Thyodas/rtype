@@ -21,7 +21,7 @@ namespace rtype::net {
              * @brief Construct a new Server Interface object
              * @param port Port number to listen on
              */
-            explicit ServerInterface(uint16_t port);
+            explicit ServerInterface(const uint16_t &port);
 
             virtual ~ServerInterface();
 
@@ -117,7 +117,7 @@ namespace rtype::net {
     };
 
     template<typename T>
-    ServerInterface<T>::ServerInterface(uint16_t port)
+    ServerInterface<T>::ServerInterface(const uint16_t &port)
         : m_asioSocket(m_asioContext, asio::ip::udp::endpoint(asio::ip::udp::v4(), port))
     {
     }

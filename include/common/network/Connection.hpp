@@ -184,6 +184,10 @@ namespace rtype::net {
                     _socket.close();
                     return;
                 }
+                // extract message id from body, remove it from the body, and store it in the msg.header.id
+                std::memcpy(&_msgTemporaryIn.header.id, _msgTemporaryIn.body.data(), sizeof(uint32_t));
+                _msgTemporaryIn.body.erase(_msgTemporaryIn.body.begin(), _msgTemporaryIn.body.begin() + sizeof(uint32_t));
+
                 // Access remote endpoint information here
                 const asio::ip::address senderAddress = remoteEndpoint.address();
                 const uint16_t senderPort = remoteEndpoint.port();
@@ -209,6 +213,11 @@ namespace rtype::net {
 
     template<typename T>
     void Connection<T>::writeBody() {
+        // extract msg.header.id and prepend it to the body
+        _messagesOut.front().body.insert(_messagesOut.front().body.begin(),
+            (uint8_t*)&_messagesOut.front().header.id,
+            (uint8_t*)&_messagesOut.front().header.id + sizeof(uint32_t));
+
         _socket.async_send_to(_socket, asio::buffer(_messagesOut.front().body.data(), _messagesOut.front().body.size()),
             remoteEndpoint,
             [this](std::error_code ec, std::size_t length) {
