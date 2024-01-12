@@ -6,6 +6,7 @@
 */
 
 #include "game_engine/GameEngine.hpp"
+
 #include "game_engine/ecs/components/Behaviour.hpp"
 #include "raymath.h"
 
@@ -255,7 +256,7 @@ namespace engine {
         )
     {
         auto cube = std::make_shared<ecs::components::Cube>(width, height, length, toggleWire, color, wireColor);
-        ecs::components::physics::transform_t transf = {pos, {0}, {0}};
+        ecs::components::physics::transform_t transf = {pos, {0}};
         double now = engine::Engine::getInstance()->getElapsedTime() / 1000;
         ecs::components::physics::rigidBody_t body = {0.0, {0}, {0}, now};
         ecs::components::render::render_t render = {ecs::components::ShapeType::CUBE, true, cube};
@@ -326,6 +327,47 @@ namespace engine {
         Engine::getInstance()->addComponent<ecs::components::animations::animation_t>(entity, anim);
     }
 
+    Matrix transformToMatrix(const ecs::components::physics::transform_t &transform) {
+        Matrix matScale = MatrixScale(transform.scale.x, transform.scale.y, transform.scale.z);
+        Matrix matRotation = MatrixRotateXYZ(Vector3{DEG2RAD * transform.rotation.x, DEG2RAD * transform.rotation.y, DEG2RAD * transform.rotation.z});
+        Matrix matTranslation = MatrixTranslate(transform.pos.x, transform.pos.y, transform.pos.z);
+
+        // First scale, then rotate, and finally translate
+        Matrix transformMatrix = MatrixMultiply(matScale, matRotation); // Scale, then rotate
+        transformMatrix = MatrixMultiply(transformMatrix, matTranslation); // Then translate
+
+        return transformMatrix;
+    }
+
+    Matrix entity::getTransformMatrix(ecs::Entity entity)
+    {
+        const auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
+
+        return transformToMatrix(transform);
+    }
+
+    Transform entity::getTransform(ecs::Entity entity)
+    {
+        const auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
+
+        return Transform {
+            .translation = transform.pos,
+            .rotation = QuaternionFromMatrix(MatrixRotateXYZ(transform.rotation)),
+            .scale = transform.scale
+        };
+    }
+
+    void entity::setTransform(ecs::Entity entity, const Vector3 &position,
+        const Vector3 &rotation, const Vector3 &scale)
+    {
+        auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
+
+        transform.pos = position;
+        transform.rotation = rotation;
+
+        transform.scale = scale;
+    }
+
     void camera::setPosition(Vector3 pos)
     {
         Engine::getInstance()->getWindow()->setCameraPosition(pos);
@@ -355,6 +397,16 @@ namespace engine {
     float camera::getFov()
     {
         return Engine::getInstance()->getWindow()->getCameraFov();
+    }
+
+    Matrix camera::getViewMatrix()
+    {
+        return Engine::getInstance()->getWindow()->getCameraViewMatrix();
+    }
+
+    Matrix camera::getProjectionMatrix(double aspect, double nearPlane, double farPlane)
+    {
+        return Engine::getInstance()->getWindow()->getProjectionMatrix(aspect, nearPlane, farPlane);
     }
 
     void rotate(ecs::Entity entity, Vector3 rotation)

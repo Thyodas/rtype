@@ -147,6 +147,21 @@ namespace engine {
                  */
                 float getCameraFov(void) const;
 
+                /**
+                 * @brief Gets the view matrix of the camera.
+                 * @return The view matrix of the camera.
+                 */
+                Matrix getCameraViewMatrix() const;
+
+                /**
+                 * @brief Gets the projection matrix of the camera.
+                 * @param aspect The aspect ratio of the camera.
+                 * @param nearPlane The near plane of the camera.
+                 * @param farPlane The far plane of the camera.
+                 * @return The projection matrix of the camera.
+                 */
+                Matrix getProjectionMatrix(double aspect, double nearPlane, double farPlane) const;
+
             private:
                 int _width;
                 int _height;

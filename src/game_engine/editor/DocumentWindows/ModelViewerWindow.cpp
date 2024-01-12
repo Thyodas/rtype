@@ -52,11 +52,13 @@ namespace engine::editor {
                 0
             );
 
-            if (filePath) {
-                _assetPath = std::string(filePath);
-                ecs::Entity cube = engine::createModel3D(_assetPath.c_str(), {0, 0, 0}, WHITE);
-                _modelLoaded = true;
+            if (!filePath) {
+                _opened = false;
+                return;
             }
+            _assetPath = std::string(filePath);
+            ecs::Entity cube = engine::createModel3D(_assetPath.c_str(), {0, 0, 0}, WHITE);
+            _modelLoaded = true;
         }
         ImGui::Begin("Import", &_opened, ImGuiWindowFlags_NoScrollbar);
 
