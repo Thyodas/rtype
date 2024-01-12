@@ -28,11 +28,11 @@ namespace engine::editor {
         ImVec4 color;
 
         switch (level) {
-            case loguru::Verbosity_FATAL:   color = ImVec4(1, 0, 0, 1); break; // Red
-            case loguru::Verbosity_ERROR:   color = ImVec4(1, 0.6f, 0, 1); break; // Orange
+            case loguru::Verbosity_FATAL:    // Red
+            case loguru::Verbosity_ERROR:   color = ImVec4(1, 0, 0, 1); break; // Red
             case loguru::Verbosity_WARNING: color = ImVec4(1, 1, 0, 1); break; // Yellow
-            case loguru::Verbosity_INFO:    color = ImVec4(0, 1, 0, 1); break; // Green
-            case loguru::Verbosity_MAX:     color = ImVec4(0, 0.5f, 1, 1); break; // Blue
+            case loguru::Verbosity_INFO:    color = ImVec4(0, 0.5f, 1, 1); break; // Blue
+            case loguru::Verbosity_MAX:     color = ImVec4(0, 1, 0, 1); break; // Green
             default:                        color = ImVec4(1, 1, 1, 1); // White
         }
         return color;
@@ -44,6 +44,8 @@ namespace engine::editor {
 
     void ConsoleWindow::setup() {
         // setup code (if any)
+        // create a multiline lorem ipsum string
+        VLOG_F(loguru::Verbosity_INFO, "ConsoleWindow setup\nLorem ipsum dolor sit amet\nconsectetur adipiscing elit\nsed do eiusmod tempor incididunt\nut labore et dolore magna aliqua\nUt enim ad minim veniam\nquis nostrud exercitation ullamco\nlaboris nisi ut aliquip ex ea commodo consequat\nDuis aute irure dolor in reprehenderit\nin voluptate velit esse cillum dolore eu fugiat nulla pariatur\nExcepteur sint occaecat cupidatat non proident\nsunt in culpa qui officia deserunt mollit anim id est laborum");
     }
 
     void ConsoleWindow::shutdown() {
@@ -85,10 +87,61 @@ namespace engine::editor {
         ImGui::BeginChild("ScrollingRegion", ImVec2(0, -footerHeight), false, ImGuiWindowFlags_HorizontalScrollbar);
 
         // Display logs
+        auto id = 0;
         for (auto& item : _editor.getLogs()) {
-            ImGui::TextColored(getVerbosityColor(item.verbosity),
+            ImGui::PushID(id++);
+            {
+                auto &msgtext = item.message;
+                ImVec2 text_size = ImGui::CalcTextSize(msgtext.c_str(), msgtext.c_str()+msgtext.size());
+                text_size.x = -FLT_MIN; // fill width (suppresses label)
+                text_size.y += ImGui::GetStyle().FramePadding.y; // single pad
+
+                ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, {0, 0}); // make align with text height
+                ImGui::PushStyleColor(ImGuiCol_FrameBg, {0.f, 0.f, 0.f, 0.f}); // remove text input box
+                ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(0, 0, 0, 0)); // Set border color to transparent
+                ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, 0.0f); // Set border size to 0
+
+                ImVec4 color = getVerbosityColor(item.verbosity);
+
+                // Split the message into verbosity tag and actual message
+                std::string tag = "[" + std::string(verbosityToString(item.verbosity)) + "]";
+                //std::string message = item.message.substr(tag.length());  // assuming item.message starts with the tag
+
+                // Render the verbosity tag with color
+                ImGui::PushStyleColor(ImGuiCol_Text, color);
+                ImGui::TextUnformatted(tag.c_str());
+                ImGui::PopStyleColor();
+
+                //ImGui::PushStyleColor(ImGuiCol_Text, color);
+
+                ImGui::SameLine();
+                ImGui::InputTextMultiline(
+                    "",
+                    const_cast<char*>(msgtext.c_str()), // ugly const cast
+                    msgtext.size() + 1, // needs to include '\0'
+                    text_size,
+                    ImGuiInputTextFlags_ReadOnly | ImGuiInputTextFlags_NoHorizontalScroll
+                );
+                //ImGui::PopStyleColor();
+
+                /*
+                ImGui::InputTextMultiline("##ConsoleOutput",
+                    const_cast<char*>(item.c_str()),
+                    item.size() + 1,
+                    ImVec2(-FLT_MIN, text_size.y),
+                    ImGuiInputTextFlags_ReadOnly | ImGuiInputTextFlags_NoHorizontalScroll));
+                    */
+
+
+                ImGui::PopStyleColor();
+                ImGui::PopStyleVar();
+                ImGui::PopStyleColor();
+                ImGui::PopStyleVar();
+            }
+            ImGui::PopID();
+            /*ImGui::TextColored(getVerbosityColor(item.verbosity),
                 "[%s] %s", verbosityToString(item.verbosity),
-                item.message.c_str());
+                item.message.c_str());*/
         }
 
         // Scroll to bottom if required
