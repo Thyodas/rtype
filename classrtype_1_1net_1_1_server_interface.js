@@ -11,5 +11,6 @@ var classrtype_1_1net_1_1_server_interface =
     [ "onClientConnect", "classrtype_1_1net_1_1_server_interface.html#a442c6dff88ecc2c65dfcf32d8385424d", null ],
     [ "onClientDisconnect", "classrtype_1_1net_1_1_server_interface.html#a6e28a71fddf766f4ce175cd40525db93", null ],
     [ "onMessage", "classrtype_1_1net_1_1_server_interface.html#a0176aed42e537996cca2efa05989e9fe", null ],
-    [ "m_asioAcceptor", "classrtype_1_1net_1_1_server_interface.html#a06340e57434733062cb26c2861cb100b", null ]
+    [ "m_asioSocket", "classrtype_1_1net_1_1_server_interface.html#a718fc979d281fe3f087c9117648ceaab", null ],
+    [ "remoteEndpoint", "classrtype_1_1net_1_1_server_interface.html#a97ff50f6c2396886f2e26322c947310d", null ]
 ];
