@@ -151,13 +151,21 @@ asio::io_context&#160;</td><td class="memItemRight" valign="bottom"><b>m_asioCon
 <tr class="memitem:a0bd7c589db75c35ae55baf707de713d2"><td class="memItemLeft" align="right" valign="top"><a id="a0bd7c589db75c35ae55baf707de713d2" name="a0bd7c589db75c35ae55baf707de713d2"></a>
 std::thread&#160;</td><td class="memItemRight" valign="bottom"><b>m_threadContext</b></td></tr>
 <tr class="separator:a0bd7c589db75c35ae55baf707de713d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06340e57434733062cb26c2861cb100b"><td class="memItemLeft" align="right" valign="top"><a id="a06340e57434733062cb26c2861cb100b" name="a06340e57434733062cb26c2861cb100b"></a>
-asio::ip::tcp::acceptor&#160;</td><td class="memItemRight" valign="bottom"><b>m_asioAcceptor</b></td></tr>
-<tr class="memdesc:a06340e57434733062cb26c2861cb100b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acceptor object to wait for new connections. <br /></td></tr>
-<tr class="separator:a06340e57434733062cb26c2861cb100b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab65a7b9c9625718eccc5b5a718a8c8d"><td class="memItemLeft" align="right" valign="top"><a id="aab65a7b9c9625718eccc5b5a718a8c8d" name="aab65a7b9c9625718eccc5b5a718a8c8d"></a>
+asio::ip::udp::socket&#160;</td><td class="memItemRight" valign="bottom"><b>m_asioAcceptor</b></td></tr>
+<tr class="memdesc:aab65a7b9c9625718eccc5b5a718a8c8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acceptor object to wait for new connections. <br /></td></tr>
+<tr class="separator:aab65a7b9c9625718eccc5b5a718a8c8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef8266be5aed8e649001ce4358a0c465"><td class="memItemLeft" align="right" valign="top"><a id="aef8266be5aed8e649001ce4358a0c465" name="aef8266be5aed8e649001ce4358a0c465"></a>
 uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>nIDCounter</b> = 10000</td></tr>
 <tr class="separator:aef8266be5aed8e649001ce4358a0c465"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97ff50f6c2396886f2e26322c947310d"><td class="memItemLeft" align="right" valign="top"><a id="a97ff50f6c2396886f2e26322c947310d" name="a97ff50f6c2396886f2e26322c947310d"></a>
+asio::ip::udp::endpoint&#160;</td><td class="memItemRight" valign="bottom"><b>remoteEndpoint</b></td></tr>
+<tr class="memdesc:a97ff50f6c2396886f2e26322c947310d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acceptor object to wait for new connections. <br /></td></tr>
+<tr class="separator:a97ff50f6c2396886f2e26322c947310d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6050e7c2d063c7721417b7f896f3131"><td class="memItemLeft" align="right" valign="top"><a id="aa6050e7c2d063c7721417b7f896f3131" name="aa6050e7c2d063c7721417b7f896f3131"></a>
+asio::ip::udp::socket&#160;</td><td class="memItemRight" valign="bottom"><b>_socket</b></td></tr>
+<tr class="memdesc:aa6050e7c2d063c7721417b7f896f3131"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the temporary message object. <br /></td></tr>
+<tr class="separator:aa6050e7c2d063c7721417b7f896f3131"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a97d63a6071b67771c93dd529fe8355c9" name="a97d63a6071b67771c93dd529fe8355c9"></a>
@@ -206,7 +214,10 @@ template&lt;typename T &gt; </div>
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classrtype_1_1net_1_1_server_interface.html">rtype::net::ServerInterface</a>&lt; T &gt;::start</td>
+          <td class="memname">bool <a class="el" href="classrtype_1_1net_1_1_server_interface.html">rtype::net::ServerInterface</a>&lt; T &gt;::start </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
