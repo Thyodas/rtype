@@ -556,6 +556,30 @@ namespace engine {
     void detachCamera(ecs::SceneID sceneID, engine::core::EngineCamera &camera);
 
 
+
+    namespace entity {
+        /**
+         * @brief Get the transform matrix of the entity.
+         * @param entity The entity to get the transform matrix from.
+         * @return The transform matrix.
+         */
+        Matrix getTransformMatrix(ecs::Entity entity);
+
+        /**
+         * @brief Get the transform of the entity.
+         * @param entity The entity to get the transform from.
+         * @return The transform.
+         */
+        Transform getTransform(ecs::Entity entity);
+
+        /**
+         * @brief Set the transform of the entity.
+         * @param entity The entity to set the transform to.
+         * @param transMatrix The transformation matrix.
+        void setTransform(ecs::Entity entity, const Vector3 &position,
+            const Vector3 &rotation, const Vector3 &scale);
+    }
+
     namespace camera {
         /**
          * @brief Sets the camera's position.
@@ -592,5 +616,20 @@ namespace engine {
          * @return The current field of view of the camera.
          */
         float getFov();
+
+        /**
+         * @brief Get the view matrix of the camera.
+         * @return The view matrix
+         */
+        Matrix getViewMatrix();
+
+        /**
+        * @brief Gets the projection matrix of the camera.
+        * @param aspect The aspect ratio of the camera.
+        * @param nearPlane The near plane of the camera.
+        * @param farPlane The far plane of the camera.
+        * @return The projection matrix of the camera.
+        */
+        Matrix getProjectionMatrix(double aspect, double nearPlane, double farPlane);
     }
 }

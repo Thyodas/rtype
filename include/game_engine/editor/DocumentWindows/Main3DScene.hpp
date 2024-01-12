@@ -7,7 +7,11 @@
 
 #pragma once
 
+#include <cstdint>
+
 #include "game_engine/editor/ADocumentWindow.hpp"
+
+#include "game_engine/GameEngine.hpp"
 
 #include <raylib.h>
 
@@ -22,10 +26,31 @@ namespace engine::editor {
             void show() override;
             void update() override;
 
-            bool isWindowResized() const;
         private:
             RenderTexture _viewTexture;
-            ImVec2 _currentwindowSize = {0, 0};
+            ImVec2 _currentWindowSize = {0, 0};
             ImVec2 _prevWindowSize = {0, 0};
+            ImVec2 _viewSize = {0, 0};
+            ImVec2 _viewPosition = {0, 0};
+            ecs::Entity _selectedEntity = 0;
+            int _targetFPS = 60;
+
+
+            // ---------------------- //
+            // --- Internal logic --- //
+            // ---------------------- //
+            void setupWindow();
+            void setupScene();
+            void setupCamera();
+            void setupTexture();
+            void loadEntities();
+
+            bool isWindowResized() const;
+            void handleWindowResize();
+
+            void renderToolbar();
+            void renderGizmo();
+            void renderView();
     };
+
 } // namespace engine::editor

@@ -7,6 +7,8 @@
 
 #include "game_engine/core/Window.hpp"
 
+#include <raymath.h>
+
 namespace engine {
     namespace core {
         Window::Window(int width, int height, std::string name)
@@ -137,6 +139,16 @@ namespace engine {
         float Window::getCameraFov(void) const
         {
             return _camera.fovy;
+        }
+
+        Matrix Window::getCameraViewMatrix() const
+        {
+            return GetCameraMatrix(_camera);
+        }
+
+        Matrix Window::getProjectionMatrix(double aspect, double nearPlane, double farPlane) const
+        {
+            return MatrixPerspective(_camera.fovy * DEG2RAD, aspect, nearPlane, farPlane);
         }
     }
 }

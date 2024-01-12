@@ -131,6 +131,7 @@ bool engine::editor::GameEngineEditor::isOpen() const
 void engine::editor::GameEngineEditor::setupEngine()
 {
 	SetConfigFlags(FLAG_MSAA_4X_HINT | FLAG_VSYNC_HINT | FLAG_WINDOW_RESIZABLE | FLAG_WINDOW_HIGHDPI);
+	SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor()));
 	engine::initEngine(false, 1920, 1000);
 
 	rlImGuiBeginInitImGui();
