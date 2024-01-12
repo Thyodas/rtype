@@ -15,6 +15,9 @@
     },
     {
       "name": "loguru"
+    },
+    {
+      "name": "imguizmo"
     }
   ]
 }
