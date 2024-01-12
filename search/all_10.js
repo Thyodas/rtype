@@ -14,7 +14,7 @@ var searchData=
   ['serverdestroyenemy_11',['ServerDestroyEnemy',['../structcommon_1_1game_1_1netbody_1_1_server_destroy_enemy.html',1,'common::game::netbody']]],
   ['serverenemytakedamage_12',['ServerEnemyTakeDamage',['../structcommon_1_1game_1_1netbody_1_1_server_enemy_take_damage.html',1,'common::game::netbody']]],
   ['serverfirebullet_13',['ServerFireBullet',['../structcommon_1_1game_1_1netbody_1_1_server_fire_bullet.html',1,'common::game::netbody']]],
-  ['serverinterface_14',['ServerInterface',['../classrtype_1_1net_1_1_server_interface.html',1,'rtype::net::ServerInterface&lt; T &gt;'],['../classrtype_1_1net_1_1_server_interface.html#a97d63a6071b67771c93dd529fe8355c9',1,'rtype::net::ServerInterface::ServerInterface()']]],
+  ['serverinterface_14',['ServerInterface',['../classrtype_1_1net_1_1_server_interface.html',1,'rtype::net::ServerInterface&lt; T &gt;'],['../classrtype_1_1net_1_1_server_interface.html#ab861a7772ab4a578b396de9ea2cde57e',1,'rtype::net::ServerInterface::ServerInterface()']]],
   ['serverinterface_3c_20common_3a_3anetworkmessage_20_3e_15',['ServerInterface&lt; common::NetworkMessage &gt;',['../classrtype_1_1net_1_1_server_interface.html',1,'rtype::net']]],
   ['serverplayerdestroy_16',['ServerPlayerDestroy',['../structcommon_1_1game_1_1netbody_1_1_server_player_destroy.html',1,'common::game::netbody']]],
   ['serverplayertakedamage_17',['ServerPlayerTakeDamage',['../structcommon_1_1game_1_1netbody_1_1_server_player_take_damage.html',1,'common::game::netbody']]],

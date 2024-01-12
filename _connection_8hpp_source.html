@@ -214,92 +214,101 @@ $(document).ready(function(){initNavTree('_connection_8hpp_source.html',''); ini
 <div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>                    _socket.close();</div>
 <div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>                    <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>                }</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>                <span class="comment">// Access remote endpoint information here</span></div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>                <span class="keyword">const</span> asio::ip::address senderAddress = remoteEndpoint.address();</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>                <span class="keyword">const</span> uint16_t senderPort = remoteEndpoint.port();</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>                std::cout &lt;&lt; <span class="stringliteral">&quot;Received from: &quot;</span> &lt;&lt; senderAddress &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; senderPort &lt;&lt; std::endl;</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>                addToIncomingMessageQueue();</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>                readBody(); <span class="comment">// Continue listening for the next packet</span></div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>            });</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    }</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <span class="keywordtype">void</span> Connection&lt;T&gt;::writeHeader() {</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        _socket.async_send_to(_socket, asio::buffer(&amp;_messagesOut.front().header, <span class="keyword">sizeof</span>(MessageHeader&lt;T&gt;)),</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>            remoteEndpoint,</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>            [<span class="keyword">this</span>](std::error_code ec, std::size_t length) {</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>                if (ec) {</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>                    std::cout &lt;&lt; <span class="stringliteral">&quot;[&quot;</span> &lt;&lt; id &lt;&lt; <span class="stringliteral">&quot;] Write Header Fail.\n&quot;</span>;</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>                    _socket.close();</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>                    return;</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>                }</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>                writeBody();</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>            });</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    }</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span> </div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    <span class="keywordtype">void</span> Connection&lt;T&gt;::writeBody() {</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        _socket.async_send_to(_socket, asio::buffer(_messagesOut.front().body.data(), _messagesOut.front().body.size()),</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>            remoteEndpoint,</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>            [<span class="keyword">this</span>](std::error_code ec, std::size_t length) {</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>                if (ec) {</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>                    std::cout &lt;&lt; <span class="stringliteral">&quot;[&quot;</span> &lt;&lt; id &lt;&lt; <span class="stringliteral">&quot;] Write Body Fail.\n&quot;</span>;</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>                    _socket.close();</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>                    return;</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>                }</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>                _messagesOut.pop_front();</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>                if (!_messagesOut.empty()) {</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>                    writeHeader();</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>                }</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>            });</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    }</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    <span class="keywordtype">void</span> Connection&lt;T&gt;::disconnect()</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    {</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>        <span class="keywordflow">if</span> (!isConnected())</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>        _messagesOut.waitUntilEmpty();</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>        asio::post(_asioContext, [<span class="keyword">this</span>]() {</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>            _socket.close();</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>        });</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    }</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    <span class="keywordtype">bool</span> Connection&lt;T&gt;::isConnected()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>        <span class="keywordflow">return</span> _socket.is_open();</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    }</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span> </div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno"><a class="line" href="classrtype_1_1net_1_1_connection.html#aa866ed2819eb2de097c186341b048a94">  245</a></span>    <span class="keywordtype">void</span> <a class="code hl_class" href="classrtype_1_1net_1_1_connection.html">Connection&lt;T&gt;::startListening</a>()</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    {</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        asio::post(_asioContext, [<span class="keyword">this</span>]() {</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>            readBody();</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>        });</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    }</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno"><a class="line" href="classrtype_1_1net_1_1_connection.html#aabe3247c95ff17b98975e428f8f971f7">  253</a></span>    <span class="keywordtype">void</span> <a class="code hl_class" href="classrtype_1_1net_1_1_connection.html">Connection&lt;T&gt;::send</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structrtype_1_1net_1_1_message.html">Message&lt;T&gt;</a>&amp; msg)</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    {</div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>        asio::post(_asioContext,</div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>            [<span class="keyword">this</span>, msg]() {</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>                <span class="comment">//_socket.send_to(msg.body, remoteEndpoint);</span></div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>            });</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>                <span class="comment">// extract message id from body, remove it from the body, and store it in the msg.header.id</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>                std::memcpy(&amp;_msgTemporaryIn.header.id, _msgTemporaryIn.body.data(), <span class="keyword">sizeof</span>(uint32_t));</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>                _msgTemporaryIn.body.erase(_msgTemporaryIn.body.begin(), _msgTemporaryIn.body.begin() + <span class="keyword">sizeof</span>(uint32_t));</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>                <span class="comment">// Access remote endpoint information here</span></div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>                <span class="keyword">const</span> asio::ip::address senderAddress = remoteEndpoint.address();</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>                <span class="keyword">const</span> uint16_t senderPort = remoteEndpoint.port();</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>                std::cout &lt;&lt; <span class="stringliteral">&quot;Received from: &quot;</span> &lt;&lt; senderAddress &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; senderPort &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>                addToIncomingMessageQueue();</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>                readBody(); <span class="comment">// Continue listening for the next packet</span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>            });</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    }</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <span class="keywordtype">void</span> Connection&lt;T&gt;::writeHeader() {</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        _socket.async_send_to(_socket, asio::buffer(&amp;_messagesOut.front().header, <span class="keyword">sizeof</span>(MessageHeader&lt;T&gt;)),</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>            remoteEndpoint,</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>            [<span class="keyword">this</span>](std::error_code ec, std::size_t length) {</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>                if (ec) {</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>                    std::cout &lt;&lt; <span class="stringliteral">&quot;[&quot;</span> &lt;&lt; id &lt;&lt; <span class="stringliteral">&quot;] Write Header Fail.\n&quot;</span>;</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>                    _socket.close();</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>                    return;</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>                }</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>                writeBody();</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>            });</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    }</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span> </div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    <span class="keywordtype">void</span> Connection&lt;T&gt;::writeBody() {</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        <span class="comment">// extract msg.header.id and prepend it to the body</span></div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        _messagesOut.front().body.insert(_messagesOut.front().body.begin(),</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>            (uint8_t*)&amp;_messagesOut.front().header.id,</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>            (uint8_t*)&amp;_messagesOut.front().header.id + <span class="keyword">sizeof</span>(uint32_t));</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        _socket.async_send_to(_socket, asio::buffer(_messagesOut.front().body.data(), _messagesOut.front().body.size()),</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>            remoteEndpoint,</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>            [<span class="keyword">this</span>](std::error_code ec, std::size_t length) {</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>                if (ec) {</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>                    std::cout &lt;&lt; <span class="stringliteral">&quot;[&quot;</span> &lt;&lt; id &lt;&lt; <span class="stringliteral">&quot;] Write Body Fail.\n&quot;</span>;</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>                    _socket.close();</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>                    return;</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>                }</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>                _messagesOut.pop_front();</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>                if (!_messagesOut.empty()) {</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>                    writeHeader();</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>                }</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>            });</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    }</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    <span class="keywordtype">void</span> Connection&lt;T&gt;::disconnect()</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    {</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>        <span class="keywordflow">if</span> (!isConnected())</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>        _messagesOut.waitUntilEmpty();</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        asio::post(_asioContext, [<span class="keyword">this</span>]() {</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>            _socket.close();</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>        });</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    }</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span> </div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <span class="keywordtype">bool</span> Connection&lt;T&gt;::isConnected()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        <span class="keywordflow">return</span> _socket.is_open();</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    }</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno"><a class="line" href="classrtype_1_1net_1_1_connection.html#aa866ed2819eb2de097c186341b048a94">  254</a></span>    <span class="keywordtype">void</span> <a class="code hl_class" href="classrtype_1_1net_1_1_connection.html">Connection&lt;T&gt;::startListening</a>()</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    {</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>        asio::post(_asioContext, [<span class="keyword">this</span>]() {</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>            readBody();</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        });</div>
 <div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    }</div>
 <div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span> </div>
 <div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    <span class="keywordtype">void</span> <a class="code hl_class" href="classrtype_1_1net_1_1_connection.html">Connection&lt;T&gt;::addToIncomingMessageQueue</a>()</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno"><a class="line" href="classrtype_1_1net_1_1_connection.html#aabe3247c95ff17b98975e428f8f971f7">  262</a></span>    <span class="keywordtype">void</span> <a class="code hl_class" href="classrtype_1_1net_1_1_connection.html">Connection&lt;T&gt;::send</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structrtype_1_1net_1_1_message.html">Message&lt;T&gt;</a>&amp; msg)</div>
 <div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    {</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        _messagesIn.push_back({this-&gt;shared_from_this(), _msgTemporaryIn});</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    }</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>}</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        asio::post(_asioContext,</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>            [<span class="keyword">this</span>, msg]() {</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>                <span class="comment">//_socket.send_to(msg.body, remoteEndpoint);</span></div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>            });</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    }</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    <span class="keywordtype">void</span> <a class="code hl_class" href="classrtype_1_1net_1_1_connection.html">Connection&lt;T&gt;::addToIncomingMessageQueue</a>()</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    {</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>        _messagesIn.push_back({this-&gt;shared_from_this(), _msgTemporaryIn});</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    }</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>}</div>
 <div class="ttc" id="aclassrtype_1_1net_1_1_connection_html"><div class="ttname"><a href="classrtype_1_1net_1_1_connection.html">rtype::net::Connection</a></div><div class="ttdef"><b>Definition:</b> Connection.hpp:17</div></div>
 <div class="ttc" id="aclassrtype_1_1net_1_1_connection_html_a26a39b4a74b19fc8ae2e1f37e6502f2e"><div class="ttname"><a href="classrtype_1_1net_1_1_connection.html#a26a39b4a74b19fc8ae2e1f37e6502f2e">rtype::net::Connection::getID</a></div><div class="ttdeci">uint32_t getID() const</div><div class="ttdoc">Get the ID object This ID is used system wide - its how clients will understand other clients exist a...</div><div class="ttdef"><b>Definition:</b> Connection.hpp:143</div></div>
 <div class="ttc" id="aclassrtype_1_1net_1_1_connection_html_a89749ec3d2486e30a7f0d54546034c93"><div class="ttname"><a href="classrtype_1_1net_1_1_connection.html#a89749ec3d2486e30a7f0d54546034c93">rtype::net::Connection::Connection</a></div><div class="ttdeci">Connection(owner parent, asio::io_context &amp;asioContext, asio::ip::udp::socket &amp;socket, TsQueue&lt; OwnedMessage&lt; T &gt; &gt; &amp;qIn)</div><div class="ttdoc">Construct a new Connection object.</div><div class="ttdef"><b>Definition:</b> Connection.hpp:135</div></div>
 <div class="ttc" id="aclassrtype_1_1net_1_1_connection_html_a9db788c72752de7cd7eb8735fd555e86"><div class="ttname"><a href="classrtype_1_1net_1_1_connection.html#a9db788c72752de7cd7eb8735fd555e86">rtype::net::Connection::_msgTemporaryIn</a></div><div class="ttdeci">Message&lt; T &gt; _msgTemporaryIn</div><div class="ttdoc">The temporary message object It will later be sent to the incoming queue with addToIncomingMessageQue...</div><div class="ttdef"><b>Definition:</b> Connection.hpp:122</div></div>
-<div class="ttc" id="aclassrtype_1_1net_1_1_connection_html_aa866ed2819eb2de097c186341b048a94"><div class="ttname"><a href="classrtype_1_1net_1_1_connection.html#aa866ed2819eb2de097c186341b048a94">rtype::net::Connection::startListening</a></div><div class="ttdeci">void startListening()</div><div class="ttdoc">Start listening for incoming messages Prime the connection to wait for incoming messages.</div><div class="ttdef"><b>Definition:</b> Connection.hpp:245</div></div>
-<div class="ttc" id="aclassrtype_1_1net_1_1_connection_html_aabe3247c95ff17b98975e428f8f971f7"><div class="ttname"><a href="classrtype_1_1net_1_1_connection.html#aabe3247c95ff17b98975e428f8f971f7">rtype::net::Connection::send</a></div><div class="ttdeci">void send(const Message&lt; T &gt; &amp;msg)</div><div class="ttdoc">Send a message to the remote side Connection is one-to-one so no need to specify the target For a cli...</div><div class="ttdef"><b>Definition:</b> Connection.hpp:253</div></div>
+<div class="ttc" id="aclassrtype_1_1net_1_1_connection_html_aa866ed2819eb2de097c186341b048a94"><div class="ttname"><a href="classrtype_1_1net_1_1_connection.html#aa866ed2819eb2de097c186341b048a94">rtype::net::Connection::startListening</a></div><div class="ttdeci">void startListening()</div><div class="ttdoc">Start listening for incoming messages Prime the connection to wait for incoming messages.</div><div class="ttdef"><b>Definition:</b> Connection.hpp:254</div></div>
+<div class="ttc" id="aclassrtype_1_1net_1_1_connection_html_aabe3247c95ff17b98975e428f8f971f7"><div class="ttname"><a href="classrtype_1_1net_1_1_connection.html#aabe3247c95ff17b98975e428f8f971f7">rtype::net::Connection::send</a></div><div class="ttdeci">void send(const Message&lt; T &gt; &amp;msg)</div><div class="ttdoc">Send a message to the remote side Connection is one-to-one so no need to specify the target For a cli...</div><div class="ttdef"><b>Definition:</b> Connection.hpp:262</div></div>
 <div class="ttc" id="aclassrtype_1_1net_1_1_connection_html_ade8d12395d94509f150c86de2e0416ce"><div class="ttname"><a href="classrtype_1_1net_1_1_connection.html#ade8d12395d94509f150c86de2e0416ce">rtype::net::Connection::_ownerType</a></div><div class="ttdeci">owner _ownerType</div><div class="ttdoc">The owner of the connection It decides how some of the connection behaves.</div><div class="ttdef"><b>Definition:</b> Connection.hpp:129</div></div>
 <div class="ttc" id="aclassrtype_1_1net_1_1_ts_queue_html"><div class="ttname"><a href="classrtype_1_1net_1_1_ts_queue.html">rtype::net::TsQueue</a></div><div class="ttdef"><b>Definition:</b> TsQueue.hpp:14</div></div>
 <div class="ttc" id="astructrtype_1_1net_1_1_message_html"><div class="ttname"><a href="structrtype_1_1net_1_1_message.html">rtype::net::Message</a></div><div class="ttdoc">Message Body contains a header and a std::vector, containing raw bytes of infomation....</div><div class="ttdef"><b>Definition:</b> Message.hpp:33</div></div>
