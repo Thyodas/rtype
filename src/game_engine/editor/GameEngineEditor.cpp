@@ -110,7 +110,7 @@ void engine::editor::GameEngineEditor::loguruCallback([[maybe_unused]] void *use
 	editor->addLog({
 		.verbosity = message.verbosity,
 		.message = message.message,
-		.prefix = message.preamble
+		.prefix = message.prefix
 	});
 }
 
