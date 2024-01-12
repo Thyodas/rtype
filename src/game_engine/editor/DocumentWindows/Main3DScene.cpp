@@ -7,6 +7,8 @@
 
 #include "imgui.h"
 #include "rlImGui.h"
+#include "ImGuizmo.h"
+
 #include "game_engine/editor/DocumentWindows/Main3DScene.hpp"
 
 #include "game_engine/ecs/components/Physics.hpp"
@@ -51,6 +53,8 @@ void engine::editor::Main3DScene::shutdown()
     UnloadRenderTexture(_viewTexture);
 }
 
+
+
 void engine::editor::Main3DScene::show()
 {
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
@@ -58,6 +62,68 @@ void engine::editor::Main3DScene::show()
 
     if (ImGui::Begin("3D View", &_opened, ImGuiWindowFlags_NoScrollbar))
     {
+        // Add toolbar buttons here
+
+        if (ImGui::Button("Orthographic")) {
+            // Switch to orthographic camera mode
+            //engine::camera::setMode(CameraMode::ORTHOGRAPHIC);
+        }
+
+        ImGui::SameLine();
+        if (ImGui::Button("Perspective")) {
+            // Switch to perspective camera mode
+            //engine::camera::setMode(CameraMode::PERSPECTIVE);
+        }
+
+        ImGui::SameLine();
+        if (ImGui::Button(ICON_FA_HAND_POINTER)) {
+            // Set cursor to normal mode
+            //engine::input::setCursorMode(CursorMode::NORMAL);
+        }
+
+        ImGui::SameLine();
+        if (ImGui::Button(ICON_FA_HAND)) {
+            // Set cursor to pan mode
+            //engine::input::setCursorMode(CursorMode::PAN);
+        }
+
+        ImGui::SameLine();
+        if (ImGui::Button(ICON_FA_ARROWS_SPIN)) {
+            // Set cursor to rotate mode
+            //engine::input::setCursorMode(CursorMode::ROTATE);
+        }
+
+
+
+        // Draw guizmo
+        // Set the orthographic and view matrix here (you need to compute these based on your camera)
+        float viewMatrix[16]; // Your view matrix
+        float projectionMatrix[16]; // Your projection matrix
+        // Replace with actual view and projection matrices
+        //engine::camera::ComputeMatrices(viewMatrix, projectionMatrix);
+
+        // Set ImGuizmo context (window size, etc.)
+        ImGuizmo::SetOrthographic(false);
+        ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, ImGui::GetWindowSize().x, ImGui::GetWindowSize().y);
+
+        // Define a matrix for the object to manipulate
+        float objectMatrix[16]; // Your object transform matrix
+        // Replace with actual object matrix you want to manipulate
+        //engine::GetObjectMatrix(objectMatrix);
+
+        // Manipulate the matrix with ImGuizmo
+        ImGuizmo::Manipulate(viewMatrix, projectionMatrix, ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::MODE::WORLD, objectMatrix);
+
+        // Apply the transformed matrix back to your object
+        //engine::SetObjectMatrix(objectMatrix);
+
+
+
+
+
+
+
+        // Draw the rest of the window contents
         _focused = ImGui::IsWindowFocused(ImGuiFocusedFlags_ChildWindows);
         _prevWindowSize = _currentwindowSize;
         _currentwindowSize = ImGui::GetWindowSize();

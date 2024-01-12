@@ -27,6 +27,7 @@
 #include <cstdarg>
 #include <cstdio>
 #include <cstdlib>
+#include <ImGuizmo.h>
 #include <string>
 
 std::string formatString(const char* format, va_list args) {
@@ -153,7 +154,9 @@ void engine::editor::GameEngineEditor::setupStyle()
 	ImGuiIO& io = ImGui::GetIO();
 	io.DisplayFramebufferScale = ImVec2(scale.x, scale.y); // Apply the DPI scale to ImGui rendering
 	io.ConfigWindowsMoveFromTitleBarOnly = true;
-	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable
+		| ImGuiConfigFlags_ViewportsEnable;
+
 
 	ImGuiStyle *style = &ImGui::GetStyle();
 	style->CircleTessellationMaxError = 0.10f;
@@ -260,6 +263,7 @@ void engine::editor::GameEngineEditor::render()
 	ClearBackground(DARKGRAY);
 
 	rlImGuiBegin();
+	ImGuizmo::BeginFrame();
 
 	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 

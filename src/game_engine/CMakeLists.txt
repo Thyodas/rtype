@@ -95,10 +95,18 @@ find_package(imgui QUIET)
 include_directories(${imgui_INCLUDE_DIRS})
 
 # Find loguru package
-find_path(LOGURU_INCLUDE_DIRS "loguru/loguru.cpp")
-target_include_directories(game_engine PRIVATE ${LOGURU_INCLUDE_DIRS})
+if (WIN32)
+    find_path(LOGURU_INCLUDE_DIRS "loguru/loguru.cpp")
+    target_include_directories(game_engine PRIVATE ${LOGURU_INCLUDE_DIRS})
+    target_sources(game_engine PRIVATE ${LOGURU_INCLUDE_DIRS}/loguru/loguru.cpp)
+else()
+    find_package(loguru CONFIG REQUIRED)
+    target_link_libraries(game_engine PRIVATE loguru)
+endif()
 
-target_sources(game_engine PRIVATE ${LOGURU_INCLUDE_DIRS}/loguru/loguru.cpp)
+# Find ImGuizmo package
+find_package(imguizmo CONFIG REQUIRED)
+target_link_libraries(game_engine PRIVATE imguizmo::imguizmo)
 
 # Linking the libraries
 target_link_libraries(game_engine PRIVATE raylib imgui::imgui rlimgui)
