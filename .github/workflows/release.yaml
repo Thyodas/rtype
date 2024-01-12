@@ -23,7 +23,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   execute_tests_build:
-    uses: ./.github/workflows/test-build-old.yaml
+    uses: ./.github/workflows/test-build-new.yaml
     name: Execute tests and build
 
   upload_binary:
@@ -36,18 +36,35 @@ jobs:
       - name: Download Compiled Binary Artifact
         uses: actions/download-artifact@v2
         with:
-          name: rtype-exe
+          name: binaries
 
-      - name: Generate Unique Asset Name
-        id: unique-asset-name
-        run: echo "ASSET_NAME=rtype $(TZ=Europe/Paris date +'(%d/%m/%Y %H:%M:%S %Z)').bin" >> $GITHUB_ENV
+      - name: Generate Unique Asset Name for Client
+        id: unique-asset-name-client
+        run: echo "CLIENT_ASSET_NAME=client-$(TZ=Europe/Paris date +'(%d-%m-%Y-%H-%M-%S-%Z)').bin" >> $GITHUB_ENV
 
-      - name: Upload Release Asset
+      - name: Generate Unique Asset Name for Server
+        id: unique-asset-name-server
+        run: echo "SERVER_ASSET_NAME=server-$(TZ=Europe/Paris date +'(%d-%m-%Y-%H-%M-%S-%Z)').bin" >> $GITHUB_ENV
+
+      - name: List files and directories
+        run: ls -R
+
+      - name: Upload Client Release Asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.update_release_draft.outputs.upload_url }}
-          asset_path: ./rtype-exe
-          asset_name: ${{ env.ASSET_NAME }}
+          asset_path: ./client
+          asset_name: ${{ env.CLIENT_ASSET_NAME }}
+          asset_content_type: application/octet-stream
+
+      - name: Upload Server Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.update_release_draft.outputs.upload_url }}
+          asset_path: ./server
+          asset_name: ${{ env.SERVER_ASSET_NAME }}
           asset_content_type: application/octet-stream

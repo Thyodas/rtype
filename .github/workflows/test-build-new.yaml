@@ -78,7 +78,7 @@ jobs:
           sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 100
           cmake --version
 
-    # Checkout code
+      # Checkout code
       - uses: actions/checkout@v3
         with:
           submodules: 'recursive'
@@ -184,3 +184,11 @@ jobs:
           fi
         working-directory: ${{ github.workspace }}
         shell: bash
+
+      - name: Upload client and server binaries as artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: binaries
+          path: |
+            build/client
+            build/server
