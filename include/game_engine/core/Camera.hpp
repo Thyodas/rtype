@@ -9,8 +9,12 @@
 
 #include "raylib.h"
 
+#include <cstddef>
+
 namespace engine {
     namespace core {
+        using CameraID = std::size_t;
+
         /**
          * @class Camera
          * @brief Represents a camera in the graphics engine, providing control
@@ -29,11 +33,12 @@ namespace engine {
                  * @param up Up vector of the camera, defaulting to {0, 0, 0}.
                  */
                 EngineCamera(
+                    CameraID id,
                     Vector3 position = {0, 0, 0},
                     Vector3 target = {0, 0, 0},
                     Vector3 up = {0, 0, 0},
                     int mode = CAMERA_PERSPECTIVE,
-                    float fov = 45.0f)
+                    float fov = 45.0f) : _id(id)
                 {
                     _camera.position = position;
                     _camera.target = target;
@@ -41,6 +46,7 @@ namespace engine {
                     _camera.projection = mode;
                     _camera.fovy = fov;
                 };
+
                 ~EngineCamera() {};
 
                 /**
@@ -69,6 +75,26 @@ namespace engine {
                 };
 
                 /**
+                 * @brief Set the Mode object
+                 *
+                 * @param mode
+                 */
+                void setMode(int mode)
+                {
+                    _camera.projection = mode;
+                }
+
+                /**
+                 * @brief Set the Fov object
+                 *
+                 * @param fov
+                 */
+                void setFov(float fov)
+                {
+                    _camera.fovy = fov;
+                }
+
+                /**
                  * @brief Gets the position of the camera.
                  * @return Position of the camera.
                  */
@@ -93,15 +119,43 @@ namespace engine {
                     return _camera.up;
                 };
 
+                /**
+                 * @brief Get the Camera object
+                 *
+                 * @return Camera
+                 */
                 Camera getCamera() const
                 {
                     return _camera;
+                }
+
+                /**
+                 * @brief Get the Mode object
+                 *
+                 * @return int
+                 */
+                int getMode(void) const
+                {
+                    return _camera.projection;
+                }
+
+                /**
+                 * @brief Get the Fov object
+                 *
+                 * @return float
+                 */
+                float getFov(void) const
+                {
+                    return _camera.fovy;
                 }
 
                 RenderTexture &getRenderTexture()
                 {
                     return _viewTexture;
                 }
+
+                bool isOn = true;
+                CameraID _id;
             private:
                 Camera _camera;
                 RenderTexture _viewTexture;

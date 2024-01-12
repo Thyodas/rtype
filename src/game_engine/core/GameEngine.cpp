@@ -77,6 +77,11 @@ namespace engine {
         _inputSystem = _coordinator->registerSystem<ecs::system::InputSystem>();
     }
 
+    std::vector<std::pair<std::type_index, std::any>> Engine::getAllComponents(ecs::Entity entity)
+    {
+        return _coordinator->getAllComponents(entity);
+    }
+
     ecs::Entity Engine::addEntity(ecs::components::physics::transform_t transf, ecs::components::render::render_t render) {
         ecs::Entity entity = _coordinator->createEntity();
         _coordinator->addComponent<ecs::components::physics::transform_t>(entity, transf);
@@ -124,6 +129,37 @@ namespace engine {
         EndTextureMode();
     }
 
+    void Engine::update(ecs::SceneID sceneId)
+    {
+        if (_coordinator->isScenePaused(sceneId) || !_coordinator->isSceneActive(sceneId))
+            return;
+        //activateScene(sceneId);
+        _behaviourSystem->handleBehaviours();
+        _physicSystem->updatePosition();
+        _animationSystem->handleAnimations();
+        _collisionDetectionSystem->detectCollision();
+        _coordinator->dispatchEvents();
+        //deactivateScene(sceneId);
+    }
+
+    void Engine::render(ecs::SceneID sceneId, engine::core::CameraID cameraId)
+    {
+        bool isSceneActive = _coordinator->isSceneActive(sceneId);
+        if (!isSceneActive)
+            activateScene(sceneId);
+        BeginDrawing();
+        //BeginTextureMode(_coordinator->getCamera(sceneId, cameraId).getRenderTexture());
+        _window->clear(WHITE);
+        BeginMode3D(_coordinator->getCamera(sceneId, cameraId).getCamera());
+        _renderSystem->render();
+        DrawGrid(10000, 1.0f);
+        EndMode3D();
+        //EndTextureMode();
+        EndDrawing();
+        if (!isSceneActive)
+            deactivateScene(sceneId);
+    }
+
     ecs::SceneID Engine::createScene()
     {
         static ecs::SceneID currentSceneId = 0;
@@ -146,6 +182,38 @@ namespace engine {
         _coordinator->deactivateScene(id);
     }
 
+    void Engine::pauseScene(ecs::SceneID id)
+    {
+        _coordinator->pauseScene(id);
+    }
+
+    bool Engine::isScenePaused(ecs::SceneID id)
+    {
+        return _coordinator->isScenePaused(id);
+    }
+
+    void Engine::resumeScene(ecs::SceneID id)
+    {
+        _coordinator->resumeScene(id);
+    }
+
+    engine::core::EngineCamera Engine::createCamera(Vector3 pos, Vector3 target, Vector3 up, int mode, float fov)
+    {
+        engine::core::EngineCamera newCamera(_nextId, pos, target, up, mode, fov);
+        _nextId++;
+        return newCamera;
+    }
+
+    void Engine::attachCamera(ecs::SceneID sceneID, engine::core::EngineCamera &camera)
+    {
+        _coordinator->attachCamera(sceneID, camera);
+    }
+
+    void Engine::detachCamera(ecs::SceneID sceneID, engine::core::EngineCamera &camera)
+    {
+        _coordinator->detachCamera(sceneID, camera);
+    }
+
     void initEngine(bool disableRender)
     {
         Engine::getInstance()->init(disableRender);
@@ -159,6 +227,21 @@ namespace engine {
     void runEngineTextureMode(RenderTexture& ViewTexture)
     {
         Engine::getInstance()->runTextureMode(ViewTexture);
+    }
+
+    void update(ecs::SceneID sceneId)
+    {
+        Engine::getInstance()->update(sceneId);
+    }
+
+    void render(ecs::SceneID sceneId, engine::core::CameraID cameraId)
+    {
+        Engine::getInstance()->render(sceneId, cameraId);
+    }
+
+    std::vector<std::pair<std::type_index, std::any>> getAllComponents(ecs::Entity entity)
+    {
+        return Engine::getInstance()->getAllComponents(entity);
     }
 
     ecs::Entity createCube(
@@ -325,6 +408,21 @@ namespace engine {
         Engine::getInstance()->deactivateScene(id);
     }
 
+    void pauseScene(ecs::SceneID id)
+    {
+        Engine::getInstance()->pauseScene(id);
+    }
+
+    void resumeScene(ecs::SceneID id)
+    {
+        Engine::getInstance()->resumeScene(id);
+    }
+
+    bool isScenePaused(ecs::SceneID id)
+    {
+        return Engine::getInstance()->isScenePaused(id);
+    }
+
     void addEntityToScene(ecs::Entity entity, ecs::SceneID sceneID)
     {
         Engine::getInstance()->addEntityToScene(entity, sceneID);
@@ -333,5 +431,20 @@ namespace engine {
     void removeEntityFromScene(ecs::Entity entity, ecs::SceneID sceneID)
     {
         Engine::getInstance()->removeEntityFromScene(entity, sceneID);
+    }
+
+    engine::core::EngineCamera createCamera(Vector3 pos, Vector3 target, Vector3 up, int mode, float fov)
+    {
+        return Engine::getInstance()->createCamera(pos, target, up, mode, fov);
+    }
+
+    void attachCamera(ecs::SceneID sceneID, engine::core::EngineCamera &camera)
+    {
+        Engine::getInstance()->attachCamera(sceneID, camera);
+    }
+
+    void detachCamera(ecs::SceneID sceneID, engine::core::EngineCamera &camera)
+    {
+        Engine::getInstance()->detachCamera(sceneID, camera);
     }
 }

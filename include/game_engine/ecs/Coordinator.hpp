@@ -8,6 +8,7 @@
 #pragma once
 
 #include <memory>
+#include <any>
 
 #include "System.hpp"
 #include "../core/event/Event.hpp"
@@ -68,6 +69,13 @@ namespace ecs {
             template <typename T>
             void registerComponent() {
                 _componentManager->registerComponent<T>();
+                _hasComponentFunctions[typeid(T)] = [this](Entity entity) -> bool {
+                    return this->entityHasComponent<T>(entity);
+                };
+
+                _getComponentFunctions[typeid(T)] = [this](Entity entity) -> std::any {
+                    return std::any(this->getComponent<T>(entity));
+                };
             }
 
             /**
@@ -144,6 +152,18 @@ namespace ecs {
             template <typename T>
             T &getSingletonComponent(void) {
                 return _singletonComponentManager->getSingletonComponent<T>();
+            }
+
+            std::vector<std::pair<std::type_index, std::any>> getAllComponents(Entity entity) {
+                std::vector<std::pair<std::type_index, std::any>> components;
+
+                for (auto& [type, func] : _hasComponentFunctions) {
+                    if (func(entity)) {
+                        components.emplace_back(type, _getComponentFunctions[type](entity));
+                    }
+                }
+
+                return components;
             }
 
             /**
@@ -259,6 +279,26 @@ namespace ecs {
                 }
             }
 
+            bool isSceneActive(ecs::SceneID id)
+            {
+                return _sceneManager->isSceneActive(id);
+            }
+
+            bool isScenePaused(ecs::SceneID sceneID)
+            {
+                return _sceneManager->isScenePaused(sceneID);
+            }
+
+            void pauseScene(ecs::SceneID sceneID)
+            {
+                _sceneManager->pauseScene(sceneID);
+            }
+
+            void resumeScene(ecs::SceneID sceneID)
+            {
+                _sceneManager->resumeScene(sceneID);
+            }
+
             void addEntityToScene(ecs::Entity entity, ecs::SceneID sceneID)
             {
                 _sceneManager->addEntityToScene(entity, sceneID);
@@ -273,10 +313,32 @@ namespace ecs {
                 updateSystemEntities();
             }
 
+            void attachCamera(ecs::SceneID id, engine::core::EngineCamera &camera)
+            {
+                _sceneManager->attachCamera(id, camera);
+            }
+
+            void detachCamera(ecs::SceneID id, engine::core::EngineCamera &camera)
+            {
+                _sceneManager->detachCamera(id, camera);
+            }
+
+            engine::core::EngineCamera &getCamera(ecs::SceneID id, engine::core::CameraID idCamera)
+            {
+                return _sceneManager->getCamera(id, idCamera);
+            }
+
         private:
             void updateSystemEntities(void)
             {
                 _systemManager->updateSystemEntities(*_sceneManager);
+            }
+
+            template<typename T>
+            bool entityHasComponent(Entity entity) {
+                auto signature = _entityManager->getSignature(entity);
+                ecs::components::ComponentType componentType = _componentManager->getComponentType<T>();
+                return signature.test(componentType);
             }
 
             std::shared_ptr<components::ComponentManager> _componentManager;
@@ -285,5 +347,11 @@ namespace ecs {
             std::shared_ptr<ecs::event::EventManager> _eventManager;
             std::shared_ptr<ecs::SingletonComponentManager> _singletonComponentManager;
             std::shared_ptr<ecs::SceneManager> _sceneManager;
+
+            std::unordered_map<std::type_index, std::function<bool(Entity)>> _hasComponentFunctions;
+            std::unordered_map<std::type_index, std::function<std::any(Entity)>> _getComponentFunctions;
     };
 }
+
+
+

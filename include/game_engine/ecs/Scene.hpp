@@ -18,12 +18,12 @@
 
 namespace ecs {
     using SceneID = std::size_t;
-    using CameraID = std::size_t;
 
     class Scene {
         public:
             SceneID _id;
             std::set<ecs::Entity> entities;
+            bool isPaused = false;
 
             Scene(SceneID id) : _id(id) {};
 
@@ -31,10 +31,29 @@ namespace ecs {
             {
                 entities.insert(entity);
             }
+
             void removeEntity(ecs::Entity entity)
             {
                 entities.erase(entity);
             }
+
+            void attachCamera(engine::core::EngineCamera &camera)
+            {
+                _cameras.emplace(camera._id, camera);
+            }
+
+            void detachCamera(engine::core::EngineCamera &camera)
+            {
+                _cameras.erase(camera._id);
+            }
+
+            engine::core::EngineCamera &getCamera(engine::core::CameraID id)
+            {
+                return _cameras.at(id);
+            }
+
+        private:
+            std::unordered_map<engine::core::CameraID, engine::core::EngineCamera> _cameras;
     };
 
     class SceneManager {
@@ -88,15 +107,50 @@ namespace ecs {
                 activeScenes.erase(sceneID);
                 updateActiveEntities();
             }
+
+            bool isScenePaused(SceneID sceneID)
+            {
+                return scenes.at(sceneID).isPaused;
+            }
+
+            bool isSceneActive(SceneID sceneID)
+            {
+                return activeScenes.find(sceneID) != activeScenes.end();
+            }
+
+            void pauseScene(SceneID sceneID)
+            {
+                scenes.at(sceneID).isPaused = true;
+            }
+
+            void resumeScene(SceneID sceneID)
+            {
+                scenes.at(sceneID).isPaused = false;
+            }
+
             const std::set<ecs::Entity> &getActiveEntities(void) const
             {
                 return activeEntities;
+            }
+
+            void attachCamera(SceneID id, engine::core::EngineCamera &camera)
+            {
+                scenes.at(id).attachCamera(camera);
+            }
+
+            void detachCamera(SceneID id, engine::core::EngineCamera &camera)
+            {
+                scenes.at(id).detachCamera(camera);
+            }
+
+            engine::core::EngineCamera &getCamera(SceneID id, engine::core::CameraID cameraID)
+            {
+                return scenes.at(id).getCamera(cameraID);
             }
 
         private:
             std::unordered_map<SceneID, Scene> scenes;
             std::set<SceneID> activeScenes;
             std::set<ecs::Entity> activeEntities;
-            std::unordered_map<CameraID, engine::core::EngineCamera> cameras;
     };
 }
