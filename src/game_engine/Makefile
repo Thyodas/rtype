@@ -5,7 +5,7 @@
 ## Makefile
 ##
 
-CXXFLAGS = -std=c++17 -I ../../include/ -I ../../include/common
+CXXFLAGS = -std=c++17 -I ../../include/ -I ../../include/common -I ../../include/game_engine
 LDFLAGS = -lraylib
 
 NAME = example_game_engine
