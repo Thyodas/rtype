@@ -33,7 +33,7 @@ namespace rtype::net {
              * @param socket The socket connection
              * @param qIn The incoming message queue reference
              */
-            Connection(owner parent, asio::io_context& asioContext, asio::ip::udp::socket socket,
+            Connection(owner parent, asio::io_context& asioContext, asio::ip::udp::socket &socket,
                 TsQueue<OwnedMessage<T>>& qIn);
 
             virtual ~Connection() = default;
@@ -132,11 +132,96 @@ namespace rtype::net {
     };
 
     template<typename T>
-    Connection<T>::Connection(owner parent, asio::io_context& asioContext, asio::ip::udp::socket socket,
+    Connection<T>::Connection(owner parent, asio::io_context& asioContext, asio::ip::udp::socket &socket,
         TsQueue<OwnedMessage<T>>& qIn)
         : _socket(std::move(socket)), _asioContext(asioContext), _messagesIn(qIn)
     {
         _ownerType = parent;
+    }
+
+    template<typename T>
+    uint32_t Connection<T>::getID() const
+    {
+        return id;
+    }
+
+    template<typename T>
+    void Connection<T>::connectToClient(uint32_t uid) {
+        if (_ownerType == owner::server) {
+            id = uid;
+            std::cout << "[" << id << "] Connected to client with UID: " << uid << "\n";
+        }
+    }
+
+    template<typename T>
+    void Connection<T>::connectToServer(const asio::ip::udp::resolver::results_type& endpoints) {
+        remoteEndpoint = *endpoints.begin();
+        readHeader();
+    }
+
+    template<typename T>
+    void Connection<T>::readHeader() {
+        _socket.async_receive_from(asio::buffer(&_msgTemporaryIn.header, sizeof(MessageHeader<T>)), remoteEndpoint,
+            [this](std::error_code ec, std::size_t length) {
+                if (ec) {
+                    std::cout << "[" << id << "] Read Header Fail.\n";
+                    _socket.close();
+                    return;
+                }
+                // If the header was read successfully, resize the body buffer to fit the incoming message
+                _msgTemporaryIn.body.resize(_msgTemporaryIn.header.size);
+                readBody();
+            });
+    }
+
+    template<typename T>
+    void Connection<T>::readBody()
+    {
+        _socket.async_receive_from(asio::buffer(&_msgTemporaryIn, sizeof(Message<T>)), remoteEndpoint,
+            [this](std::error_code ec, std::size_t length) {
+                if (ec) {
+                    std::cout << "[" << id << "] Read Body Fail.\n";
+                    _socket.close();
+                    return;
+                }
+                // Access remote endpoint information here
+                const asio::ip::address senderAddress = remoteEndpoint.address();
+                const uint16_t senderPort = remoteEndpoint.port();
+                std::cout << "Received from: " << senderAddress << ":" << senderPort << std::endl;
+                addToIncomingMessageQueue();
+                readBody(); // Continue listening for the next packet
+            });
+    }
+
+    template<typename T>
+    void Connection<T>::writeHeader() {
+        _socket.async_send_to(_socket, asio::buffer(&_messagesOut.front().header, sizeof(MessageHeader<T>)),
+            remoteEndpoint,
+            [this](std::error_code ec, std::size_t length) {
+                if (ec) {
+                    std::cout << "[" << id << "] Write Header Fail.\n";
+                    _socket.close();
+                    return;
+                }
+                writeBody();
+            });
+    }
+
+    template<typename T>
+    void Connection<T>::writeBody() {
+        _socket.async_send_to(_socket, asio::buffer(_messagesOut.front().body.data(), _messagesOut.front().body.size()),
+            remoteEndpoint,
+            [this](std::error_code ec, std::size_t length) {
+                if (ec) {
+                    std::cout << "[" << id << "] Write Body Fail.\n";
+                    _socket.close();
+                    return;
+                }
+                _messagesOut.pop_front();
+                if (!_messagesOut.empty()) {
+                    writeHeader();
+                }
+            });
     }
 
     template<typename T>
@@ -169,28 +254,7 @@ namespace rtype::net {
     {
         asio::post(_asioContext,
             [this, msg]() {
-                _socket.send_to(asio::buffer(msg.data(), msg.size()), remoteEndpoint);
-            });
-    }
-
-    template<typename T>
-    void Connection<T>::readBody()
-    {
-        _socket.async_receive_from(asio::buffer(&_msgTemporaryIn, sizeof(Message<T>)), remoteEndpoint,
-            [this](std::error_code ec, std::size_t length) {
-                if (ec) {
-                    std::cout << "[" << id << "] Read Body Fail.\n";
-                    _socket.close();
-                    return;
-                }
-
-                // Access remote endpoint information here
-                asio::ip::address senderAddress = remoteEndpoint.address();
-                const uint16_t senderPort = remoteEndpoint.port();
-                std::cout << "Received from: " << senderAddress << ":" << senderPort << std::endl;
-
-                addToIncomingMessageQueue();
-                readBody(); // Continue listening for the next packet
+                //_socket.send_to(msg.body, remoteEndpoint);
             });
     }
 

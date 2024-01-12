@@ -43,7 +43,7 @@ namespace client {
 
         void resPingServer(rtype::net::Message<common::NetworkMessage>& msg)
         {
-            common::game::netbody::PingServer body;
+            common::game::netbody::PingServer body{};
             msg >> body;
 
             // std::cout << "Ping duration: " << engine::Engine::getInstance()->getElapsedTime() - body.timeStart << std::endl;
@@ -95,7 +95,7 @@ namespace client {
             _responses.insert(std::make_pair(id, func));
         }
 
-        void registerResponse(std::vector<std::pair<common::NetworkMessage, ResponseFunction>> responses)
+        void registerResponse(const std::vector<std::pair<common::NetworkMessage, ResponseFunction>>& responses)
         {
             for (auto &response : responses)
                 _responses.insert(response);

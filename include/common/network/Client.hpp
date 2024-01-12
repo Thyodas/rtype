@@ -81,19 +81,14 @@ namespace rtype::net {
         try {
             asio::ip::udp::resolver resolver(m_context);
             asio::ip::udp::resolver::results_type endpoints = resolver.resolve(asio::ip::udp::v4(), host, std::to_string(port));
+            asio::ip::udp::socket socket(m_context, boost::asio::ip::udp::endpoint(boost::asio::ip::udp::v4(), port));
 
             // Replace TCP socket with UDP socket
-            m_connection = std::make_unique<Connection<T>>(Connection<T>::owner::client, m_context,
-                asio::ip::udp::socket(m_context), m_qMessagesIn);
+            m_connection = std::make_unique<Connection<T>>(Connection<T>::owner::client, m_context, socket, m_qMessagesIn);
 
             // Update to use UDP-specific connectToServer function
             m_connection->connectToServer(endpoints);
 
-            // No need for a separate thread for the context, as UDP is connectionless
-            // If you still want to run the context in a separate thread, you can keep it
-            // thrContext = std::thread([this]() {
-            //     m_context.run();
-            // });
         } catch (std::exception& e) {
             std::cerr << "Client Exception: " << e.what() << "\n";
             return false;

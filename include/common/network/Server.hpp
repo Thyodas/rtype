@@ -13,8 +13,6 @@
 #include "Connection.hpp"
 #include <unordered_map>
 
-#include <unordered_map>
-
 namespace rtype::net {
     template<typename T>
     class ServerInterface {
@@ -96,6 +94,7 @@ namespace rtype::net {
             virtual void onMessage(std::shared_ptr<Connection<T>> client, Message<T>& msg);
 
         protected:
+            Message<T> _msgTemporaryIn;
             TsQueue<OwnedMessage<T>> m_qMessagesIn;
 
             std::deque<std::shared_ptr<Connection<T>>> m_deqConnections;
@@ -107,7 +106,7 @@ namespace rtype::net {
             /**
              * @brief Acceptor object to wait for new connections
              */
-            asio::ip::udp::socket m_asioAcceptor; //TODO: remove?
+            asio::ip::udp::socket m_asioSocket;
 
             uint32_t nIDCounter = 10000;
 
@@ -115,17 +114,11 @@ namespace rtype::net {
              * @brief Acceptor object to wait for new connections
              */
             asio::ip::udp::endpoint remoteEndpoint;  // Added member variable for UDP
-
-            /**
-             * \brief Stores the temporary message object
-             */
-            asio::ip::udp::socket _socket;  // Added member variable for UDP
-
     };
 
     template<typename T>
     ServerInterface<T>::ServerInterface(uint16_t port)
-        : m_asioAcceptor(m_asioContext, asio::ip::udp::endpoint(asio::ip::udp::v4(), port))
+        : m_asioSocket(m_asioContext, asio::ip::udp::endpoint(asio::ip::udp::v4(), port))
     {
     }
 
@@ -136,9 +129,37 @@ namespace rtype::net {
     }
 
     template<typename T>
+    bool ServerInterface<T>::start()
+    {
+        try {
+            waitForClientConnection();
+
+            m_threadContext = std::thread([this]() {
+                m_asioContext.run();
+            });
+        } catch (std::exception& e) {
+            std::cerr << "[SERVER] Exception: " << e.what() << "\n";
+            return false;
+        }
+        return true;
+    }
+
+    template<typename T>
+    void ServerInterface<T>::stop()
+    {
+        std::cout << "[SERVER] Stopping server...\n";
+        m_asioContext.stop();
+
+        if (m_threadContext.joinable()) m_threadContext.join();
+
+        std::cout << "[SERVER] Stopped!\n";
+    }
+
+    template<typename T>
     void ServerInterface<T>::waitForClientConnection()
     {
-        _socket.async_receive_from(asio::buffer(&_msgTemporaryIn, sizeof(Message<T>)), remoteEndpoint,
+        m_asioSocket.async_receive_from(
+            asio::buffer(&_msgTemporaryIn, sizeof(Message<T>)), remoteEndpoint,
             [this](std::error_code ec, std::size_t length) {
                 if (ec) {
                     std::cout << "[SERVER] Receive Error: " << ec.message() << "\n";
@@ -150,7 +171,7 @@ namespace rtype::net {
 
                 std::shared_ptr<Connection<T>> newconn =
                     std::make_shared<Connection<T>>(Connection<T>::owner::server,
-                        m_asioContext, _socket, m_qMessagesIn);
+                        m_asioContext, m_asioSocket, m_qMessagesIn);
 
                 if (onClientConnect(newconn)) {
                     m_deqConnections.push_back(std::move(newconn));
@@ -210,6 +231,19 @@ namespace rtype::net {
                     m_deqConnections.end(),
                     nullptr),
                 m_deqConnections.end());
+        }
+    }
+
+    template<typename T>
+    void ServerInterface<T>::update(size_t nMaxMessages, bool bWait)
+    {
+        if (bWait)
+            m_qMessagesIn.wait();
+        size_t nMessageCount = 0;
+        while (nMessageCount < nMaxMessages && !m_qMessagesIn.empty()) {
+            auto ownedMessage = m_qMessagesIn.pop_front();
+            onMessage(ownedMessage.remote, ownedMessage.msg);
+            nMessageCount++;
         }
     }
 
