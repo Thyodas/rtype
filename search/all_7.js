@@ -9,7 +9,7 @@ var searchData=
   ['getclipboardtext_6',['getClipboardText',['../classengine_1_1core_1_1_window.html#a2eebcd05171085921413cc8ef78c4df0',1,'engine::core::Window']]],
   ['getcollisionresponse_7',['getCollisionResponse',['../classecs_1_1system_1_1_collision_response.html#ad60b0a09a516387432c64b94aaff2861',1,'ecs::system::CollisionResponse']]],
   ['getcomponent_8',['getComponent',['../classecs_1_1components_1_1_component_manager.html#ac220dd70aabece11f5643983d0cb7845',1,'ecs::components::ComponentManager::getComponent()'],['../classecs_1_1_coordinator.html#a71aea34b19a7bf5fbdb42ed232199968',1,'ecs::Coordinator::getComponent()'],['../classengine_1_1_engine.html#a89b529e7bf2e61e61916cd9f009679c4',1,'engine::Engine::getComponent()']]],
-  ['getcomponenttype_9',['getComponentType',['../classecs_1_1_coordinator.html#a8e3419f884cef2c133a173640a9868c2',1,'ecs::Coordinator::getComponentType()'],['../classecs_1_1components_1_1_component_manager.html#ab448e9df5707337fdce179d16d25caf7',1,'ecs::components::ComponentManager::getComponentType()']]],
+  ['getcomponenttype_9',['getComponentType',['../classecs_1_1components_1_1_component_manager.html#ab448e9df5707337fdce179d16d25caf7',1,'ecs::components::ComponentManager::getComponentType()'],['../classecs_1_1_coordinator.html#a8e3419f884cef2c133a173640a9868c2',1,'ecs::Coordinator::getComponentType()']]],
   ['getconnectionbyid_10',['getConnectionById',['../classrtype_1_1net_1_1_server_interface.html#a31ba11c2b6b60dcb8cf783b67077c81a',1,'rtype::net::ServerInterface']]],
   ['getdata_11',['getData',['../classecs_1_1components_1_1_component_array.html#a5f493cfc2a06756ec87fdd2a4ac0b86c',1,'ecs::components::ComponentArray']]],
   ['getelapsedtime_12',['getElapsedTime',['../classengine_1_1_engine.html#aeef234f6dc764a620ebbeb57924be12a',1,'engine::Engine']]],
@@ -18,8 +18,9 @@ var searchData=
   ['getid_15',['getID',['../classrtype_1_1net_1_1_connection.html#a26a39b4a74b19fc8ae2e1f37e6502f2e',1,'rtype::net::Connection']]],
   ['getincoming_16',['getIncoming',['../classrtype_1_1net_1_1_client_interface.html#a4d61e723e1a35614e893de0f617c04ea',1,'rtype::net::ClientInterface']]],
   ['getmodel_17',['getModel',['../classecs_1_1components_1_1_i_shape.html#a03e8f03c696b607f7ad5f7cb43ea34e8',1,'ecs::components::IShape']]],
-  ['getsignature_18',['getSignature',['../classecs_1_1_entity_manager.html#ae21219b3d91d4b90a5100fa1b050a148',1,'ecs::EntityManager']]],
-  ['getsingletoncomponent_19',['getSingletonComponent',['../classecs_1_1_coordinator.html#a9e0f4b9d5b32186cea15014ae65bc6aa',1,'ecs::Coordinator']]],
-  ['getwidth_20',['getWidth',['../classengine_1_1core_1_1_window.html#a29f74683fa9772f4d866f10114c45bad',1,'engine::core::Window']]],
-  ['github_20documentation_21',['GitHub Documentation',['../github_parent_page.html',1,'']]]
+  ['getopened_18',['getOpened',['../classengine_1_1editor_1_1_a_document_window.html#a8af3467ef223fd872875f4f8e3f8d0ce',1,'engine::editor::ADocumentWindow']]],
+  ['getsignature_19',['getSignature',['../classecs_1_1_entity_manager.html#ae21219b3d91d4b90a5100fa1b050a148',1,'ecs::EntityManager']]],
+  ['getsingletoncomponent_20',['getSingletonComponent',['../classecs_1_1_coordinator.html#a9e0f4b9d5b32186cea15014ae65bc6aa',1,'ecs::Coordinator']]],
+  ['getwidth_21',['getWidth',['../classengine_1_1core_1_1_window.html#a29f74683fa9772f4d866f10114c45bad',1,'engine::core::Window']]],
+  ['getwindow_22',['getWindow',['../classengine_1_1_engine.html#aa011aff7a9a0d6a65373330aa7526712',1,'engine::Engine']]]
 ];
