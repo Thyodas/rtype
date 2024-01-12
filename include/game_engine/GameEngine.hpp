@@ -28,6 +28,7 @@
 #include "game_engine/ecs/Scene.hpp"
 #include "game_engine/ecs/systems/Audio.hpp"
 #include "common/utils/Chrono.hpp"
+#include "game_engine/core/Camera.hpp"
 #include <memory>
 #include <mutex>
 #include <functional>
@@ -91,6 +92,8 @@ namespace engine {
                 return _coordinator->getSingletonComponent<T>();
             }
 
+            std::vector<std::pair<std::type_index, std::any>> getAllComponents(ecs::Entity entity);
+
             /**
              * @brief Registers an event listener.
              * @tparam T Type of the event.
@@ -118,6 +121,9 @@ namespace engine {
              * @brief Starts and runs the game engine.
              */
             void run();
+
+            void update(ecs::SceneID id);
+            void render(ecs::SceneID sceneId, engine::core::CameraID cameraId);
 
             void runTextureMode(RenderTexture& ViewTexture);
 
@@ -200,6 +206,10 @@ namespace engine {
              */
             void deactivateScene(ecs::SceneID id);
 
+            void pauseScene(ecs::SceneID id);
+            void resumeScene(ecs::SceneID id);
+            bool isScenePaused(ecs::SceneID id);
+
             void addEntityToScene(ecs::Entity entity, ecs::SceneID sceneID)
             {
                 _coordinator->addEntityToScene(entity, sceneID);
@@ -209,6 +219,11 @@ namespace engine {
             {
                 _coordinator->removeEntityFromScene(entity, sceneID);
             }
+
+            engine::core::EngineCamera createCamera(Vector3 pos, Vector3 target, Vector3 up, int mode, float fov);
+
+            void attachCamera(ecs::SceneID sceneID, engine::core::EngineCamera &camera);
+            void detachCamera(ecs::SceneID sceneID, engine::core::EngineCamera &camera);
 
         private:
             std::shared_ptr<ecs::Coordinator> _coordinator;
@@ -228,6 +243,8 @@ namespace engine {
             common::utils::Chrono _chrono;
 
             std::queue<ecs::Entity> _entitiesToDestroy;
+
+            engine::core::CameraID _nextId = 0;
 
         private:
             static Engine *engine;
@@ -269,6 +286,23 @@ namespace engine {
      *
      */
     ecs::Entity createEntity(void);
+    /**
+     * @brief Update all the systems of the engine of the entites attached to the scene
+     *
+     * @param sceneId Id of the scene
+     */
+    void update(ecs::SceneID sceneId);
+
+    /**
+     * @brief Render the entities attached to the scene based on the specified camera
+     *
+     * @param sceneId id of the scene to be rendered
+     * @param cameraId id of the camera to be used
+     */
+    void render(ecs::SceneID sceneId, engine::core::CameraID cameraId);
+
+
+    std::vector<std::pair<std::type_index, std::any>> getAllComponents(ecs::Entity entity);
 
     /**
      * @brief Creates a cube entity with specified parameters.
@@ -463,7 +497,51 @@ namespace engine {
      */
     void deactivateScene(ecs::SceneID id);
 
+    void pauseScene(ecs::SceneID id);
+    void resumeScene(ecs::SceneID id);
+    bool isScenePaused(ecs::SceneID id);
+
+    /**
+     * @brief Adds an entity to a scene
+     *
+     * @param entity
+     * @param sceneID
+     */
     void addEntityToScene(ecs::Entity entity, ecs::SceneID sceneID);
 
+    /**
+     * @brief Removes an entity from a scene
+     *
+     * @param entity
+     * @param sceneID
+     */
     void removeEntityFromScene(ecs::Entity entity, ecs::SceneID sceneID);
+
+    /**
+     * @brief Create a Camera object
+     *
+     * @param pos
+     * @param target
+     * @param up
+     * @param mode
+     * @param fov
+     * @return engine::core::EngineCamera
+     */
+    engine::core::EngineCamera createCamera(Vector3 pos = {0, 0, 0}, Vector3 target = {0, 0, 0}, Vector3 up = {0, 0, 0}, int mode = CAMERA_PERSPECTIVE, float fov = 45.0f);
+
+    /**
+     * @brief Attach a camera to a scene
+     *
+     * @param sceneID
+     * @param camera
+     */
+    void attachCamera(ecs::SceneID sceneID, engine::core::EngineCamera &camera);
+
+    /**
+     * @brief Detach a camera from a scene
+     *
+     * @param sceneID
+     * @param camera
+     */
+    void detachCamera(ecs::SceneID sceneID, engine::core::EngineCamera &camera);
 }
