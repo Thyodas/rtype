@@ -7,7 +7,6 @@
 
 #include "imgui.h"
 #include "rlImGui.h"
-#include "ImGuizmo.h"
 
 #include "game_engine/editor/DocumentWindows/Main3DScene.hpp"
 
@@ -248,7 +247,7 @@ void engine::editor::Main3DScene::renderGizmo()
     // Manipulate the matrix with ImGuizmo
     ImGuizmo::Enable(true);
     if (!ImGuizmo::Manipulate(viewMatrixFloats.v, projectionMatrixFloats.v,
-                         ImGuizmo::OPERATION::SCALE | ImGuizmo::TRANSLATE | ImGuizmo::ROTATE,
+                         ImGuizmo::OPERATION::UNIVERSAL,
                          ImGuizmo::MODE::WORLD,
                          objectMatrixFloats.v)) {
         //LOG_F(INFO, "ImGuizmo::Manipulate() returned false %d", ImGuizmo::IsUsing());
@@ -257,6 +256,7 @@ void engine::editor::Main3DScene::renderGizmo()
     auto viewManipulateTop = _viewPosition.y;
     ImGuizmo::ViewManipulate(viewMatrixFloats.v, 10, ImVec2(viewManipulateRight - 128, viewManipulateTop), ImVec2(128, 128), 0x10101010);
 
+    //camera::setViewMatrix(engine::matrixFromFloat16(viewMatrixFloats));
 
     // Check if the matrix was changed
     if (ImGuizmo::IsUsing())
@@ -273,20 +273,36 @@ void engine::editor::Main3DScene::renderGizmo()
         Vector3 rot = {rotation[0], rotation[1], rotation[2]};
         //std::cout << rot.x << " " << rot.y << " " << rot.z << std::endl;
         Vector3 sca = {scale[0], scale[1], scale[2]};
-        if (ImGuizmo::IsOver(ImGuizmo::OPERATION::SCALE)) {
-            LOG_F(INFO, "SCALE");
-            engine::setScale(_selectedEntity, sca);
-        } else if (ImGuizmo::IsOver(ImGuizmo::OPERATION::TRANSLATE)) {
-            LOG_F(INFO, "TRANSLATE");
-            auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_selectedEntity);
-            transform.pos = pos;
-        } else if (ImGuizmo::IsOver(ImGuizmo::OPERATION::ROTATE)) {
-            LOG_F(INFO, "ROTATE");
-            engine::rotate(_selectedEntity, rot);
+
+        switch (_lastGizmoOperationOver) {
+            case ImGuizmo::OPERATION::SCALE:
+                LOG_F(INFO, "SCALE");
+                engine::setScale(_selectedEntity, sca);
+                break;
+            case ImGuizmo::OPERATION::TRANSLATE: {
+                LOG_F(INFO, "TRANSLATE");
+                auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_selectedEntity);
+                transform.pos = pos;
+                break;
+            }
+            case ImGuizmo::OPERATION::ROTATE:
+                LOG_F(INFO, "ROTATE");
+                engine::rotate(_selectedEntity, rot);
+                break;
+            default:
+                break;
         }
 
 
         //engine::entity::setTransform(_selectedEntity, pos, rot, sca);
+    } else {
+        if (ImGuizmo::IsOver(ImGuizmo::OPERATION::TRANSLATE)) {
+            _lastGizmoOperationOver = ImGuizmo::OPERATION::TRANSLATE;
+        } else if (ImGuizmo::IsOver(ImGuizmo::OPERATION::ROTATE)) {
+            _lastGizmoOperationOver = ImGuizmo::OPERATION::ROTATE;
+        } else if (ImGuizmo::IsOver(ImGuizmo::OPERATION::SCALE)) {
+            _lastGizmoOperationOver = ImGuizmo::OPERATION::SCALE;
+        }
     }
 }
 

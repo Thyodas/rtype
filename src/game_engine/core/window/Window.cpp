@@ -147,6 +147,28 @@ namespace engine {
             return GetCameraMatrix(_camera);
         }
 
+        void Window::setCameraViewMatrix(Matrix matrix)
+        {
+            // Invert the view matrix to get the camera transformation matrix
+            Matrix cameraMatrix = MatrixInvert(matrix);
+
+            // The camera position is the translation part of the matrix
+            _camera.position = (Vector3){ cameraMatrix.m12, cameraMatrix.m13, cameraMatrix.m14 };
+
+            // Reconstruct the camera direction (target - position)
+            Vector3 forward = { -cameraMatrix.m2, -cameraMatrix.m6, -cameraMatrix.m10 };
+
+            // Normalize the forward vector to get the direction
+            forward = Vector3Normalize(forward);
+
+            // Set the target using the camera position and direction
+            _camera.target = Vector3Add(_camera.position, forward);
+
+            // Extract the up vector from the camera matrix
+            _camera.up = (Vector3){ cameraMatrix.m1, cameraMatrix.m5, cameraMatrix.m9 };
+
+        }
+
         Matrix Window::getProjectionMatrix(double aspect, double nearPlane, double farPlane) const
         {
             return MatrixPerspective(_camera.fovy * DEG2RAD, aspect, nearPlane, farPlane);

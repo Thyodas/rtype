@@ -7,8 +7,8 @@ include(FetchContent)
 # Declare ImGuizmo dependency
 FetchContent_Declare(
         imguizmo
-        URL https://github.com/CedricGuillemet/ImGuizmo/archive/refs/tags/1.83.tar.gz
-        URL_HASH SHA512=23285398688b4cdf3128ecb918b70c9a52f06c8e911da57430442b838cecf653e233d8cdfefc6acd3e4da381869ffc6fb74bcaaafc8e33657d6060a645517363
+        GIT_REPOSITORY https://github.com/CedricGuillemet/ImGuizmo.git
+        GIT_TAG ba662b119d64f9ab700bb2cd7b2781f9044f5565
 )
 
 # Fetch the content at configure time

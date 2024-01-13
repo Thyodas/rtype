@@ -405,6 +405,33 @@ namespace engine {
         return Engine::getInstance()->getWindow()->getCameraViewMatrix();
     }
 
+    Matrix matrixFromFloat16(const float16& matrix)
+    {
+        Matrix mat;
+        mat.m0 = matrix.v[0];
+        mat.m1 = matrix.v[1];
+        mat.m2 = matrix.v[2];
+        mat.m3 = matrix.v[3];
+        mat.m4 = matrix.v[4];
+        mat.m5 = matrix.v[5];
+        mat.m6 = matrix.v[6];
+        mat.m7 = matrix.v[7];
+        mat.m8 = matrix.v[8];
+        mat.m9 = matrix.v[9];
+        mat.m10 = matrix.v[10];
+        mat.m11 = matrix.v[11];
+        mat.m12 = matrix.v[12];
+        mat.m13 = matrix.v[13];
+        mat.m14 = matrix.v[14];
+        mat.m15 = matrix.v[15];
+        return mat;
+    }
+
+    void camera::setViewMatrix(Matrix matrix)
+    {
+        Engine::getInstance()->getWindow()->setCameraViewMatrix(matrix);
+    }
+
     Matrix camera::getProjectionMatrix(double aspect, double nearPlane, double farPlane)
     {
         return Engine::getInstance()->getWindow()->getProjectionMatrix(aspect, nearPlane, farPlane);
