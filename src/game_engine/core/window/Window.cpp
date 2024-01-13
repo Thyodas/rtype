@@ -8,6 +8,7 @@
 #include "game_engine/core/Window.hpp"
 
 #include <raymath.h>
+#include <rcamera.h>
 
 namespace engine {
     namespace core {

@@ -357,12 +357,26 @@ namespace engine {
      * @param rotation The rotation vector.
      */
     void rotate(ecs::Entity entity, Vector3 rotation);
+
+    /**
+    * @brief Set the rotation of an entity.
+    * @param entity The entity to rotate.
+    * @param rotation The rotation vector.
+    */
+    void setRotation(ecs::Entity entity, Vector3 rotation);
     /**
      * @brief Scales an entity.
      * @param entity The entity to scale.
      * @param scale The scale vector.
      */
     void scale(ecs::Entity entity, Vector3 scale);
+
+    /**
+    * @brief Set the scale of an entity.
+    * @param entity The entity to scale.
+    * @param scale The scale vector.
+    */
+    void setScale(ecs::Entity entity, Vector3 scale);
     /**
      * @brief Sets the animation for an entity.
      * @param entity The entity to set the animation for.

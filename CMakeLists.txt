@@ -16,7 +16,13 @@ if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
     option(GIT_SUBMODULE "Check submodules during build" ON)
     if(GIT_SUBMODULE)
         message(STATUS "Submodule update")
-        execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
+        execute_process(COMMAND ${GIT_EXECUTABLE} submodule sync --recursive
+                        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+                        RESULT_VARIABLE GIT_SUBMOD_RESULT)
+        if(NOT GIT_SUBMOD_RESULT EQUAL "0")
+            message(FATAL_ERROR "git submodule sync --recursive failed with ${GIT_SUBMOD_RESULT}, please checkout submodules")
+        endif()
+        execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive --remote
                         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
                         RESULT_VARIABLE GIT_SUBMOD_RESULT)
         if(NOT GIT_SUBMOD_RESULT EQUAL "0")
@@ -50,10 +56,13 @@ endif()
 include("${CMAKE_CURRENT_SOURCE_DIR}/external/raylib/CMakeLists.txt")
 
 # ADOBE IMGUI DOWNLOAD
-include("${CMAKE_CURRENT_SOURCE_DIR}/external/adobe_imgui/CMakeLists.txt")
+#include("${CMAKE_CURRENT_SOURCE_DIR}/external/adobe_imgui/CMakeLists.txt")
 
 # RLIMGUI DOWNLOAD
 include("${CMAKE_CURRENT_SOURCE_DIR}/external/rlImGui/CMakeLists.txt")
+
+# IMGUIZMO DOWNLOAD
+include("${CMAKE_CURRENT_SOURCE_DIR}/external/ImGuizmo/CMakeLists.txt")
 
 # SETUP CLIENT, SERVER AND GAME ENGINE GUI
 include("${CMAKE_CURRENT_SOURCE_DIR}/src/client/CMakeLists.txt")

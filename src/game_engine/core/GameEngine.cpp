@@ -328,6 +328,8 @@ namespace engine {
     }
 
     Matrix transformToMatrix(const ecs::components::physics::transform_t &transform) {
+        /*Matrix matScale = MatrixScale(1, 1, 1);
+        Matrix matRotation = MatrixRotateXYZ(Vector3{0, 0, 0});*/
         Matrix matScale = MatrixScale(transform.scale.x, transform.scale.y, transform.scale.z);
         Matrix matRotation = MatrixRotateXYZ(Vector3{DEG2RAD * transform.rotation.x, DEG2RAD * transform.rotation.y, DEG2RAD * transform.rotation.z});
         Matrix matTranslation = MatrixTranslate(transform.pos.x, transform.pos.y, transform.pos.z);
@@ -352,7 +354,7 @@ namespace engine {
 
         return Transform {
             .translation = transform.pos,
-            .rotation = QuaternionFromMatrix(MatrixRotateXYZ(transform.rotation)),
+            .rotation = {transform.rotation.x, transform.rotation.y, transform.rotation.z},
             .scale = transform.scale
         };
     }
@@ -361,11 +363,10 @@ namespace engine {
         const Vector3 &rotation, const Vector3 &scale)
     {
         auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
-
         transform.pos = position;
-        transform.rotation = rotation;
-
-        transform.scale = scale;
+        //transform.rotation = rotation;
+        engine::rotate(entity, rotation);
+        //engine::setScale(entity, scale);
     }
 
     void camera::setPosition(Vector3 pos)
@@ -414,10 +415,29 @@ namespace engine {
         auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
         auto &render = Engine::getInstance()->getComponent<ecs::components::render::render_t>(entity);
         auto &collider = Engine::getInstance()->getComponent<ecs::components::physics::collider_t>(entity);
+        rotation.x = rotation.x * DEG2RAD;
+        rotation.y = rotation.y * DEG2RAD;
+        rotation.z = rotation.z * DEG2RAD;
         transform.rotation = Vector3Add(transform.rotation, rotation);
         Matrix matTemp = MatrixRotateXYZ(rotation);
         render.data->getModel().transform = MatrixMultiply(render.data->getModel().transform, matTemp);
         collider.matRotate = MatrixMultiply(collider.matRotate, matTemp);
+        ecs::system::CollisionResponse::updateColliderGlobalVerts(collider);
+    }
+
+    void setRotation(ecs::Entity entity, Vector3 rotation)
+    {
+        auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
+        auto &render = Engine::getInstance()->getComponent<ecs::components::render::render_t>(entity);
+        auto &collider = Engine::getInstance()->getComponent<ecs::components::physics::collider_t>(entity);
+        //std::cout << "Rotation : " << rotation.x << " " << rotation.y << " " << rotation.z << std::endl;
+        rotation.x = rotation.x * DEG2RAD;
+        rotation.y = rotation.y * DEG2RAD;
+        rotation.z = rotation.z * DEG2RAD;
+        transform.rotation = rotation;
+        Matrix matTemp = MatrixRotateXYZ(transform.rotation);
+        render.data->getModel().transform = matTemp;
+        collider.matRotate = matTemp;
         ecs::system::CollisionResponse::updateColliderGlobalVerts(collider);
     }
 
@@ -430,6 +450,26 @@ namespace engine {
         Matrix matTemp = MatrixScale(scale.x, scale.y, scale.z);
         render.data->getModel().transform = MatrixMultiply(render.data->getModel().transform, matTemp);
         collider.matScale = MatrixMultiply(collider.matScale, matTemp);
+        ecs::system::CollisionResponse::updateColliderGlobalVerts(collider);
+    }
+
+    void setScale(ecs::Entity entity, Vector3 scale)
+    {
+        auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
+        auto &render = Engine::getInstance()->getComponent<ecs::components::render::render_t>(entity);
+        auto &collider = Engine::getInstance()->getComponent<ecs::components::physics::collider_t>(entity);
+
+        // Set the scale of the transform directly to the new scale value
+        transform.scale = scale;
+
+        // Create a scaling matrix with the new scale values
+        Matrix matTemp = MatrixScale(scale.x, scale.y, scale.z);
+
+        // Apply the scaling matrix to the transform of the render data and the collider
+        render.data->getModel().transform = matTemp;
+        collider.matScale = matTemp;
+
+        // Update the collider's global vertices
         ecs::system::CollisionResponse::updateColliderGlobalVerts(collider);
     }
 
