@@ -592,6 +592,7 @@ namespace engine {
          * @brief Set the transform of the entity.
          * @param entity The entity to set the transform to.
          * @param transMatrix The transformation matrix.
+         */
         void setTransform(ecs::Entity entity, const Vector3 &position,
             const Vector3 &rotation, const Vector3 &scale);
     }
