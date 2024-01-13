@@ -100,6 +100,7 @@ namespace engine::editor {
                 ImGui::PushStyleColor(ImGuiCol_FrameBg, {0.f, 0.f, 0.f, 0.f}); // remove text input box
                 ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(0, 0, 0, 0)); // Set border color to transparent
                 ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, 0.0f); // Set border size to 0
+                ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(3, 0)); // Set item spacing to 0
 
                 ImVec4 color = getVerbosityColor(item.verbosity);
 
@@ -111,7 +112,6 @@ namespace engine::editor {
                 ImGui::PushStyleColor(ImGuiCol_Text, color);
                 ImGui::TextUnformatted(tag.c_str());
                 ImGui::PopStyleColor();
-
                 //ImGui::PushStyleColor(ImGuiCol_Text, color);
 
                 ImGui::SameLine();
@@ -133,6 +133,7 @@ namespace engine::editor {
                     */
 
 
+                ImGui::PopStyleVar();
                 ImGui::PopStyleColor();
                 ImGui::PopStyleVar();
                 ImGui::PopStyleColor();
