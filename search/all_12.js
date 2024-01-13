@@ -5,5 +5,5 @@ var searchData=
   ['transform_5fs_2',['transform_s',['../structecs_1_1components_1_1physics_1_1transform__s.html',1,'ecs::components::physics']]],
   ['transform_5ft_3',['transform_t',['../structtransform__t.html',1,'']]],
   ['tsqueue_4',['TsQueue',['../classrtype_1_1net_1_1_ts_queue.html',1,'rtype::net']]],
-  ['type_5',['type',['../structecs_1_1components_1_1render_1_1render__s.html#a29ad9ce989541d85b5c22d9af81056f9',1,'ecs::components::render::render_s']]]
+  ['type_5',['type',['../structecs_1_1event_1_1type.html',1,'ecs::event::type'],['../structecs_1_1components_1_1render_1_1render__s.html#a29ad9ce989541d85b5c22d9af81056f9',1,'ecs::components::render::render_s::type()']]]
 ];
