@@ -275,19 +275,18 @@ void engine::editor::Main3DScene::renderGizmo()
         Vector3 sca = {scale[0], scale[1], scale[2]};
 
         switch (_lastGizmoOperationOver) {
-            case ImGuizmo::OPERATION::SCALE:
-                LOG_F(INFO, "SCALE");
-                engine::setScale(_selectedEntity, sca);
-                break;
             case ImGuizmo::OPERATION::TRANSLATE: {
                 LOG_F(INFO, "TRANSLATE");
                 auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_selectedEntity);
+                engine::setScale(_selectedEntity, sca);
+                engine::setRotation(_selectedEntity, rot);
                 transform.pos = pos;
                 break;
             }
             case ImGuizmo::OPERATION::ROTATE:
                 LOG_F(INFO, "ROTATE");
-                engine::rotate(_selectedEntity, rot);
+                engine::setScale(_selectedEntity, sca);
+                engine::setRotation(_selectedEntity, rot);
                 break;
             default:
                 break;
