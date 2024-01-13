@@ -46,7 +46,7 @@ namespace engine {
              * @brief Initializes the engine, setting up necessary components and systems.
              * @param disableRender Flag to disable rendering, useful for non-graphical applications.
              */
-            void init(bool disableRender = false, int windowWidth = 1920, int windowHeight = 1080);
+            void init(bool disableRender = false);
 
             /**
              * @brief Adds a new entity to the game with optional physics and render components.
@@ -231,7 +231,7 @@ namespace engine {
      * @brief Initializes the game engine.
      * @param disableRender Flag to disable rendering.
      */
-    void initEngine(bool disableRender = false, int windowWidth = 1920, int windowHeight = 1080);
+    void initEngine(bool disableRender = false);
 
     /**
      * @brief Runs the game engine.
