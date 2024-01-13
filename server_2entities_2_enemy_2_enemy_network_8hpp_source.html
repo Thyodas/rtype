@@ -131,37 +131,35 @@ $(document).ready(function(){initNavTree('server_2entities_2_enemy_2_enemy_netwo
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                    WHITE,</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                    <span class="keyword">false</span>,</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                    WHITE,</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                    {0, 0, 0},</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                    {0, 135, 0},</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                    {0.025, 0.025, 0.025}</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                }, common::game::ObjectFormat::GLB);</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                <span class="keyword">auto</span> &amp;rigidBody = engine::Engine::getInstance()-&gt;<a class="code hl_function" href="classengine_1_1_engine.html#a89b529e7bf2e61e61916cd9f009679c4">getComponent</a>&lt;<a class="code hl_struct" href="structecs_1_1components_1_1physics_1_1rigid_body__s.html">ecs::components::physics::rigidBody_t</a>&gt;(bullet);</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                rigidBody.<a class="code hl_variable" href="structecs_1_1components_1_1physics_1_1rigid_body__s.html#a53eb2dab48aeef5f97ceee7590bc3608">velocity</a> = {0, 0, -2};</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                <span class="comment">// auto &amp;health = engine::Engine::getInstance()-&gt;getComponent&lt;ecs::components::health::health_t&gt;(bullet);</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                <span class="comment">// health.healthPoints = 1;</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                <span class="keyword">auto</span> &amp;metadata = engine::Engine::getInstance()-&gt;<a class="code hl_function" href="classengine_1_1_engine.html#a89b529e7bf2e61e61916cd9f009679c4">getComponent</a>&lt;<a class="code hl_struct" href="structecs_1_1components_1_1metadata_1_1metadata__s.html">ecs::components::metadata::metadata_t</a>&gt;(bullet);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                metadata.type = server::entities::EntityType::BULLET;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                <span class="keyword">auto</span> bulletBehave = engine::createBehavior&lt;server::BulletNetwork&gt;(_networkManager, _entity, bullet);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                engine::attachBehavior(bullet, bulletBehave);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>                _networkManager.allServerFireBullet(bullet, _entity);</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            }</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="classserver_1_1_enemy_network.html#a6a3b64fbb7910fb8f4b8bc7bd0c0968d">   59</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classserver_1_1_enemy_network.html#a6a3b64fbb7910fb8f4b8bc7bd0c0968d">update</a>()<span class="keyword"> override</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keyword">            </span>{</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                this-&gt;shoot();</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            }</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            <span class="keywordtype">double</span> _lastShot = -1;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    };</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>}</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                <span class="keyword">auto</span> &amp;metadata = engine::Engine::getInstance()-&gt;<a class="code hl_function" href="classengine_1_1_engine.html#a89b529e7bf2e61e61916cd9f009679c4">getComponent</a>&lt;<a class="code hl_struct" href="structecs_1_1components_1_1metadata_1_1metadata__s.html">ecs::components::metadata::metadata_t</a>&gt;(bullet);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                metadata.type = server::entities::EntityType::BULLET;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                <span class="keyword">auto</span> bulletBehave = engine::createBehavior&lt;server::BulletNetwork&gt;(_networkManager, _entity, bullet);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                engine::attachBehavior(bullet, bulletBehave);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                _networkManager.allServerFireBullet(bullet, _entity);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            }</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="classserver_1_1_enemy_network.html#a6a3b64fbb7910fb8f4b8bc7bd0c0968d">   57</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classserver_1_1_enemy_network.html#a6a3b64fbb7910fb8f4b8bc7bd0c0968d">update</a>()<span class="keyword"> override</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keyword">            </span>{</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                this-&gt;shoot();</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            }</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            <span class="keywordtype">double</span> _lastShot = -1;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    };</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>}</div>
 <div class="ttc" id="aclasscommon_1_1game_1_1_entity_factory_html"><div class="ttname"><a href="classcommon_1_1game_1_1_entity_factory.html">common::game::EntityFactory</a></div><div class="ttdef"><b>Definition:</b> EntityFactory.hpp:15</div></div>
 <div class="ttc" id="aclassecs_1_1components_1_1behaviour_1_1_network_behaviour_html"><div class="ttname"><a href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html">ecs::components::behaviour::NetworkBehaviour</a></div><div class="ttdef"><b>Definition:</b> NetworkBehaviour.hpp:26</div></div>
 <div class="ttc" id="aclassengine_1_1_engine_html_a89b529e7bf2e61e61916cd9f009679c4"><div class="ttname"><a href="classengine_1_1_engine.html#a89b529e7bf2e61e61916cd9f009679c4">engine::Engine::getComponent</a></div><div class="ttdeci">T &amp; getComponent(ecs::Entity entity)</div><div class="ttdoc">Retrieves a component from an entity.</div><div class="ttdef"><b>Definition:</b> GameEngine.hpp:82</div></div>
 <div class="ttc" id="aclassengine_1_1_engine_html_aeef234f6dc764a620ebbeb57924be12a"><div class="ttname"><a href="classengine_1_1_engine.html#aeef234f6dc764a620ebbeb57924be12a">engine::Engine::getElapsedTime</a></div><div class="ttdeci">double getElapsedTime() const</div><div class="ttdoc">Gets the elapsed time since the engine started.</div><div class="ttdef"><b>Definition:</b> GameEngine.hpp:124</div></div>
 <div class="ttc" id="aclassserver_1_1_enemy_network_html"><div class="ttname"><a href="classserver_1_1_enemy_network.html">server::EnemyNetwork</a></div><div class="ttdef"><b>Definition:</b> EnemyNetwork.hpp:17</div></div>
-<div class="ttc" id="aclassserver_1_1_enemy_network_html_a6a3b64fbb7910fb8f4b8bc7bd0c0968d"><div class="ttname"><a href="classserver_1_1_enemy_network.html#a6a3b64fbb7910fb8f4b8bc7bd0c0968d">server::EnemyNetwork::update</a></div><div class="ttdeci">void update() override</div><div class="ttdoc">Abstract method to be implemented by derived classes for updating the behaviour.</div><div class="ttdef"><b>Definition:</b> EnemyNetwork.hpp:59</div></div>
+<div class="ttc" id="aclassserver_1_1_enemy_network_html_a6a3b64fbb7910fb8f4b8bc7bd0c0968d"><div class="ttname"><a href="classserver_1_1_enemy_network.html#a6a3b64fbb7910fb8f4b8bc7bd0c0968d">server::EnemyNetwork::update</a></div><div class="ttdeci">void update() override</div><div class="ttdoc">Abstract method to be implemented by derived classes for updating the behaviour.</div><div class="ttdef"><b>Definition:</b> EnemyNetwork.hpp:57</div></div>
 <div class="ttc" id="aclassserver_1_1_net_server_html"><div class="ttname"><a href="classserver_1_1_net_server.html">server::NetServer</a></div><div class="ttdef"><b>Definition:</b> NetServer.hpp:26</div></div>
 <div class="ttc" id="astructecs_1_1components_1_1metadata_1_1metadata__s_html"><div class="ttname"><a href="structecs_1_1components_1_1metadata_1_1metadata__s.html">ecs::components::metadata::metadata_s</a></div><div class="ttdef"><b>Definition:</b> Metadata.hpp:15</div></div>
 <div class="ttc" id="astructecs_1_1components_1_1physics_1_1rigid_body__s_html"><div class="ttname"><a href="structecs_1_1components_1_1physics_1_1rigid_body__s.html">ecs::components::physics::rigidBody_s</a></div><div class="ttdef"><b>Definition:</b> Physics.hpp:40</div></div>
