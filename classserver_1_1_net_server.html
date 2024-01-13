@@ -86,7 +86,6 @@ $(document).ready(function(){initNavTree('classserver_1_1_net_server.html',''); 
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
@@ -105,23 +104,11 @@ Inheritance diagram for server::NetServer:</div>
   </map>
 </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structserver_1_1_net_server_1_1id.html">id</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structserver_1_1_net_server_1_1message__type.html">message_type</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structserver_1_1_net_server_1_1_response_record.html">ResponseRecord</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:a926041d8585af6bf6ea248e36359fa74"><td class="memItemLeft" align="right" valign="top"><a id="a926041d8585af6bf6ea248e36359fa74" name="a926041d8585af6bf6ea248e36359fa74"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>ResponseFunction</b> = std::function&lt; void(std::shared_ptr&lt; <a class="el" href="classrtype_1_1net_1_1_connection.html">rtype::net::Connection</a>&lt; common::NetworkMessage &gt; &gt; client, <a class="el" href="structrtype_1_1net_1_1_message.html">rtype::net::Message</a>&lt; common::NetworkMessage &gt; msg)&gt;</td></tr>
 <tr class="separator:a926041d8585af6bf6ea248e36359fa74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa7ffce9de5f3d1b21673406a284eb93"><td class="memItemLeft" align="right" valign="top"><a id="afa7ffce9de5f3d1b21673406a284eb93" name="afa7ffce9de5f3d1b21673406a284eb93"></a>
-typedef multi_index_container&lt; <a class="el" href="structserver_1_1_net_server_1_1_response_record.html">ResponseRecord</a>, indexed_by&lt; ordered_unique&lt; tag&lt; <a class="el" href="structserver_1_1_net_server_1_1id.html">id</a> &gt;, member&lt; <a class="el" href="structserver_1_1_net_server_1_1_response_record.html">ResponseRecord</a>, int, &amp;ResponseRecord::id &gt; &gt;, ordered_non_unique&lt; tag&lt; <a class="el" href="structserver_1_1_net_server_1_1message__type.html">message_type</a> &gt;, member&lt; <a class="el" href="structserver_1_1_net_server_1_1_response_record.html">ResponseRecord</a>, common::NetworkMessage, &amp;ResponseRecord::messageType &gt; &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ResponseSet</b></td></tr>
-<tr class="separator:afa7ffce9de5f3d1b21673406a284eb93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -143,18 +130,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>allServerAllyConnect<
 <tr class="memitem:a2266c1e672f18ce0d1d511a5d41d9e29"><td class="memItemLeft" align="right" valign="top"><a id="a2266c1e672f18ce0d1d511a5d41d9e29" name="a2266c1e672f18ce0d1d511a5d41d9e29"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>allServerUpdateShipPosition</b> (ecs::Entity ship)</td></tr>
 <tr class="separator:a2266c1e672f18ce0d1d511a5d41d9e29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adebc4fa800904c8a3d5763f47ca9b40b"><td class="memItemLeft" align="right" valign="top"><a id="adebc4fa800904c8a3d5763f47ca9b40b" name="adebc4fa800904c8a3d5763f47ca9b40b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>allServerFireBullet</b> (ecs::Entity bullet, ecs::Entity sender)</td></tr>
-<tr class="separator:adebc4fa800904c8a3d5763f47ca9b40b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c18cc95a675c27558cccc68f05dcb17"><td class="memItemLeft" align="right" valign="top"><a id="a2c18cc95a675c27558cccc68f05dcb17" name="a2c18cc95a675c27558cccc68f05dcb17"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>registerResponse</b> (common::NetworkMessage messageType, const ResponseFunction &amp;func)</td></tr>
-<tr class="separator:a2c18cc95a675c27558cccc68f05dcb17"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3922531bbd02ff58beeb8d13ba8d2693"><td class="memItemLeft" align="right" valign="top"><a id="a3922531bbd02ff58beeb8d13ba8d2693" name="a3922531bbd02ff58beeb8d13ba8d2693"></a>
-std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>registerResponse</b> (const std::vector&lt; std::pair&lt; common::NetworkMessage, ResponseFunction &gt; &gt; &amp;responses)</td></tr>
-<tr class="separator:a3922531bbd02ff58beeb8d13ba8d2693"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac07e3a0f562c46c0ac1040bbfa24d682"><td class="memItemLeft" align="right" valign="top"><a id="ac07e3a0f562c46c0ac1040bbfa24d682" name="ac07e3a0f562c46c0ac1040bbfa24d682"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>unregisterResponse</b> (int responseId)</td></tr>
-<tr class="separator:ac07e3a0f562c46c0ac1040bbfa24d682"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a233ba5830ba410a0f55a41ab480ccd01"><td class="memItemLeft" align="right" valign="top"><a id="a233ba5830ba410a0f55a41ab480ccd01" name="a233ba5830ba410a0f55a41ab480ccd01"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>allServerFireBullet</b> (ecs::Entity bullet)</td></tr>
+<tr class="separator:a233ba5830ba410a0f55a41ab480ccd01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dab78608b61f39e56d1da06c7216d9b"><td class="memItemLeft" align="right" valign="top"><a id="a0dab78608b61f39e56d1da06c7216d9b" name="a0dab78608b61f39e56d1da06c7216d9b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>registerResponse</b> (common::NetworkMessage id, const ResponseFunction &amp;func)</td></tr>
+<tr class="separator:a0dab78608b61f39e56d1da06c7216d9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdfd3412e109ed5ee97c170f77b228b1"><td class="memItemLeft" align="right" valign="top"><a id="abdfd3412e109ed5ee97c170f77b228b1" name="abdfd3412e109ed5ee97c170f77b228b1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>registerResponse</b> (const std::vector&lt; std::pair&lt; common::NetworkMessage, ResponseFunction &gt; &gt; &amp;responses)</td></tr>
+<tr class="separator:abdfd3412e109ed5ee97c170f77b228b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99acdfb4fb83a1be61bc40cba793bdb0"><td class="memItemLeft" align="right" valign="top"><a id="a99acdfb4fb83a1be61bc40cba793bdb0" name="a99acdfb4fb83a1be61bc40cba793bdb0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>dispatchResponse</b> (const std::shared_ptr&lt; <a class="el" href="classrtype_1_1net_1_1_connection.html">rtype::net::Connection</a>&lt; common::NetworkMessage &gt; &gt; &amp;client, const <a class="el" href="structrtype_1_1net_1_1_message.html">rtype::net::Message</a>&lt; common::NetworkMessage &gt; &amp;msg)</td></tr>
 <tr class="separator:a99acdfb4fb83a1be61bc40cba793bdb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -199,12 +183,9 @@ Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a85defcc527cad079aa27cc0ff0bb9798"><td class="memItemLeft" align="right" valign="top"><a id="a85defcc527cad079aa27cc0ff0bb9798" name="a85defcc527cad079aa27cc0ff0bb9798"></a>
-ResponseSet&#160;</td><td class="memItemRight" valign="bottom"><b>_responses</b></td></tr>
-<tr class="separator:a85defcc527cad079aa27cc0ff0bb9798"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae687f5a80dfe428cb0484a393f9004ec"><td class="memItemLeft" align="right" valign="top"><a id="ae687f5a80dfe428cb0484a393f9004ec" name="ae687f5a80dfe428cb0484a393f9004ec"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>_nextId</b></td></tr>
-<tr class="separator:ae687f5a80dfe428cb0484a393f9004ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a615bb592798056e0614c17e9043d764f"><td class="memItemLeft" align="right" valign="top"><a id="a615bb592798056e0614c17e9043d764f" name="a615bb592798056e0614c17e9043d764f"></a>
+std::unordered_multimap&lt; common::NetworkMessage, ResponseFunction &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_responses</b></td></tr>
+<tr class="separator:a615bb592798056e0614c17e9043d764f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classrtype_1_1net_1_1_server_interface"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classrtype_1_1net_1_1_server_interface')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classrtype_1_1net_1_1_server_interface.html">rtype::net::ServerInterface&lt; common::NetworkMessage &gt;</a></td></tr>
 <tr class="memitem:a4c6ce4b9060172ea3c17d1b34396d90e inherit pro_attribs_classrtype_1_1net_1_1_server_interface"><td class="memItemLeft" align="right" valign="top"><a id="a4c6ce4b9060172ea3c17d1b34396d90e" name="a4c6ce4b9060172ea3c17d1b34396d90e"></a>
 <a class="el" href="classrtype_1_1net_1_1_ts_queue.html">TsQueue</a>&lt; <a class="el" href="structrtype_1_1net_1_1_owned_message.html">OwnedMessage</a>&lt; common::NetworkMessage &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_qMessagesIn</b></td></tr>
