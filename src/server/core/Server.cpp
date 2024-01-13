@@ -21,7 +21,6 @@ void server::Server::run()
     _netServer.start();
     engine::initEngine();
 
-    // créer un cube et attacher le enemyspawn behavior
     common::game::EntityFactory factory;
     ecs::Entity spawner = engine::createEntity();
     auto behave = engine::createBehavior<ecs::components::behaviour::EnemySpawner>(_netServer, spawner);

@@ -109,6 +109,8 @@ namespace server {
                 direction.direction = body.direction;*/
                 auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(gunBullet);
                 rigidBody.velocity = {0, 0, 5};
+                auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(gunBullet);
+                metadata.type = server::entities::EntityType::BULLET;
                 auto behave = engine::createBehavior<server::BulletNetwork>(_networkManager, _entity, gunBullet, client->getID());
                 engine::attachBehavior(gunBullet, behave);
                 _networkManager.allServerFireBullet(gunBullet, _entity);

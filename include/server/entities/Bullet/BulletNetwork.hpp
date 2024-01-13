@@ -40,8 +40,10 @@ namespace server {
                         return;
 
                     auto &life = engine::Engine::getInstance()->getComponent<ecs::components::health::health_t>(event.entity1);
-                    destroyBullet();
+                    if (verifyBulletCollision(event.entity1, event.entity2)) return;
+
                     engine::destroyEntity(_entity);
+                    destroyBullet(_entity);
 
                     if ((int)life.healthPoints - 30 < 0) {
                         engine::destroyEntity(event.entity1);
@@ -52,6 +54,21 @@ namespace server {
 
                     life.healthPoints -= 30;
                 });
+            }
+
+            bool verifyBulletCollision(ecs::Entity entity1, ecs::Entity entity2)
+            {
+                auto &metadata1 = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(entity1);
+                auto &metadata2 = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(entity2);
+
+                if (metadata1.type == server::entities::EntityType::BULLET && metadata2.type == server::entities::EntityType::BULLET) {
+                    engine::destroyEntity(entity1);
+                    engine::destroyEntity(entity2);
+                    destroyBullet(entity1);
+                    destroyBullet(entity2);
+                    return true;
+                }
+                return false;
             }
 
             void destroyEnemy(ecs::Entity entity)
@@ -67,10 +84,10 @@ namespace server {
                 _networkManager.messageAllClients(msg);
             }
 
-            void destroyBullet()
+            void destroyBullet(ecs::Entity id)
             {
                 common::game::netbody::ServerDestroyBullet body = {
-                    .entityNetId = _entity,
+                    .entityNetId = id,
                 };
 
                 rtype::net::Message<common::NetworkMessage> msg;
@@ -84,7 +101,6 @@ namespace server {
             {
                 double now = engine::Engine::getInstance()->getElapsedTime() / 1000;
                 if (now - _spawnedAt > BULLET_TTL) {
-                    this->destroyBullet();
                     return true;
                 }
                 return false;
@@ -95,7 +111,7 @@ namespace server {
                 double now = engine::Engine::getInstance()->getElapsedTime() / 1000;
 
                 if (verifyBulletExpire()) {
-                    destroyBullet();
+                    destroyBullet(_entity);
                     engine::destroyEntity(_entity);
                     return;
                 }

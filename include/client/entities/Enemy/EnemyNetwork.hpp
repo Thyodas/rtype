@@ -73,7 +73,6 @@ namespace client {
                 if (body.entityNetId != getNetId())
                     return;
 
-
                 engine::destroyEntity(_entity);
                 unregisterResponses();
             }
