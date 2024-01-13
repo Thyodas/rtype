@@ -8,7 +8,7 @@
 #include "game_engine/core/Window.hpp"
 
 #include <raymath.h>
-#include <rcamera.h>
+#include <raylib.h>
 
 namespace engine {
     namespace core {
@@ -172,16 +172,16 @@ namespace engine {
             Matrix inverseMat = MatrixInvert(mat);
 
             // Eye position is the inverse transformation of (0, 0, 0)
-            eye = Vector3Transform((Vector3){0, 0, 0}, inverseMat);
+            eye = Vector3Transform(Vector3{0, 0, 0}, inverseMat);
 
             // For the target, we take a point in the direction the camera is looking at,
             // 1 unit away, and then inverse transform it
-            Vector3 forwardDirection = (Vector3){0, 0, -1}; // Assuming the camera looks towards negative Z in view space
+            Vector3 forwardDirection = Vector3{0, 0, -1}; // Assuming the camera looks towards negative Z in view space
             Vector3 transformedForward = Vector3Transform(forwardDirection, inverseMat);
-            target = (Vector3){eye.x + transformedForward.x, eye.y + transformedForward.y, eye.z + transformedForward.z};
+            target = Vector3{eye.x + transformedForward.x, eye.y + transformedForward.y, eye.z + transformedForward.z};
 
             // The up vector is the second column of the inverse matrix
-            up = (Vector3){inverseMat.m1, inverseMat.m5, inverseMat.m9};
+            up = Vector3{inverseMat.m1, inverseMat.m5, inverseMat.m9};
         }
 
         void Window::setCameraViewMatrix(Matrix matrix)
@@ -192,7 +192,7 @@ namespace engine {
             Matrix cameraMatrix = MatrixInvert(matrix);
 
             // The camera position is the translation part of the matrix
-            _camera.position = (Vector3){ cameraMatrix.m12, cameraMatrix.m13, cameraMatrix.m14 };
+            _camera.position = Vector3{ cameraMatrix.m12, cameraMatrix.m13, cameraMatrix.m14 };
 
             // Reconstruct the camera direction (target - position)
             Vector3 forward = { -cameraMatrix.m2, -cameraMatrix.m6, -cameraMatrix.m10 };
@@ -204,7 +204,7 @@ namespace engine {
             _camera.target = Vector3Add(_camera.position, forward);
 
             // Extract the up vector from the camera matrix
-            _camera.up = (Vector3){ cameraMatrix.m1, cameraMatrix.m5, cameraMatrix.m9 };
+            _camera.up = Vector3{ cameraMatrix.m1, cameraMatrix.m5, cameraMatrix.m9 };
 
         }
 
