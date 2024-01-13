@@ -54,7 +54,7 @@ namespace server {
                     .entityNetId = _entity,
                     .pos = transform.pos,
                     .direction = {0, 0, -5},
-                    .speed = 10,
+                    .speed = -2,
                 };
 
                 rtype::net::Message<common::NetworkMessage> msg;

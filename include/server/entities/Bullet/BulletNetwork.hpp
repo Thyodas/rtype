@@ -12,6 +12,7 @@
 #include "server/core/NetServer.hpp"
 #include "game_engine/GameEngine.hpp"
 #include "game_engine/ecs/components/Physics.hpp"
+#include "game_engine/core/event/EnemyDestroyEvent.hpp"
 
 namespace server {
 
@@ -37,13 +38,15 @@ namespace server {
                     }
                     if (event.entity1 != _entity && event.entity2 != _entity)
                         return;
+
                     auto &life = engine::Engine::getInstance()->getComponent<ecs::components::health::health_t>(event.entity1);
                     destroyBullet();
                     engine::destroyEntity(_entity);
 
                     if ((int)life.healthPoints - 30 < 0) {
-                        destroyEnemy(event.entity1);
                         engine::destroyEntity(event.entity1);
+                        _coord->emitEvent(EnemyDestroyEvent(event.entity1));
+                        destroyEnemy(event.entity1);
                         return;
                     }
 
@@ -119,7 +122,6 @@ namespace server {
         private:
             double _lastUpdate = 0;
             double _spawnedAt = 0;
-            // save the origin
             ecs::Entity _sender;
     };
 }

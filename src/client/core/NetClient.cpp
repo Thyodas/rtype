@@ -90,7 +90,6 @@ namespace client {
 
         void NetClient::resServerFireBullet(rtype::net::Message<common::NetworkMessage>& msg)
         {
-                std::cout << "received fire bullet from server" << std::endl;
                 common::game::netbody::ServerFireBullet body;
                 msg >> body;
 
@@ -110,8 +109,7 @@ namespace client {
                 auto &direction = engine::Engine::getInstance()->getComponent<ecs::components::direction::direction_t>(gunBullet);
                 direction.direction = body.direction;
                 auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(gunBullet);
-                // rigidBody.velocity = {0, 0, static_cast<float>(body.speed)};
-                rigidBody.velocity = { 0, 0, 0 };
+                rigidBody.velocity = {0, 0, static_cast<float>(body.speed)};
 
                 auto behave = engine::createBehavior<client::BulletNetwork>(*this, body.entityNetId);
                 engine::attachBehavior(gunBullet, behave);

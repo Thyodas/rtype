@@ -22,7 +22,6 @@ namespace server {
 
     void NetServer::resClientConnect(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, rtype::net::Message<common::NetworkMessage>& msg)
     {
-        std::cout << "resClientConnect" << std::endl;
         common::game::netbody::ClientConnect body;
         msg >> body;
 
@@ -38,7 +37,13 @@ namespace server {
             {0, 0, 0},
             {1, 1, 1}
         });
-        std::cout << playerShip << std::endl;
+        auto &health = engine::Engine::getInstance()->getComponent<ecs::components::health::health_t>(playerShip);
+        health.healthPoints = 100;
+
+
+        auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(playerShip);
+        metadata.type = server::entities::EntityType::PLAYER;
+
         auto behave = engine::createBehavior<server::PlayerNetwork>(*this, playerShip, client->getID());
         engine::attachBehavior(playerShip, behave);
 
