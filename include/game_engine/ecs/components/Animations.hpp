@@ -21,7 +21,7 @@ namespace ecs {
              * animations in the ECS system..
              */
             typedef struct animation_s {
-                unsigned int animsCount; ///< Number of animations in the 'anims' array.
+                int animsCount; ///< Number of animations in the 'anims' array.
                 ModelAnimation *anims; ///< Pointer to an array of ModelAnimation objects.
                 int animFrameCounter; ///< Counter for the current frame of the animation.
                 Model model; ///< The model to which these animations apply.
