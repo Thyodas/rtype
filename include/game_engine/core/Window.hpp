@@ -153,6 +153,8 @@ namespace engine {
                  */
                 Matrix getCameraViewMatrix() const;
 
+                void setCameraViewMatrix(Matrix matrix);
+
                 /**
                  * @brief Gets the projection matrix of the camera.
                  * @param aspect The aspect ratio of the camera.

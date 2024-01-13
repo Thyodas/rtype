@@ -571,6 +571,8 @@ namespace engine {
 
 
 
+    Matrix matrixFromFloat16(const float16& matrix);
+
     namespace entity {
         /**
          * @brief Get the transform matrix of the entity.
@@ -636,6 +638,9 @@ namespace engine {
          * @return The view matrix
          */
         Matrix getViewMatrix();
+
+
+        void setViewMatrix(Matrix matrix);
 
         /**
         * @brief Gets the projection matrix of the camera.

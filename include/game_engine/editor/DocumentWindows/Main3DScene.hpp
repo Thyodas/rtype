@@ -9,6 +9,8 @@
 
 #include <cstdint>
 
+#include "ImGuizmo.h"
+
 #include "game_engine/editor/ADocumentWindow.hpp"
 
 #include "game_engine/GameEngine.hpp"
@@ -34,6 +36,9 @@ namespace engine::editor {
             ImVec2 _viewPosition = {0, 0};
             ecs::Entity _selectedEntity = 0;
             int _targetFPS = 60;
+            ImGuizmo::OPERATION _currentGizmoOperation = ImGuizmo::UNIVERSAL;
+            ImGuizmo::MODE _currentGizmoMode = ImGuizmo::WORLD;
+            ImGuizmo::OPERATION _lastGizmoOperationOver = ImGuizmo::SCALE;
 
 
             // ---------------------- //
