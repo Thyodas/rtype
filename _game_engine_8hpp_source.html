@@ -253,34 +253,39 @@ $(document).ready(function(){initNavTree('_game_engine_8hpp_source.html',''); in
 <div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>        Engine::getInstance()-&gt;registerListener&lt;T&gt;(listener);</div>
 <div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>    }</div>
 <div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span> </div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>    <span class="keyword">namespace </span>entity {</div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>        Matrix getTransformMatrix(ecs::Entity entity);</div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span> </div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>        Transform getTransform(ecs::Entity entity);</div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span> </div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>        <span class="keywordtype">void</span> setTransform(ecs::Entity entity, <span class="keyword">const</span> Vector3 &amp;position,</div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>            <span class="keyword">const</span> Vector3 &amp;rotation, <span class="keyword">const</span> Vector3 &amp;scale);</div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>    }</div>
-<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span> </div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span> </div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>    <span class="keyword">namespace </span>camera {</div>
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>        <span class="keywordtype">void</span> setPosition(Vector3 pos);</div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span> </div>
-<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>        Vector3 getPosition();</div>
-<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span> </div>
-<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>        <span class="keywordtype">void</span> setTarget(Vector3 pos);</div>
-<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span> </div>
-<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>        Vector3 getTarget();</div>
-<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span> </div>
-<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>        <span class="keywordtype">void</span> setFov(<span class="keywordtype">float</span> fov);</div>
-<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span> </div>
-<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>        <span class="keywordtype">float</span> getFov();</div>
-<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span> </div>
-<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>        Matrix getViewMatrix();</div>
-<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span> </div>
-<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>        Matrix getProjectionMatrix(<span class="keywordtype">double</span> aspect, <span class="keywordtype">double</span> nearPlane, <span class="keywordtype">double</span> farPlane);</div>
-<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>    }</div>
-<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>}</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>    Matrix matrixFromFloat16(<span class="keyword">const</span> float16&amp; matrix);</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span> </div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    <span class="keyword">namespace </span>entity {</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>        Matrix getTransformMatrix(ecs::Entity entity);</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span> </div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>        Transform getTransform(ecs::Entity entity);</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span> </div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>        <span class="keywordtype">void</span> setTransform(ecs::Entity entity, <span class="keyword">const</span> Vector3 &amp;position,</div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>            <span class="keyword">const</span> Vector3 &amp;rotation, <span class="keyword">const</span> Vector3 &amp;scale);</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>    }</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span> </div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span> </div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>    <span class="keyword">namespace </span>camera {</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>        <span class="keywordtype">void</span> setPosition(Vector3 pos);</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span> </div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>        Vector3 getPosition();</div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span> </div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>        <span class="keywordtype">void</span> setTarget(Vector3 pos);</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span> </div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>        Vector3 getTarget();</div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span> </div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>        <span class="keywordtype">void</span> setFov(<span class="keywordtype">float</span> fov);</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span> </div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>        <span class="keywordtype">float</span> getFov();</div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span> </div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>        Matrix getViewMatrix();</div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span> </div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span> </div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>        <span class="keywordtype">void</span> setViewMatrix(Matrix matrix);</div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span> </div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>        Matrix getProjectionMatrix(<span class="keywordtype">double</span> aspect, <span class="keywordtype">double</span> nearPlane, <span class="keywordtype">double</span> farPlane);</div>
+<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>    }</div>
+<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>}</div>
 <div class="ttc" id="aclasscommon_1_1utils_1_1_chrono_html"><div class="ttname"><a href="classcommon_1_1utils_1_1_chrono.html">common::utils::Chrono</a></div><div class="ttdef"><b>Definition:</b> Chrono.hpp:16</div></div>
 <div class="ttc" id="aclassengine_1_1_engine_html"><div class="ttname"><a href="classengine_1_1_engine.html">engine::Engine</a></div><div class="ttdoc">Main engine class responsible for initializing and managing game components.</div><div class="ttdef"><b>Definition:</b> GameEngine.hpp:41</div></div>
 <div class="ttc" id="aclassengine_1_1_engine_html_a0399eb84d58a5b6a151065bd27c9165e"><div class="ttname"><a href="classengine_1_1_engine.html#a0399eb84d58a5b6a151065bd27c9165e">engine::Engine::isWindowOpen</a></div><div class="ttdeci">bool isWindowOpen(void)</div><div class="ttdoc">Checks if the window of the game engine is open.</div><div class="ttdef"><b>Definition:</b> GameEngine.hpp:111</div></div>
