@@ -256,7 +256,7 @@ void engine::editor::Main3DScene::renderGizmo()
     auto viewManipulateTop = _viewPosition.y;
     ImGuizmo::ViewManipulate(viewMatrixFloats.v, 10, ImVec2(viewManipulateRight - 128, viewManipulateTop), ImVec2(128, 128), 0x10101010);
 
-    //camera::setViewMatrix(engine::matrixFromFloat16(viewMatrixFloats));
+    camera::setViewMatrix(engine::matrixFromFloat16(viewMatrixFloats));
 
     // Check if the matrix was changed
     if (ImGuizmo::IsUsing())
