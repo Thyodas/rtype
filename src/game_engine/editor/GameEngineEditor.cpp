@@ -135,8 +135,10 @@ void engine::editor::GameEngineEditor::setupEngine()
 	engine::initEngine(false, 1920, 1000);
 
 	rlImGuiBeginInitImGui();
-	ImGui::StyleColorsDark();
 
+	ImGui::StyleColorsDark();
+	ImGuizmo::SetImGuiContext(ImGui::GetCurrentContext());
+	ImGuizmo::Enable(true);
 	setupFonts();
 	rlImGuiEndInitImGui();
 }
@@ -155,8 +157,7 @@ void engine::editor::GameEngineEditor::setupStyle()
 	ImGuiIO& io = ImGui::GetIO();
 	io.DisplayFramebufferScale = ImVec2(scale.x, scale.y); // Apply the DPI scale to ImGui rendering
 	io.ConfigWindowsMoveFromTitleBarOnly = true;
-	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable
-		| ImGuiConfigFlags_ViewportsEnable;
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
 
 	ImGuiStyle *style = &ImGui::GetStyle();
@@ -264,6 +265,7 @@ void engine::editor::GameEngineEditor::render()
 	ClearBackground(DARKGRAY);
 
 	rlImGuiBegin();
+	ImGuizmo::SetImGuiContext(ImGui::GetCurrentContext());
 	ImGuizmo::BeginFrame();
 
 	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());

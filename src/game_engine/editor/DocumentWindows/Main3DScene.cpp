@@ -11,6 +11,8 @@
 
 #include "game_engine/editor/DocumentWindows/Main3DScene.hpp"
 
+#include <ImGuizmo.h>
+#include <rlgl.h>
 #include <loguru/loguru.hpp>
 
 #include "game_engine/ecs/components/Physics.hpp"
@@ -47,12 +49,9 @@ void engine::editor::Main3DScene::show()
 
     if (ImGui::Begin("3D View", &_opened, ImGuiWindowFlags_NoScrollbar))
     {
-        renderToolbar();
+        //renderToolbar();
         renderView();
-        ImGui::PushID(0);
         renderGizmo();
-        ImGui::PopID();
-
 
 
 
@@ -78,6 +77,7 @@ void engine::editor::Main3DScene::update()
     {
         UnloadRenderTexture(_viewTexture);
         _viewTexture = LoadRenderTexture(static_cast<int>(_viewSize.x), static_cast<int>(_viewSize.y));
+        ImGuizmo::SetRect(_viewPosition.x, _viewPosition.y, _viewSize.x, _viewSize.y);
     }
 
     // limit fps to _targetFPS with clock, frameTime in ms
@@ -109,8 +109,6 @@ void engine::editor::Main3DScene::setupWindow()
 
 void engine::editor::Main3DScene::setupScene()
 {
-    ImGuizmo::SetImGuiContext(ImGui::GetCurrentContext());
-    ImGuizmo::Enable(true);
     setupCamera();
     loadEntities();
 }
@@ -119,6 +117,7 @@ void engine::editor::Main3DScene::setupCamera()
 {
     engine::camera::setPosition(Vector3{7.0f, 7.0f, 7.0f});
     engine::camera::setTarget(Vector3{0.0f, 2.0f, 0.0f});
+    ImGuizmo::SetOrthographic(false);
 }
 
 void engine::editor::Main3DScene::setupTexture()
@@ -128,13 +127,13 @@ void engine::editor::Main3DScene::setupTexture()
 
 void engine::editor::Main3DScene::loadEntities()
 {
-    ecs::Entity cube = engine::createCube({0, 2, 0}, 4, 4, 4, RED, true);
+    ecs::Entity cube = engine::createCube({0, 2, 2}, 4, 4, 4, RED, true);
     _selectedEntity = cube;
     //engine::setRotation(cube, {deg2rad(30), 0, 0});
     //engine::setRotation(cube, {deg2rad(-10), 0, 0});
     auto behave = engine::createBehavior<input>();
     engine::attachBehavior(cube, behave);
-    ecs::Entity cube2 = engine::createCube({5, 1, 0}, 2, 2, 2);
+    //ecs::Entity cube2 = engine::createCube({5, 1, 0}, 2, 2, 2);
 }
 
 void engine::editor::Main3DScene::handleWindowResize()
@@ -187,64 +186,45 @@ void engine::editor::Main3DScene::renderToolbar()
     ImGui::PopStyleVar();
 }
 
+
+
+/*Matrix convertToImGuizmo(const Matrix& mat) {
+    // Create a swap matrix
+    auto mat2 = MatrixTranspose(mat);
+    return mat2;
+
+    std::swap(mat2.m1, mat2.m2);
+    std::swap(mat2.m4, mat2.m8);
+    std::swap(mat2.m5, mat2.m10);
+    std::swap(mat2.m6, mat2.m9);
+    std::swap(mat2.m7, mat2.m11);
+
+
+
+
+    return mat2;
+}*/
+
+inline float16 convertToImGuizmo(const Matrix &mat) {
+    // Create a swap matrix
+
+    auto mat2 = float16{
+        mat.m2, mat.m1, mat.m0, mat.m3,   // Swap X (m0, m4, m8, m12) with Z (m2, m6, m10, m14)
+        mat.m6, mat.m5, mat.m4, mat.m7,   // Keep Y axis the same
+        mat.m10, mat.m9, mat.m8, mat.m11, // Swap Z (m2, m6, m10, m14) with X (m0, m4, m8, m12)
+        mat.m14, mat.m13, mat.m12, mat.m15 // Translation component remains the same
+    };
+    return mat2;
+}
+
 void engine::editor::Main3DScene::renderGizmo()
 {
-    /*
-    // Example setup for view and projection matrices
-    Matrix cameraView = engine::camera::getViewMatrix();
-    Matrix cameraProjection = MatrixPerspective(
-        camera::getFov() * DEG2RAD,           // Field of view
-        (float)GetScreenWidth() / (float)GetScreenHeight(), // Aspect ratio
-        0.1f,                      // Near clipping plane
-        1000.0f                    // Far clipping plane
-    );
-
-    // Convert raylib Matrix to float array expected by ImGuizmo
-    auto viewMatrix = MatrixToFloat(cameraView);
-    auto projectionMatrix = MatrixToFloat(cameraProjection);
-
-    // Example object matrix setup
-    Transform objectTransform; // This would be your object's transform component
-    objectTransform.translation = Vector3{0, 0, 0};
-    objectTransform.rotation = QuaternionIdentity();
-    objectTransform.scale = Vector3{1, 1, 1};
-
-    // Extract the translation, rotation, and scale from the objectTransform
-    Vector3 position = objectTransform.translation;
-    Quaternion rotationQuat = objectTransform.rotation;
-    Vector3 scale = objectTransform.scale;
-
-    // Convert the quaternion to a rotation matrix
-    Matrix rotation = QuaternionToMatrix(rotationQuat);
-
-    // Create individual matrices
-    Matrix translation = MatrixTranslate(position.x, position.y, position.z);
-    Matrix scaling = MatrixScale(scale.x, scale.y, scale.z);
-
-    // Combine the matrices
-    Matrix transform = MatrixMultiply(MatrixMultiply(scaling, rotation), translation);
-
-    // ... (rest of your code for setting up ImGuizmo)
-
-    // Manipulate the matrix with ImGuizmo
-    ImGuizmo::Manipulate(viewMatrix, projectionMatrix,
-                         ImGuizmo::OPERATION::TRANSLATE,
-                         ImGuizmo::MODE::WORLD,
-                         MatrixToFloat(transform));
-
-    // Apply the transformed matrix back to your object
-    // This is where you'd convert the float array back to your transform component
-    // and update the object's transform accordingly
-
-    ImGuizmo::DrawCubes(viewMatrix, projectionMatrix, MatrixToFloat(transform), 1);
-    */
-
-
-
+    ImGuizmo::SetOrthographic(false);
+    ImGuizmo::SetDrawlist();
     ImGuizmo::SetID(_selectedEntity);
     // Assuming you have these functions implemented
     Matrix viewMatrix = engine::camera::getViewMatrix();
-    Matrix projectionMatrix = engine::camera::getProjectionMatrix(_currentWindowSize.x / _currentWindowSize.y, 0.1f, 1000.0f);
+    Matrix projectionMatrix = camera::getProjectionMatrix(_currentWindowSize.x / _currentWindowSize.y, 0.1f, 1000.0f);
 
     // Assuming you have a way to get the selected object's transform
     //Transform objectTransform = engine::entity::getTransform(_selectedEntity);
@@ -252,26 +232,31 @@ void engine::editor::Main3DScene::renderGizmo()
     // Convert transform to matrix
     Matrix objectMatrix = engine::entity::getTransformMatrix(_selectedEntity);
 
-    LOG_F(INFO, "objectMatrix: %f %f %f %f\n%f %f %f %f\n%f %f %f %f\n%f %f %f %f",
-          objectMatrix.m0, objectMatrix.m1, objectMatrix.m2, objectMatrix.m3,
-          objectMatrix.m4, objectMatrix.m5, objectMatrix.m6, objectMatrix.m7,
-          objectMatrix.m8, objectMatrix.m9, objectMatrix.m10, objectMatrix.m11,
-          objectMatrix.m12, objectMatrix.m13, objectMatrix.m14, objectMatrix.m15);
+    /*LOG_F(INFO, "objectMatrix: %f %f %f %f\n%f %f %f %f\n%f %f %f %f\n%f %f %f %f",
+          objectMatrix.m0, objectMatrix.m4, objectMatrix.m8, objectMatrix.m12,
+            objectMatrix.m1, objectMatrix.m5, objectMatrix.m9, objectMatrix.m13,
+            objectMatrix.m2, objectMatrix.m6, objectMatrix.m10, objectMatrix.m14,
+            objectMatrix.m3, objectMatrix.m7, objectMatrix.m11, objectMatrix.m15);*/
 
     // Convert raylib matrices to float arrays for ImGuizmo
-    float *viewMatrixFloats = MatrixToFloat(viewMatrix);
-    float *projectionMatrixFloats = MatrixToFloat(projectionMatrix);
-    float *objectMatrixFloats = MatrixToFloat(objectMatrix);
+    float16 viewMatrixFloats = MatrixToFloatV(viewMatrix);
+    float16 projectionMatrixFloats = MatrixToFloatV(projectionMatrix);
+    float16 objectMatrixFloats = MatrixToFloatV(objectMatrix);
 
     // Set ImGuizmo context (window size, etc.)
-    ImGuizmo::SetOrthographic(false);
-    ImGuizmo::SetRect(_viewPosition.x, _viewPosition.y, _viewSize.x, _viewSize.y);
 
     // Manipulate the matrix with ImGuizmo
-    ImGuizmo::Manipulate(viewMatrixFloats, projectionMatrixFloats,
-                         ImGuizmo::OPERATION::TRANSLATE,
+    ImGuizmo::Enable(true);
+    if (!ImGuizmo::Manipulate(viewMatrixFloats.v, projectionMatrixFloats.v,
+                         ImGuizmo::OPERATION::SCALE | ImGuizmo::TRANSLATE | ImGuizmo::ROTATE,
                          ImGuizmo::MODE::WORLD,
-                         objectMatrixFloats);
+                         objectMatrixFloats.v)) {
+        //LOG_F(INFO, "ImGuizmo::Manipulate() returned false %d", ImGuizmo::IsUsing());
+    }
+    auto viewManipulateRight = _viewPosition.x + _viewSize.x;
+    auto viewManipulateTop = _viewPosition.y;
+    ImGuizmo::ViewManipulate(viewMatrixFloats.v, 10, ImVec2(viewManipulateRight - 128, viewManipulateTop), ImVec2(128, 128), 0x10101010);
+
 
     // Check if the matrix was changed
     if (ImGuizmo::IsUsing())
@@ -282,13 +267,26 @@ void engine::editor::Main3DScene::renderGizmo()
         float translation[3];
         float rotation[3];
         float scale[3];
-        ImGuizmo::DecomposeMatrixToComponents(objectMatrixFloats, translation, rotation, scale);
+
+        ImGuizmo::DecomposeMatrixToComponents(objectMatrixFloats.v, translation, rotation, scale);
         Vector3 pos = {translation[0], translation[1], translation[2]};
         Vector3 rot = {rotation[0], rotation[1], rotation[2]};
+        //std::cout << rot.x << " " << rot.y << " " << rot.z << std::endl;
         Vector3 sca = {scale[0], scale[1], scale[2]};
-        LOG_F(WARNING, "pos: %f %f %f\nrot: %f %f %f\nsca: %f %f %f", pos.x, pos.y, pos.z, rot.x, rot.y, rot.z, sca.x, sca.y, sca.z);
-        engine::entity::setTransform(_selectedEntity, pos, rot, sca);
-        LOG_F(INFO, "pos: %f %f %f", pos.x, pos.y, pos.z);
+        if (ImGuizmo::IsOver(ImGuizmo::OPERATION::SCALE)) {
+            LOG_F(INFO, "SCALE");
+            engine::setScale(_selectedEntity, sca);
+        } else if (ImGuizmo::IsOver(ImGuizmo::OPERATION::TRANSLATE)) {
+            LOG_F(INFO, "TRANSLATE");
+            auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_selectedEntity);
+            transform.pos = pos;
+        } else if (ImGuizmo::IsOver(ImGuizmo::OPERATION::ROTATE)) {
+            LOG_F(INFO, "ROTATE");
+            engine::rotate(_selectedEntity, rot);
+        }
+
+
+        //engine::entity::setTransform(_selectedEntity, pos, rot, sca);
     }
 }
 

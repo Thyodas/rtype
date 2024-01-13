@@ -105,8 +105,8 @@ else()
 endif()
 
 # Find ImGuizmo package
-find_package(imguizmo CONFIG REQUIRED)
-target_link_libraries(game_engine PRIVATE imguizmo::imguizmo)
+find_package(imguizmo CONFIG QUIET)
+target_link_libraries(game_engine PRIVATE imguizmo)
 
 # Linking the libraries
 target_link_libraries(game_engine PRIVATE raylib imgui::imgui rlimgui)
