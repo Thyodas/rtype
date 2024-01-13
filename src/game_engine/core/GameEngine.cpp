@@ -402,10 +402,10 @@ namespace engine
     }
 
     Matrix transformToMatrix(const ecs::components::physics::transform_t &transform) {
-        /*Matrix matScale = MatrixScale(1, 1, 1);
-        Matrix matRotation = MatrixRotateXYZ(Vector3{0, 0, 0});*/
+        //Matrix matScale = MatrixScale(1, 1, 1);
+        Matrix matRotation = MatrixRotateXYZ(Vector3{0, 0, 0});
         Matrix matScale = MatrixScale(transform.scale.x, transform.scale.y, transform.scale.z);
-        Matrix matRotation = MatrixRotateXYZ(Vector3{DEG2RAD * transform.rotation.x, DEG2RAD * transform.rotation.y, DEG2RAD * transform.rotation.z});
+        //Matrix matRotation = MatrixRotateXYZ(Vector3{RAD2DEG * transform.rotation.x, RAD2DEG * transform.rotation.y, RAD2DEG * transform.rotation.z});
         Matrix matTranslation = MatrixTranslate(transform.pos.x, transform.pos.y, transform.pos.z);
 
         // First scale, then rotate, and finally translate
@@ -531,14 +531,13 @@ namespace engine
         auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
         auto &render = Engine::getInstance()->getComponent<ecs::components::render::render_t>(entity);
         auto &collider = Engine::getInstance()->getComponent<ecs::components::physics::collider_t>(entity);
-        //std::cout << "Rotation : " << rotation.x << " " << rotation.y << " " << rotation.z << std::endl;
         rotation.x = rotation.x * DEG2RAD;
         rotation.y = rotation.y * DEG2RAD;
         rotation.z = rotation.z * DEG2RAD;
-        transform.rotation = rotation;
+        transform.rotation = Vector3Add(transform.rotation, rotation);
         Matrix matTemp = MatrixRotateXYZ(transform.rotation);
-        render.data->getModel().transform = matTemp;
-        collider.matRotate = matTemp;
+        render.data->getModel().transform = MatrixMultiply(render.data->getModel().transform, matTemp);
+        collider.matRotate = MatrixMultiply(collider.matRotate, matTemp);
         ecs::system::CollisionResponse::updateColliderGlobalVerts(collider);
     }
 
