@@ -105,8 +105,6 @@ namespace server {
                     {0, 0, 0},
                     {0.025, 0.025, 0.025}
                 }, common::game::ObjectFormat::GLB);
-                /*auto &direction = engine::Engine::getInstance()->getComponent<ecs::components::direction::direction_t>(gunBullet);
-                direction.direction = body.direction;*/
                 auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(gunBullet);
                 rigidBody.velocity = {0, 0, 5};
                 auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(gunBullet);

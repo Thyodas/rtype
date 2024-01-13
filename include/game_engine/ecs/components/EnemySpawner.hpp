@@ -114,6 +114,7 @@ namespace ecs::components::behaviour
                     .name = "Transtellar",
                     .shipName = common::game::ObjectName::Transtellar,
                     .pos = position,
+                    .rotation = {0, 135, 0},
                 };
                resMsg << body;
 

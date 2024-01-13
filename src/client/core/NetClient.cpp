@@ -79,7 +79,7 @@ namespace client {
                 WHITE,
                 false,
                 WHITE,
-                {0, 0, 0},
+                body.rotation,
                 {1, 1, 1}
             });
             auto behave = engine::createBehavior<client::EnemyNetwork>(*this, body.entityNetId);
@@ -102,7 +102,7 @@ namespace client {
                     WHITE,
                     false,
                     WHITE,
-                    {0, 0, 0},
+                    body.rotation,
                     {0.025, 0.025, 0.025}
                 }, common::game::ObjectFormat::GLB);
 

@@ -41,13 +41,11 @@ namespace server {
                     WHITE,
                     false,
                     WHITE,
-                    {0, 0, 0},
+                    {0, 135, 0},
                     {0.025, 0.025, 0.025}
                 }, common::game::ObjectFormat::GLB);
                 auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(bullet);
                 rigidBody.velocity = {0, 0, -2};
-                // auto &health = engine::Engine::getInstance()->getComponent<ecs::components::health::health_t>(bullet);
-                // health.healthPoints = 1;
                 auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(bullet);
                 metadata.type = server::entities::EntityType::BULLET;
                 auto bulletBehave = engine::createBehavior<server::BulletNetwork>(_networkManager, _entity, bullet);

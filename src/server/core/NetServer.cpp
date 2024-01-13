@@ -123,6 +123,7 @@ namespace server {
             .pos = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(bullet).pos,
             .direction = engine::Engine::getInstance()->getComponent<ecs::components::direction::direction_t>(bullet).direction,
             .speed = 0,
+            .rotation = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(bullet).rotation,
         };
 
         msg << body;
