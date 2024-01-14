@@ -35,7 +35,7 @@ namespace ecs {
                         bb.max.y += transf.pos.y;
                         bb.max.z += transf.pos.z;
                         collision.box = bb;
-                        // DrawBoundingBox(bb, RED);
+                        DrawBoundingBox(bb, RED);
                     }
                     render.data->draw(transf);
                 }

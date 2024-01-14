@@ -38,7 +38,6 @@ namespace client {
 
         explicit NetClient(ecs::SceneID mainSceneID = 0) : _mainSceneID(mainSceneID), _nextId(1)
         {
-            std::cout << "dans le net client" << std::endl;
             registerResponse({
                 {common::NetworkMessage::ServerPing, [this](rtype::net::Message<common::NetworkMessage> msg) {
                     resPingServer(msg);

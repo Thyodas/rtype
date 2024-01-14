@@ -19,17 +19,20 @@ namespace server {
             EnemyNetwork(server::NetServer& networkManager, uint32_t entityNetId = 0, uint32_t connectionId = 0, ecs::SceneID sceneId = 0)
                 : NetworkBehaviour(networkManager, entityNetId, connectionId, sceneId)
             {
+                _lastShot = engine::Engine::getInstance()->getElapsedTime() / 1000;
             }
 
             void shoot()
             {
                 double now = engine::Engine::getInstance()->getElapsedTime() / 1000;
 
-                if (now - _lastShot < 5 && _lastShot != -1) {
+                if (now - _lastShot < 5) {
                     return;
                 }
 
                 _lastShot = now;
+
+                std::cout << "shooting" << std::endl;
 
                 auto &transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_entity);
                 common::game::EntityFactory factory;
@@ -61,7 +64,7 @@ namespace server {
             }
 
         private:
-            double _lastShot = -1;
+            double _lastShot = 0;
     };
 
 }

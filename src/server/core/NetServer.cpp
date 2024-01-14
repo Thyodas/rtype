@@ -116,7 +116,6 @@ namespace server {
 
     void NetServer::allServerFireBullet(ecs::Entity bullet, ecs::Entity sender)
     {
-        std::cout << "allServerFireBullet" << std::endl;
         rtype::net::Message<common::NetworkMessage> msg;
         msg.header.id = common::NetworkMessage::serverFireBullet;
 

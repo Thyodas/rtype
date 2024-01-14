@@ -13,7 +13,7 @@
 server::Server::Server()
     : _netServer(5454)
 {
-
+    SetTraceLogLevel(TraceLogLevel::LOG_ERROR);
 }
 
 void server::Server::run()
