@@ -106,6 +106,11 @@ namespace engine {
                 _coordinator->registerListener<T>(shared);
             }
 
+            [[nodiscard]] ecs::SceneManager& getSceneManager() const
+            {
+                return _coordinator->getSceneManager();
+            }
+
             /**
              * @brief Get the window object.
              */
@@ -127,15 +132,16 @@ namespace engine {
                 return _window->isOpen();
             }
 
-            /**
+            /*/**
              * @brief Starts and runs the game engine.
-             */
-            void run();
+             #1#
+            void run();*/
 
             void update(ecs::SceneID id);
             void render(ecs::SceneID sceneId, engine::core::CameraID cameraId);
+            void renderTextureMode(ecs::SceneID sceneId, engine::core::CameraID cameraId);
 
-            void runTextureMode(RenderTexture& ViewTexture);
+            /*void runTextureMode(RenderTexture& ViewTexture);*/
 
             /**
              * @brief Gets the elapsed time since the engine started.
@@ -308,8 +314,19 @@ namespace engine {
      *
      * @param sceneId id of the scene to be rendered
      * @param cameraId id of the camera to be used
+     * @note Renders to the window
      */
     void render(ecs::SceneID sceneId, engine::core::CameraID cameraId);
+
+    /**
+    * @brief Render the entities attached to the scene based on the specified camera
+    *
+    * @param sceneId id of the scene to be rendered
+    * @param cameraId id of the camera to be used
+    * @note Renders to a RenderTexture stored in the camera
+    * See camera.getRenderTexture()
+    */
+    void renderTextureMode(ecs::SceneID sceneId, engine::core::CameraID cameraId);
 
 
     std::vector<std::pair<std::type_index, std::any>> getAllComponents(ecs::Entity entity);
@@ -551,7 +568,7 @@ namespace engine {
      * @param fov
      * @return engine::core::EngineCamera
      */
-    engine::core::EngineCamera createCamera(Vector3 pos = {0, 0, 0}, Vector3 target = {0, 0, 0}, Vector3 up = {0, 0, 0}, int mode = CAMERA_PERSPECTIVE, float fov = 45.0f);
+    engine::core::EngineCamera createCamera(Vector3 pos = {0, 0, 0}, Vector3 target = {0, 0, 0}, Vector3 up = {0, 1, 0}, int mode = CAMERA_PERSPECTIVE, float fov = 90.0f);
 
     /**
      * @brief Attach a camera to a scene
@@ -569,6 +586,8 @@ namespace engine {
      */
     void detachCamera(ecs::SceneID sceneID, engine::core::EngineCamera &camera);
 
+
+    [[nodiscard]] ecs::SceneManager& getSceneManager();
 
 
     Matrix matrixFromFloat16(const float16& matrix);
@@ -597,59 +616,9 @@ namespace engine {
             const Vector3 &rotation, const Vector3 &scale);
     }
 
-    namespace camera {
-        /**
-         * @brief Sets the camera's position.
-         * @param pos The new position of the camera.
-         */
-        void setPosition(Vector3 pos);
+    namespace math {
+          Matrix matrixFromFloat16(const float16& matrix);
 
-        /**
-         * @brief Gets the current position of the camera.
-         * @return The current position of the camera as Vector3.
-         */
-        Vector3 getPosition();
-
-        /**
-         * @brief Sets the camera's target position.
-         * @param pos The new target position of the camera.
-         */
-        void setTarget(Vector3 pos);
-
-        /**
-         * @brief Gets the current target position of the camera.
-         * @return The current target position of the camera as Vector3.
-         */
-        Vector3 getTarget();
-
-        /**
-         * @brief Sets the camera's field of view.
-         * @param fov The new field of view of the camera.
-         */
-        void setFov(float fov);
-
-        /**
-         * @brief Gets the current field of view of the camera.
-         * @return The current field of view of the camera.
-         */
-        float getFov();
-
-        /**
-         * @brief Get the view matrix of the camera.
-         * @return The view matrix
-         */
-        Matrix getViewMatrix();
-
-
-        void setViewMatrix(Matrix matrix);
-
-        /**
-        * @brief Gets the projection matrix of the camera.
-        * @param aspect The aspect ratio of the camera.
-        * @param nearPlane The near plane of the camera.
-        * @param farPlane The far plane of the camera.
-        * @return The projection matrix of the camera.
-        */
-        Matrix getProjectionMatrix(double aspect, double nearPlane, double farPlane);
+          void ExtractCameraViewComponents(Matrix viewMatrix, Vector3& position, Vector3& target, Vector3& up);
     }
 }

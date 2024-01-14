@@ -39,12 +39,12 @@ namespace ecs {
 
             void attachCamera(engine::core::EngineCamera &camera)
             {
-                _cameras.emplace(camera._id, camera);
+                _cameras.emplace(camera.getCameraID(), camera);
             }
 
             void detachCamera(engine::core::EngineCamera &camera)
             {
-                _cameras.erase(camera._id);
+                _cameras.erase(camera.getCameraID());
             }
 
             engine::core::EngineCamera &getCamera(engine::core::CameraID id)
@@ -53,11 +53,35 @@ namespace ecs {
             }
 
         private:
-            std::unordered_map<engine::core::CameraID, engine::core::EngineCamera> _cameras;
+            std::unordered_map<engine::core::CameraID, engine::core::EngineCamera&> _cameras;
     };
 
     class SceneManager {
         public:
+            [[nodiscard]] std::vector<SceneID> getSceneIDs() const
+            {
+                std::vector<SceneID> ids;
+                for (const auto &[id, scene] : scenes)
+                    ids.push_back(id);
+                return ids;
+            }
+
+            [[nodiscard]] std::vector<ecs::Entity> getSceneEntities(SceneID sceneID) const
+            {
+                std::vector<ecs::Entity> sceneEntities;
+                for (const auto &entity : scenes.at(sceneID).entities)
+                    sceneEntities.push_back(entity);
+                return sceneEntities;
+            }
+
+            [[nodiscard]] std::vector<ecs::Entity> getAllEntities() const
+            {
+                std::vector<ecs::Entity> allEntities;
+                for (const auto &[_, scene] : scenes)
+                    allEntities.insert(allEntities.end(), scene.entities.begin(), scene.entities.end());
+                return allEntities;
+            }
+
             void updateActiveEntities(void)
             {
                 activeEntities.clear();

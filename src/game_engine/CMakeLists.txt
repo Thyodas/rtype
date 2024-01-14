@@ -5,6 +5,7 @@ project(game_engine)
 set(SRCS
     src/game_engine/Editor.cpp
     src/game_engine/editor/GameEngineEditor.cpp
+    src/game_engine/editor/SceneManagerBridge.cpp
     src/game_engine/editor/DocumentWindows/Main3DScene.cpp
     src/game_engine/editor/DocumentWindows/SceneTreeWindow.cpp
     src/game_engine/editor/DocumentWindows/EntityPropertiesWindow.cpp

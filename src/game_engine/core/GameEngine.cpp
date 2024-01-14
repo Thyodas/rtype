@@ -117,7 +117,7 @@ namespace engine
         _entitiesToDestroy.push(entity);
     }
 
-    void Engine::run(void) {
+    /*void Engine::run(void) {
         _inputSystem->handleInputs();
         _behaviourSystem->handleBehaviours();
         _physicSystem->updatePosition();
@@ -135,12 +135,9 @@ namespace engine
         // DrawGrid(20, 1.0f);
         EndMode3D();
         EndDrawing();
-        while (!_entitiesToDestroy.empty()) {
-            _coordinator->destroyEntity(_entitiesToDestroy.front());
-            _entitiesToDestroy.pop();
-        }
-    }
+    }*/
 
+    /*
     void Engine::runTextureMode(RenderTexture& ViewTexture) {
         _behaviourSystem->handleBehaviours();
         _physicSystem->updatePosition();
@@ -156,7 +153,7 @@ namespace engine
         DrawGrid(50, 1.0f);
         EndMode3D();
         EndTextureMode();
-    }
+    }*/
 
     ecs::Entity Engine::playMusic(const std::string &musicPath, bool looping)
     {
@@ -218,14 +215,28 @@ namespace engine
         if (!isSceneActive)
             activateScene(sceneId);
         BeginDrawing();
-        //BeginTextureMode(_coordinator->getCamera(sceneId, cameraId).getRenderTexture());
         _window->clear(WHITE);
         BeginMode3D(_coordinator->getCamera(sceneId, cameraId).getCamera());
         _renderSystem->render();
         DrawGrid(10000, 1.0f);
         EndMode3D();
-        //EndTextureMode();
         EndDrawing();
+        if (!isSceneActive)
+            deactivateScene(sceneId);
+    }
+
+    void Engine::renderTextureMode(ecs::SceneID sceneId, engine::core::CameraID cameraId)
+    {
+        bool isSceneActive = _coordinator->isSceneActive(sceneId);
+        if (!isSceneActive)
+            activateScene(sceneId);
+        BeginTextureMode(_coordinator->getCamera(sceneId, cameraId).getRenderTexture());
+        _window->clear(Color{41, 41, 41, 255});
+        BeginMode3D(_coordinator->getCamera(sceneId, cameraId).getCamera());
+        _renderSystem->render();
+        DrawGrid(10000, 1.0f);
+        EndMode3D();
+        EndTextureMode();
         if (!isSceneActive)
             deactivateScene(sceneId);
     }
@@ -289,15 +300,17 @@ namespace engine
         Engine::getInstance()->init(disableRender);
     }
 
+    /*
     void runEngine()
     {
         Engine::getInstance()->run();
     }
+    */
 
-    void runEngineTextureMode(RenderTexture& ViewTexture)
+    /*void runEngineTextureMode(RenderTexture& ViewTexture)
     {
         Engine::getInstance()->runTextureMode(ViewTexture);
-    }
+    }*/
 
     ecs::Entity createEntity(void)
     {
@@ -312,6 +325,11 @@ namespace engine
     void render(ecs::SceneID sceneId, engine::core::CameraID cameraId)
     {
         Engine::getInstance()->render(sceneId, cameraId);
+    }
+
+    void renderTextureMode(ecs::SceneID sceneId, engine::core::CameraID cameraId)
+    {
+        Engine::getInstance()->renderTextureMode(sceneId, cameraId);
     }
 
     std::vector<std::pair<std::type_index, std::any>> getAllComponents(ecs::Entity entity)
@@ -441,74 +459,6 @@ namespace engine
         //transform.rotation = rotation;
         engine::rotate(entity, rotation);
         //engine::setScale(entity, scale);
-    }
-
-    void camera::setPosition(Vector3 pos)
-    {
-        Engine::getInstance()->getWindow()->setCameraPosition(pos);
-    }
-
-    Vector3 camera::getPosition()
-    {
-        return Engine::getInstance()->getWindow()->getCameraPosition();
-    }
-
-    void camera::setTarget(Vector3 pos)
-    {
-        Engine::getInstance()->getWindow()->setCameraTarget(pos);
-    }
-
-    Vector3 camera::getTarget()
-    {
-        return Engine::getInstance()->getWindow()->getCameraTarget();
-    }
-
-
-    void camera::setFov(float fov)
-    {
-        Engine::getInstance()->getWindow()->setCameraFov(fov);
-    }
-
-    float camera::getFov()
-    {
-        return Engine::getInstance()->getWindow()->getCameraFov();
-    }
-
-    Matrix camera::getViewMatrix()
-    {
-        return Engine::getInstance()->getWindow()->getCameraViewMatrix();
-    }
-
-    Matrix matrixFromFloat16(const float16& matrix)
-    {
-        Matrix mat;
-        mat.m0 = matrix.v[0];
-        mat.m1 = matrix.v[1];
-        mat.m2 = matrix.v[2];
-        mat.m3 = matrix.v[3];
-        mat.m4 = matrix.v[4];
-        mat.m5 = matrix.v[5];
-        mat.m6 = matrix.v[6];
-        mat.m7 = matrix.v[7];
-        mat.m8 = matrix.v[8];
-        mat.m9 = matrix.v[9];
-        mat.m10 = matrix.v[10];
-        mat.m11 = matrix.v[11];
-        mat.m12 = matrix.v[12];
-        mat.m13 = matrix.v[13];
-        mat.m14 = matrix.v[14];
-        mat.m15 = matrix.v[15];
-        return mat;
-    }
-
-    void camera::setViewMatrix(Matrix matrix)
-    {
-        Engine::getInstance()->getWindow()->setCameraViewMatrix(matrix);
-    }
-
-    Matrix camera::getProjectionMatrix(double aspect, double nearPlane, double farPlane)
-    {
-        return Engine::getInstance()->getWindow()->getProjectionMatrix(aspect, nearPlane, farPlane);
     }
 
     void rotate(ecs::Entity entity, Vector3 rotation)
@@ -693,5 +643,52 @@ namespace engine
     void detachCamera(ecs::SceneID sceneID, engine::core::EngineCamera &camera)
     {
         Engine::getInstance()->detachCamera(sceneID, camera);
+    }
+
+    ecs::SceneManager& getSceneManager()
+    {
+        return Engine::getInstance()->getSceneManager();
+    }
+
+    Matrix math::matrixFromFloat16(const float16& matrix)
+    {
+        Matrix mat;
+        mat.m0 = matrix.v[0];
+        mat.m1 = matrix.v[1];
+        mat.m2 = matrix.v[2];
+        mat.m3 = matrix.v[3];
+        mat.m4 = matrix.v[4];
+        mat.m5 = matrix.v[5];
+        mat.m6 = matrix.v[6];
+        mat.m7 = matrix.v[7];
+        mat.m8 = matrix.v[8];
+        mat.m9 = matrix.v[9];
+        mat.m10 = matrix.v[10];
+        mat.m11 = matrix.v[11];
+        mat.m12 = matrix.v[12];
+        mat.m13 = matrix.v[13];
+        mat.m14 = matrix.v[14];
+        mat.m15 = matrix.v[15];
+        return mat;
+    }
+
+    void math::ExtractCameraViewComponents(Matrix viewMatrix, Vector3& position, Vector3& target, Vector3& up)
+    {
+        // Inverting the view matrix to get the position
+
+        //Matrix invView = MatrixInvert(viewMatrix);
+
+        // The position is the translation component of the inverted view matrix
+        position.x = viewMatrix.m3;
+        position.y = viewMatrix.m7;
+        position.z = viewMatrix.m11;
+
+        // Extracting right, up, and forward vectors from the view matrix
+        //Vector3 right = {viewMatrix.m0, viewMatrix.m4, viewMatrix.m8};
+        up = {viewMatrix.m1, viewMatrix.m5, viewMatrix.m9};
+        Vector3 forward = {viewMatrix.m2, viewMatrix.m6, viewMatrix.m10};
+
+        // Calculating the target position
+        target = Vector3Add(position, Vector3Negate(forward));
     }
 }

@@ -10,8 +10,14 @@
 #include "raylib.h"
 
 #include <cstddef>
+#include <raymath.h>
+#include <loguru/loguru.hpp>
 
 namespace engine {
+    namespace math {
+        void ExtractCameraViewComponents(Matrix viewMatrix, Vector3& position, Vector3& target, Vector3& up);
+    }
+
     namespace core {
         using CameraID = std::size_t;
 
@@ -36,18 +42,28 @@ namespace engine {
                     CameraID id,
                     Vector3 position = {0, 0, 0},
                     Vector3 target = {0, 0, 0},
-                    Vector3 up = {0, 0, 0},
+                    Vector3 up = {0, 1, 0},
                     int mode = CAMERA_PERSPECTIVE,
-                    float fov = 45.0f) : _id(id)
+                    float fov = 90.0f,
+                    int renderTextureWidth = 1920,
+                    int renderTextureHeight = 1080
+                    ) : _id(id),
+                    _camera{
+                        .position = position,
+                        .target = target,
+                        .up = up,
+                        .fovy = fov,
+                        .projection = mode,
+                    },
+                    _viewTexture(LoadRenderTexture(renderTextureWidth, renderTextureHeight))
                 {
-                    _camera.position = position;
-                    _camera.target = target;
-                    _camera.up = up;
-                    _camera.projection = mode;
-                    _camera.fovy = fov;
                 };
 
-                ~EngineCamera() {};
+                ~EngineCamera()
+                {
+                    LOG_F(WARNING, "Unloading render texture %d", getCameraID());
+                    UnloadRenderTexture(_viewTexture);
+                };
 
                 /**
                  * @brief Sets the position of the camera.
@@ -124,9 +140,14 @@ namespace engine {
                  *
                  * @return Camera
                  */
-                Camera getCamera() const
+                [[nodiscard]] Camera getCamera() const
                 {
                     return _camera;
+                }
+
+                [[nodiscard]] CameraID getCameraID() const
+                {
+                    return _id;
                 }
 
                 /**
@@ -134,7 +155,7 @@ namespace engine {
                  *
                  * @return int
                  */
-                int getMode(void) const
+                [[nodiscard]] int getMode(void) const
                 {
                     return _camera.projection;
                 }
@@ -144,19 +165,62 @@ namespace engine {
                  *
                  * @return float
                  */
-                float getFov(void) const
+                [[nodiscard]] float getFov(void) const
                 {
                     return _camera.fovy;
                 }
 
-                RenderTexture &getRenderTexture()
+                [[nodiscard]] const RenderTexture &getRenderTexture() const
                 {
                     return _viewTexture;
                 }
 
+                /**
+                 * @brief Reload the render texture to a new size
+                 * @param width The new width of the render texture
+                 * @param height The new height of the render texture
+                 * @note This unloads the current render texture and creates a new one
+                 */
+                void updateRenderTextureSize(int width, int height)
+                {
+                    UnloadRenderTexture(_viewTexture);
+                    _viewTexture = LoadRenderTexture(width, height);
+                }
+
+                /**
+                 * @brief Gets the view matrix of the camera.
+                 * @return The view matrix of the camera.
+                 */
+                [[nodiscard]] Matrix getViewMatrix() const
+                {
+                    return GetCameraMatrix(_camera);
+                }
+
+                /**
+                 * @brief Gets the projection matrix of the camera.
+                 * @param aspect The aspect ratio of the camera.
+                 * @param nearPlane The near plane of the camera.
+                 * @param farPlane The far plane of the camera.
+                 * @return The projection matrix of the camera.
+                 */
+                [[nodiscard]] Matrix getProjectionMatrix(double aspect, double nearPlane, double farPlane) const
+                {
+                    return MatrixPerspective(_camera.fovy * DEG2RAD, aspect, nearPlane, farPlane);
+                }
+
+                /**
+                 * @brief Set the view matrix of the camera.
+                 * @param matrix The view matrix of the camera.
+                 */
+                void setViewMatrix(Matrix matrix)
+                {
+                    math::ExtractCameraViewComponents(matrix, _camera.position, _camera.target, _camera.up);
+                }
+
                 bool isOn = true;
-                CameraID _id;
+
             private:
+                CameraID _id;
                 Camera _camera;
                 RenderTexture _viewTexture;
         };

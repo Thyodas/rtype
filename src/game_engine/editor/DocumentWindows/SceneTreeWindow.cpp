@@ -17,8 +17,8 @@ namespace engine::editor {
 
     SceneTreeWindow::SceneTreeWindow() {
         // Initialize the scene with some random objects
-        root_.name = "Root";
-        root_.children = {
+
+        /*root_.children = {
             {ICON_FA_CAMERA " Camera"},
             {ICON_FA_LIGHTBULB " Lights", {
                 {ICON_FA_SUN " Directional Light"},
@@ -27,7 +27,7 @@ namespace engine::editor {
             {"Static Meshes", {{"Cube"}, {"Sphere"}, {"Plane"}}},
             {"Dynamic Objects", {{"Player"}, {"Enemy #1"}, {"Enemy #2"}}},
             // ... add more as needed
-        };
+        };*/
     }
 
     SceneTreeWindow::~SceneTreeWindow() {
@@ -90,5 +90,10 @@ namespace engine::editor {
 
     void SceneTreeWindow::update() {
         // update code
+        root_.name = "Root";
+        root_.children.clear();
+        for (const auto &element : _sceneManagerBridge.getAllEntities()) {
+            root_.children.push_back(SceneObject(ICON_FA_CAMERA " " + std::to_string(element)));
+        }
     }
 }

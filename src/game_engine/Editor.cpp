@@ -11,10 +11,12 @@
 
 #define IMGUI_ENABLE_FREETYPE
 
-#include <imgui_impl_raylib.h>
 #include "imgui.h"
+
+
 #include "rlImGui.h"
 //#include "rlImGuiColors.h"
+#include <imgui_impl_raylib.h>
 
 #include <editor/DocumentWindows/ConsoleWindow.hpp>
 #include <editor/DocumentWindows/EntityPropertiesWindow.hpp>
@@ -31,6 +33,7 @@
 #include "TestBehaviour.hpp"
 
 #include "game_engine/editor/GameEngineEditor.hpp"
+#include "game_engine/editor/SceneManagerBridge.hpp"
 
 #include "raylib.h"
 #include "raymath.h"

@@ -5,8 +5,10 @@
 ** ConsoleWindow.cpp
 */
 
-#include "editor/DocumentWindows/ConsoleWindow.hpp"
 #include <imgui.h>
+
+#include "editor/DocumentWindows/ConsoleWindow.hpp"
+
 #include <editor/GameEngineEditor.hpp>
 
 namespace engine::editor {

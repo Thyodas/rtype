@@ -7,12 +7,15 @@
 
 #pragma once
 
+#include <GameEngine.hpp>
+
 #include "IDocumentWindow.hpp"
+#include "SceneManagerBridge.hpp"
 
 namespace engine::editor {
     class ADocumentWindow : public IDocumentWindow {
         public:
-            ADocumentWindow() = default;
+            ADocumentWindow() : _sceneManagerBridge(SceneManagerBridge::getInstance(engine::getSceneManager())) {}
             ~ADocumentWindow() override = default;
 
             [[nodiscard]] bool isFocused() const override { return _focused; }
@@ -27,5 +30,11 @@ namespace engine::editor {
         protected:
             bool _opened = true;
             bool _focused = false;
+
+            /**
+             * @brief Ref to singleton SceneManagerBridge
+             * Responsible of the communication between the editor and the engine
+             */
+            SceneManagerBridge &_sceneManagerBridge;
     };
 } // namespace engine::editor

@@ -18,21 +18,22 @@
 
 namespace engine::editor {
     ModelViewerWindow::ModelViewerWindow()
+        : _camera(engine::createCamera(Vector3{7.0f, 7.0f, 7.0f}, Vector3{0.0f, 2.0f, 0.0f})),
+        _sceneID(engine::createScene())
     {
         _opened = false;
         _modelLoaded = false;
-
-        engine::camera::setPosition(Vector3{7.0f, 7.0f, 7.0f});
-        engine::camera::setTarget(Vector3{0.0f, 2.0f, 0.0f});
-        _viewTexture = LoadRenderTexture(GetScreenWidth(), GetScreenHeight());
     }
 
     ModelViewerWindow::~ModelViewerWindow()
     {
+        if (_modelLoaded)
+            engine::destroyEntity(_importedEntity);
     }
 
     void ModelViewerWindow::setup()
     {
+        engine::attachCamera(_sceneID, _camera);
     }
 
     void ModelViewerWindow::shutdown()
@@ -57,13 +58,16 @@ namespace engine::editor {
                 return;
             }
             _assetPath = std::string(filePath);
-            ecs::Entity cube = engine::createModel3D(_assetPath.c_str(), {0, 0, 0}, WHITE);
+            _importedEntity = engine::createModel3D(_assetPath.c_str(), {0, 0, 0}, WHITE);
+            engine::addEntityToScene(_sceneID, _importedEntity);
             _modelLoaded = true;
         }
+        ImGui::SetNextWindowSize(ImVec2(500, 500), ImGuiCond_Always);
         ImGui::Begin("Import", &_opened, ImGuiWindowFlags_NoScrollbar);
 
         _focused = ImGui::IsWindowFocused(ImGuiFocusedFlags_ChildWindows);
-        rlImGuiImageRenderTexture(&_viewTexture);
+        engine::renderTextureMode(_sceneID, _camera.getCameraID());
+        rlImGuiImageRenderTexture(&_camera.getRenderTexture());
 
         ImGui::End();
    }
@@ -74,6 +78,6 @@ namespace engine::editor {
         if (!_opened)
             return;
 
-        engine::runEngineTextureMode(_viewTexture);
+        engine::update(_sceneID);
     }
 }

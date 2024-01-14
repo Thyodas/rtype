@@ -29,7 +29,6 @@ namespace engine::editor {
             void update() override;
 
         private:
-            RenderTexture _viewTexture;
             ImVec2 _currentWindowSize = {0, 0};
             ImVec2 _prevWindowSize = {0, 0};
             ImVec2 _viewSize = {0, 0};
@@ -40,6 +39,9 @@ namespace engine::editor {
             ImGuizmo::MODE _currentGizmoMode = ImGuizmo::WORLD;
             ImGuizmo::OPERATION _lastGizmoOperationOver = ImGuizmo::SCALE;
 
+            engine::core::EngineCamera _camera;
+            ecs::SceneID _sceneID;
+
 
             // ---------------------- //
             // --- Internal logic --- //
@@ -47,10 +49,9 @@ namespace engine::editor {
             void setupWindow();
             void setupScene();
             void setupCamera();
-            void setupTexture();
             void loadEntities();
 
-            bool isWindowResized() const;
+            [[nodiscard]] bool isWindowResized() const;
             void handleWindowResize();
 
             void renderToolbar();

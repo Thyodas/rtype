@@ -7,9 +7,10 @@
 
 #define IMGUI_ENABLE_FREETYPE
 
-#include <imgui_impl_raylib.h>
 #include "imgui.h"
 #include "rlImGui.h"
+
+#include <imgui_impl_raylib.h>
 //#include "rlImGuiColors.h"
 
 #include "game_engine/editor/GameEngineEditor.hpp"

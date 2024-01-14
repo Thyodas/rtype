@@ -321,6 +321,11 @@ namespace ecs {
                 return _sceneManager->getCamera(id, idCamera);
             }
 
+            [[nodiscard]] SceneManager& getSceneManager() const
+            {
+                return *_sceneManager;
+            }
+
         private:
             void updateSystemEntities(void)
             {

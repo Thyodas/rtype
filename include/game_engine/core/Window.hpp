@@ -110,66 +110,12 @@ namespace engine {
                  * @return The current FPS rate.
                  */
                 int getFPS() const;
-
-                /**
-                 * @brief Gets a reference to the window's camera.
-                 * @return A reference to the window's Camera object.
-                 */
-                Camera &getCamera();
-                /**
-                 * @brief Sets the camera's position using a Vector3 position.
-                 * @param pos The new position of the camera.
-                 */
-                void setCameraPosition(Vector3 pos);
-                /**
-                 * @brief Gets the current position of the camera.
-                 * @return The current position of the camera as Vector3.
-                 */
-                Vector3 getCameraPosition() const;
-                /**
-                 * @brief Sets the camera's target position using a Vector3 position.
-                 * @param pos The new target position of the camera.
-                 */
-                void setCameraTarget(Vector3 pos);
-                /**
-                 * @brief Gets the current target position of the camera.
-                 * @return The current target position of the camera as Vector3.
-                 */
-                Vector3 getCameraTarget() const;
-                /**
-                 * @brief Sets the camera's field of view (FoV).
-                 * @param fov The field of view angle in degrees.
-                 */
-                void setCameraFov(float fov);
-                /**
-                 * @brief Gets the current field of view (FoV) of the camera.
-                 * @return The current field of view angle in degrees.
-                 */
-                float getCameraFov(void) const;
-
-                /**
-                 * @brief Gets the view matrix of the camera.
-                 * @return The view matrix of the camera.
-                 */
-                Matrix getCameraViewMatrix() const;
-
-                void setCameraViewMatrix(Matrix matrix);
-
-                /**
-                 * @brief Gets the projection matrix of the camera.
-                 * @param aspect The aspect ratio of the camera.
-                 * @param nearPlane The near plane of the camera.
-                 * @param farPlane The far plane of the camera.
-                 * @return The projection matrix of the camera.
-                 */
-                Matrix getProjectionMatrix(double aspect, double nearPlane, double farPlane) const;
-
             private:
                 int _width;
                 int _height;
                 int _fps;
 
-                Camera _camera;
+                //Camera _camera; NIQUE TA MERE CAMERA DE CON
 
                 std::string _clipboardText;
         };
