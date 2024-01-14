@@ -167,6 +167,25 @@ namespace engine {
              */
             void resumeMusic(ecs::Entity musicSource);
 
+            /**
+             * @brief Creates a light entity with specified properties.
+             *
+             * @param position Position of the light.
+             * @param color Color of the light.
+             * @param intensity Intensity of the light.
+             * @return ecs::Entity The created light entity.
+             */
+            ecs::Entity createLight(Vector2 position, Color color, float intensity) {
+                ecs::Entity entity = _coordinator->createEntity();
+                ecs::components::lights::LightSource lightSource;
+                lightSource.position = position;
+                lightSource.color = color;
+                lightSource.intensity = intensity;
+
+                _coordinator->addComponent<ecs::components::lights::LightSource>(entity, lightSource);
+                return entity;
+            }
+
             template<typename T>
             void emitEvent(T &event)
             {
