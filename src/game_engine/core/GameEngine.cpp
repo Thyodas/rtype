@@ -680,7 +680,8 @@ namespace engine
 
         // The position is the translation component of the inverted view matrix
         position.x = viewMatrix.m3;
-        position.y = viewMatrix.m7;
+        // TODO: re-add the below line, temporary fix for Main3DScene
+        // position.y = viewMatrix.m7;
         position.z = viewMatrix.m11;
 
         // Extracting right, up, and forward vectors from the view matrix

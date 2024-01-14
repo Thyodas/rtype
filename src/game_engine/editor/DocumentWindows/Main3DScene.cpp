@@ -249,13 +249,17 @@ void engine::editor::Main3DScene::renderGizmo()
     }
     auto viewManipulateRight = _viewPosition.x + _viewSize.x;
     auto viewManipulateTop = _viewPosition.y;
-    ImGuizmo::ViewManipulate(viewMatrixFloats.v, 10, ImVec2(viewManipulateRight - 128, viewManipulateTop), ImVec2(128, 128), 0x10101010);
+    ImGuizmo::ViewManipulate(viewMatrixFloats.v, 100, ImVec2(viewManipulateRight - 128, viewManipulateTop), ImVec2(128, 128), 0x10101010);
+
 
     _camera.setViewMatrix(engine::math::matrixFromFloat16(viewMatrixFloats));
+
+
 
     // Check if the matrix was changed
     if (ImGuizmo::IsUsing())
     {
+
         /*
         // Update the object's transform with the new matrix
         engine::UpdateSelectedObjectTransform(updatedMatrix);*/
@@ -271,7 +275,7 @@ void engine::editor::Main3DScene::renderGizmo()
 
         switch (_lastGizmoOperationOver) {
             case ImGuizmo::OPERATION::TRANSLATE: {
-                LOG_F(INFO, "TRANSLATE");
+                //LOG_F(INFO, "TRANSLATE");
                 auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_selectedEntity);
                 engine::setScale(_selectedEntity, sca);
                 engine::setRotation(_selectedEntity, rot);
@@ -279,7 +283,7 @@ void engine::editor::Main3DScene::renderGizmo()
                 break;
             }
             case ImGuizmo::OPERATION::ROTATE:
-                LOG_F(INFO, "ROTATE");
+                //LOG_F(INFO, "ROTATE");
                 engine::setScale(_selectedEntity, sca);
                 engine::setRotation(_selectedEntity, rot);
                 break;
