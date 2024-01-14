@@ -80,13 +80,14 @@ namespace server {
         msg.header.id = common::NetworkMessage::serverAllyConnect;
 
         auto &transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(ship);
+        auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(ship);
 
         //auto &model = engine::Engine::getInstance()->getComponent<ecs::components::Model3D>(ship);
 
         common::game::netbody::ServerAllyConnect body = {
             .entityNetId = ship,
             .name = "Jean-Michel", // TODO: get name of player
-            .shipName = common::game::ObjectName::DualStriker, // TODO: get ship name from entity
+            .shipName = metadata.skinName,
             .pos = transform.pos,
         };
 

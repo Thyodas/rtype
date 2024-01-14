@@ -107,10 +107,12 @@ namespace common::game::netbody {
 
     struct ServerPlayerTakeDamage {
         uint32_t damage;
+        uint32_t entityNetId;
 
         template<class Archive>
         void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
             ar & damage;
+            ar & entityNetId;
         }
     };
 

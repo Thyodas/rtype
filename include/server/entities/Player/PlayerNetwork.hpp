@@ -12,6 +12,7 @@
 #include "server/core/NetServer.hpp"
 #include "common/game/entities/EntityFactory.hpp"
 #include "server/entities/Bullet/BulletNetwork.hpp"
+#include "game_engine/core/event/PlayerDestroyEvent.hpp"
 
 namespace server {
 
@@ -21,6 +22,10 @@ namespace server {
         public:
             PlayerNetwork(server::NetServer& networkManager, uint32_t entityNetId = 0, uint32_t connectionId = 0)
                 : NetworkBehaviour(networkManager, entityNetId, connectionId)
+            {
+            }
+
+            void onAttach(ecs::Entity entity) override
             {
                 _networkManager.registerResponse({
                     {
@@ -42,6 +47,16 @@ namespace server {
                         }
                     },
                 });
+
+                addListener<PlayerDestroyEvent>(
+                    [this](PlayerDestroyEvent& event) {
+                    auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(event.entity);
+                    if (metadata.type != server::entities::EntityType::PLAYER)
+                        return;
+
+                    engine::destroyEntity(event.entity);
+                    unregisterResponses();
+                });
             }
 
             // Inform new players of this player's position
@@ -57,7 +72,7 @@ namespace server {
 
                 common::game::netbody::ServerAllyConnect body = {
                     .entityNetId = _entity,
-                    .name = "Jean-Michel", // TODO: get name of player
+                    .name = "Jean-Michel",
                     .shipName = metadata.skinName,
                     .pos = transform.pos,
                 };

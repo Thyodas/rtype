@@ -64,9 +64,13 @@ namespace client {
 
             void onDamageReceive(rtype::net::Message<common::NetworkMessage>& msg)
             {
-                auto &allyHealth = _coord->getComponent<ecs::components::health::health_t>(_entity);
                 common::game::netbody::ServerPlayerTakeDamage body;
                 msg >> body;
+
+                if (body.entityNetId != getNetId())
+                    return;
+
+                auto &allyHealth = _coord->getComponent<ecs::components::health::health_t>(_entity);
 
                 allyHealth.healthPoints -= body.damage;
             }
@@ -76,7 +80,11 @@ namespace client {
                 common::game::netbody::ServerPlayerDestroy body;
                 msg >> body;
 
+                if (body.entityNetId != getNetId())
+                    return;
+
                 engine::destroyEntity(_entity);
+                unregisterResponses();
             }
 
             void updateDirectionOnChange(const Vector3& direction)
