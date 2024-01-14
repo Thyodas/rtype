@@ -215,10 +215,10 @@ namespace engine
         if (!isSceneActive)
             activateScene(sceneId);
         BeginDrawing();
-        _window->clear(WHITE);
+        _window->clear(Color{41, 41, 41, 255});
         BeginMode3D(_coordinator->getCamera(sceneId, cameraId).getCamera());
         _renderSystem->render();
-        DrawGrid(10000, 1.0f);
+        //DrawGrid(10000, 1.0f);
         EndMode3D();
         EndDrawing();
         if (!isSceneActive)

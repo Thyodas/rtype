@@ -74,7 +74,6 @@ namespace client {
                     return;
 
                 engine::destroyEntity(_entity);
-                unregisterResponses();
             }
 
             void update() override

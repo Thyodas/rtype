@@ -30,6 +30,7 @@ void server::Server::run()
     ecs::Entity spawner = engine::createEntity();
     auto behave = engine::createBehavior<ecs::components::behaviour::EnemySpawner>(_netServer, spawner);
     engine::attachBehavior(spawner, behave);
+    engine::addEntityToScene(spawner, sceneID);
 
     while (true) {
         _netServer.update(-1, true);

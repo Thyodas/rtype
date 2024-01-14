@@ -127,6 +127,7 @@ namespace server {
                 metadata.type = server::entities::EntityType::BULLET;
                 auto behave = engine::createBehavior<server::BulletNetwork>(_networkManager, _entity, gunBullet, client->getID(), _sceneID);
                 engine::attachBehavior(gunBullet, behave);
+                engine::addEntityToScene(gunBullet, _sceneID);
                 _networkManager.allServerFireBullet(gunBullet, _entity);
             }
 

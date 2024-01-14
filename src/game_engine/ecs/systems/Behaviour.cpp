@@ -12,8 +12,12 @@
 
 namespace ecs {
     namespace system {
-        void BehaviourSystem::handleBehaviours() {
-            for (auto const &entity : _entities) {
+        void BehaviourSystem::handleBehaviours()
+        {
+            // create deep copy of _entities
+            std::set<Entity> entities = _entities;
+
+            for (auto const &entity : entities) {
                 auto &behave = _coord->getComponent<std::shared_ptr<ecs::components::behaviour::Behaviour>>(entity);
 
                 behave->update();

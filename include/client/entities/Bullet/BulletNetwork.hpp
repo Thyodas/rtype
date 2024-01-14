@@ -56,11 +56,12 @@ namespace client
         {
             common::game::netbody::ServerUpdateBulletPosition body;
             msg >> body;
-
+            std::cout << "try update bullet " << body.entityNetId << std::endl;
             if (body.entityNetId != getNetId())
                 return;
 
             auto &transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_entity);
+            std::cout << "Updating bullet position" << std::endl;
             transform.pos = body.pos;
         }
 

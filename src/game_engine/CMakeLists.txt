@@ -117,6 +117,12 @@ target_link_libraries(game_engine PRIVATE raylib imgui::imgui rlimgui)
 
 target_include_directories(game_engine PRIVATE ${tinyfiledialogs_SOURCE_DIR})
 
+if(WIN32)
+    target_link_libraries(game_engine PRIVATE Boost::serialization Boost::system)
+else()
+    target_link_libraries(game_engine PRIVATE Boost::serialization)
+endif(WIN32)
+
 # Compiler options for Unix
 if(UNIX)
     set(CMAKE_CXX_FLAGS "--std=c++20 -Wall -Wextra -O3 -g")

@@ -114,7 +114,8 @@ namespace client {
                 auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(gunBullet);
                 rigidBody.velocity = {0, 0, static_cast<float>(body.speed)};
 
-                auto behave = engine::createBehavior<client::BulletNetwork>(*this, body.entityNetId);
+                auto behave = engine::createBehavior<client::BulletNetwork>(*this, body.entityNetId, _mainSceneID);
                 engine::attachBehavior(gunBullet, behave);
+                engine::addEntityToScene(gunBullet, _mainSceneID);
         }
 }
