@@ -15,8 +15,8 @@ namespace client {
 
     class EnemyNetwork : public ecs::components::behaviour::NetworkBehaviour<client::NetClient> {
         public:
-            explicit EnemyNetwork(client::NetClient& networkManager, uint32_t netId = 0)
-                : NetworkBehaviour(networkManager, netId)
+            explicit EnemyNetwork(client::NetClient& networkManager, uint32_t netId, ecs::SceneID sceneId)
+                : NetworkBehaviour(networkManager, netId, 0, sceneId)
             {
             }
 

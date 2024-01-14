@@ -19,8 +19,8 @@ namespace client
     class BulletNetwork : public ecs::components::behaviour::NetworkBehaviour<client::NetClient>
     {
     public:
-        explicit BulletNetwork(client::NetClient &networkManager, uint32_t netId = 0)
-            : NetworkBehaviour(networkManager, netId)
+        explicit BulletNetwork(client::NetClient &networkManager, uint32_t netId = 0, ecs::SceneID sceneId = 0)
+            : NetworkBehaviour(networkManager, netId, 0, sceneId)
         {
         }
 

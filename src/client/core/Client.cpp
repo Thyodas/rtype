@@ -52,6 +52,7 @@ void client::Client::run()
     engine::core::EngineCamera camera = engine::createCamera({-25, 1, 0}, {0, 0, 0}, {0, 1, 0}, CAMERA_PERSPECTIVE, 45.0f);
     engine::attachCamera(sceneID, camera);
     engine::activateScene(sceneID);
+    _netClient.setMainSceneID(sceneID);
 
     auto skyBehavior = engine::createBehavior<client::SkyboxBehavior>();
     ecs::Entity skyBox = factory.createEntity(common::game::ObjectType::SkyBox, common::game::ObjectName::DefaultSkybox, {

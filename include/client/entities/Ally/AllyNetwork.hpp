@@ -15,8 +15,8 @@ namespace client {
 
     class AllyNetwork : public ecs::components::behaviour::NetworkBehaviour<client::NetClient> {
         public:
-            explicit AllyNetwork(client::NetClient& networkManager, uint32_t netId = 0)
-                : NetworkBehaviour(networkManager, netId)
+            explicit AllyNetwork(client::NetClient& networkManager, uint32_t netId = 0, ecs::SceneID sceneId = 0)
+                : NetworkBehaviour(networkManager, netId, 0, sceneId)
             {
             }
 

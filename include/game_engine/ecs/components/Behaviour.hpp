@@ -63,7 +63,8 @@ namespace ecs {
 
                     static std::shared_ptr<ecs::Coordinator> _coord; ///< Shared pointer to the ECS coordinator.
                 protected:
-                    ecs::Entity _entity;
+                    ecs::Entity _entity = 0;
+                    ecs::SceneID _sceneID = 0;
                     std::vector<int> _listeners; ///< Map of event types to their listeners.
             };
         }

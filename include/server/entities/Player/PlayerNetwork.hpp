@@ -20,8 +20,8 @@ namespace server {
 
     class PlayerNetwork : public ecs::components::behaviour::NetworkBehaviour<server::NetServer> {
         public:
-            PlayerNetwork(server::NetServer& networkManager, uint32_t entityNetId = 0, uint32_t connectionId = 0)
-                : NetworkBehaviour(networkManager, entityNetId, connectionId)
+            PlayerNetwork(server::NetServer& networkManager, uint32_t entityNetId = 0, uint32_t connectionId = 0, ecs::SceneID sceneId = 0)
+                : NetworkBehaviour(networkManager, entityNetId, connectionId, sceneId)
             {
             }
 
@@ -125,7 +125,7 @@ namespace server {
                 rigidBody.velocity = {0, 0, 5};
                 auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(gunBullet);
                 metadata.type = server::entities::EntityType::BULLET;
-                auto behave = engine::createBehavior<server::BulletNetwork>(_networkManager, _entity, gunBullet, client->getID());
+                auto behave = engine::createBehavior<server::BulletNetwork>(_networkManager, _entity, gunBullet, client->getID(), _sceneID);
                 engine::attachBehavior(gunBullet, behave);
                 _networkManager.allServerFireBullet(gunBullet, _entity);
             }

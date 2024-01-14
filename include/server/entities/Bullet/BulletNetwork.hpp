@@ -22,8 +22,8 @@ namespace server {
 
     class BulletNetwork : public ecs::components::behaviour::NetworkBehaviour<server::NetServer> {
         public:
-            BulletNetwork(server::NetServer& networkManager, ecs::Entity sender, uint32_t entityNetId = 0, uint32_t connectionId = 0)
-                : NetworkBehaviour(networkManager, entityNetId, connectionId)
+            BulletNetwork(server::NetServer& networkManager, uint32_t entityNetId = 0, uint32_t connectionId = 0, ecs::SceneID sceneId = 0)
+                : NetworkBehaviour(networkManager, entityNetId, connectionId, sceneId)
             {
                 double now = engine::Engine::getInstance()->getElapsedTime() / 1000;
                 _lastUpdate = now;

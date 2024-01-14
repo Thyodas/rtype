@@ -104,6 +104,7 @@ namespace ecs {
                 _entityManager->setSignature(entity, signature);
 
                 _systemManager->entitySignatureChanged(entity, signature);
+                updateSystemEntities();
             }
 
             /**
@@ -120,6 +121,7 @@ namespace ecs {
                 _entityManager->setSignature(entity, signature);
 
                 _systemManager->entitySignatureChanged(entity, signature);
+                updateSystemEntities();
             }
 
             /**

@@ -22,6 +22,7 @@ void server::Server::run()
     engine::initEngine();
 
     ecs::SceneID sceneID = engine::createScene();
+    _netServer.setMainSceneID(sceneID);
     engine::activateScene(sceneID);
     engine::core::EngineCamera camera = engine::createCamera({0, 0, 0}, {0, 0, 0}, {0, 1, 0}, CAMERA_PERSPECTIVE, 90.0f);
 

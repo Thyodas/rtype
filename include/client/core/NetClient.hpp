@@ -31,7 +31,12 @@ namespace client {
     {
         public:
 
-        NetClient() : _nextId(1)
+            void setMainSceneID(ecs::SceneID mainSceneID)
+            {
+                _mainSceneID = mainSceneID;
+            }
+
+        explicit NetClient(ecs::SceneID mainSceneID = 0) : _mainSceneID(mainSceneID), _nextId(1)
         {
             std::cout << "dans le net client" << std::endl;
             registerResponse({
@@ -187,6 +192,7 @@ namespace client {
 
         protected:
             ResponseSet _responses;
+            ecs::SceneID _mainSceneID;
             int _nextId;
     };
 }
