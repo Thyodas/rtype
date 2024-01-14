@@ -29,7 +29,7 @@ namespace engine {
                  * @param height Height of the window, defaulting to 1080.
                  * @param name Title of the window, defaulting to "window".
                  */
-                Window(int width = 1920, int height = 1080, std::string name = "window");
+                Window(int width = 1920, int height = 1000, std::string name = "window");
                 ~Window();
 
                 /**

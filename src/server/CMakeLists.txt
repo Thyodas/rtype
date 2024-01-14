@@ -51,6 +51,10 @@ else()
 endif(WIN32)
 include_directories(${raylib_INCLUDE_DIRS})
 
+# Find Jolt package
+find_package(unofficial-joltphysics CONFIG REQUIRED)
+target_link_libraries(server PRIVATE unofficial::joltphysics::Jolt)
+
 if(WIN32)
     target_link_libraries(server PRIVATE raylib Boost::serialization Boost::system)
 else()

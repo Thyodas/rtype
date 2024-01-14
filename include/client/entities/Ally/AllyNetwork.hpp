@@ -10,6 +10,7 @@
 #include "game_engine/ecs/components/NetworkBehaviour.hpp"
 #include "common/game/NetworkBody.hpp"
 #include "client/core/NetClient.hpp"
+#include "common/utils/Math.hpp"
 
 namespace client {
 
@@ -43,13 +44,13 @@ namespace client {
             void onUpdatePosition(rtype::net::Message<common::NetworkMessage>& msg)
             {
                 common::game::netbody::ServerUpdateShipPosition body;
-                auto &allyBody = _coord->getComponent<ecs::components::physics::transform_t>(_entity);
+                auto &allyBody = _coord->getComponent<ecs::components::physics::TransformComponent>(_entity);
                 msg >> body;
 
                 if (body.entityNetId != getNetId())
                     return;
 
-                allyBody.pos = body.pos;
+                allyBody.position = common::utils::rayVectorToJoltVector(body.pos);
             }
 
             void onDamageReceive(rtype::net::Message<common::NetworkMessage>& msg)

@@ -39,6 +39,7 @@ ecs::Entity common::game::EntityFactory::createCube(
         params.height,
         params.length,
         params.color,
+        params.bodyType,
         params.toggleWire,
         params.wireColor
     );
@@ -84,15 +85,15 @@ ecs::Entity common::game::EntityFactory::createSkybox(
     // TO USE USING CMAKE (Depending on the path of the executable)
     // std::string path = "./ressources/client/Skybox/" + objectName + "/" + objectName + objectFormat;
     // TO USE IF USING LOCAL MAKEFILE
-    std::string path = "../../ressources/client/Skybox/" + objectName + "/" + objectName + objectFormat;
+    std::string path = "./ressources/client/Skybox/" + objectName + "/" + objectName + objectFormat;
 
     auto shape = engine::createSkybox(
         path.c_str(),
         params.pos,
         params.color
     );
-    engine::rotate(shape, params.rotation);
-    engine::scale(shape, params.scale);
+    // engine::rotate(shape, params.rotation);
+    // engine::scale(shape, params.scale);
 
     return shape;
 }

@@ -11,6 +11,8 @@
 #include "common/game/NetworkBody.hpp"
 #include "server/core/NetServer.hpp"
 
+#include "common/utils/Math.hpp"
+
 namespace server {
 
     constexpr float BULLET_SPEED = 2;
@@ -33,11 +35,11 @@ namespace server {
 
                 _lastUpdate = now;
 
-                auto &transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_entity);
+                auto &transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::TransformComponent>(_entity);
 
                 common::game::netbody::ServerUpdateBulletPosition body = {
                     .entityNetId = _entity,
-                    .pos = transform.pos,
+                    .pos = common::utils::joltVectorToRayVector(transform.position),
                 };
 
                 rtype::net::Message<common::NetworkMessage> msg;

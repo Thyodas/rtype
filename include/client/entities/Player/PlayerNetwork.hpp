@@ -11,6 +11,7 @@
 #include "common/game/NetworkBody.hpp"
 #include "client/core/NetClient.hpp"
 #include "client/entities/Bullet/BulletNetwork.hpp"
+#include "common/utils/Math.hpp"
 
 namespace client {
 
@@ -63,7 +64,7 @@ namespace client {
 
                 auto &direction = engine::Engine::getInstance()->getComponent<ecs::components::direction::direction_t>(gunBullet);
                 direction.direction = body.direction;
-                auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(gunBullet);
+                auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::RigidBodyComponent>(gunBullet);
                 // rigidBody.velocity = {0, 0, static_cast<float>(body.speed)};
                 rigidBody.velocity = { 0, 0, 0};
 
@@ -79,9 +80,9 @@ namespace client {
                 if (body.entityNetId != getNetId())
                     return;
 
-                auto &playerTransform = _coord->getComponent<ecs::components::physics::transform_t>(_entity);
+                auto &playerTransform = _coord->getComponent<ecs::components::physics::TransformComponent>(_entity);
 
-                playerTransform.pos = body.pos;
+                playerTransform.position = common::utils::rayVectorToJoltVector(body.pos);
             }
 
             void onDamageReceive(rtype::net::Message<common::NetworkMessage>& msg)
@@ -112,17 +113,13 @@ namespace client {
                 common::game::netbody::ClientUpdatePlayerDirection body = {
                     .direction = direction,
                 };
+                std::cout << "on envoie la nouvelle direction" << std::endl;
                 msg << body;
-                //std::cout << "move: " << direction.x << direction.y << direction.z  << msg << std::endl;
                 _networkManager.send(msg);
             }
 
             void fireBullet()
             {
-                auto &trans = _coord->getComponent<ecs::components::physics::transform_t>(_entity);
-
-                // Vector3 velocity = calculateBulletVelocity(trans, 10);
-
                 rtype::net::Message<common::NetworkMessage> msg;
                 msg.header.id = common::NetworkMessage::clientPlayerFireBullet;
                 common::game::netbody::ClientPlayerFireBullet body = {
@@ -130,20 +127,6 @@ namespace client {
                 };
                 msg << body;
                 _networkManager.send(msg);
-            }
-
-            Vector3 calculateBulletVelocity(const ecs::components::physics::transform_t& shipTransform, float bulletSpeed)
-            {
-                // Assuming the ship's forward direction is the negative z-axis
-                Vector3 shipForward = shipTransform.rotation;
-
-                // Negate the z-axis to get the forward direction
-                shipForward.z = -shipForward.z;
-
-                // Calculate the bullet velocity
-                Vector3 bulletVelocity = Vector3Scale(shipForward, bulletSpeed);
-
-                return bulletVelocity;
             }
 
             void update() override
@@ -175,17 +158,6 @@ namespace client {
                     std::cout << "PRESSED SPACE -> FIRE BULLET" << std::endl;
                     fireBullet();
                 }
-                /*if (IsKeyReleased(KEY_SPACE)) {
-                    Vector3 newRotation = {0};
-                    newRotation.z = 10 * M_PI / 180;
-                    engine::rotate(_entity, newRotation);
-                }
-                if (IsKeyReleased(KEY_R)) {
-                    Vector3 scale = {2, 1, 1};
-                    engine::scale(_entity, scale);
-                }*/
-
-
             }
         protected:
             Vector3 _lastDirection{0, 0, 0};

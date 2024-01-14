@@ -10,6 +10,7 @@
 #include "game_engine/ecs/components/NetworkBehaviour.hpp"
 #include "common/game/NetworkBody.hpp"
 #include "client/core/NetClient.hpp"
+#include "common/utils/Math.hpp"
 
 namespace client {
 
@@ -53,8 +54,8 @@ namespace client {
                 if (body.entityNetId != getNetId())
                     return;
 
-                auto &transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_entity);
-                transform.pos = body.pos;
+                auto &transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::TransformComponent>(_entity);
+                transform.position = common::utils::rayVectorToJoltVector(body.pos);
             }
 
             void update() override

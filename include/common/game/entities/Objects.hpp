@@ -21,6 +21,7 @@ namespace common::game {
         Color wireColor;
         Vector3 rotation;
         Vector3 scale;
+        ecs::components::physics::BodyType bodyType;
     };
 
     enum class ObjectName : uint32_t {

@@ -15,7 +15,6 @@
 #include <loguru/loguru.hpp>
 
 #include "game_engine/ecs/components/Physics.hpp"
-#include "../../TestBehaviour.hpp"
 
 class input;
 
@@ -126,12 +125,12 @@ void engine::editor::Main3DScene::setupTexture()
 
 void engine::editor::Main3DScene::loadEntities()
 {
-    ecs::Entity cube = engine::createCube({0, 2, 2}, 4, 4, 4, RED, true);
+    ecs::Entity cube = engine::createCube({0, 2, 2}, 4, 4, 4, RED, ecs::components::physics::BodyType::DYNAMIC, true);
     _selectedEntity = cube;
     //engine::setRotation(cube, {deg2rad(30), 0, 0});
     //engine::setRotation(cube, {deg2rad(-10), 0, 0});
-    auto behave = engine::createBehavior<input>();
-    engine::attachBehavior(cube, behave);
+    // auto behave = engine::createBehavior<input>();
+    // engine::attachBehavior(cube, behave);
     //ecs::Entity cube2 = engine::createCube({5, 1, 0}, 2, 2, 2);
 }
 
@@ -269,7 +268,7 @@ void engine::editor::Main3DScene::renderGizmo()
         float scale[3];
 
         ImGuizmo::DecomposeMatrixToComponents(objectMatrixFloats.v, translation, rotation, scale);
-        Vector3 pos = {translation[0], translation[1], translation[2]};
+        JPH::Vec3 pos = {translation[0], translation[1], translation[2]};
         Vector3 rot = {rotation[0], rotation[1], rotation[2]};
         //std::cout << rot.x << " " << rot.y << " " << rot.z << std::endl;
         Vector3 sca = {scale[0], scale[1], scale[2]};
@@ -277,10 +276,10 @@ void engine::editor::Main3DScene::renderGizmo()
         switch (_lastGizmoOperationOver) {
             case ImGuizmo::OPERATION::TRANSLATE: {
                 LOG_F(INFO, "TRANSLATE");
-                auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_selectedEntity);
+                auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::TransformComponent>(_selectedEntity);
                 engine::setScale(_selectedEntity, sca);
                 engine::setRotation(_selectedEntity, rot);
-                transform.pos = pos;
+                transform.position = pos;
                 break;
             }
             case ImGuizmo::OPERATION::ROTATE:

@@ -19,7 +19,7 @@ namespace common::game {
                 ObjectName name,
                 ObjectParams params,
                 ObjectFormat format = ObjectFormat::OBJ,
-                std::string path = "../../"
+                std::string path = "./"
             );
         private:
             ecs::Entity createCube(
@@ -31,7 +31,7 @@ namespace common::game {
                 ObjectName name,
                 ObjectParams params,
                 ObjectFormat format,
-                std::string path = "../../"
+                std::string path = "./"
             );
             ecs::Entity createSkybox(
                 common::game::ObjectName name,

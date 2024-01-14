@@ -13,65 +13,74 @@
 
 #include <memory>
 
+#include <Jolt/Jolt.h>
+#include <Jolt/RegisterTypes.h>
+#include <Jolt/Core/Factory.h>
+#include <Jolt/Core/TempAllocator.h>
+#include <Jolt/Core/JobSystemThreadPool.h>
+#include <Jolt/Physics/PhysicsSettings.h>
+#include <Jolt/Physics/PhysicsSystem.h>
+#include <Jolt/Physics/Collision/Shape/BoxShape.h>
+#include <Jolt/Physics/Collision/Shape/SphereShape.h>
+#include <Jolt/Physics/Body/BodyCreationSettings.h>
+#include <Jolt/Physics/Body/BodyActivationListener.h>
+#include <Jolt/Physics/SoftBody/SoftBodySharedSettings.h>
+#include <Jolt/Physics/SoftBody/SoftBodyCreationSettings.h>
+#include <Jolt/Physics/Collision/PhysicsMaterial.h>
+
 namespace ecs {
     namespace components {
         namespace physics {
 
-            /**
-             * @struct transform_t
-             * @brief Represents the transformation data of an entity in the game world.
-             *
-             * This struct stores the position, rotation, and scale of an entity, allowing for
-             * manipulation of its physical attributes in the game world.
-             */
-            typedef struct transform_s {
-                Vector3 pos{}; ///< Position of the entity in 3D space.
-                Vector3 rotation{}; ///< Rotation of the entity around the x, y, and z axes.
-                Vector3 scale = {1, 1 ,1}; ///< Scale of the entity in 3D space.
-            } transform_t;
-
-            /**
-             * @struct rigidBody_t
-             * @brief Represents the physical properties of an entity, allowing for dynamic movement and interaction.
-             *
-             * This struct stores the mass, velocity, and forces acting on an entity, along with a timestamp
-             * of the last velocity update, facilitating physics-based movement and interactions.
-             */
-            typedef struct rigidBody_s {
-                float mass; ///< Mass of the entity.
-                Vector3 velocity; ///< Current velocity of the entity.
-                Vector3 force; ///< Current force acting on the entity.
-                double velocityLastUpdate; ///< Timestamp of the last velocity update.
-            } rigidBody_t;
-
-            /**
-             * @enum CollisionType
-             * @brief Enumerates the types of collision interactions an entity can have.
-             */
-            enum class CollisionType {
-                COLLIDE, ///< Standard collision.
-                LOOTABLE, ///< Item can be collected or interacted with.
+            enum BodyType {
+                STATIC = 0,
+                DYNAMIC = 1,
             };
 
-            /**
-             * @struct collider_t
-             * @brief Represents the collision boundaries and properties of an entity.
-             *
-             * This struct stores information about an entity's collision shape, type, and the actual
-             * data describing the shape. It also includes matrices for rotation, scaling, and translation,
-             * along with a bounding box and global vertices for collision detection.
-             */
-            typedef struct collider_s {
-                ShapeType shapeType; ///< Type of the shape used for collision.
-                CollisionType collisionType; ///< Type of collision interaction.
-                std::shared_ptr<IShape> data; ///< Shared pointer to the shape data.
-                BoundingBox box; ///< Bounding box for collision detection.
-                Vector3 vertsGlobal[8]; ///< Global vertices for the collider.
-                Matrix matRotate; ///< Matrix for rotation transformations.
-                Matrix matScale; ///< Matrix for scaling transformations.
-                Matrix matTranslate; ///< Matrix for translation transformations.
-            } collider_t;
+            struct RigidBodyComponent {
+                JPH::BodyID bodyID;
+                JPH::Vec3 velocity;
+                bool isAffectedByGravity;
+                BodyType bodyType;
 
+                RigidBodyComponent() : velocity(JPH::Vec3::sZero()), isAffectedByGravity(true), bodyType(DYNAMIC) {};
+                RigidBodyComponent(float m, const JPH::Vec3& vel, bool gravity = true, BodyType type = DYNAMIC)
+                    : velocity(vel), isAffectedByGravity(gravity), bodyType(type) {};
+            };
+
+            struct TransformComponent {
+                JPH::Vec3 position;
+                JPH::Quat rotation;
+                JPH::Vec3 scale;
+
+                TransformComponent() : position(JPH::Vec3::sZero()), rotation(JPH::Quat::sIdentity()), scale(JPH::Vec3::sReplicate(1.0f)) {};
+                TransformComponent(const JPH::Vec3& pos, const JPH::Quat& rot, const JPH::Vec3& scl)
+                    : position(pos), rotation(rot), scale(scl) {};
+            };
+
+            struct ColliderComponent {
+                JPH::Ref<JPH::Shape> shape;
+
+                explicit ColliderComponent() : shape(nullptr) {};
+                explicit ColliderComponent(const JPH::Ref<JPH::Shape>& shp)
+                    : shape(shp) {}
+            };
+
+            struct ForceComponent {
+                JPH::Vec3 force;
+
+                explicit ForceComponent() : force(JPH::Vec3::sZero()) {};
+                explicit ForceComponent(const JPH::Vec3& f)
+                    : force(f) {};
+            };
+
+            struct PhysicsMaterialComponent {
+                std::shared_ptr<JPH::PhysicsMaterial> material;
+
+                explicit PhysicsMaterialComponent() : material(nullptr) {};
+                explicit PhysicsMaterialComponent(std::shared_ptr<JPH::PhysicsMaterial> mat)
+                    : material(std::move(mat)) {};
+            };
         }
     }
 }
