@@ -42,6 +42,7 @@ namespace engine
         _coordinator->registerComponent<ecs::components::direction::direction_t>();
         _coordinator->registerComponent<ecs::components::sound::AudioSource>();
         _coordinator->registerComponent<ecs::components::sound::MusicSource>();
+        _coordinator->registerComponent<ecs::components::lights::LightSource>();
         _coordinator->registerComponent<ecs::components::metadata::metadata_t>();
         ecs::components::input::Input input;
         _coordinator->registerSingletonComponent<ecs::components::input::Input>(input);
@@ -66,6 +67,8 @@ namespace engine
         signatureAudioSystem.set(_coordinator->getComponentType<ecs::components::sound::AudioSource>());
         ecs::Signature signatureMusicSystem;
         signatureMusicSystem.set(_coordinator->getComponentType<ecs::components::sound::MusicSource>());
+        ecs::Signature signatureLightSystem;
+        signatureLightSystem.set(_coordinator->getComponentType<ecs::components::lights::LightSource>());
 
         _physicSystem = _coordinator->registerSystem<ecs::system::PhysicsSystem>();
         _coordinator->setSystemSignature<ecs::system::PhysicsSystem>(signaturePhysics);
@@ -92,6 +95,9 @@ namespace engine
         _coordinator->setSystemSignature<ecs::system::AudioSystem>(signatureAudioSystem);
         _musicSystem = _coordinator->registerSystem<ecs::system::MusicSystem>();
         _coordinator->setSystemSignature<ecs::system::MusicSystem>(signatureMusicSystem);
+
+        _lightSystem = _coordinator->registerSystem<ecs::system::LightSystem>();
+        _coordinator->setSystemSignature<ecs::system::LightSystem>(signatureLightSystem);
     }
 
     ecs::Entity Engine::addEntity(ecs::components::physics::transform_t transf, ecs::components::render::render_t render)

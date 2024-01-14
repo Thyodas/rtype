@@ -20,12 +20,14 @@
 #include "game_engine/ecs/components/Input.hpp"
 #include "game_engine/ecs/components/Metadata.hpp"
 #include "game_engine/ecs/components/Audio.hpp"
+#include "game_engine/ecs/components/Lights.hpp"
 #include "game_engine/ecs/systems/Render.hpp"
 #include "game_engine/ecs/Entity.hpp"
 #include "game_engine/ecs/components/Animations.hpp"
 #include "game_engine/ecs/systems/Animations.hpp"
 #include "game_engine/ecs/systems/Input.hpp"
 #include "game_engine/ecs/systems/Audio.hpp"
+#include "game_engine/ecs/systems/Lights.hpp"
 #include "common/utils/Chrono.hpp"
 #include <memory>
 #include <mutex>
@@ -182,6 +184,7 @@ namespace engine {
             std::shared_ptr<ecs::system::InputSystem> _inputSystem;
             std::shared_ptr<ecs::system::AudioSystem> _audioSystem;
             std::shared_ptr<ecs::system::MusicSystem> _musicSystem;
+            std::shared_ptr<ecs::system::LightSystem> _lightSystem;
 
             std::shared_ptr<core::Window> _window;
             bool _disableRender = false;
