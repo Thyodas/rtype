@@ -11,6 +11,8 @@
 #include "client/entities/Player/PlayerNetwork.hpp"
 #include "client/entities/Ally/AllyNetwork.hpp"
 #include "client/entities/Enemy/EnemyNetwork.hpp"
+#include "game_engine/core/event/BulletShotEvent.hpp"
+
 
 namespace client {
         void NetClient::resServerCreatePlayerShip(rtype::net::Message<common::NetworkMessage>& msg)
@@ -34,6 +36,8 @@ namespace client {
             });
             auto behave = engine::createBehavior<client::PlayerNetwork>(*this, body.entityNetId);
             engine::attachBehavior(cube, behave);
+
+            std::cout << "Player created with id " << body.entityNetId << std::endl;
         }
 
         void NetClient::resServerAllyConnect(rtype::net::Message<common::NetworkMessage>& msg)
@@ -78,7 +82,40 @@ namespace client {
                 {0, 0, 0},
                 {1, 1, 1}
             });
-            auto behave = engine::createBehavior<client::EnemyNetwork>(*this);
+            auto behave = engine::createBehavior<client::EnemyNetwork>(*this, body.entityNetId);
             engine::attachBehavior(cube, behave);
+
+            std::cout << "Enemy created with id " << body.entityNetId << std::endl;
+        }
+
+        void NetClient::resServerFireBullet(rtype::net::Message<common::NetworkMessage>& msg)
+        {
+                std::cout << "received fire bullet from server" << std::endl;
+                common::game::netbody::ServerFireBullet body;
+                msg >> body;
+
+                common::game::EntityFactory factory;
+                ecs::Entity gunBullet = factory.createEntity(common::game::ObjectType::Model3D, common::game::ObjectName::GunBullet, {
+                    body.pos,
+                    0,
+                    0,
+                    0,
+                    WHITE,
+                    false,
+                    WHITE,
+                    {0, 0, 0},
+                    {0.025, 0.025, 0.025}
+                }, common::game::ObjectFormat::GLB);
+
+                auto &direction = engine::Engine::getInstance()->getComponent<ecs::components::direction::direction_t>(gunBullet);
+                direction.direction = body.direction;
+                auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(gunBullet);
+                // rigidBody.velocity = {0, 0, static_cast<float>(body.speed)};
+                rigidBody.velocity = { 0, 0, 0 };
+
+                auto behave = engine::createBehavior<client::BulletNetwork>(*this, body.entityNetId);
+                engine::attachBehavior(gunBullet, behave);
+                // BulletShotEvent eventShot;
+                // engine::emitEvent<BulletShotEvent>(eventShot);
         }
 }

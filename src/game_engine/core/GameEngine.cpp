@@ -11,14 +11,16 @@
 
 std::shared_ptr<ecs::Coordinator> ecs::components::behaviour::Behaviour::_coord = nullptr;
 std::shared_ptr<ecs::Coordinator> ecs::system::System::_coord = nullptr;
-namespace engine {
+namespace engine
+{
 
     Engine *Engine::engine = nullptr;
     std::mutex Engine::_mutex;
     void Engine::init(bool disableRender)
     {
         _disableRender = disableRender;
-        if (!_disableRender) {
+        if (!_disableRender)
+        {
             _window = std::make_shared<core::Window>();
             _window->setFPS(60);
         }
@@ -38,6 +40,8 @@ namespace engine {
         _coordinator->registerComponent<ecs::components::network::network_t>();
         _coordinator->registerComponent<ecs::components::health::health_t>();
         _coordinator->registerComponent<ecs::components::direction::direction_t>();
+        _coordinator->registerComponent<ecs::components::sound::AudioSource>();
+        _coordinator->registerComponent<ecs::components::sound::MusicSource>();
         ecs::components::input::Input input;
         _coordinator->registerSingletonComponent<ecs::components::input::Input>(input);
 
@@ -45,7 +49,8 @@ namespace engine {
         signaturePhysics.set(_coordinator->getComponentType<ecs::components::physics::transform_t>());
         signaturePhysics.set(_coordinator->getComponentType<ecs::components::physics::rigidBody_t>());
         ecs::Signature signatureRender;
-        if (!_disableRender) {
+        if (!_disableRender)
+        {
             signatureRender.set(_coordinator->getComponentType<ecs::components::physics::transform_t>());
             signatureRender.set(_coordinator->getComponentType<ecs::components::render::render_t>());
         }
@@ -56,11 +61,16 @@ namespace engine {
         signatureCollider.set(_coordinator->getComponentType<ecs::components::physics::collider_t>());
         ecs::Signature signatureAnimations;
         signatureAnimations.set(_coordinator->getComponentType<ecs::components::animations::animation_t>());
+        ecs::Signature signatureAudioSystem;
+        signatureAudioSystem.set(_coordinator->getComponentType<ecs::components::sound::AudioSource>());
+        ecs::Signature signatureMusicSystem;
+        signatureMusicSystem.set(_coordinator->getComponentType<ecs::components::sound::MusicSource>());
 
         _physicSystem = _coordinator->registerSystem<ecs::system::PhysicsSystem>();
         _coordinator->setSystemSignature<ecs::system::PhysicsSystem>(signaturePhysics);
 
-        if (!_disableRender) {
+        if (!_disableRender)
+        {
             _renderSystem = _coordinator->registerSystem<ecs::system::RenderSystem>();
             _coordinator->setSystemSignature<ecs::system::RenderSystem>(signatureRender);
         }
@@ -75,13 +85,30 @@ namespace engine {
         _coordinator->setSystemSignature<ecs::system::AnimationSystem>(signatureAnimations);
 
         _inputSystem = _coordinator->registerSystem<ecs::system::InputSystem>();
+
+        InitAudioDevice();
+        _audioSystem = _coordinator->registerSystem<ecs::system::AudioSystem>();
+        _coordinator->setSystemSignature<ecs::system::AudioSystem>(signatureAudioSystem);
+        _musicSystem = _coordinator->registerSystem<ecs::system::MusicSystem>();
+        _coordinator->setSystemSignature<ecs::system::MusicSystem>(signatureMusicSystem);
     }
 
-    ecs::Entity Engine::addEntity(ecs::components::physics::transform_t transf, ecs::components::render::render_t render) {
+    ecs::Entity Engine::addEntity(ecs::components::physics::transform_t transf, ecs::components::render::render_t render)
+    {
         ecs::Entity entity = _coordinator->createEntity();
         _coordinator->addComponent<ecs::components::physics::transform_t>(entity, transf);
         _coordinator->addComponent<ecs::components::render::render_t>(entity, render);
         return entity;
+    }
+
+    ecs::Entity Engine::addInvisibleEntity(void)
+    {
+        return _coordinator->createEntity();
+    }
+
+    void Engine::destroyEntity(ecs::Entity entity)
+    {
+        _entitiesToDestroy.push(entity);
     }
 
     void Engine::run(void) {
@@ -90,6 +117,8 @@ namespace engine {
         _physicSystem->updatePosition();
         _animationSystem->handleAnimations();
         _collisionDetectionSystem->detectCollision();
+        _audioSystem->update();
+        _musicSystem->update();
         _coordinator->dispatchEvents();
         if (_disableRender)
             return;
@@ -97,9 +126,13 @@ namespace engine {
         BeginDrawing();
         BeginMode3D(_window->getCamera());
         _renderSystem->render();
-        //DrawGrid(20, 1.0f);
+        // DrawGrid(20, 1.0f);
         EndMode3D();
         EndDrawing();
+        while (!_entitiesToDestroy.empty()) {
+            _coordinator->destroyEntity(_entitiesToDestroy.front());
+            _entitiesToDestroy.pop();
+        }
     }
 
     void Engine::runTextureMode(RenderTexture& ViewTexture) {
@@ -119,6 +152,47 @@ namespace engine {
         EndTextureMode();
     }
 
+    ecs::Entity Engine::playMusic(const std::string &musicPath, bool looping)
+    {
+        ecs::Entity entity = _coordinator->createEntity();
+        ecs::components::sound::MusicSource musicSource;
+        musicSource.music = LoadMusicStream(musicPath.c_str());
+        musicSource.isLooping = looping;
+        musicSource.isPaused = false;
+        musicSource.resume = false;
+        musicSource.stop = false;
+        _coordinator->addComponent<ecs::components::sound::MusicSource>(entity, musicSource);
+        PlayMusicStream(musicSource.music);
+        return entity;
+    }
+
+    void Engine::stopMusic(ecs::Entity musicSource)
+    {
+        auto &music = _coordinator->getComponent<ecs::components::sound::MusicSource>(musicSource);
+        music.stop = true;
+    }
+
+    void Engine::pauseMusic(ecs::Entity musicSource)
+    {
+        auto &music = _coordinator->getComponent<ecs::components::sound::MusicSource>(musicSource);
+        music.isPaused = true;
+    }
+
+    void Engine::resumeMusic(ecs::Entity musicSource)
+    {
+        auto &music = _coordinator->getComponent<ecs::components::sound::MusicSource>(musicSource);
+        music.resume = true;
+        music.isPaused = false;
+    }
+
+    void Engine::triggerAudio(Sound sound)
+    {
+        auto audioEntity = this->_coordinator->createEntity();
+        ecs::components::sound::AudioSource audioSrc{sound, false};
+        this->_coordinator->addComponent(audioEntity, audioSrc);
+        PlaySound(sound);
+    }
+
     void initEngine(bool disableRender)
     {
         Engine::getInstance()->init(disableRender);
@@ -134,6 +208,11 @@ namespace engine {
         Engine::getInstance()->runTextureMode(ViewTexture);
     }
 
+    ecs::Entity createEntity(void)
+    {
+        return Engine::getInstance()->addInvisibleEntity();
+    }
+
     ecs::Entity createCube(
         Vector3 pos,
         float width,
@@ -141,8 +220,7 @@ namespace engine {
         float length,
         Color color,
         bool toggleWire,
-        Color wireColor
-        )
+        Color wireColor)
     {
         auto cube = std::make_shared<ecs::components::Cube>(width, height, length, toggleWire, color, wireColor);
         ecs::components::physics::transform_t transf = {pos, {0}, {0}};
@@ -193,11 +271,16 @@ namespace engine {
         ecs::components::render::render_t render = {ecs::components::ShapeType::MODEL, true, model};
         double now = engine::Engine::getInstance()->getElapsedTime() / 1000;
         ecs::components::physics::rigidBody_t body = {0.0, {0}, {0}, now};
-        ecs::components::physics::collider_t collider = {ecs::components::ShapeType::MODEL, ecs::components::physics::CollisionType::COLLIDE, model};
+        ecs::components::physics::collider_t collider = {ecs::components::ShapeType::MODEL, ecs::components::physics::CollisionType::NON_COLLIDE, model};
         ecs::Entity entity = Engine::getInstance()->addEntity(transf, render);
         Engine::getInstance()->addComponent<ecs::components::physics::collider_t>(entity, collider);
         Engine::getInstance()->addComponent<ecs::components::physics::rigidBody_t>(entity, body);
         return entity;
+    }
+
+    void destroyEntity(ecs::Entity entity)
+    {
+        Engine::getInstance()->destroyEntity(entity);
     }
 
     void setAnimation(ecs::Entity entity, const char *filename)
@@ -237,8 +320,7 @@ namespace engine {
 
     void attachBehavior(
         ecs::Entity entity,
-        std::shared_ptr<ecs::components::behaviour::Behaviour> behaviour
-        )
+        std::shared_ptr<ecs::components::behaviour::Behaviour> behaviour)
     {
         Engine::getInstance()->addComponent<std::shared_ptr<ecs::components::behaviour::Behaviour>>(entity, behaviour);
         behaviour->setEntity(entity);
@@ -271,5 +353,30 @@ namespace engine {
     {
         auto &input = Engine::getInstance()->getSingletonComponent<ecs::components::input::Input>();
         return input.keys[static_cast<size_t>(key)].keyUp;
+    }
+
+    void triggerAudio(Sound sound)
+    {
+        Engine::getInstance()->triggerAudio(sound);
+    }
+
+    ecs::Entity playMusic(const std::string &audioPath, bool looping)
+    {
+        return Engine::getInstance()->playMusic(audioPath, looping);
+    }
+
+    void stopMusic(ecs::Entity musicSource)
+    {
+        Engine::getInstance()->stopMusic(musicSource);
+    }
+
+    void pauseMusic(ecs::Entity musicSource)
+    {
+        Engine::getInstance()->pauseMusic(musicSource);
+    }
+
+    void resumeMusic(ecs::Entity musicSource)
+    {
+        Engine::getInstance()->resumeMusic(musicSource);
     }
 }

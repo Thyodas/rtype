@@ -10,58 +10,64 @@
 #include "game_engine/ecs/components/NetworkBehaviour.hpp"
 #include "common/game/NetworkBody.hpp"
 #include "client/core/NetClient.hpp"
+#include "game_engine/core/event/BulletShotEvent.hpp"
 
-namespace client {
+namespace client
+{
 
-    class BulletNetwork : public ecs::components::behaviour::NetworkBehaviour<client::NetClient> {
-        public:
-            explicit BulletNetwork(client::NetClient& networkManager, uint32_t netId = 0)
-                : NetworkBehaviour(networkManager, netId)
-            {
-                _networkManager.registerResponse({
-                    {
-                        common::NetworkMessage::serverDestroyBullet,
-                        [this](rtype::net::Message<common::NetworkMessage> msg) {
-                            onDestroy(msg);
-                        }
-                    },
-                    {
-                        common::NetworkMessage::serverUpdateBulletPosition,
-                        [this](rtype::net::Message<common::NetworkMessage> msg) {
-                            updatePosition(msg);
-                        }
-                    },
-                });
-            }
+    class BulletNetwork : public ecs::components::behaviour::NetworkBehaviour<client::NetClient>
+    {
+    public:
+        explicit BulletNetwork(client::NetClient &networkManager, uint32_t netId = 0)
+            : NetworkBehaviour(networkManager, netId)
+        {
+        }
 
-            void onDestroy(rtype::net::Message<common::NetworkMessage>& msg)
-            {
-                common::game::netbody::ServerDestroyBullet body;
-                msg >> body;
+        void onAttach(ecs::Entity entity) override
+        {
+            addResponse({
+                {common::NetworkMessage::serverDestroyBullet,
+                [this](rtype::net::Message<common::NetworkMessage> msg)
+                {
+                    onDestroy(msg);
+                }},
+                {common::NetworkMessage::serverUpdateBulletPosition,
+                [this](rtype::net::Message<common::NetworkMessage> msg)
+                {
+                    updatePosition(msg);
+                }},
+            });
+        }
 
-                if (body.entityNetId != getNetId())
-                    return;
+        void onDestroy(rtype::net::Message<common::NetworkMessage> &msg)
+        {
+            common::game::netbody::ServerDestroyBullet body;
+            msg >> body;
 
-                _coord->destroyEntity(_entity);
-            }
+            if (body.entityNetId != getNetId())
+                return;
 
-            void updatePosition(rtype::net::Message<common::NetworkMessage>& msg)
-            {
-                common::game::netbody::ServerUpdateBulletPosition body;
-                msg >> body;
+            engine::destroyEntity(_entity);
+            unregisterResponses();
+        }
 
-                if (body.entityNetId != getNetId())
-                    return;
+        void updatePosition(rtype::net::Message<common::NetworkMessage> &msg)
+        {
+            common::game::netbody::ServerUpdateBulletPosition body;
+            msg >> body;
 
-                auto &transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_entity);
-                transform.pos = body.pos;
-            }
+            if (body.entityNetId != getNetId())
+                return;
 
-            void update() override
-            {
-            }
+            auto &transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_entity);
+            transform.pos = body.pos;
+        }
 
-        private:
-            double _lastUpdate = 0;
+        void update() override
+        {
+        }
+
+    private:
+        double _lastUpdate = 0;
     };
 }

@@ -18,11 +18,13 @@
 #include "game_engine/ecs/components/Health.hpp"
 #include "game_engine/ecs/components/Direction.hpp"
 #include "game_engine/ecs/components/Input.hpp"
+#include "game_engine/ecs/components/Audio.hpp"
 #include "game_engine/ecs/systems/Render.hpp"
 #include "game_engine/ecs/Entity.hpp"
 #include "game_engine/ecs/components/Animations.hpp"
 #include "game_engine/ecs/systems/Animations.hpp"
 #include "game_engine/ecs/systems/Input.hpp"
+#include "game_engine/ecs/systems/Audio.hpp"
 #include "common/utils/Chrono.hpp"
 #include <memory>
 #include <mutex>
@@ -55,6 +57,10 @@ namespace engine {
             ecs::Entity addEntity(ecs::components::physics::transform_t transf = {{0, 1, 0}, {0}, {0}},
                                     ecs::components::render::render_t render = {ecs::components::ShapeType::CUBE, true, std::make_shared<ecs::components::Cube>()}
             );
+
+            ecs::Entity addInvisibleEntity(void);
+
+            void destroyEntity(ecs::Entity entity);
 
             /**
              * @brief Adds a component to an entity.
@@ -89,9 +95,10 @@ namespace engine {
              * @param listener Function to handle the event.
              */
             template<typename T>
-            void registerListener(std::function<void(const T&)> listener)
+            void registerListener(std::function<void(T&)> listener)
             {
-                _coordinator->registerListener<T>(listener);
+                auto shared = std::make_shared<std::function<void(T&)>>(listener);
+                _coordinator->registerListener<T>(shared);
             }
 
             /**
@@ -121,6 +128,48 @@ namespace engine {
                 return _chrono.getElapsedTime();
             }
 
+            /**
+             * @brief Allows to trigger an audio sound, creates a new audioEntity and adds
+             * it to the ecs
+             * @param sound The sound to play
+             */
+            void triggerAudio(Sound sound);
+
+            /**
+             * @brief Add a new audio that plays a music
+             *
+             * @param audioPath
+             * @return ecs::Entity
+             */
+            ecs::Entity playMusic(const std::string &audioPath, bool looping = false);
+
+            /**
+             * @brief Stops a music
+             *
+             * @param audioSource The entity corresponding to the music source
+             */
+            void stopMusic(ecs::Entity musicSource);
+
+            /**
+             * @brief Pause a music
+             *
+             * @param musicSource The entity corresponding to the music source
+             */
+            void pauseMusic(ecs::Entity musicSource);
+
+            /**
+             * @brief Resume a music
+             *
+             * @param musicSource The entity corresponding to the music source that has been paused
+             */
+            void resumeMusic(ecs::Entity musicSource);
+
+            template<typename T>
+            void emitEvent(T &event)
+            {
+                _coordinator->emitEvent<T>(event);
+            }
+
         private:
             std::shared_ptr<ecs::Coordinator> _coordinator;
             std::shared_ptr<ecs::system::PhysicsSystem> _physicSystem;
@@ -130,11 +179,15 @@ namespace engine {
             std::shared_ptr<ecs::system::CollisionResponse> _collisionResponseSystem;
             std::shared_ptr<ecs::system::ColisionDetectionSystem> _collisionDetectionSystem;
             std::shared_ptr<ecs::system::InputSystem> _inputSystem;
+            std::shared_ptr<ecs::system::AudioSystem> _audioSystem;
+            std::shared_ptr<ecs::system::MusicSystem> _musicSystem;
 
             std::shared_ptr<core::Window> _window;
             bool _disableRender = false;
 
             common::utils::Chrono _chrono;
+
+            std::queue<ecs::Entity> _entitiesToDestroy;
 
         private:
             static Engine *engine;
@@ -142,10 +195,7 @@ namespace engine {
 
         protected:
             Engine() {};
-            ~Engine()
-            {
-                std::cout << "Engine destroyed" << std::endl;
-            };
+            ~Engine() {};
 
         public:
             Engine(Engine &other) = delete;
@@ -172,7 +222,13 @@ namespace engine {
 
     void runEngineTextureMode(RenderTexture& ViewTexture);
 
-
+    /**
+     * @brief Creates an entity without transform or render component
+     * (useful for entites that should have a behavior but not physical existence
+     * like enemy spawner etc...)
+     *
+     */
+    ecs::Entity createEntity(void);
 
     /**
      * @brief Creates a cube entity with specified parameters.
@@ -202,6 +258,9 @@ namespace engine {
      * @return The created skybox entity.
      */
     ecs::Entity createSkybox(const char *filename, Vector3 pos, Color color = WHITE);
+
+    void destroyEntity(ecs::Entity entity);
+
     /**
      * @brief Creates a behavior component.
      * @tparam T Type of the behavior.
@@ -289,8 +348,50 @@ namespace engine {
      * @param listener Function to handle the event.
      */
     template<typename T>
-    void registerListener(std::function<void(const T&)> listener)
+    void registerListener(std::function<void(T&)> listener)
     {
         Engine::getInstance()->registerListener<T>(listener);
+    }
+
+    /**
+     * @brief Triggers an audio sound
+     *
+     * @param sound The sound to play
+     */
+    void triggerAudio(Sound sound);
+
+    /**
+     * @brief Plays a music
+     *
+     * @param audioPath the path to the music file
+     * @return ecs::Entity
+     */
+    ecs::Entity playMusic(const std::string &audioPath, bool looping = false);
+
+    /**
+     * @brief Stops a music
+     *
+     * @param musicSource The music source entity to which the music is attached
+     */
+    void stopMusic(ecs::Entity musicSource);
+
+    /**
+     * @brief Pauses a music
+     *
+     * @param musicSource The music source entity to which the music is attached
+     */
+    void pauseMusic(ecs::Entity musicSource);
+
+    /**
+     * @brief Resumes a paused music
+     *
+     * @param musicSource The music source entity to which the paused music is attached
+     */
+    void resumeMusic(ecs::Entity musicSource);
+
+    template<typename T>
+    void emitEvent(T &event)
+    {
+        Engine::getInstance()->emitEvent(event);
     }
 }
