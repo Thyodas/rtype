@@ -12,5 +12,6 @@
 
 class BulletShotEvent : public ecs::event::AEvent {
     public:
-        BulletShotEvent() {}
+        BulletShotEvent(ecs::Entity entity) : shooter(entity) {};
+        ecs::Entity shooter;
 };

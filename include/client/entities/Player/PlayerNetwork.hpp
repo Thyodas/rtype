@@ -16,7 +16,6 @@
 namespace client {
 
     class PlayerNetwork : public ecs::components::behaviour::NetworkBehaviour<client::NetClient> {
-        // ecs::system::AudioSystem _audioSystem;
         public:
             explicit PlayerNetwork(client::NetClient& networkManager, uint32_t netId = 0)
                 : NetworkBehaviour(networkManager, netId)
@@ -36,17 +35,12 @@ namespace client {
                         onDestroy(msg);
                     }},
                 });
-                // _networkManager.registerResponse({
-                //     {common::NetworkMessage::serverFireBullet, [this](rtype::net::Message<common::NetworkMessage> msg) {
-                //         onFire(msg);
-                //     }},
-                // });
-                // _audioSystem.initialize();
-                // _audioSystem.addSound("../../ressources/audio/shoot.wav", "PlayerShoot");
-
-                // engine::Engine::getInstance()->triggerAudioOn<PlayerActionEvent>("../../ressources/audio/shoot.wav", [](const PlayerActionEvent& event) {
-                //     return event.spacePressed;
-                // });
+                Sound bulletSound = LoadSound("./ressources/audio/shoot.wav");
+                std::function<void(BulletShotEvent&)> fct = [this, bulletSound](BulletShotEvent &event) {
+                    if (event.shooter == this->getEntity())
+                        engine::triggerAudio(bulletSound);
+                };
+                addListener<BulletShotEvent>(fct);
             }
 
 
@@ -122,7 +116,6 @@ namespace client {
                     .direction = direction,
                 };
                 msg << body;
-                //std::cout << "move: " << direction.x << direction.y << direction.z  << msg << std::endl;
                 _networkManager.send(msg);
             }
 
@@ -143,13 +136,10 @@ namespace client {
 
             Vector3 calculateBulletVelocity(const ecs::components::physics::transform_t& shipTransform, float bulletSpeed)
             {
-                // Assuming the ship's forward direction is the negative z-axis
                 Vector3 shipForward = shipTransform.rotation;
 
-                // Negate the z-axis to get the forward direction
                 shipForward.z = -shipForward.z;
 
-                // Calculate the bullet velocity
                 Vector3 bulletVelocity = Vector3Scale(shipForward, bulletSpeed);
 
                 return bulletVelocity;
@@ -172,7 +162,6 @@ namespace client {
                     // velocity.x -= 0.2f;
                     // velocity.z -= 0.2f;
                     direction.y = 1;
-                    std::cout << "la" << std::endl;
                 }
                 if (IsKeyDown(KEY_S)) {
                     // velocity.x += 0.2f;
@@ -183,22 +172,11 @@ namespace client {
 
                 if (IsKeyDown(KEY_SPACE) && (engine::Engine::getInstance()->getElapsedTime() / 1000) - _lastBulletFire > 1.0) {
                     std::cout << "PRESSED SPACE -> FIRE BULLET" << std::endl;
-                    // _audioSystem.playSound("PlayerShoot");
-                    // _audioSystem.playSoundFromPath("../../ressources/audio/shoot.wav");
-                    // PlayerActionEvent event{true};
-                    // engine::Engine::getInstance()->getCoordinator()->emitEvent(event);
-                    // fireBullet();
-                    // _lastBulletFire = engine::Engine::getInstance()->getElapsedTime() / 1000;
+                    BulletShotEvent event(this->_entity);
+                    engine::emitEvent<BulletShotEvent>(event);
+                    fireBullet();
+                    _lastBulletFire = engine::Engine::getInstance()->getElapsedTime() / 1000;
                 }
-                /*if (IsKeyReleased(KEY_SPACE)) {
-                    Vector3 newRotation = {0};
-                    newRotation.z = 10 * M_PI / 180;
-                    engine::rotate(_entity, newRotation);
-                }
-                if (IsKeyReleased(KEY_R)) {
-                    Vector3 scale = {2, 1, 1};
-                    engine::scale(_entity, scale);
-                }*/
             }
         protected:
             Vector3 _lastDirection{0, 0, 0};
