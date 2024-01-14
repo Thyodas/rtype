@@ -103,15 +103,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a05152770c0742ec74bc36dda04d0503c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#a05152770c0742ec74bc36dda04d0503c">init</a> (bool disableRender=false)</td></tr>
 <tr class="memdesc:a05152770c0742ec74bc36dda04d0503c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the engine, setting up necessary components and systems.  <a href="classengine_1_1_engine.html#a05152770c0742ec74bc36dda04d0503c">More...</a><br /></td></tr>
 <tr class="separator:a05152770c0742ec74bc36dda04d0503c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae041c72b9ddad1345032d2866d4c706c"><td class="memItemLeft" align="right" valign="top">ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#ae041c72b9ddad1345032d2866d4c706c">addPhysicEntity</a> (<a class="el" href="structecs_1_1components_1_1physics_1_1_transform_component.html">ecs::components::physics::TransformComponent</a> transf, <a class="el" href="structecs_1_1components_1_1render_1_1render__s.html">ecs::components::render::render_t</a> render, <a class="el" href="structecs_1_1components_1_1physics_1_1_rigid_body_component.html">ecs::components::physics::RigidBodyComponent</a> body, const JPH::BodyCreationSettings &amp;creationSettings)</td></tr>
-<tr class="memdesc:ae041c72b9ddad1345032d2866d4c706c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new physical entity to the game, this entity will be added to the physical system.  <a href="classengine_1_1_engine.html#ae041c72b9ddad1345032d2866d4c706c">More...</a><br /></td></tr>
-<tr class="separator:ae041c72b9ddad1345032d2866d4c706c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b925280e91e1e0789f25058c1eb62d0"><td class="memItemLeft" align="right" valign="top">ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#a9b925280e91e1e0789f25058c1eb62d0">addEntity</a> (<a class="el" href="structecs_1_1components_1_1physics_1_1transform__s.html">ecs::components::physics::transform_t</a> transf={{0, 1, 0}, {0}, {0}}, <a class="el" href="structecs_1_1components_1_1render_1_1render__s.html">ecs::components::render::render_t</a> render={ecs::components::ShapeType::CUBE, true, std::make_shared&lt; <a class="el" href="classecs_1_1components_1_1_cube.html">ecs::components::Cube</a> &gt;()})</td></tr>
+<tr class="memdesc:a9b925280e91e1e0789f25058c1eb62d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new entity to the game with optional physics and render components.  <a href="classengine_1_1_engine.html#a9b925280e91e1e0789f25058c1eb62d0">More...</a><br /></td></tr>
+<tr class="separator:a9b925280e91e1e0789f25058c1eb62d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e26d630a89f89b0cc1c37c19bf8b671"><td class="memItemLeft" align="right" valign="top"><a id="a9e26d630a89f89b0cc1c37c19bf8b671" name="a9e26d630a89f89b0cc1c37c19bf8b671"></a>
 ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><b>addInvisibleEntity</b> (void)</td></tr>
 <tr class="separator:a9e26d630a89f89b0cc1c37c19bf8b671"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d38c0d986b298b783a2adb3d4f4c89a"><td class="memItemLeft" align="right" valign="top">ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#a4d38c0d986b298b783a2adb3d4f4c89a">addEntity</a> (<a class="el" href="structecs_1_1components_1_1physics_1_1_transform_component.html">ecs::components::physics::TransformComponent</a> transf, <a class="el" href="structecs_1_1components_1_1render_1_1render__s.html">ecs::components::render::render_t</a> render)</td></tr>
-<tr class="memdesc:a4d38c0d986b298b783a2adb3d4f4c89a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new entity to the game, this entity wont be handled by the physic system and should be handled by a behaviour or manually.  <a href="classengine_1_1_engine.html#a4d38c0d986b298b783a2adb3d4f4c89a">More...</a><br /></td></tr>
-<tr class="separator:a4d38c0d986b298b783a2adb3d4f4c89a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46b9396aada6d7c7e8d76d1218a17843"><td class="memItemLeft" align="right" valign="top"><a id="a46b9396aada6d7c7e8d76d1218a17843" name="a46b9396aada6d7c7e8d76d1218a17843"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>destroyEntity</b> (ecs::Entity entity)</td></tr>
 <tr class="separator:a46b9396aada6d7c7e8d76d1218a17843"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -211,30 +208,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>attachCamera</b> (ecs
 <tr class="memitem:a3f23bf06616d386b7c40fa7d15daa88e"><td class="memItemLeft" align="right" valign="top"><a id="a3f23bf06616d386b7c40fa7d15daa88e" name="a3f23bf06616d386b7c40fa7d15daa88e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>detachCamera</b> (ecs::SceneID sceneID, <a class="el" href="classengine_1_1core_1_1_engine_camera.html">engine::core::EngineCamera</a> &amp;camera)</td></tr>
 <tr class="separator:a3f23bf06616d386b7c40fa7d15daa88e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18c72a8ad08770f5859e19020a7ba470"><td class="memItemLeft" align="right" valign="top">JPH::BodyID&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#a18c72a8ad08770f5859e19020a7ba470">getBodyFromEntity</a> (ecs::Entity entity) const</td></tr>
-<tr class="memdesc:a18c72a8ad08770f5859e19020a7ba470"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrives the body id of the entity.  <a href="classengine_1_1_engine.html#a18c72a8ad08770f5859e19020a7ba470">More...</a><br /></td></tr>
-<tr class="separator:a18c72a8ad08770f5859e19020a7ba470"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acab185c2c2f69053822e49032d0daf0c"><td class="memItemLeft" align="right" valign="top">ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#acab185c2c2f69053822e49032d0daf0c">getEntityFromBody</a> (JPH::BodyID body) const</td></tr>
-<tr class="memdesc:acab185c2c2f69053822e49032d0daf0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the entity from the body id.  <a href="classengine_1_1_engine.html#acab185c2c2f69053822e49032d0daf0c">More...</a><br /></td></tr>
-<tr class="separator:acab185c2c2f69053822e49032d0daf0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a741fc1ea8b29e95dd069c5ff8ae45c92"><td class="memItemLeft" align="right" valign="top"><a id="a741fc1ea8b29e95dd069c5ff8ae45c92" name="a741fc1ea8b29e95dd069c5ff8ae45c92"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>scale</b> (ecs::Entity entity, JPH::Vec3 scale)</td></tr>
-<tr class="separator:a741fc1ea8b29e95dd069c5ff8ae45c92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2644b85dd54782ce3310c9b16e55b250"><td class="memItemLeft" align="right" valign="top"><a id="a2644b85dd54782ce3310c9b16e55b250" name="a2644b85dd54782ce3310c9b16e55b250"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>applyAngularImpulse</b> (ecs::Entity entity, JPH::Vec3 impulse)</td></tr>
-<tr class="separator:a2644b85dd54782ce3310c9b16e55b250"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac717dc9326b3d6770a8e3c9c34a86469"><td class="memItemLeft" align="right" valign="top"><a id="ac717dc9326b3d6770a8e3c9c34a86469" name="ac717dc9326b3d6770a8e3c9c34a86469"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>applyForce</b> (ecs::Entity entity, JPH::Vec3 force)</td></tr>
-<tr class="separator:ac717dc9326b3d6770a8e3c9c34a86469"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a779e5d032b180f6a0646d7693d67782e"><td class="memItemLeft" align="right" valign="top"><a id="a779e5d032b180f6a0646d7693d67782e" name="a779e5d032b180f6a0646d7693d67782e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>applyForceAndTorque</b> (ecs::Entity entity, JPH::Vec3 force, JPH::Vec3 torque)</td></tr>
-<tr class="separator:a779e5d032b180f6a0646d7693d67782e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83d42cebfa92256679be74b95d342ef8"><td class="memItemLeft" align="right" valign="top"><a id="a83d42cebfa92256679be74b95d342ef8" name="a83d42cebfa92256679be74b95d342ef8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>applyImpulse</b> (ecs::Entity entity, JPH::Vec3 impulse)</td></tr>
-<tr class="separator:a83d42cebfa92256679be74b95d342ef8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21639e927802c370bb08b856332945d6"><td class="memItemLeft" align="right" valign="top"><a id="a21639e927802c370bb08b856332945d6" name="a21639e927802c370bb08b856332945d6"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setLinearVelocity</b> (ecs::Entity entity, JPH::Vec3 velocity)</td></tr>
-<tr class="separator:a21639e927802c370bb08b856332945d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2067f5ea2c7936c09770610e85c6b02"><td class="memItemLeft" align="right" valign="top"><a id="af2067f5ea2c7936c09770610e85c6b02" name="af2067f5ea2c7936c09770610e85c6b02"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Engine</b> (<a class="el" href="classengine_1_1_engine.html">Engine</a> &amp;other)=delete</td></tr>
 <tr class="separator:af2067f5ea2c7936c09770610e85c6b02"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -278,35 +251,23 @@ static <a class="el" href="classengine_1_1_engine.html">Engine</a> *&#160;</td><
 
 </div>
 </div>
-<a id="ae041c72b9ddad1345032d2866d4c706c" name="ae041c72b9ddad1345032d2866d4c706c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae041c72b9ddad1345032d2866d4c706c">&#9670;&nbsp;</a></span>addPhysicEntity()</h2>
+<a id="a9b925280e91e1e0789f25058c1eb62d0" name="a9b925280e91e1e0789f25058c1eb62d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b925280e91e1e0789f25058c1eb62d0">&#9670;&nbsp;</a></span>addEntity()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">ecs::Entity engine::Engine::addPhysicEntity </td>
+          <td class="memname">ecs::Entity engine::Engine::addEntity </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structecs_1_1components_1_1physics_1_1_transform_component.html">ecs::components::physics::TransformComponent</a>&#160;</td>
-          <td class="paramname"><em>transf</em>, </td>
+          <td class="paramtype"><a class="el" href="structecs_1_1components_1_1physics_1_1transform__s.html">ecs::components::physics::transform_t</a>&#160;</td>
+          <td class="paramname"><em>transf</em> = <code>{{0,&#160;1,&#160;0},&#160;{0},&#160;{0}}</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="structecs_1_1components_1_1render_1_1render__s.html">ecs::components::render::render_t</a>&#160;</td>
-          <td class="paramname"><em>render</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structecs_1_1components_1_1physics_1_1_rigid_body_component.html">ecs::components::physics::RigidBodyComponent</a>&#160;</td>
-          <td class="paramname"><em>body</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const JPH::BodyCreationSettings &amp;&#160;</td>
-          <td class="paramname"><em>creationSettings</em>&#160;</td>
+          <td class="paramname"><em>render</em> = <code>{ecs::components::ShapeType::CUBE,&#160;true,&#160;std::make_shared&lt;<a class="el" href="classecs_1_1components_1_1_cube.html">ecs::components::Cube</a>&gt;()}</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -316,7 +277,7 @@ static <a class="el" href="classengine_1_1_engine.html">Engine</a> *&#160;</td><
       </table>
 </div><div class="memdoc">
 
-<p>Adds a new physical entity to the game, this entity will be added to the physical system. </p>
+<p>Adds a new entity to the game with optional physics and render components. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">transf</td><td>Physics transformation component. </td></tr>
@@ -325,44 +286,6 @@ static <a class="el" href="classengine_1_1_engine.html">Engine</a> *&#160;</td><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The created entity. </dd></dl>
-
-</div>
-</div>
-<a id="a4d38c0d986b298b783a2adb3d4f4c89a" name="a4d38c0d986b298b783a2adb3d4f4c89a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d38c0d986b298b783a2adb3d4f4c89a">&#9670;&nbsp;</a></span>addEntity()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">ecs::Entity engine::Engine::addEntity </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structecs_1_1components_1_1physics_1_1_transform_component.html">ecs::components::physics::TransformComponent</a>&#160;</td>
-          <td class="paramname"><em>transf</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structecs_1_1components_1_1render_1_1render__s.html">ecs::components::render::render_t</a>&#160;</td>
-          <td class="paramname"><em>render</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Add a new entity to the game, this entity wont be handled by the physic system and should be handled by a behaviour or manually. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">transf</td><td></td></tr>
-    <tr><td class="paramname">render</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>ecs::Entity </dd></dl>
 
 </div>
 </div>
@@ -797,60 +720,6 @@ template&lt;typename T &gt; </div>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="a18c72a8ad08770f5859e19020a7ba470" name="a18c72a8ad08770f5859e19020a7ba470"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18c72a8ad08770f5859e19020a7ba470">&#9670;&nbsp;</a></span>getBodyFromEntity()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">JPH::BodyID engine::Engine::getBodyFromEntity </td>
-          <td>(</td>
-          <td class="paramtype">ecs::Entity&#160;</td>
-          <td class="paramname"><em>entity</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Retrives the body id of the entity. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">entity</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>JPH::BodyID </dd></dl>
-
-</div>
-</div>
-<a id="acab185c2c2f69053822e49032d0daf0c" name="acab185c2c2f69053822e49032d0daf0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acab185c2c2f69053822e49032d0daf0c">&#9670;&nbsp;</a></span>getEntityFromBody()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">ecs::Entity engine::Engine::getEntityFromBody </td>
-          <td>(</td>
-          <td class="paramtype">JPH::BodyID&#160;</td>
-          <td class="paramname"><em>body</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Retrieves the entity from the body id. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">body</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>ecs::Entity </dd></dl>
 
 </div>
 </div>
