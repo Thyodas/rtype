@@ -97,21 +97,18 @@ Inheritance diagram for client::AllyNetwork:</div>
  <div class="center">
   <img src="classclient_1_1_ally_network.png" usemap="#client::AllyNetwork_map" alt=""/>
   <map id="client::AllyNetwork_map" name="client::AllyNetwork_map">
-<area href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html" alt="ecs::components::behaviour::NetworkBehaviour&lt; client::NetClient &gt;" shape="rect" coords="212,56,627,80"/>
-<area href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html" alt="ecs::components::behaviour::NetworkBehaviour&lt; client::NetClient &gt;" shape="rect" coords="1062,56,1477,80"/>
-<area href="classecs_1_1components_1_1behaviour_1_1_behaviour.html" title="Abstract class representing a behaviour component, akin to Unity&#39;s behaviour scripts." alt="ecs::components::behaviour::Behaviour" shape="rect" coords="0,0,415,24"/>
-<area href="classecs_1_1components_1_1behaviour_1_1_behaviour.html" title="Abstract class representing a behaviour component, akin to Unity&#39;s behaviour scripts." alt="ecs::components::behaviour::Behaviour" shape="rect" coords="850,0,1265,24"/>
+<area href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html" alt="ecs::components::behaviour::NetworkBehaviour&lt; client::NetClient &gt;" shape="rect" coords="0,56,389,80"/>
+<area href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html" alt="ecs::components::behaviour::NetworkBehaviour&lt; client::NetClient &gt;" shape="rect" coords="399,56,788,80"/>
+<area href="classecs_1_1components_1_1behaviour_1_1_behaviour.html" title="Abstract class representing a behaviour component, akin to Unity&#39;s behaviour scripts." alt="ecs::components::behaviour::Behaviour" shape="rect" coords="0,0,389,24"/>
+<area href="classecs_1_1components_1_1behaviour_1_1_behaviour.html" title="Abstract class representing a behaviour component, akin to Unity&#39;s behaviour scripts." alt="ecs::components::behaviour::Behaviour" shape="rect" coords="399,0,788,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3b848b89374a7bffc45fc7411a3fb652"><td class="memItemLeft" align="right" valign="top"><a id="a3b848b89374a7bffc45fc7411a3fb652" name="a3b848b89374a7bffc45fc7411a3fb652"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>AllyNetwork</b> (<a class="el" href="classclient_1_1_net_client.html">client::NetClient</a> &amp;networkManager, uint32_t netId=0)</td></tr>
-<tr class="separator:a3b848b89374a7bffc45fc7411a3fb652"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44d919456fa3dd7d5c7420539eca0df3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclient_1_1_ally_network.html#a44d919456fa3dd7d5c7420539eca0df3">onAttach</a> (ecs::Entity entity) override</td></tr>
-<tr class="memdesc:a44d919456fa3dd7d5c7420539eca0df3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the entity is attached to the scene Callback: Function made to be overriden.  <a href="classclient_1_1_ally_network.html#a44d919456fa3dd7d5c7420539eca0df3">More...</a><br /></td></tr>
-<tr class="separator:a44d919456fa3dd7d5c7420539eca0df3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cfc90592d57d3414de65cde9e188ef8"><td class="memItemLeft" align="right" valign="top"><a id="a7cfc90592d57d3414de65cde9e188ef8" name="a7cfc90592d57d3414de65cde9e188ef8"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>AllyNetwork</b> (<a class="el" href="classclient_1_1_net_client.html">client::NetClient</a> &amp;networkManager, uint32_t netId=0, ecs::SceneID sceneId=0)</td></tr>
+<tr class="separator:a7cfc90592d57d3414de65cde9e188ef8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5320f945662dc1e8d9de69a2a3a8c609"><td class="memItemLeft" align="right" valign="top"><a id="a5320f945662dc1e8d9de69a2a3a8c609" name="a5320f945662dc1e8d9de69a2a3a8c609"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>onUpdatePosition</b> (<a class="el" href="structrtype_1_1net_1_1_message.html">rtype::net::Message</a>&lt; common::NetworkMessage &gt; &amp;msg)</td></tr>
 <tr class="separator:a5320f945662dc1e8d9de69a2a3a8c609"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -127,9 +124,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>onDestroy</b> (<a cla
 <tr class="memitem:a0da61b398700be96b8085ca3b5037108"><td class="memItemLeft" align="right" valign="top"><a id="a0da61b398700be96b8085ca3b5037108" name="a0da61b398700be96b8085ca3b5037108"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>AllyNetwork</b> (<a class="el" href="classclient_1_1_net_client.html">client::NetClient</a> &amp;networkManager)</td></tr>
 <tr class="separator:a0da61b398700be96b8085ca3b5037108"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44d919456fa3dd7d5c7420539eca0df3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classclient_1_1_ally_network.html#a44d919456fa3dd7d5c7420539eca0df3">onAttach</a> (ecs::Entity entity) override</td></tr>
-<tr class="memdesc:a44d919456fa3dd7d5c7420539eca0df3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the entity is attached to the scene Callback: Function made to be overriden.  <a href="classclient_1_1_ally_network.html#a44d919456fa3dd7d5c7420539eca0df3">More...</a><br /></td></tr>
-<tr class="separator:a44d919456fa3dd7d5c7420539eca0df3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a203e61591f96ff48fb279edcdfd14280"><td class="memItemLeft" align="right" valign="top"><a id="a203e61591f96ff48fb279edcdfd14280" name="a203e61591f96ff48fb279edcdfd14280"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>onUpdateVelocity</b> (<a class="el" href="structrtype_1_1net_1_1_message.html">rtype::net::Message</a>&lt; common::NetworkMessage &gt; &amp;msg)</td></tr>
 <tr class="separator:a203e61591f96ff48fb279edcdfd14280"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -143,9 +137,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>onDestroy</b> (<a cla
 <tr class="memdesc:a86b0f614c6d387343a1b1c82fac4354c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract method to be implemented by derived classes for updating the behaviour.  <a href="classclient_1_1_ally_network.html#a86b0f614c6d387343a1b1c82fac4354c">More...</a><br /></td></tr>
 <tr class="separator:a86b0f614c6d387343a1b1c82fac4354c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html">ecs::components::behaviour::NetworkBehaviour&lt; client::NetClient &gt;</a></td></tr>
-<tr class="memitem:ab527c9cf359696723a71d7d4991b2d8e inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="memItemLeft" align="right" valign="top"><a id="ab527c9cf359696723a71d7d4991b2d8e" name="ab527c9cf359696723a71d7d4991b2d8e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>NetworkBehaviour</b> (<a class="el" href="classclient_1_1_net_client.html">client::NetClient</a> &amp;networkManager, uint32_t entityNetId=0, uint32_t connectionId=0)</td></tr>
-<tr class="separator:ab527c9cf359696723a71d7d4991b2d8e inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08b1ba426e32818f26b05c2dee949f3e inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="memItemLeft" align="right" valign="top"><a id="a08b1ba426e32818f26b05c2dee949f3e" name="a08b1ba426e32818f26b05c2dee949f3e"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>NetworkBehaviour</b> (<a class="el" href="classclient_1_1_net_client.html">client::NetClient</a> &amp;networkManager, uint32_t entityNetId=0, uint32_t connectionId=0, ecs::SceneID sceneID=0)</td></tr>
+<tr class="separator:a08b1ba426e32818f26b05c2dee949f3e inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a709b7c313e03c61e21788a39fd7d2279 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html#a709b7c313e03c61e21788a39fd7d2279">setEntity</a> (ecs::Entity entity) override</td></tr>
 <tr class="memdesc:a709b7c313e03c61e21788a39fd7d2279 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the entity associated with this behaviour.  <a href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html#a709b7c313e03c61e21788a39fd7d2279">More...</a><br /></td></tr>
 <tr class="separator:a709b7c313e03c61e21788a39fd7d2279 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -155,6 +149,9 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>getNetId</b> () c
 <tr class="memitem:af2f373c6269bc42c85ec3688a4164a10 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="memItemLeft" align="right" valign="top"><a id="af2f373c6269bc42c85ec3688a4164a10" name="af2f373c6269bc42c85ec3688a4164a10"></a>
 uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>getConnectionId</b> () const</td></tr>
 <tr class="separator:af2f373c6269bc42c85ec3688a4164a10 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdb9149d31e9cb6947abe72e476ceb20 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html#abdb9149d31e9cb6947abe72e476ceb20">onAttach</a> (Entity entity)</td></tr>
+<tr class="memdesc:abdb9149d31e9cb6947abe72e476ceb20 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the entity is attached to the scene Callback: Function made to be overriden.  <a href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html#abdb9149d31e9cb6947abe72e476ceb20">More...</a><br /></td></tr>
+<tr class="separator:abdb9149d31e9cb6947abe72e476ceb20 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b1787c4b0a59a68918689ee20b53c24 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="memItemLeft" align="right" valign="top"><a id="a0b1787c4b0a59a68918689ee20b53c24" name="a0b1787c4b0a59a68918689ee20b53c24"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>addResponse</b> (const std::vector&lt; std::pair&lt; common::NetworkMessage, ResponseFunction &gt; &gt; &amp;responses)</td></tr>
 <tr class="separator:a0b1787c4b0a59a68918689ee20b53c24 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -190,45 +187,17 @@ static std::shared_ptr&lt; <a class="el" href="classecs_1_1_coordinator.html">ec
 <tr class="separator:a30d5401f099cfa35546a7ff80c742295 inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_network_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classecs_1_1components_1_1behaviour_1_1_behaviour.html">ecs::components::behaviour::Behaviour</a></td></tr>
 <tr class="memitem:a5b9c4e5b0d03fe31e0de0cd6f8f1e3ec inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memItemLeft" align="right" valign="top"><a id="a5b9c4e5b0d03fe31e0de0cd6f8f1e3ec" name="a5b9c4e5b0d03fe31e0de0cd6f8f1e3ec"></a>
-ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><b>_entity</b></td></tr>
+ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><b>_entity</b> = 0</td></tr>
 <tr class="separator:a5b9c4e5b0d03fe31e0de0cd6f8f1e3ec inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d8e1cda99198b16e634f99c8828aefb inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memItemLeft" align="right" valign="top"><a id="a8d8e1cda99198b16e634f99c8828aefb" name="a8d8e1cda99198b16e634f99c8828aefb"></a>
+ecs::SceneID&#160;</td><td class="memItemRight" valign="bottom"><b>_sceneID</b> = 0</td></tr>
+<tr class="separator:a8d8e1cda99198b16e634f99c8828aefb inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba321b8f2392d9206dd83d522e1c4e3c inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memItemLeft" align="right" valign="top"><a id="aba321b8f2392d9206dd83d522e1c4e3c" name="aba321b8f2392d9206dd83d522e1c4e3c"></a>
 std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_listeners</b></td></tr>
 <tr class="memdesc:aba321b8f2392d9206dd83d522e1c4e3c inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map of event types to their listeners. <br /></td></tr>
 <tr class="separator:aba321b8f2392d9206dd83d522e1c4e3c inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a44d919456fa3dd7d5c7420539eca0df3" name="a44d919456fa3dd7d5c7420539eca0df3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44d919456fa3dd7d5c7420539eca0df3">&#9670;&nbsp;</a></span>onAttach() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void client::AllyNetwork::onAttach </td>
-          <td>(</td>
-          <td class="paramtype">ecs::Entity&#160;</td>
-          <td class="paramname"><em>entity</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when the entity is attached to the scene Callback: Function made to be overriden. </p>
-<dl class="section note"><dt>Note</dt><dd>You can for example register the network responses here </dd></dl>
-
-<p>Reimplemented from <a class="el" href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html#abdb9149d31e9cb6947abe72e476ceb20">ecs::components::behaviour::NetworkBehaviour&lt; client::NetClient &gt;</a>.</p>
-
-</div>
-</div>
 <a id="a86b0f614c6d387343a1b1c82fac4354c" name="a86b0f614c6d387343a1b1c82fac4354c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a86b0f614c6d387343a1b1c82fac4354c">&#9670;&nbsp;</a></span>update() <span class="overload">[1/2]</span></h2>
 
@@ -256,37 +225,6 @@ std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_
 <p >This method is called every frame and should contain the logic for the behaviour's action and interaction within the game world. </p>
 
 <p>Implements <a class="el" href="classecs_1_1components_1_1behaviour_1_1_behaviour.html#ae359b1e05d150af59efa298d76bb4759">ecs::components::behaviour::Behaviour</a>.</p>
-
-</div>
-</div>
-<a id="a44d919456fa3dd7d5c7420539eca0df3" name="a44d919456fa3dd7d5c7420539eca0df3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44d919456fa3dd7d5c7420539eca0df3">&#9670;&nbsp;</a></span>onAttach() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void client::AllyNetwork::onAttach </td>
-          <td>(</td>
-          <td class="paramtype">ecs::Entity&#160;</td>
-          <td class="paramname"><em>entity</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when the entity is attached to the scene Callback: Function made to be overriden. </p>
-<dl class="section note"><dt>Note</dt><dd>You can for example register the network responses here </dd></dl>
-
-<p>Reimplemented from <a class="el" href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html#abdb9149d31e9cb6947abe72e476ceb20">ecs::components::behaviour::NetworkBehaviour&lt; client::NetClient &gt;</a>.</p>
 
 </div>
 </div>

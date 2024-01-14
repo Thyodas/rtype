@@ -6,5 +6,6 @@ var searchData=
   ['connection_3',['Connection',['../classrtype_1_1net_1_1_connection.html#a1de2e0d5fb6207bef427ffe52a7f1f6d',1,'rtype::net::Connection']]],
   ['count_4',['count',['../classrtype_1_1net_1_1_ts_queue.html#a9b8873455df074d2fc59a8689b2a3dd2',1,'rtype::net::TsQueue']]],
   ['createentity_5',['createEntity',['../classecs_1_1_coordinator.html#aac56a323413251472037bf5a85e79410',1,'ecs::Coordinator::createEntity()'],['../classecs_1_1_entity_manager.html#a468004b08f560fb82ccf1e3ac7f9ffe7',1,'ecs::EntityManager::createEntity()']]],
-  ['cube_6',['Cube',['../classecs_1_1components_1_1_cube.html#abbba28522727ae7363ce93c5c040d569',1,'ecs::components::Cube']]]
+  ['createscene_6',['createScene',['../classecs_1_1_coordinator.html#abc1c77621f3466ca28703d8a5baffbdc',1,'ecs::Coordinator::createScene()'],['../classengine_1_1_engine.html#a1b01783391f0d0a3142a15b15d1fa8de',1,'engine::Engine::createScene()']]],
+  ['cube_7',['Cube',['../classecs_1_1components_1_1_cube.html#abbba28522727ae7363ce93c5c040d569',1,'ecs::components::Cube']]]
 ];

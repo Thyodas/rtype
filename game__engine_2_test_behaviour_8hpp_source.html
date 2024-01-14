@@ -123,15 +123,15 @@ $(document).ready(function(){initNavTree('game__engine_2_test_behaviour_8hpp_sou
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>                body.velocity.x += 0.2f;</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                body.velocity.z += 0.2f;</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            }</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            <span class="keywordflow">if</span> (IsKeyReleased(KEY_SPACE)) {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                Vector3 newRotation = {0};</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>                newRotation.z = 10 * PI / 180;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                engine::rotate(_entity, newRotation);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            }</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            <span class="keywordflow">if</span> (IsKeyReleased(KEY_R)) {</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                Vector3 scale = {2, 1, 1};</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                engine::scale(_entity, scale);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            <span class="comment">// if (IsKeyReleased(KEY_SPACE)) {</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            <span class="comment">//     Vector3 newRotation = {0};</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            <span class="comment">//     newRotation.z = 10 * PI / 180;</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            <span class="comment">//     engine::rotate(_entity, newRotation);</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            <span class="comment">// }</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            <span class="comment">// if (IsKeyReleased(KEY_R)) {</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            <span class="comment">//     Vector3 scale = {2, 1, 1};</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            <span class="comment">//     engine::scale(_entity, scale);</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            <span class="comment">// }</span></div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        };</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>};</div>
 <div class="ttc" id="aclassecs_1_1components_1_1behaviour_1_1_behaviour_html"><div class="ttname"><a href="classecs_1_1components_1_1behaviour_1_1_behaviour.html">ecs::components::behaviour::Behaviour</a></div><div class="ttdoc">Abstract class representing a behaviour component, akin to Unity's behaviour scripts.</div><div class="ttdef"><b>Definition:</b> Behaviour.hpp:30</div></div>

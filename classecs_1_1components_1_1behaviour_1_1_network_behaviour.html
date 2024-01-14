@@ -99,7 +99,7 @@ Inheritance diagram for ecs::components::behaviour::NetworkBehaviour&lt; Network
  <div class="center">
   <img src="classecs_1_1components_1_1behaviour_1_1_network_behaviour.png" usemap="#ecs::components::behaviour::NetworkBehaviour_3C_20NetworkManager_20_3E_map" alt=""/>
   <map id="ecs::components::behaviour::NetworkBehaviour_3C_20NetworkManager_20_3E_map" name="ecs::components::behaviour::NetworkBehaviour_3C_20NetworkManager_20_3E_map">
-<area href="classecs_1_1components_1_1behaviour_1_1_behaviour.html" title="Abstract class representing a behaviour component, akin to Unity&#39;s behaviour scripts." alt="ecs::components::behaviour::Behaviour" shape="rect" coords="0,0,425,24"/>
+<area href="classecs_1_1components_1_1behaviour_1_1_behaviour.html" title="Abstract class representing a behaviour component, akin to Unity&#39;s behaviour scripts." alt="ecs::components::behaviour::Behaviour" shape="rect" coords="0,0,399,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -111,9 +111,9 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>ResponseFunction</b>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab527c9cf359696723a71d7d4991b2d8e"><td class="memItemLeft" align="right" valign="top"><a id="ab527c9cf359696723a71d7d4991b2d8e" name="ab527c9cf359696723a71d7d4991b2d8e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>NetworkBehaviour</b> (NetworkManager &amp;networkManager, uint32_t entityNetId=0, uint32_t connectionId=0)</td></tr>
-<tr class="separator:ab527c9cf359696723a71d7d4991b2d8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08b1ba426e32818f26b05c2dee949f3e"><td class="memItemLeft" align="right" valign="top"><a id="a08b1ba426e32818f26b05c2dee949f3e" name="a08b1ba426e32818f26b05c2dee949f3e"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>NetworkBehaviour</b> (NetworkManager &amp;networkManager, uint32_t entityNetId=0, uint32_t connectionId=0, ecs::SceneID sceneID=0)</td></tr>
+<tr class="separator:a08b1ba426e32818f26b05c2dee949f3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a709b7c313e03c61e21788a39fd7d2279"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html#a709b7c313e03c61e21788a39fd7d2279">setEntity</a> (ecs::Entity entity) override</td></tr>
 <tr class="memdesc:a709b7c313e03c61e21788a39fd7d2279"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the entity associated with this behaviour.  <a href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html#a709b7c313e03c61e21788a39fd7d2279">More...</a><br /></td></tr>
 <tr class="separator:a709b7c313e03c61e21788a39fd7d2279"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,8 +154,11 @@ NetworkManager &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>_netw
 <tr class="separator:a30d5401f099cfa35546a7ff80c742295"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classecs_1_1components_1_1behaviour_1_1_behaviour.html">ecs::components::behaviour::Behaviour</a></td></tr>
 <tr class="memitem:a5b9c4e5b0d03fe31e0de0cd6f8f1e3ec inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memItemLeft" align="right" valign="top"><a id="a5b9c4e5b0d03fe31e0de0cd6f8f1e3ec" name="a5b9c4e5b0d03fe31e0de0cd6f8f1e3ec"></a>
-ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><b>_entity</b></td></tr>
+ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><b>_entity</b> = 0</td></tr>
 <tr class="separator:a5b9c4e5b0d03fe31e0de0cd6f8f1e3ec inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d8e1cda99198b16e634f99c8828aefb inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memItemLeft" align="right" valign="top"><a id="a8d8e1cda99198b16e634f99c8828aefb" name="a8d8e1cda99198b16e634f99c8828aefb"></a>
+ecs::SceneID&#160;</td><td class="memItemRight" valign="bottom"><b>_sceneID</b> = 0</td></tr>
+<tr class="separator:a8d8e1cda99198b16e634f99c8828aefb inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba321b8f2392d9206dd83d522e1c4e3c inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memItemLeft" align="right" valign="top"><a id="aba321b8f2392d9206dd83d522e1c4e3c" name="aba321b8f2392d9206dd83d522e1c4e3c"></a>
 std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_listeners</b></td></tr>
 <tr class="memdesc:aba321b8f2392d9206dd83d522e1c4e3c inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map of event types to their listeners. <br /></td></tr>
@@ -237,7 +240,7 @@ template&lt;typename NetworkManager &gt; </div>
 <p>Called when the entity is attached to the scene Callback: Function made to be overriden. </p>
 <dl class="section note"><dt>Note</dt><dd>You can for example register the network responses here </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classclient_1_1_ally_network.html#a44d919456fa3dd7d5c7420539eca0df3">client::AllyNetwork</a>, <a class="el" href="classclient_1_1_bullet_network.html#a244268408e097012924ffb07f8f980fe">client::BulletNetwork</a>, <a class="el" href="classclient_1_1_enemy_network.html#aaa5fad97f735138cae0a2e3693560ca2">client::EnemyNetwork</a>, <a class="el" href="classclient_1_1_player_network.html#aec790079890410e3ab78831c2b219beb">client::PlayerNetwork</a>, <a class="el" href="classecs_1_1components_1_1behaviour_1_1_enemy_spawner.html#a14a69182202d5ac1bc6d39da7c3cd9b6">ecs::components::behaviour::EnemySpawner</a>, <a class="el" href="classclient_1_1_ally_network.html#a44d919456fa3dd7d5c7420539eca0df3">client::AllyNetwork</a>, <a class="el" href="classserver_1_1_bullet_network.html#accc3ea14a7b38a7cbe3c0e120e1b400c">server::BulletNetwork</a>, and <a class="el" href="classserver_1_1_player_network.html#ae35939ef5bf29f1f310d2f188ee68b8b">server::PlayerNetwork</a>.</p>
+<p>Reimplemented in <a class="el" href="classclient_1_1_bullet_network.html#a244268408e097012924ffb07f8f980fe">client::BulletNetwork</a>, <a class="el" href="classclient_1_1_enemy_network.html#aaa5fad97f735138cae0a2e3693560ca2">client::EnemyNetwork</a>, <a class="el" href="classclient_1_1_player_network.html#aec790079890410e3ab78831c2b219beb">client::PlayerNetwork</a>, <a class="el" href="classecs_1_1components_1_1behaviour_1_1_enemy_spawner.html#a14a69182202d5ac1bc6d39da7c3cd9b6">ecs::components::behaviour::EnemySpawner</a>, and <a class="el" href="classserver_1_1_bullet_network.html#accc3ea14a7b38a7cbe3c0e120e1b400c">server::BulletNetwork</a>.</p>
 
 </div>
 </div>
