@@ -90,12 +90,6 @@ namespace ecs {
                     id_index.erase(listenerId);
                 }
 
-                void unregisterListener(int listenerId)
-                {
-                    auto& id_index = _listeners.get<id>();
-                    id_index.erase(listenerId);
-                }
-
                 /**
                  * @brief Emits an event of a specific type, adding it to the event queue.
                  * @param event The event of type T to be emitted.

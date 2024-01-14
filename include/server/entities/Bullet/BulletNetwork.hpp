@@ -47,8 +47,15 @@ namespace server {
 
                     if ((int)life.healthPoints - 30 < 0) {
                         engine::destroyEntity(event.entity1);
-                        _coord->emitEvent(EnemyDestroyEvent(event.entity1));
-                        destroyEnemy(event.entity1);
+                        auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(event.entity1);
+                        if (metadata.type == server::entities::EntityType::ENEMY) {
+                            EnemyDestroyEvent evt(event.entity1);
+                            engine::emitEvent<EnemyDestroyEvent>(evt);
+                            destroyEnemy(event.entity1);
+                        } else if (metadata.type == server::entities::EntityType::PLAYER) {
+                            notifyAlliesDestroy(event.entity1, event.entity1);
+                            notifyPlayerDestroy(event.entity1, event.entity1);
+                        }
                         return;
                     }
 
@@ -69,6 +76,34 @@ namespace server {
                     return true;
                 }
                 return false;
+            }
+
+            void notifyPlayerDestroy(ecs::Entity id, ecs::Entity playerToDestroy)
+            {
+                auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(playerToDestroy);
+                common::game::netbody::ServerPlayerDestroy body = {
+                    .entityNetId = id,
+                };
+
+                rtype::net::Message<common::NetworkMessage> msg;
+                msg.header.id = common::NetworkMessage::serverPlayerDestroy;
+                msg << body;
+
+                _networkManager.messageClient(metadata.client, msg);
+            }
+
+            void notifyAlliesDestroy(ecs::Entity id, ecs::Entity playerToDestroy)
+            {
+                auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(playerToDestroy);
+                common::game::netbody::ServerAllyDestroy body = {
+                    .entityNetId = id,
+                };
+
+                rtype::net::Message<common::NetworkMessage> msg;
+                msg.header.id = common::NetworkMessage::serverDestroyBullet;
+                msg << body;
+
+                _networkManager.messageAllClients(msg, metadata.client);
             }
 
             void destroyEnemy(ecs::Entity entity)

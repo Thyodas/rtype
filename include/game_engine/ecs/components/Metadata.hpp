@@ -8,12 +8,15 @@
 #pragma once
 
 #include "server/entities/Enum.hpp"
+#include "common/network/Connection.hpp"
+#include "common/game/NetworkMessage.hpp"
 
 namespace ecs {
     namespace components {
         namespace metadata {
             typedef struct metadata_s {
                 server::entities::EntityType type;
+                std::shared_ptr<rtype::net::Connection<common::NetworkMessage>> client;
             } metadata_t;
         }
     }

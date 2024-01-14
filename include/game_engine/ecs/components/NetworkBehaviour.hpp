@@ -28,8 +28,6 @@ namespace ecs::components::behaviour
         explicit NetworkBehaviour(NetworkManager &networkManager, uint32_t entityNetId = 0, uint32_t connectionId = 0)
             : _networkManager(networkManager), _entityNetId(entityNetId), _connectionId(connectionId)
         {
-            /*auto &networkManager = reinterpret_cast<rtype::net::ClientInterface<std::any>&>(_networkManager);
-            networkManager.*/
         }
 
         ~NetworkBehaviour()
@@ -46,10 +44,6 @@ namespace ecs::components::behaviour
             engine::Engine::getInstance()->addComponent<ecs::components::network::network_t>(entity, network);
             Behaviour::setEntity(entity);
             onAttach(entity);
-
-            // auto &net = _coord->getComponent<ecs::components::network::network_t>(_entity);
-            // net.entityNetId = _entityNetId;
-            // net.connectionId = _connectionId;
         }
 
         [[nodiscard]] uint32_t getNetId() const
@@ -93,7 +87,6 @@ namespace ecs::components::behaviour
         }
 
     protected:
-        // std::map<std::string, ResponseFunction> responses;
         NetworkManager &_networkManager;
 
     private:
@@ -102,4 +95,4 @@ namespace ecs::components::behaviour
 
         std::vector<int> _responses;
     };
-} // namespace ecs::components::behaviour
+}

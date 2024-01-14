@@ -20,18 +20,24 @@ namespace client {
             explicit PlayerNetwork(client::NetClient& networkManager, uint32_t netId = 0)
                 : NetworkBehaviour(networkManager, netId)
             {
-                _networkManager.registerResponse({
-                    {common::NetworkMessage::serverUpdateShipPosition, [this](rtype::net::Message<common::NetworkMessage> msg) {
+            }
+
+            void onAttach(ecs::Entity entity) override
+            {
+                addResponse({
+                    {common::NetworkMessage::serverUpdateShipPosition,
+                    [this](rtype::net::Message<common::NetworkMessage> msg)
+                    {
                         onUpdatePosition(msg);
                     }},
-                });
-                _networkManager.registerResponse({
-                    {common::NetworkMessage::serverPlayerTakeDamage, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                    {common::NetworkMessage::serverPlayerTakeDamage,
+                    [this](rtype::net::Message<common::NetworkMessage> msg)
+                    {
                         onDamageReceive(msg);
                     }},
-                });
-                _networkManager.registerResponse({
-                    {common::NetworkMessage::serverPlayerDestroy, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                    {common::NetworkMessage::serverPlayerDestroy,
+                    [this](rtype::net::Message<common::NetworkMessage> msg)
+                    {
                         onDestroy(msg);
                     }},
                 });

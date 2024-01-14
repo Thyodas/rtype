@@ -115,9 +115,11 @@ namespace common::game::netbody {
     };
 
     struct ServerPlayerDestroy {
+        uint32_t entityNetId;
+
         template<class Archive>
         void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
-            // Empty since there are no members
+            ar & entityNetId;
         }
     };
 

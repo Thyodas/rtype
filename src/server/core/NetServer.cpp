@@ -38,7 +38,7 @@ namespace server {
             {1, 1, 1}
         });
         auto &health = engine::Engine::getInstance()->getComponent<ecs::components::health::health_t>(playerShip);
-        health.healthPoints = 100;
+        health.healthPoints = 10;
 
 
         auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(playerShip);
@@ -59,8 +59,9 @@ namespace server {
         msg.header.id = common::NetworkMessage::serverCreatePlayerShip;
 
         auto &transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(ship);
+        auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(ship);
 
-        //auto &model = engine::Engine::getInstance()->getComponent<ecs::components::Model3D>(ship);
+        metadata.client = client;
 
         common::game::netbody::ServerCreatePlayerShip body = {
             .entityNetId = ship,
