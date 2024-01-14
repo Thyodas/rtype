@@ -51,8 +51,13 @@ namespace engine::editor {
         }
 
         // Node
+        // increase font size
+
         bool node_open = ImGui::TreeNodeEx(object.name.c_str(), base_flags);
         if (ImGui::IsItemClicked()) {
+            if (object.type == SCENE_OBJECT_TYPE_ENTITY)
+                _sceneManagerBridge.setSelectedEntity(object.id);
+
             // Handle the selection logic here
         }
 
@@ -62,6 +67,8 @@ namespace engine::editor {
                 // Rename logic here
             }
             if (ImGui::MenuItem("Delete")) {
+                _sceneManagerBridge.unselectEntity();
+                engine::destroyEntity(object.id);
                 // Delete logic here
             }
             if (ImGui::MenuItem("Add child")) {
@@ -93,7 +100,7 @@ namespace engine::editor {
         root_.name = "Root";
         root_.children.clear();
         for (const auto &element : _sceneManagerBridge.getAllEntities()) {
-            root_.children.push_back(SceneObject(ICON_FA_CAMERA " " + std::to_string(element)));
+            root_.children.push_back(SceneObject(ICON_FA_CUBES " " + std::to_string(element), {}, element, SCENE_OBJECT_TYPE_ENTITY));
         }
     }
 }

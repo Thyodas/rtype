@@ -11,6 +11,9 @@ set(SRCS
     src/game_engine/editor/DocumentWindows/EntityPropertiesWindow.cpp
     src/game_engine/editor/DocumentWindows/ModelViewerWindow.cpp
     src/game_engine/editor/DocumentWindows/ConsoleWindow.cpp
+    src/game_engine/editor/DocumentWindows/EntityProperties/AEntityProperty.cpp
+    src/game_engine/editor/DocumentWindows/EntityProperties/TransformProperty.cpp
+    src/game_engine/editor/DocumentWindows/EntityProperties/RenderProperty.cpp
     src/game_engine/core/GameEngine.cpp
     src/game_engine/core/window/Window.cpp
     src/game_engine/core/event/Event.cpp

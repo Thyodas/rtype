@@ -21,3 +21,24 @@ std::vector<ecs::Entity> engine::editor::SceneManagerBridge::getAllEntities() co
 {
     return std::move(_sceneManager.getAllEntities());
 }
+
+ecs::Entity engine::editor::SceneManagerBridge::getSelectedEntity() const
+{
+    return _selectedEntity;
+}
+
+bool engine::editor::SceneManagerBridge::isEntitySelected() const
+{
+    return _isEntitySelected;
+}
+
+void engine::editor::SceneManagerBridge::setSelectedEntity(ecs::Entity entity)
+{
+    _isEntitySelected = true;
+    _selectedEntity = entity;
+}
+
+void engine::editor::SceneManagerBridge::unselectEntity()
+{
+    _isEntitySelected = false;
+}

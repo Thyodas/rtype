@@ -25,12 +25,19 @@ namespace engine::editor {
             [[nodiscard]] std::vector<ecs::SceneID> getSceneIDs() const;
             [[nodiscard]] std::vector<ecs::Entity> getSceneEntities(ecs::SceneID sceneID) const;
             [[nodiscard]] std::vector<ecs::Entity> getAllEntities() const;
+            [[nodiscard]] ecs::Entity getSelectedEntity() const;
+            [[nodiscard]] bool isEntitySelected() const;
+
+            void setSelectedEntity(ecs::Entity entity);
+            void unselectEntity();
 
         private:
             explicit SceneManagerBridge(ecs::SceneManager& sceneManager) : _sceneManager(sceneManager) {}
             ~SceneManagerBridge() = default;
 
             ecs::SceneManager& _sceneManager;
+            ecs::Entity _selectedEntity = 0;
+            bool _isEntitySelected = false;
     };
 
 }

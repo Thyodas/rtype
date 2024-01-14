@@ -608,6 +608,18 @@ namespace engine {
         Transform getTransform(ecs::Entity entity);
 
         /**
+        * @brief Retrieves a component from an entity.
+        * @tparam T Type of the component.
+        * @param entity The entity from which the component will be retrieved.
+        * @return Reference to the component of type T.
+        */
+        template<typename T>
+        T &getComponent(ecs::Entity entity)
+        {
+            return Engine::getInstance()->getComponent<T>(entity);
+        }
+
+        /**
          * @brief Set the transform of the entity.
          * @param entity The entity to set the transform to.
          * @param transMatrix The transformation matrix.

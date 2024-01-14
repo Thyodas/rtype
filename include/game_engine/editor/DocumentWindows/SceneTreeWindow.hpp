@@ -12,6 +12,13 @@
 #include "editor/ADocumentWindow.hpp"
 
 namespace engine::editor {
+    enum SceneObjectType {
+        SCENE_OBJECT_TYPE_ENTITY,
+        SCENE_OBJECT_TYPE_SCENE,
+        SCENE_OBJECT_TYPE_FOLDER,
+        SCENE_OBJECT_TYPE_UNKNOWN
+    };
+
     class SceneTreeWindow : public ADocumentWindow {
         public:
         SceneTreeWindow();
@@ -26,6 +33,8 @@ namespace engine::editor {
         struct SceneObject {
             std::string name;
             std::vector<SceneObject> children;
+            uint32_t id;
+            SceneObjectType type = SCENE_OBJECT_TYPE_UNKNOWN;
         };
 
         SceneObject root_;
