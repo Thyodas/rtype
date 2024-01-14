@@ -12,5 +12,10 @@ var classecs_1_1_coordinator =
     [ "getSingletonComponent", "classecs_1_1_coordinator.html#a9e0f4b9d5b32186cea15014ae65bc6aa", null ],
     [ "getComponentType", "classecs_1_1_coordinator.html#a8e3419f884cef2c133a173640a9868c2", null ],
     [ "registerSystem", "classecs_1_1_coordinator.html#a5dfbbc219c959351b5cd1cf3f4a0e4e8", null ],
-    [ "setSystemSignature", "classecs_1_1_coordinator.html#abfa8b26113c1fdab820d730bc884cd61", null ]
+    [ "setSystemSignature", "classecs_1_1_coordinator.html#abfa8b26113c1fdab820d730bc884cd61", null ],
+    [ "dispatchEvents", "classecs_1_1_coordinator.html#abcb0ee373e21be2dd4c6e1d388005a1d", null ],
+    [ "createScene", "classecs_1_1_coordinator.html#abc1c77621f3466ca28703d8a5baffbdc", null ],
+    [ "deleteScene", "classecs_1_1_coordinator.html#a50950d6830fb8ded80e040f35092eacf", null ],
+    [ "activateScene", "classecs_1_1_coordinator.html#a7e46fc71ecd315401da3bb1f0e1cfedf", null ],
+    [ "deactivateScene", "classecs_1_1_coordinator.html#ab03f8cb8e5432c55820f4996cb5f53be", null ]
 ];
