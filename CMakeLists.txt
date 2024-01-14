@@ -2,7 +2,11 @@ cmake_minimum_required(VERSION 3.20)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set(CMAKE_CXX_FLAGS -Wmissing-field-initializers)
+
+if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    message(STATUS "GCC/Clang detected, adding compile flags")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}" -Wmissing-field-initializers)
+endif()
 
 # PROJECT
 project(client CXX)
