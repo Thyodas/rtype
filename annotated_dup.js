@@ -117,6 +117,7 @@ var annotated_dup =
         [ "LogMessage", "structengine_1_1editor_1_1_log_message.html", null ],
         [ "Main3DScene", "classengine_1_1editor_1_1_main3_d_scene.html", null ],
         [ "ModelViewerWindow", "classengine_1_1editor_1_1_model_viewer_window.html", null ],
+        [ "SceneManagerBridge", "classengine_1_1editor_1_1_scene_manager_bridge.html", null ],
         [ "SceneTreeWindow", "classengine_1_1editor_1_1_scene_tree_window.html", null ]
       ] ],
       [ "Engine", "classengine_1_1_engine.html", "classengine_1_1_engine" ]

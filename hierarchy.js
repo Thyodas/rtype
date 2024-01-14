@@ -106,6 +106,7 @@ var hierarchy =
     [ "rigidBody_t", "structrigid_body__t.html", null ],
     [ "ecs::Scene", "classecs_1_1_scene.html", null ],
     [ "ecs::SceneManager", "classecs_1_1_scene_manager.html", null ],
+    [ "engine::editor::SceneManagerBridge", "classengine_1_1editor_1_1_scene_manager_bridge.html", null ],
     [ "server::Server", "classserver_1_1_server.html", null ],
     [ "common::game::netbody::ServerAllyConnect", "structcommon_1_1game_1_1netbody_1_1_server_ally_connect.html", null ],
     [ "common::game::netbody::ServerAllyDestroy", "structcommon_1_1game_1_1netbody_1_1_server_ally_destroy.html", null ],
