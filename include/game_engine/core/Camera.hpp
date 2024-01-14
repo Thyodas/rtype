@@ -11,7 +11,6 @@
 
 #include <cstddef>
 #include <raymath.h>
-#include <loguru/loguru.hpp>
 
 namespace engine {
     namespace math {
@@ -61,7 +60,6 @@ namespace engine {
 
                 ~EngineCamera()
                 {
-                    LOG_F(WARNING, "Unloading render texture %d", getCameraID());
                     UnloadRenderTexture(_viewTexture);
                 };
 

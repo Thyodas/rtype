@@ -48,6 +48,10 @@ void client::Client::run()
 {
     menu();
     common::game::EntityFactory factory;
+    ecs::SceneID sceneID = engine::createScene();
+    engine::core::EngineCamera camera = engine::createCamera({-25, 1, 0}, {0, 0, 0}, {0, 1, 0}, CAMERA_PERSPECTIVE, 45.0f);
+    engine::attachCamera(sceneID, camera);
+    engine::activateScene(sceneID);
 
     auto skyBehavior = engine::createBehavior<client::SkyboxBehavior>();
     ecs::Entity skyBox = factory.createEntity(common::game::ObjectType::SkyBox, common::game::ObjectName::DefaultSkybox, {
@@ -62,6 +66,7 @@ void client::Client::run()
         {1, 1, 1}
     }, common::game::ObjectFormat::PNG);
     engine::attachBehavior(skyBox, skyBehavior);
+    engine::addEntityToScene(sceneID, skyBox);
     engine::playMusic("./ressources/audio/BackgroundMusic.mp3");
 
     _netClient.connect("127.0.0.1", 5454);
@@ -70,12 +75,14 @@ void client::Client::run()
     _netClient.reqClientConnect("Jean-Baptiste", _playerSkin);
     _netClient.reqPingServer();
 
+
     while (engine::isWindowOpen()) {
         if (!_netClient.isConnected())
             break;
         _netClient.dispatchAllResponses();
         _netClient.reqPingServer();
-        engine::runEngine();
+        engine::update(sceneID);
+        engine::render(sceneID, camera.getCameraID());
     }
     _netClient.disconnect();
 }

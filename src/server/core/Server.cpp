@@ -21,12 +21,18 @@ void server::Server::run()
     _netServer.start();
     engine::initEngine();
 
+    ecs::SceneID sceneID = engine::createScene();
+    engine::activateScene(sceneID);
+    engine::core::EngineCamera camera = engine::createCamera({0, 0, 0}, {0, 0, 0}, {0, 1, 0}, CAMERA_PERSPECTIVE, 90.0f);
+
     common::game::EntityFactory factory;
     ecs::Entity spawner = engine::createEntity();
     auto behave = engine::createBehavior<ecs::components::behaviour::EnemySpawner>(_netServer, spawner);
     engine::attachBehavior(spawner, behave);
+
     while (true) {
         _netServer.update(-1, true);
-        engine::runEngine();
+        engine::update(sceneID);
+        //engine::render(sceneID, camera.getCameraID());
     }
 }
