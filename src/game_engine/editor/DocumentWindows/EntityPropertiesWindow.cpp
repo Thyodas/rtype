@@ -13,9 +13,18 @@
 #include "game_engine/GameEngine.hpp"
 #include "../../TestBehaviour.hpp"
 
+#include "game_engine/editor/DocumentWindows/EntityProperties/TransformProperty.hpp"
+#include "game_engine/editor/DocumentWindows/EntityProperties/RenderProperty.hpp"
+
 namespace engine::editor {
 
-    EntityPropertiesWindow::EntityPropertiesWindow() : position_{0}, rotation_{0}, scale_{1} {
+    EntityPropertiesWindow::EntityPropertiesWindow() : position_{0}, rotation_{0}, scale_{1},
+        _entityPropertiesMap  {
+            {typeid(TransformProperty::ComponentType), std::make_shared<TransformProperty>("Transform")},
+            {typeid(RenderProperty::ComponentType), std::make_shared<RenderProperty>("Render")}
+        }
+    {
+
         // Constructor
     }
 
@@ -37,8 +46,27 @@ namespace engine::editor {
         ImGui::SetNextWindowPos(pos, ImGuiCond_FirstUseEver);
         ImGui::SetNextWindowSize(size, ImGuiCond_FirstUseEver);
 
-        ImGui::Begin("Properties", &_opened, ImGuiWindowFlags_NoCollapse);
+        if (ImGui::Begin("Properties", &_opened, ImGuiWindowFlags_NoCollapse) && _sceneManagerBridge.isEntitySelected()) {
 
+            const auto &components = engine::getAllComponents(_sceneManagerBridge.getSelectedEntity());
+
+            for (const auto &[component, _] : components) {
+                if (!_entityPropertiesMap.contains(component))
+                    continue;
+                if (_entityPropertiesMap[component]->show()) {
+
+                }
+                _entityPropertiesMap[component]->showEnd();
+
+            }
+
+
+        }
+        ImGui::End();
+
+
+
+        /*
         if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen)) {
             // Position
             ImGui::Text("Position");
@@ -54,12 +82,19 @@ namespace engine::editor {
         }
 
         // Add more properties for other components here...
+        */
 
-        ImGui::End();
     }
 
     void EntityPropertiesWindow::update() {
-        // Update code
+        const auto &components = engine::getAllComponents(_sceneManagerBridge.getSelectedEntity());
+
+        for (const auto &[component, _] : components) {
+            if (!_entityPropertiesMap.contains(component))
+                continue;
+            _entityPropertiesMap[component]->update();
+        }
+
     }
 
     void EntityPropertiesWindow::SetSelectedEntityTransform(const Vector3& position, const Vector3& rotation, const Vector3& scale) {

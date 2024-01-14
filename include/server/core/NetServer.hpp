@@ -43,6 +43,11 @@ namespace server {
                 });
             }
 
+            void setMainSceneID(ecs::SceneID mainSceneID)
+            {
+                _mainSceneID = mainSceneID;
+            }
+
 
 
             void resPingServer(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, const rtype::net::Message<common::NetworkMessage>& msg);
@@ -142,6 +147,7 @@ namespace server {
 
         protected:
             ResponseSet _responses;
+            ecs::SceneID _mainSceneID;
             int _nextId;
     };
 }

@@ -44,8 +44,9 @@ namespace server {
         metadata.type = server::entities::EntityType::PLAYER;
         metadata.skinName = body.shipName;
 
-        auto behave = engine::createBehavior<server::PlayerNetwork>(*this, playerShip, client->getID());
+        auto behave = engine::createBehavior<server::PlayerNetwork>(*this, playerShip, client->getID(), _mainSceneID);
         engine::attachBehavior(playerShip, behave);
+        engine::addEntityToScene(playerShip, _mainSceneID);
 
         std::cout << "[" << client->getID() << "]: Client Connect " << body.name << std::endl;
         reqServerCreatePlayerShip(client, playerShip);
@@ -115,7 +116,6 @@ namespace server {
 
     void NetServer::allServerFireBullet(ecs::Entity bullet, ecs::Entity sender)
     {
-        std::cout << "allServerFireBullet" << std::endl;
         rtype::net::Message<common::NetworkMessage> msg;
         msg.header.id = common::NetworkMessage::serverFireBullet;
 

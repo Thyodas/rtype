@@ -34,8 +34,9 @@ namespace client {
                 {0, 0, 0},
                 {1, 1, 1}
             });
-            auto behave = engine::createBehavior<client::PlayerNetwork>(*this, body.entityNetId);
+            auto behave = engine::createBehavior<client::PlayerNetwork>(*this, body.entityNetId, _mainSceneID);
             engine::attachBehavior(cube, behave);
+            engine::addEntityToScene(cube, _mainSceneID);
 
             std::cout << "Player created with id " << body.entityNetId << std::endl;
         }
@@ -59,8 +60,9 @@ namespace client {
                 {0, 0, 0},
                 {1, 1, 1}
             });
-            auto behave = engine::createBehavior<client::AllyNetwork>(*this, body.entityNetId);
+            auto behave = engine::createBehavior<client::AllyNetwork>(*this, body.entityNetId, _mainSceneID);
             engine::attachBehavior(cube, behave);
+            engine::addEntityToScene(cube, _mainSceneID);
         }
 
         void NetClient::resServerCreateEnemy(rtype::net::Message<common::NetworkMessage>& msg)
@@ -82,8 +84,9 @@ namespace client {
                 body.rotation,
                 {1, 1, 1}
             });
-            auto behave = engine::createBehavior<client::EnemyNetwork>(*this, body.entityNetId);
+            auto behave = engine::createBehavior<client::EnemyNetwork>(*this, body.entityNetId, _mainSceneID);
             engine::attachBehavior(cube, behave);
+            engine::addEntityToScene(cube, _mainSceneID);
 
             std::cout << "Enemy created with id " << body.entityNetId << std::endl;
         }
@@ -111,7 +114,8 @@ namespace client {
                 auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(gunBullet);
                 rigidBody.velocity = {0, 0, static_cast<float>(body.speed)};
 
-                auto behave = engine::createBehavior<client::BulletNetwork>(*this, body.entityNetId);
+                auto behave = engine::createBehavior<client::BulletNetwork>(*this, body.entityNetId, _mainSceneID);
                 engine::attachBehavior(gunBullet, behave);
+                engine::addEntityToScene(gunBullet, _mainSceneID);
         }
 }

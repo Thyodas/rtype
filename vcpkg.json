@@ -5,6 +5,12 @@
       "platform": "windows"
     },
     {
+      "name": "imgui",
+      "features": [
+        "docking-experimental"
+      ]
+    },
+    {
       "name": "boost-asio"
     },
     {
@@ -12,6 +18,12 @@
     },
     {
       "name": "boost-multi-index"
+    },
+    {
+      "name": "joltphysics"
+    },
+    {
+      "name": "loguru"
     }
   ]
 }

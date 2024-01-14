@@ -25,8 +25,10 @@
 #include "game_engine/ecs/components/Animations.hpp"
 #include "game_engine/ecs/systems/Animations.hpp"
 #include "game_engine/ecs/systems/Input.hpp"
+#include "game_engine/ecs/Scene.hpp"
 #include "game_engine/ecs/systems/Audio.hpp"
 #include "common/utils/Chrono.hpp"
+#include "game_engine/core/Camera.hpp"
 #include <memory>
 #include <mutex>
 #include <functional>
@@ -90,6 +92,8 @@ namespace engine {
                 return _coordinator->getSingletonComponent<T>();
             }
 
+            std::vector<std::pair<std::type_index, std::any>> getAllComponents(ecs::Entity entity);
+
             /**
              * @brief Registers an event listener.
              * @tparam T Type of the event.
@@ -102,6 +106,21 @@ namespace engine {
                 _coordinator->registerListener<T>(shared);
             }
 
+            [[nodiscard]] ecs::SceneManager& getSceneManager() const
+            {
+                return _coordinator->getSceneManager();
+            }
+
+            /**
+             * @brief Get the window object.
+             */
+            [[nodiscard]] std::shared_ptr<engine::core::Window> getWindow() const
+            {
+                return _window;
+            }
+
+
+
             /**
              * @brief Checks if the window of the game engine is open.
              * @return True if the window is open, false otherwise.
@@ -113,12 +132,16 @@ namespace engine {
                 return _window->isOpen();
             }
 
-            /**
+            /*/**
              * @brief Starts and runs the game engine.
-             */
-            void run();
+             #1#
+            void run();*/
 
-            void runTextureMode(RenderTexture& ViewTexture);
+            void update(ecs::SceneID id);
+            void render(ecs::SceneID sceneId, engine::core::CameraID cameraId);
+            void renderTextureMode(ecs::SceneID sceneId, engine::core::CameraID cameraId);
+
+            /*void runTextureMode(RenderTexture& ViewTexture);*/
 
             /**
              * @brief Gets the elapsed time since the engine started.
@@ -171,6 +194,53 @@ namespace engine {
                 _coordinator->emitEvent<T>(event);
             }
 
+            /**
+             * @brief Create a Scene object
+             *
+             * @return ecs::SceneID
+             */
+            ecs::SceneID createScene();
+
+            /**
+             * @brief Deletes a scene
+             *
+             * @param id
+             */
+            void deleteScene(ecs::SceneID id);
+
+            /**
+             * @brief Activates a scene
+             *
+             * @param id
+             */
+            void activateScene(ecs::SceneID id);
+
+            /**
+             * @brief Deactivate a scene
+             *
+             * @param id
+             */
+            void deactivateScene(ecs::SceneID id);
+
+            void pauseScene(ecs::SceneID id);
+            void resumeScene(ecs::SceneID id);
+            bool isScenePaused(ecs::SceneID id);
+
+            void addEntityToScene(ecs::Entity entity, ecs::SceneID sceneID)
+            {
+                _coordinator->addEntityToScene(entity, sceneID);
+            }
+
+            void removeEntityFromScene(ecs::Entity entity, ecs::SceneID sceneID)
+            {
+                _coordinator->removeEntityFromScene(entity, sceneID);
+            }
+
+            engine::core::EngineCamera createCamera(Vector3 pos, Vector3 target, Vector3 up, int mode, float fov);
+
+            void attachCamera(ecs::SceneID sceneID, engine::core::EngineCamera &camera);
+            void detachCamera(ecs::SceneID sceneID, engine::core::EngineCamera &camera);
+
         private:
             std::shared_ptr<ecs::Coordinator> _coordinator;
             std::shared_ptr<ecs::system::PhysicsSystem> _physicSystem;
@@ -189,6 +259,8 @@ namespace engine {
             common::utils::Chrono _chrono;
 
             std::queue<ecs::Entity> _entitiesToDestroy;
+
+            engine::core::CameraID _nextId = 0;
 
         private:
             static Engine *engine;
@@ -230,6 +302,34 @@ namespace engine {
      *
      */
     ecs::Entity createEntity(void);
+    /**
+     * @brief Update all the systems of the engine of the entites attached to the scene
+     *
+     * @param sceneId Id of the scene
+     */
+    void update(ecs::SceneID sceneId);
+
+    /**
+     * @brief Render the entities attached to the scene based on the specified camera
+     *
+     * @param sceneId id of the scene to be rendered
+     * @param cameraId id of the camera to be used
+     * @note Renders to the window
+     */
+    void render(ecs::SceneID sceneId, engine::core::CameraID cameraId);
+
+    /**
+    * @brief Render the entities attached to the scene based on the specified camera
+    *
+    * @param sceneId id of the scene to be rendered
+    * @param cameraId id of the camera to be used
+    * @note Renders to a RenderTexture stored in the camera
+    * See camera.getRenderTexture()
+    */
+    void renderTextureMode(ecs::SceneID sceneId, engine::core::CameraID cameraId);
+
+
+    std::vector<std::pair<std::type_index, std::any>> getAllComponents(ecs::Entity entity);
 
     /**
      * @brief Creates a cube entity with specified parameters.
@@ -330,12 +430,26 @@ namespace engine {
      * @param rotation The rotation vector.
      */
     void rotate(ecs::Entity entity, Vector3 rotation);
+
+    /**
+    * @brief Set the rotation of an entity.
+    * @param entity The entity to rotate.
+    * @param rotation The rotation vector.
+    */
+    void setRotation(ecs::Entity entity, Vector3 rotation);
     /**
      * @brief Scales an entity.
      * @param entity The entity to scale.
      * @param scale The scale vector.
      */
     void scale(ecs::Entity entity, Vector3 scale);
+
+    /**
+    * @brief Set the scale of an entity.
+    * @param entity The entity to scale.
+    * @param scale The scale vector.
+    */
+    void setScale(ecs::Entity entity, Vector3 scale);
     /**
      * @brief Sets the animation for an entity.
      * @param entity The entity to set the animation for.
@@ -394,5 +508,129 @@ namespace engine {
     void emitEvent(T &event)
     {
         Engine::getInstance()->emitEvent(event);
+    }
+
+    /**
+     * @brief Create a Scene object
+     *
+     * @return ecs::SceneID
+     */
+    ecs::SceneID createScene();
+
+    /**
+     * @brief Deletes a scene
+     *
+     * @param id
+     */
+    void deleteScene(ecs::SceneID id);
+
+    /**
+     * @brief Activates a scene
+     *
+     * @param id
+     */
+    void activateScene(ecs::SceneID id);
+
+    /**
+     * @brief Deactivate a scene
+     *
+     * @param id
+     */
+    void deactivateScene(ecs::SceneID id);
+
+    void pauseScene(ecs::SceneID id);
+    void resumeScene(ecs::SceneID id);
+    bool isScenePaused(ecs::SceneID id);
+
+    /**
+     * @brief Adds an entity to a scene
+     *
+     * @param entity
+     * @param sceneID
+     */
+    void addEntityToScene(ecs::Entity entity, ecs::SceneID sceneID);
+
+    /**
+     * @brief Removes an entity from a scene
+     *
+     * @param entity
+     * @param sceneID
+     */
+    void removeEntityFromScene(ecs::Entity entity, ecs::SceneID sceneID);
+
+    /**
+     * @brief Create a Camera object
+     *
+     * @param pos
+     * @param target
+     * @param up
+     * @param mode
+     * @param fov
+     * @return engine::core::EngineCamera
+     */
+    engine::core::EngineCamera createCamera(Vector3 pos = {0, 0, 0}, Vector3 target = {0, 0, 0}, Vector3 up = {0, 1, 0}, int mode = CAMERA_PERSPECTIVE, float fov = 90.0f);
+
+    /**
+     * @brief Attach a camera to a scene
+     *
+     * @param sceneID
+     * @param camera
+     */
+    void attachCamera(ecs::SceneID sceneID, engine::core::EngineCamera &camera);
+
+    /**
+     * @brief Detach a camera from a scene
+     *
+     * @param sceneID
+     * @param camera
+     */
+    void detachCamera(ecs::SceneID sceneID, engine::core::EngineCamera &camera);
+
+
+    [[nodiscard]] ecs::SceneManager& getSceneManager();
+
+
+    Matrix matrixFromFloat16(const float16& matrix);
+
+    namespace entity {
+        /**
+         * @brief Get the transform matrix of the entity.
+         * @param entity The entity to get the transform matrix from.
+         * @return The transform matrix.
+         */
+        Matrix getTransformMatrix(ecs::Entity entity);
+
+        /**
+         * @brief Get the transform of the entity.
+         * @param entity The entity to get the transform from.
+         * @return The transform.
+         */
+        Transform getTransform(ecs::Entity entity);
+
+        /**
+        * @brief Retrieves a component from an entity.
+        * @tparam T Type of the component.
+        * @param entity The entity from which the component will be retrieved.
+        * @return Reference to the component of type T.
+        */
+        template<typename T>
+        T &getComponent(ecs::Entity entity)
+        {
+            return Engine::getInstance()->getComponent<T>(entity);
+        }
+
+        /**
+         * @brief Set the transform of the entity.
+         * @param entity The entity to set the transform to.
+         * @param transMatrix The transformation matrix.
+         */
+        void setTransform(ecs::Entity entity, const Vector3 &position,
+            const Vector3 &rotation, const Vector3 &scale);
+    }
+
+    namespace math {
+          Matrix matrixFromFloat16(const float16& matrix);
+
+          void ExtractCameraViewComponents(Matrix viewMatrix, Vector3& position, Vector3& target, Vector3& up);
     }
 }

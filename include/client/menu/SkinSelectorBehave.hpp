@@ -14,6 +14,11 @@
 namespace client {
     class SkinSelectorBehave : public ecs::components::behaviour::Behaviour {
         public:
+            SkinSelectorBehave(ecs::SceneID sceneID)
+            {
+                _sceneID = sceneID;
+            }
+
             ecs::Entity createPlayer(common::game::ObjectName skin)
             {
                 common::game::EntityFactory factory;
@@ -28,6 +33,7 @@ namespace client {
                     {0, 0, 0},
                     {1, 1, 1}
                 });
+                engine::addEntityToScene(et, _sceneID);
                 return et;
             }
 

@@ -7,7 +7,13 @@
 
 #pragma once
 
+#include <cstdint>
+
+#include "ImGuizmo.h"
+
 #include "game_engine/editor/ADocumentWindow.hpp"
+
+#include "game_engine/GameEngine.hpp"
 
 #include <raylib.h>
 
@@ -23,6 +29,34 @@ namespace engine::editor {
             void update() override;
 
         private:
-            RenderTexture _viewTexture;
+            ImVec2 _currentWindowSize = {0, 0};
+            ImVec2 _prevWindowSize = {0, 0};
+            ImVec2 _viewSize = {0, 0};
+            ImVec2 _viewPosition = {0, 0};
+            ecs::Entity _selectedEntity = 0;
+            int _targetFPS = 60;
+            ImGuizmo::OPERATION _currentGizmoOperation = ImGuizmo::UNIVERSAL;
+            ImGuizmo::MODE _currentGizmoMode = ImGuizmo::WORLD;
+            ImGuizmo::OPERATION _lastGizmoOperationOver = ImGuizmo::SCALE;
+
+            engine::core::EngineCamera _camera;
+            ecs::SceneID _sceneID;
+
+
+            // ---------------------- //
+            // --- Internal logic --- //
+            // ---------------------- //
+            void setupWindow();
+            void setupScene();
+            void setupCamera();
+            void loadEntities();
+
+            [[nodiscard]] bool isWindowResized() const;
+            void handleWindowResize();
+
+            void renderToolbar();
+            void renderGizmo();
+            void renderView();
     };
+
 } // namespace engine::editor

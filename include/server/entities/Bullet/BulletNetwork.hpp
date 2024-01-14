@@ -22,8 +22,8 @@ namespace server {
 
     class BulletNetwork : public ecs::components::behaviour::NetworkBehaviour<server::NetServer> {
         public:
-            BulletNetwork(server::NetServer& networkManager, ecs::Entity sender, uint32_t entityNetId = 0, uint32_t connectionId = 0)
-                : NetworkBehaviour(networkManager, entityNetId, connectionId)
+            BulletNetwork(server::NetServer& networkManager, uint32_t sender, uint32_t entityNetId = 0, uint32_t connectionId = 0, ecs::SceneID sceneId = 0)
+                : NetworkBehaviour(networkManager, entityNetId, connectionId, sceneId)
             {
                 double now = engine::Engine::getInstance()->getElapsedTime() / 1000;
                 _lastUpdate = now;
@@ -38,6 +38,10 @@ namespace server {
                         return;
                     }
                     if (event.entity1 != _entity && event.entity2 != _entity)
+                        return;
+
+                    auto &metadata1 = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(event.entity2);
+                    if (metadata1.type != server::entities::EntityType::BULLET)
                         return;
 
                     auto &life = engine::Engine::getInstance()->getComponent<ecs::components::health::health_t>(event.entity1);

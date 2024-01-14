@@ -17,17 +17,17 @@ namespace engine::editor {
 
     SceneTreeWindow::SceneTreeWindow() {
         // Initialize the scene with some random objects
-        root_.name = "Root";
-        root_.children = {
+
+        /*root_.children = {
             {ICON_FA_CAMERA " Camera"},
             {ICON_FA_LIGHTBULB " Lights", {
-                {ICON_FA_SUN "Directional Light"},
-                {ICON_FA_BOLT "Spot Light"}
+                {ICON_FA_SUN " Directional Light"},
+                {ICON_FA_BOLT " Spot Light"}
             }},
             {"Static Meshes", {{"Cube"}, {"Sphere"}, {"Plane"}}},
             {"Dynamic Objects", {{"Player"}, {"Enemy #1"}, {"Enemy #2"}}},
             // ... add more as needed
-        };
+        };*/
     }
 
     SceneTreeWindow::~SceneTreeWindow() {
@@ -49,10 +49,19 @@ namespace engine::editor {
         if (leaf) {
             base_flags |= ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen; // ImGuiTreeNodeFlags_Bullet
         }
+        if (_sceneManagerBridge.isEntitySelected() && object.id == _sceneManagerBridge.getSelectedEntity()) {
+            base_flags |= ImGuiTreeNodeFlags_Selected;
+        }
 
         // Node
-        bool node_open = ImGui::TreeNodeEx(object.name.c_str(), base_flags);
+        // increase font size
+
+        bool node_open = ImGui::TreeNodeEx(object.name.c_str(),
+            base_flags);
         if (ImGui::IsItemClicked()) {
+            if (object.type == SCENE_OBJECT_TYPE_ENTITY)
+                _sceneManagerBridge.setSelectedEntity(object.id);
+
             // Handle the selection logic here
         }
 
@@ -62,6 +71,8 @@ namespace engine::editor {
                 // Rename logic here
             }
             if (ImGui::MenuItem("Delete")) {
+                _sceneManagerBridge.unselectEntity();
+                engine::destroyEntity(object.id);
                 // Delete logic here
             }
             if (ImGui::MenuItem("Add child")) {
@@ -90,8 +101,10 @@ namespace engine::editor {
 
     void SceneTreeWindow::update() {
         // update code
-        if (_opened) {
-            show();
+        root_.name = "Root";
+        root_.children.clear();
+        for (const auto &element : _sceneManagerBridge.getAllEntities()) {
+            root_.children.push_back(SceneObject(ICON_FA_CUBES " " + std::to_string(element), {}, element, SCENE_OBJECT_TYPE_ENTITY));
         }
     }
 }

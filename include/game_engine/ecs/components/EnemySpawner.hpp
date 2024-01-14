@@ -100,8 +100,9 @@ namespace ecs::components::behaviour
                     {0, 180, 0},
                     {1, 1, 1}
                 }, common::game::ObjectFormat::OBJ);
-                auto behave = engine::createBehavior<server::EnemyNetwork>(_networkManager, entity);
+                auto behave = engine::createBehavior<server::EnemyNetwork>(_networkManager, entity, 0, _sceneID);
                 engine::attachBehavior(entity, behave);
+                engine::addEntityToScene(entity, _sceneID);
                 auto &health = engine::Engine::getInstance()->getComponent<ecs::components::health::health_t>(entity);
                 health.healthPoints = healthPoints;
                 auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(entity);

@@ -6,6 +6,7 @@
 */
 
 #include "game_engine/GameEngine.hpp"
+
 #include "game_engine/ecs/components/Behaviour.hpp"
 #include "raymath.h"
 
@@ -19,8 +20,7 @@ namespace engine
     void Engine::init(bool disableRender)
     {
         _disableRender = disableRender;
-        if (!_disableRender)
-        {
+        if (!_disableRender) {
             _window = std::make_shared<core::Window>();
             _window->setFPS(60);
         }
@@ -94,6 +94,11 @@ namespace engine
         _coordinator->setSystemSignature<ecs::system::MusicSystem>(signatureMusicSystem);
     }
 
+    std::vector<std::pair<std::type_index, std::any>> Engine::getAllComponents(ecs::Entity entity)
+    {
+        return _coordinator->getAllComponents(entity);
+    }
+
     ecs::Entity Engine::addEntity(ecs::components::physics::transform_t transf, ecs::components::render::render_t render)
     {
         ecs::Entity entity = _coordinator->createEntity();
@@ -112,7 +117,7 @@ namespace engine
         _entitiesToDestroy.push(entity);
     }
 
-    void Engine::run(void) {
+    /*void Engine::run(void) {
         _inputSystem->handleInputs();
         _behaviourSystem->handleBehaviours();
         _physicSystem->updatePosition();
@@ -130,12 +135,9 @@ namespace engine
         // DrawGrid(20, 1.0f);
         EndMode3D();
         EndDrawing();
-        while (!_entitiesToDestroy.empty()) {
-            _coordinator->destroyEntity(_entitiesToDestroy.front());
-            _entitiesToDestroy.pop();
-        }
-    }
+    }*/
 
+    /*
     void Engine::runTextureMode(RenderTexture& ViewTexture) {
         _behaviourSystem->handleBehaviours();
         _physicSystem->updatePosition();
@@ -145,13 +147,13 @@ namespace engine
         if (_disableRender)
             return;
         BeginTextureMode(ViewTexture);
-        _window->clear(WHITE);
+        _window->clear(Color{41, 41, 41, 255});
         BeginMode3D(_window->getCamera());
         _renderSystem->render();
-        DrawGrid(10000, 1.0f);
+        DrawGrid(50, 1.0f);
         EndMode3D();
         EndTextureMode();
-    }
+    }*/
 
     ecs::Entity Engine::playMusic(const std::string &musicPath, bool looping)
     {
@@ -194,24 +196,152 @@ namespace engine
         PlaySound(sound);
     }
 
+    void Engine::update(ecs::SceneID sceneId)
+    {
+        if (_coordinator->isScenePaused(sceneId) || !_coordinator->isSceneActive(sceneId))
+            return;
+        //activateScene(sceneId);
+        _behaviourSystem->handleBehaviours();
+        _physicSystem->updatePosition();
+        _animationSystem->handleAnimations();
+        _collisionDetectionSystem->detectCollision();
+        _audioSystem->update();
+        _musicSystem->update();
+        _coordinator->dispatchEvents();
+        // pop and use front to destroy entity is entitiestodestroy
+        while (!_entitiesToDestroy.empty()) {
+            _coordinator->destroyEntity(_entitiesToDestroy.front());
+            _entitiesToDestroy.pop();
+        }
+        //deactivateScene(sceneId);
+    }
+
+    void Engine::render(ecs::SceneID sceneId, engine::core::CameraID cameraId)
+    {
+        bool isSceneActive = _coordinator->isSceneActive(sceneId);
+        if (!isSceneActive)
+            activateScene(sceneId);
+        BeginDrawing();
+        _window->clear(Color{41, 41, 41, 255});
+        BeginMode3D(_coordinator->getCamera(sceneId, cameraId).getCamera());
+        _renderSystem->render();
+        //DrawGrid(10000, 1.0f);
+        EndMode3D();
+        EndDrawing();
+        if (!isSceneActive)
+            deactivateScene(sceneId);
+    }
+
+    void Engine::renderTextureMode(ecs::SceneID sceneId, engine::core::CameraID cameraId)
+    {
+        bool isSceneActive = _coordinator->isSceneActive(sceneId);
+        if (!isSceneActive)
+            activateScene(sceneId);
+        BeginTextureMode(_coordinator->getCamera(sceneId, cameraId).getRenderTexture());
+        _window->clear(Color{41, 41, 41, 255});
+        BeginMode3D(_coordinator->getCamera(sceneId, cameraId).getCamera());
+        _renderSystem->render();
+        DrawGrid(10000, 1.0f);
+        EndMode3D();
+        EndTextureMode();
+        if (!isSceneActive)
+            deactivateScene(sceneId);
+    }
+
+    ecs::SceneID Engine::createScene()
+    {
+        static ecs::SceneID currentSceneId = 0;
+        _coordinator->createScene(currentSceneId);
+        return currentSceneId++;
+    }
+
+    void Engine::deleteScene(ecs::SceneID id)
+    {
+        _coordinator->deleteScene(id);
+    }
+
+    void Engine::activateScene(ecs::SceneID id)
+    {
+        _coordinator->activateScene(id);
+    }
+
+    void Engine::deactivateScene(ecs::SceneID id)
+    {
+        _coordinator->deactivateScene(id);
+    }
+
+    void Engine::pauseScene(ecs::SceneID id)
+    {
+        _coordinator->pauseScene(id);
+    }
+
+    bool Engine::isScenePaused(ecs::SceneID id)
+    {
+        return _coordinator->isScenePaused(id);
+    }
+
+    void Engine::resumeScene(ecs::SceneID id)
+    {
+        _coordinator->resumeScene(id);
+    }
+
+    engine::core::EngineCamera Engine::createCamera(Vector3 pos, Vector3 target, Vector3 up, int mode, float fov)
+    {
+        engine::core::EngineCamera newCamera(_nextId, pos, target, up, mode, fov);
+        _nextId++;
+        return newCamera;
+    }
+
+    void Engine::attachCamera(ecs::SceneID sceneID, engine::core::EngineCamera &camera)
+    {
+        _coordinator->attachCamera(sceneID, camera);
+    }
+
+    void Engine::detachCamera(ecs::SceneID sceneID, engine::core::EngineCamera &camera)
+    {
+        _coordinator->detachCamera(sceneID, camera);
+    }
+
     void initEngine(bool disableRender)
     {
         Engine::getInstance()->init(disableRender);
     }
 
+    /*
     void runEngine()
     {
         Engine::getInstance()->run();
     }
+    */
 
-    void runEngineTextureMode(RenderTexture& ViewTexture)
+    /*void runEngineTextureMode(RenderTexture& ViewTexture)
     {
         Engine::getInstance()->runTextureMode(ViewTexture);
-    }
+    }*/
 
     ecs::Entity createEntity(void)
     {
         return Engine::getInstance()->addInvisibleEntity();
+    }
+
+    void update(ecs::SceneID sceneId)
+    {
+        Engine::getInstance()->update(sceneId);
+    }
+
+    void render(ecs::SceneID sceneId, engine::core::CameraID cameraId)
+    {
+        Engine::getInstance()->render(sceneId, cameraId);
+    }
+
+    void renderTextureMode(ecs::SceneID sceneId, engine::core::CameraID cameraId)
+    {
+        Engine::getInstance()->renderTextureMode(sceneId, cameraId);
+    }
+
+    std::vector<std::pair<std::type_index, std::any>> getAllComponents(ecs::Entity entity)
+    {
+        return Engine::getInstance()->getAllComponents(entity);
     }
 
     ecs::Entity createCube(
@@ -224,7 +354,7 @@ namespace engine
         Color wireColor)
     {
         auto cube = std::make_shared<ecs::components::Cube>(width, height, length, toggleWire, color, wireColor);
-        ecs::components::physics::transform_t transf = {pos, {0}, {0}};
+        ecs::components::physics::transform_t transf = {pos, {0}};
         double now = engine::Engine::getInstance()->getElapsedTime() / 1000;
         ecs::components::physics::rigidBody_t body = {0.0, {0}, {0}, now};
         ecs::components::render::render_t render = {ecs::components::ShapeType::CUBE, true, cube};
@@ -245,6 +375,7 @@ namespace engine
         Engine::getInstance()->addComponent<ecs::components::physics::collider_t>(entity, collider);
         Engine::getInstance()->addComponent<ecs::components::physics::rigidBody_t>(entity, body);
         Engine::getInstance()->addComponent<ecs::components::health::health_t>(entity, health);
+        Engine::getInstance()->addComponent<ecs::components::metadata::metadata_t>(entity, {server::entities::EntityType::ENTITY_UNDEFINED});
         return entity;
     }
 
@@ -277,6 +408,8 @@ namespace engine
         ecs::Entity entity = Engine::getInstance()->addEntity(transf, render);
         Engine::getInstance()->addComponent<ecs::components::physics::collider_t>(entity, collider);
         Engine::getInstance()->addComponent<ecs::components::physics::rigidBody_t>(entity, body);
+        Engine::getInstance()->addComponent<ecs::components::metadata::metadata_t>(entity, {server::entities::EntityType::ENTITY_UNDEFINED});
+
         return entity;
     }
 
@@ -296,13 +429,73 @@ namespace engine
         Engine::getInstance()->addComponent<ecs::components::animations::animation_t>(entity, anim);
     }
 
+    Matrix transformToMatrix(const ecs::components::physics::transform_t &transform) {
+        //Matrix matScale = MatrixScale(1, 1, 1);
+        Matrix matRotation = MatrixRotateXYZ(Vector3{0, 0, 0});
+        Matrix matScale = MatrixScale(transform.scale.x, transform.scale.y, transform.scale.z);
+        //Matrix matRotation = MatrixRotateXYZ(Vector3{RAD2DEG * transform.rotation.x, RAD2DEG * transform.rotation.y, RAD2DEG * transform.rotation.z});
+        Matrix matTranslation = MatrixTranslate(transform.pos.x, transform.pos.y, transform.pos.z);
+
+        // First scale, then rotate, and finally translate
+        Matrix transformMatrix = MatrixMultiply(matScale, matRotation); // Scale, then rotate
+        transformMatrix = MatrixMultiply(transformMatrix, matTranslation); // Then translate
+
+        return transformMatrix;
+    }
+
+    Matrix entity::getTransformMatrix(ecs::Entity entity)
+    {
+        const auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
+
+        return transformToMatrix(transform);
+    }
+
+    Transform entity::getTransform(ecs::Entity entity)
+    {
+        const auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
+
+        return Transform {
+            .translation = transform.pos,
+            .rotation = {transform.rotation.x, transform.rotation.y, transform.rotation.z},
+            .scale = transform.scale
+        };
+    }
+
+    void entity::setTransform(ecs::Entity entity, const Vector3 &position,
+        const Vector3 &rotation, const Vector3 &scale)
+    {
+        auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
+        transform.pos = position;
+        //transform.rotation = rotation;
+        engine::rotate(entity, rotation);
+        //engine::setScale(entity, scale);
+    }
+
     void rotate(ecs::Entity entity, Vector3 rotation)
     {
         auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
         auto &render = Engine::getInstance()->getComponent<ecs::components::render::render_t>(entity);
         auto &collider = Engine::getInstance()->getComponent<ecs::components::physics::collider_t>(entity);
+        rotation.x = rotation.x * DEG2RAD;
+        rotation.y = rotation.y * DEG2RAD;
+        rotation.z = rotation.z * DEG2RAD;
         transform.rotation = Vector3Add(transform.rotation, rotation);
         Matrix matTemp = MatrixRotateXYZ(rotation);
+        render.data->getModel().transform = MatrixMultiply(render.data->getModel().transform, matTemp);
+        collider.matRotate = MatrixMultiply(collider.matRotate, matTemp);
+        ecs::system::CollisionResponse::updateColliderGlobalVerts(collider);
+    }
+
+    void setRotation(ecs::Entity entity, Vector3 rotation)
+    {
+        auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
+        auto &render = Engine::getInstance()->getComponent<ecs::components::render::render_t>(entity);
+        auto &collider = Engine::getInstance()->getComponent<ecs::components::physics::collider_t>(entity);
+        rotation.x = rotation.x * DEG2RAD;
+        rotation.y = rotation.y * DEG2RAD;
+        rotation.z = rotation.z * DEG2RAD;
+        transform.rotation = Vector3Add(transform.rotation, rotation);
+        Matrix matTemp = MatrixRotateXYZ(transform.rotation);
         render.data->getModel().transform = MatrixMultiply(render.data->getModel().transform, matTemp);
         collider.matRotate = MatrixMultiply(collider.matRotate, matTemp);
         ecs::system::CollisionResponse::updateColliderGlobalVerts(collider);
@@ -317,6 +510,26 @@ namespace engine
         Matrix matTemp = MatrixScale(scale.x, scale.y, scale.z);
         render.data->getModel().transform = MatrixMultiply(render.data->getModel().transform, matTemp);
         collider.matScale = MatrixMultiply(collider.matScale, matTemp);
+        ecs::system::CollisionResponse::updateColliderGlobalVerts(collider);
+    }
+
+    void setScale(ecs::Entity entity, Vector3 scale)
+    {
+        auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
+        auto &render = Engine::getInstance()->getComponent<ecs::components::render::render_t>(entity);
+        auto &collider = Engine::getInstance()->getComponent<ecs::components::physics::collider_t>(entity);
+
+        // Set the scale of the transform directly to the new scale value
+        transform.scale = scale;
+
+        // Create a scaling matrix with the new scale values
+        Matrix matTemp = MatrixScale(scale.x, scale.y, scale.z);
+
+        // Apply the scaling matrix to the transform of the render data and the collider
+        render.data->getModel().transform = matTemp;
+        collider.matScale = matTemp;
+
+        // Update the collider's global vertices
         ecs::system::CollisionResponse::updateColliderGlobalVerts(collider);
     }
 
@@ -380,5 +593,113 @@ namespace engine
     void resumeMusic(ecs::Entity musicSource)
     {
         Engine::getInstance()->resumeMusic(musicSource);
+    }
+
+    ecs::SceneID createScene()
+    {
+        return Engine::getInstance()->createScene();
+    }
+
+    void deleteScene(ecs::SceneID id)
+    {
+        Engine::getInstance()->deleteScene(id);
+    }
+
+    void activateScene(ecs::SceneID id)
+    {
+        Engine::getInstance()->activateScene(id);
+    }
+
+    void deactivateScene(ecs::SceneID id)
+    {
+        Engine::getInstance()->deactivateScene(id);
+    }
+
+    void pauseScene(ecs::SceneID id)
+    {
+        Engine::getInstance()->pauseScene(id);
+    }
+
+    void resumeScene(ecs::SceneID id)
+    {
+        Engine::getInstance()->resumeScene(id);
+    }
+
+    bool isScenePaused(ecs::SceneID id)
+    {
+        return Engine::getInstance()->isScenePaused(id);
+    }
+
+    void addEntityToScene(ecs::Entity entity, ecs::SceneID sceneID)
+    {
+        Engine::getInstance()->addEntityToScene(entity, sceneID);
+    }
+
+    void removeEntityFromScene(ecs::Entity entity, ecs::SceneID sceneID)
+    {
+        Engine::getInstance()->removeEntityFromScene(entity, sceneID);
+    }
+
+    engine::core::EngineCamera createCamera(Vector3 pos, Vector3 target, Vector3 up, int mode, float fov)
+    {
+        return Engine::getInstance()->createCamera(pos, target, up, mode, fov);
+    }
+
+    void attachCamera(ecs::SceneID sceneID, engine::core::EngineCamera &camera)
+    {
+        Engine::getInstance()->attachCamera(sceneID, camera);
+    }
+
+    void detachCamera(ecs::SceneID sceneID, engine::core::EngineCamera &camera)
+    {
+        Engine::getInstance()->detachCamera(sceneID, camera);
+    }
+
+    ecs::SceneManager& getSceneManager()
+    {
+        return Engine::getInstance()->getSceneManager();
+    }
+
+    Matrix math::matrixFromFloat16(const float16& matrix)
+    {
+        Matrix mat;
+        mat.m0 = matrix.v[0];
+        mat.m1 = matrix.v[1];
+        mat.m2 = matrix.v[2];
+        mat.m3 = matrix.v[3];
+        mat.m4 = matrix.v[4];
+        mat.m5 = matrix.v[5];
+        mat.m6 = matrix.v[6];
+        mat.m7 = matrix.v[7];
+        mat.m8 = matrix.v[8];
+        mat.m9 = matrix.v[9];
+        mat.m10 = matrix.v[10];
+        mat.m11 = matrix.v[11];
+        mat.m12 = matrix.v[12];
+        mat.m13 = matrix.v[13];
+        mat.m14 = matrix.v[14];
+        mat.m15 = matrix.v[15];
+        return mat;
+    }
+
+    void math::ExtractCameraViewComponents(Matrix viewMatrix, Vector3& position, Vector3& target, Vector3& up)
+    {
+        // Inverting the view matrix to get the position
+
+        //Matrix invView = MatrixInvert(viewMatrix);
+
+        // The position is the translation component of the inverted view matrix
+        position.x = viewMatrix.m3;
+        // TODO: re-add the below line, temporary fix for Main3DScene
+        // position.y = viewMatrix.m7;
+        position.z = viewMatrix.m11;
+
+        // Extracting right, up, and forward vectors from the view matrix
+        //Vector3 right = {viewMatrix.m0, viewMatrix.m4, viewMatrix.m8};
+        up = {viewMatrix.m1, viewMatrix.m5, viewMatrix.m9};
+        Vector3 forward = {viewMatrix.m2, viewMatrix.m6, viewMatrix.m10};
+
+        // Calculating the target position
+        target = Vector3Add(position, Vector3Negate(forward));
     }
 }
