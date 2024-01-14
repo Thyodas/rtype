@@ -1,7 +1,8 @@
 var classengine_1_1_engine =
 [
     [ "init", "classengine_1_1_engine.html#a05152770c0742ec74bc36dda04d0503c", null ],
-    [ "addEntity", "classengine_1_1_engine.html#a9b925280e91e1e0789f25058c1eb62d0", null ],
+    [ "addPhysicEntity", "classengine_1_1_engine.html#ae041c72b9ddad1345032d2866d4c706c", null ],
+    [ "addEntity", "classengine_1_1_engine.html#a4d38c0d986b298b783a2adb3d4f4c89a", null ],
     [ "addComponent", "classengine_1_1_engine.html#a279309a18b8fcf6968ebf2b64bbe9289", null ],
     [ "getComponent", "classengine_1_1_engine.html#a89b529e7bf2e61e61916cd9f009679c4", null ],
     [ "registerListener", "classengine_1_1_engine.html#a2761afac2517fb26ec4e6383cd862cfe", null ],
@@ -16,5 +17,7 @@ var classengine_1_1_engine =
     [ "createScene", "classengine_1_1_engine.html#a1b01783391f0d0a3142a15b15d1fa8de", null ],
     [ "deleteScene", "classengine_1_1_engine.html#a8adcebc1f75f34e2f114e927e7e1232f", null ],
     [ "activateScene", "classengine_1_1_engine.html#a3be2f7494a50a96f694d0fb139bd531e", null ],
-    [ "deactivateScene", "classengine_1_1_engine.html#a9fd949161a8298c54db4432f6486ee03", null ]
+    [ "deactivateScene", "classengine_1_1_engine.html#a9fd949161a8298c54db4432f6486ee03", null ],
+    [ "getBodyFromEntity", "classengine_1_1_engine.html#a18c72a8ad08770f5859e19020a7ba470", null ],
+    [ "getEntityFromBody", "classengine_1_1_engine.html#acab185c2c2f69053822e49032d0daf0c", null ]
 ];
