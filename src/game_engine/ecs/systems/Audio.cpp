@@ -5,7 +5,7 @@
 ** Audio.cpp
 */
 
-#include "GameEngine.hpp"
+#include "game_engine/GameEngine.hpp"
 #include "game_engine/ecs/systems/Audio.hpp"
 #include "game_engine/ecs/components/Audio.hpp"
 

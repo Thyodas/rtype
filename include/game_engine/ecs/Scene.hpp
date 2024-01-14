@@ -8,7 +8,7 @@
 #pragma once
 
 #include "Entity.hpp"
-#include "core/Camera.hpp"
+#include "game_engine/core/Camera.hpp"
 
 #include <cstddef>
 #include <set>
