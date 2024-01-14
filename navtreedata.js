@@ -25,10 +25,10 @@
 var NAVTREE =
 [
   [ "Arcade", "index.html", [
-    [ "R-Type Remastered", "index.html", null ],
-    [ "ECS Documentation", "ecs_parent_page.html", "ecs_parent_page" ],
-    [ "GitHub Documentation", "github_parent_page.html", "github_parent_page" ],
-    [ "Install Documentation", "install_parent_page.html", "install_parent_page" ],
+    [ "Install", "index.html", null ],
+    [ "INSTALL Documentation", "install_parent_page.html", null ],
+    [ "ECS", "ecs_readme.html", null ],
+    [ "Network Documentation", "github_parent_page.html", "github_parent_page" ],
     [ "Network Documentation", "network_parent_page.html", "network_parent_page" ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
@@ -50,7 +50,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_a_document_window_8hpp_source.html",
-"classrtype_1_1net_1_1_server_interface.html#ad1d9109ea220ff8dad16f1a67404bdf3"
+"client_2entities_2_bullet_2_bullet_network_8hpp_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

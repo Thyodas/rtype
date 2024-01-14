@@ -22,7 +22,5 @@ var classengine_1_1core_1_1_window =
     [ "setCameraTarget", "classengine_1_1core_1_1_window.html#a65996fe1fea60b557cd50d8ef1bcdfa0", null ],
     [ "getCameraTarget", "classengine_1_1core_1_1_window.html#a495632abefd33ae6f40a99b3ab37076f", null ],
     [ "setCameraFov", "classengine_1_1core_1_1_window.html#adc0b54bdc8ef4ed146d6d543da4d12e3", null ],
-    [ "getCameraFov", "classengine_1_1core_1_1_window.html#a9ca02d2920809304646518ba4881b3bd", null ],
-    [ "getCameraViewMatrix", "classengine_1_1core_1_1_window.html#ac941b7b86848906743c23e5ef71f7817", null ],
-    [ "getProjectionMatrix", "classengine_1_1core_1_1_window.html#ae9601b0d9176debfc5e2305e8cdf7170", null ]
+    [ "getCameraFov", "classengine_1_1core_1_1_window.html#a9ca02d2920809304646518ba4881b3bd", null ]
 ];

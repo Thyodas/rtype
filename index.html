@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Arcade: R-Type Remastered</title>
+<title>Arcade: Install</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -85,43 +85,84 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">R-Type Remastered </div></div>
+  <div class="headertitle"><div class="title">Install </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p ><a class="anchor" id="md_README"></a> Welcome to R-Type Remastered, an exciting reimagination of the classic arcade shooter. This project is a testament to modern C++ capabilities, featuring a multithreaded server and dynamic client for an immersive multiplayer experience.</p>
-<h1>Documentation Quick Links</h1>
+<div class="textblock"><p ><a class="anchor" id="md_docs_install_README"></a> This document provides an overview of the project and instructions on how to build and use it.</p>
+<h1>Table of Contents</h1>
 <ul>
-<li><b>Game Engine Architecture</b>: Detailed design principles of our engine Game Engine Documentation.</li>
-<li><b>Network Protocol</b>: Our custom protocol specifications Network Documentation.</li>
+<li><a href="#project-overview">Project Overview</a></li>
+<li><a href="#building-the-project">Building the Project</a><ul>
+<li><a href="#dependencies">Dependencies</a></li>
+<li><a href="#building-on-windows">Building on Windows</a><ul>
+<li><a href="#installing-cmake-on-windows">Installing CMake on Windows</a></li>
 </ul>
-<h1>External Dependencies</h1>
-<p >To run this project, ensure you have the following:</p><ul>
-<li><b>Adobe ImGui</b>: For a user-friendly interface.</li>
-<li><b>Raylib 5.0</b>: For robust graphics handling.</li>
-<li><b>rlImGui</b>: To integrate ImGui with Raylib.</li>
-<li><b>Boost</b>: For various functionalities including networking.</li>
-<li><b>CMake</b>: Necessary for building the project from source.</li>
+</li>
+<li><a href="#building-on-unix-like-systems">Building on Unix-like Systems</a></li>
 </ul>
-<h1>Installation</h1>
-<p >Cloning and building is a breeze:</p><ol type="1">
-<li>Clone the repository.</li>
-<li>Run the <code>./build.sh</code> script or use the CMake commands for a manual build.</li>
-<li>Start the server with <code>./server</code> from the root directory.</li>
-<li>Launch the client by executing <code>./client</code>, also at the root directory.</li>
+</li>
+<li><a href="#running-the-project">Running the Project</a><ul>
+<li><a href="#server">Server</a></li>
+<li><a href="#client">Client</a></li>
+</ul>
+</li>
+</ul>
+<h1>Project Overview</h1>
+<p >The project consists of a server and a client component. The server handles some functionality, and the client interacts with it.</p>
+<h1>Building the Project</h1>
+<h2>Dependencies</h2>
+<p >The project relies on the following dependencies:</p>
+<ul>
+<li><a href="https://www.raylib.com/">Raylib 5.0</a></li>
+<li><a href="https://www.boost.org/">Boost</a></li>
+<li><a href="https://cmake.org/">CMake</a> (for building the project)</li>
+</ul>
+<h2>Building on Windows</h2>
+<h3>Installing CMake on Windows</h3>
+<p >Before building the project, you need to install CMake. Follow the <a href="#cmake-installation-guide-for-windows">CMake Installation Guide for Windows</a> to install CMake on your Windows machine.</p>
+<p >After installing CMake, you can proceed with building the project.</p>
+<ol type="1">
+<li>Install Visual Studio.</li>
+<li>Open a command prompt and navigate to the project root directory.</li>
+<li>Run the following commands: <div class="fragment"><div class="line">git submodule init</div>
+<div class="line">git pull --recurse-submodules</div>
+<div class="line">.\vcpkg\bootstrap-vcpkg.bat</div>
+<div class="line">.\vcpkg\vcpkg integrate install</div>
+<div class="line">cmake -B build</div>
+<div class="line">cmake --build build</div>
+</div><!-- fragment --></li>
 </ol>
-<p >For detailed instructions, visit our Installation Guide.</p>
-<p >Prepare for an unparalleled gaming experience!</p>
-<h1>The Team</h1>
-<p >R-Type Remastered is brought to life by a dedicated team of third-year students from Epitech Strasbourg:</p><ul>
-<li>Mehdy Morvan</li>
-<li>Guillaume Hein</li>
-<li>Rémi MERGEN</li>
-<li>Jean Cardonne</li>
-<li>Nathan De Balthasar de Gachéo</li>
-<li>Alex Di Venanzio</li>
-</ul>
-<p >This project is part of our curriculum, showcasing our collective skills in advanced software development with modern C++.</p>
-<p >We thank Epitech for the opportunity to work on such an engaging project and for the support throughout our educational journey. </p>
+<h2>Building on Unix-like Systems</h2>
+<ol type="1">
+<li>Install CMake and a C++ compiler (e.g., g++).</li>
+<li>Open a terminal and navigate to the project root directory.</li>
+<li>Run the following commands: <div class="fragment"><div class="line">git submodule init</div>
+<div class="line">git pull --recurse-submodules</div>
+<div class="line">cmake -B build</div>
+<div class="line">cmake --build build</div>
+</div><!-- fragment --></li>
+</ol>
+<h1>Running the Project</h1>
+<h2>Server</h2>
+<ol type="1">
+<li>After building, navigate to the build directory.</li>
+<li>Run the server executable: <div class="fragment"><div class="line">cd src/server</div>
+<div class="line">../../build/server</div>
+</div><!-- fragment --></li>
+</ol>
+<blockquote class="doxtable">
+<p >[!NOTE] On Windows change '/' to '\'. </p>
+</blockquote>
+<h2>Client</h2>
+<ol type="1">
+<li>After building, navigate to the build directory.</li>
+<li>Run the client executable: <div class="fragment"><div class="line">cd src/client</div>
+<div class="line">../../build/client</div>
+</div><!-- fragment --></li>
+</ol>
+<blockquote class="doxtable">
+<p >[!NOTE] On Windows change '/' to '\'. </p>
+</blockquote>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
