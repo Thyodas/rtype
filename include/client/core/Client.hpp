@@ -25,7 +25,7 @@ namespace client {
             Client();
             ~Client();
 
-            void menu();
+            void menu(ecs::SceneID sceneID, engine::core::EngineCamera& camera);
             void run();
         private:
             std::vector<common::game::Entity> _entities;

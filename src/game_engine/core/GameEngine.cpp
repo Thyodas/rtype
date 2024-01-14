@@ -205,7 +205,14 @@ namespace engine
         _physicSystem->updatePosition();
         _animationSystem->handleAnimations();
         _collisionDetectionSystem->detectCollision();
+        _audioSystem->update();
+        _musicSystem->update();
         _coordinator->dispatchEvents();
+        // pop and use front to destroy entity is entitiestodestroy
+        while (!_entitiesToDestroy.empty()) {
+            _coordinator->destroyEntity(_entitiesToDestroy.front());
+            _entitiesToDestroy.pop();
+        }
         //deactivateScene(sceneId);
     }
 

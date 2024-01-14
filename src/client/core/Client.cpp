@@ -26,11 +26,12 @@ client::Client::Client()
     SetTraceLogLevel(TraceLogLevel::LOG_ERROR);
 }
 
-void client::Client::menu()
+void client::Client::menu(ecs::SceneID sceneID, engine::core::EngineCamera& camera)
 {
     ecs::Entity selector = engine::createEntity();
-    auto selectorBehavior = engine::createBehavior<client::SkinSelectorBehave>();
+    auto selectorBehavior = engine::createBehavior<client::SkinSelectorBehave>(sceneID);
     engine::attachBehavior(selector, selectorBehavior);
+    engine::addEntityToScene(selector, sceneID);
 
     while (engine::isWindowOpen()) {
         if (selectorBehavior->isSkinSelected()) {
@@ -40,19 +41,25 @@ void client::Client::menu()
             break;
         }
         _netClient.dispatchAllResponses();
-        engine::runEngine();
+        engine::update(sceneID);
+        engine::render(sceneID, camera.getCameraID());
     }
 }
 
 void client::Client::run()
 {
-    menu();
+
     common::game::EntityFactory factory;
     ecs::SceneID sceneID = engine::createScene();
     engine::core::EngineCamera camera = engine::createCamera({-25, 1, 0}, {0, 0, 0}, {0, 1, 0}, CAMERA_PERSPECTIVE, 45.0f);
     engine::attachCamera(sceneID, camera);
     engine::activateScene(sceneID);
     _netClient.setMainSceneID(sceneID);
+
+    ecs::Entity musicSource = engine::playMusic("./ressources/audio/BackgroundMusic.mp3");
+    engine::addEntityToScene(musicSource, sceneID);
+
+    menu(sceneID, camera);
 
     auto skyBehavior = engine::createBehavior<client::SkyboxBehavior>();
     ecs::Entity skyBox = factory.createEntity(common::game::ObjectType::SkyBox, common::game::ObjectName::DefaultSkybox, {
@@ -67,8 +74,8 @@ void client::Client::run()
         {1, 1, 1}
     }, common::game::ObjectFormat::PNG);
     engine::attachBehavior(skyBox, skyBehavior);
-    engine::addEntityToScene(sceneID, skyBox);
-    engine::playMusic("./ressources/audio/BackgroundMusic.mp3");
+    engine::addEntityToScene(skyBox, sceneID);
+
 
     _netClient.connect("127.0.0.1", 5454);
 
