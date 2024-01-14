@@ -15,8 +15,7 @@
 namespace ecs {
     namespace components {
         namespace physics {
-            typedef struct transform_s transform_t;
-            typedef struct collider_s collider_t;
+            struct TransformComponent;
         }
     }
 }
@@ -54,16 +53,10 @@ namespace ecs {
             public:
                 ~IShape() = default;
                 /**
-                 * @brief Calculates the bounding box of the shape based on the collider's properties.
-                 * @param collider Reference to the collider component.
-                 * @return The calculated bounding box.
-                 */
-                BoundingBox getBoundingBox(physics::collider_t &collider) const;
-                /**
                  * @brief Pure virtual function for drawing the shape.
                  * @param transf Reference to the transformation component.
                  */
-                virtual void draw(physics::transform_t &transf) const = 0;
+                virtual void draw(ecs::components::physics::TransformComponent &transf) const = 0;
                 /**
                  * @brief Gets the model associated with the shape.
                  * @return Reference to the Model object.
@@ -102,7 +95,7 @@ namespace ecs {
                  * @brief Draws the cube with the specified transformations.
                  * @param transf Reference to the transformation component.
                  */
-                void draw(physics::transform_t &transf) const override;
+                void draw(ecs::components::physics::TransformComponent &transf) const override;
             private:
                 float _width;
                 float _height;
@@ -131,7 +124,7 @@ namespace ecs {
                  * @brief Draws the 3D model with the specified transformations.
                  * @param transf Reference to the transformation component.
                  */
-                void draw(physics::transform_t &transf) const override;
+                void draw(ecs::components::physics::TransformComponent &transf) const override;
             private:
                 Color _color;
         };
@@ -154,7 +147,7 @@ namespace ecs {
                  * @brief Draws the skybox with the specified transformations.
                  * @param transf Reference to the transformation component.
                  */
-                void draw(physics::transform_t &transf) const override;
+                void draw(ecs::components::physics::TransformComponent &transf) const override;
             private:
                 Color _color;
         };

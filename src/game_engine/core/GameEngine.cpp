@@ -9,6 +9,8 @@
 
 #include "game_engine/ecs/components/Behaviour.hpp"
 #include "raymath.h"
+#include "common/utils/Math.hpp"
+#include "common/utils/UtilsJolt.hpp"
 
 std::shared_ptr<ecs::Coordinator> ecs::components::behaviour::Behaviour::_coord = nullptr;
 std::shared_ptr<ecs::Coordinator> ecs::system::System::_coord = nullptr;
@@ -19,6 +21,33 @@ namespace engine
     std::mutex Engine::_mutex;
     void Engine::init(bool disableRender)
     {
+
+        // Create class that filters object vs broadphase layers
+        // Note: As this is an interface, PhysicsSystem will take a reference to this so this instance needs to stay alive!
+
+        // Create class that filters object vs object layers
+        // Note: As this is an interface, PhysicsSystem will take a reference to this so this instance needs to stay alive!
+
+        // Now we can create the actual physics system.
+        JPH::RegisterDefaultAllocator();
+
+        // Create a factory
+        JPH::Factory::sInstance = new JPH::Factory();
+
+        // Register all Jolt physics types
+        JPH::RegisterTypes();
+        _joltPhysicsSystemWorld.Init(
+            ecs::system::cMaxBodies,
+            ecs::system::cNumBodyMutexes,
+            ecs::system::cMaxBodyPairs,
+            ecs::system::cMaxContactConstraints,
+            _broadPhaseLayerInterface,
+            _objectVsBroadphaseLayerFilter,
+            _objectVsObjectLayerFilter);
+
+        ecs::system::MyContactListener *listener = new ecs::system::MyContactListener();
+        _joltPhysicsSystemWorld.SetContactListener(listener);
+
         _disableRender = disableRender;
         if (!_disableRender) {
             _window = std::make_shared<core::Window>();
@@ -26,16 +55,12 @@ namespace engine
         }
         _coordinator = std::make_shared<ecs::Coordinator>();
         _coordinator->init();
-        _collisionResponseSystem = std::make_shared<ecs::system::CollisionResponse>(*_coordinator);
         ecs::components::behaviour::Behaviour::_coord = _coordinator;
         ecs::system::System::_coord = _coordinator;
 
-        _coordinator->registerComponent<ecs::components::physics::transform_t>();
         if (!_disableRender)
             _coordinator->registerComponent<ecs::components::render::render_t>();
         _coordinator->registerComponent<std::shared_ptr<ecs::components::behaviour::Behaviour>>();
-        _coordinator->registerComponent<ecs::components::physics::collider_t>();
-        _coordinator->registerComponent<ecs::components::physics::rigidBody_t>();
         _coordinator->registerComponent<ecs::components::animations::animation_t>();
         _coordinator->registerComponent<ecs::components::network::network_t>();
         _coordinator->registerComponent<ecs::components::health::health_t>();
@@ -43,23 +68,22 @@ namespace engine
         _coordinator->registerComponent<ecs::components::sound::AudioSource>();
         _coordinator->registerComponent<ecs::components::sound::MusicSource>();
         _coordinator->registerComponent<ecs::components::metadata::metadata_t>();
+
+        _coordinator->registerComponent<ecs::components::physics::ColliderComponent>();
+        _coordinator->registerComponent<ecs::components::physics::ForceComponent>();
+        _coordinator->registerComponent<ecs::components::physics::PhysicsMaterialComponent>();
+        _coordinator->registerComponent<ecs::components::physics::RigidBodyComponent>();
+        _coordinator->registerComponent<ecs::components::physics::TransformComponent>();
         ecs::components::input::Input input;
         _coordinator->registerSingletonComponent<ecs::components::input::Input>(input);
 
-        ecs::Signature signaturePhysics;
-        signaturePhysics.set(_coordinator->getComponentType<ecs::components::physics::transform_t>());
-        signaturePhysics.set(_coordinator->getComponentType<ecs::components::physics::rigidBody_t>());
         ecs::Signature signatureRender;
-        if (!_disableRender)
-        {
-            signatureRender.set(_coordinator->getComponentType<ecs::components::physics::transform_t>());
+        if (!_disableRender) {
+            signatureRender.set(_coordinator->getComponentType<ecs::components::physics::TransformComponent>());
             signatureRender.set(_coordinator->getComponentType<ecs::components::render::render_t>());
         }
         ecs::Signature signatureBehaviour;
         signatureBehaviour.set(_coordinator->getComponentType<std::shared_ptr<ecs::components::behaviour::Behaviour>>());
-        ecs::Signature signatureCollider;
-        signatureCollider.set(_coordinator->getComponentType<ecs::components::physics::transform_t>());
-        signatureCollider.set(_coordinator->getComponentType<ecs::components::physics::collider_t>());
         ecs::Signature signatureAnimations;
         signatureAnimations.set(_coordinator->getComponentType<ecs::components::animations::animation_t>());
         ecs::Signature signatureAudioSystem;
@@ -67,8 +91,9 @@ namespace engine
         ecs::Signature signatureMusicSystem;
         signatureMusicSystem.set(_coordinator->getComponentType<ecs::components::sound::MusicSource>());
 
-        _physicSystem = _coordinator->registerSystem<ecs::system::PhysicsSystem>();
-        _coordinator->setSystemSignature<ecs::system::PhysicsSystem>(signaturePhysics);
+        ecs::Signature signatureJoltPhysics;
+        signatureJoltPhysics.set(_coordinator->getComponentType<ecs::components::physics::RigidBodyComponent>());
+        signatureJoltPhysics.set(_coordinator->getComponentType<ecs::components::physics::TransformComponent>());
 
         if (!_disableRender)
         {
@@ -78,9 +103,6 @@ namespace engine
 
         _behaviourSystem = _coordinator->registerSystem<ecs::system::BehaviourSystem>();
         _coordinator->setSystemSignature<ecs::system::BehaviourSystem>(signatureBehaviour);
-
-        _collisionDetectionSystem = _coordinator->registerSystem<ecs::system::ColisionDetectionSystem>();
-        _coordinator->setSystemSignature<ecs::system::ColisionDetectionSystem>(signatureCollider);
 
         _animationSystem = _coordinator->registerSystem<ecs::system::AnimationSystem>();
         _coordinator->setSystemSignature<ecs::system::AnimationSystem>(signatureAnimations);
@@ -92,6 +114,9 @@ namespace engine
         _coordinator->setSystemSignature<ecs::system::AudioSystem>(signatureAudioSystem);
         _musicSystem = _coordinator->registerSystem<ecs::system::MusicSystem>();
         _coordinator->setSystemSignature<ecs::system::MusicSystem>(signatureMusicSystem);
+
+        _joltPhysicsSystem = _coordinator->registerSystem<ecs::system::JoltPhysicsSystem>();
+        _coordinator->setSystemSignature<ecs::system::JoltPhysicsSystem>(signatureJoltPhysics);
     }
 
     std::vector<std::pair<std::type_index, std::any>> Engine::getAllComponents(ecs::Entity entity)
@@ -99,11 +124,24 @@ namespace engine
         return _coordinator->getAllComponents(entity);
     }
 
-    ecs::Entity Engine::addEntity(ecs::components::physics::transform_t transf, ecs::components::render::render_t render)
-    {
+    ecs::Entity Engine::addPhysicEntity(
+        ecs::components::physics::TransformComponent transf,
+        ecs::components::render::render_t render,
+        ecs::components::physics::RigidBodyComponent body,
+        const JPH::BodyCreationSettings &creationSettings
+    ) {
+        JPH::EActivation activation = JPH::EActivation::Activate;
+        if (body.bodyType == ecs::components::physics::BodyType::STATIC)
+            activation = JPH::EActivation::DontActivate;
         ecs::Entity entity = _coordinator->createEntity();
-        _coordinator->addComponent<ecs::components::physics::transform_t>(entity, transf);
+        auto newBody = _joltPhysicsSystemWorld.GetBodyInterface().CreateBody(creationSettings);
+        body.bodyID = newBody->GetID();
+        _joltPhysicsSystemWorld.GetBodyInterface().AddBody(body.bodyID, activation);
+        _coordinator->addComponent<ecs::components::physics::TransformComponent>(entity, transf);
+        _coordinator->addComponent<ecs::components::physics::RigidBodyComponent>(entity, body);
         _coordinator->addComponent<ecs::components::render::render_t>(entity, render);
+        _entityToBody.insert({entity, body.bodyID});
+        _bodyToEntity.insert({body.bodyID, entity});
         return entity;
     }
 
@@ -112,15 +150,25 @@ namespace engine
         return _coordinator->createEntity();
     }
 
+    ecs::Entity Engine::addEntity(
+                ecs::components::physics::TransformComponent transf,
+                ecs::components::render::render_t render
+    ) {
+        ecs::Entity entity = _coordinator->createEntity();
+        _coordinator->addComponent<ecs::components::physics::TransformComponent>(entity, transf);
+        _coordinator->addComponent<ecs::components::render::render_t>(entity, render);
+        return entity;
+    }
+
     void Engine::destroyEntity(ecs::Entity entity)
     {
         _entitiesToDestroy.push(entity);
+        //TODO: Remove entity from the physics system if necessary
     }
 
     /*void Engine::run(void) {
         _inputSystem->handleInputs();
         _behaviourSystem->handleBehaviours();
-        _physicSystem->updatePosition();
         _animationSystem->handleAnimations();
         _collisionDetectionSystem->detectCollision();
         _audioSystem->update();
@@ -140,9 +188,8 @@ namespace engine
     /*
     void Engine::runTextureMode(RenderTexture& ViewTexture) {
         _behaviourSystem->handleBehaviours();
-        _physicSystem->updatePosition();
+        _joltPhysicsSystem->update(_joltPhysicsSystemWorld, 1.0f / 60.0f);
         _animationSystem->handleAnimations();
-        _collisionDetectionSystem->detectCollision();
         _coordinator->dispatchEvents();
         if (_disableRender)
             return;
@@ -200,11 +247,11 @@ namespace engine
     {
         if (_coordinator->isScenePaused(sceneId) || !_coordinator->isSceneActive(sceneId))
             return;
+        _joltPhysicsSystemWorld.OptimizeBroadPhase();
         //activateScene(sceneId);
         _behaviourSystem->handleBehaviours();
-        _physicSystem->updatePosition();
+        _joltPhysicsSystem->update(_joltPhysicsSystemWorld, 1.0f / 60.0f);
         _animationSystem->handleAnimations();
-        _collisionDetectionSystem->detectCollision();
         _audioSystem->update();
         _musicSystem->update();
         _coordinator->dispatchEvents();
@@ -302,6 +349,59 @@ namespace engine
         _coordinator->detachCamera(sceneID, camera);
     }
 
+    JPH::BodyID Engine::getBodyFromEntity(ecs::Entity entity) const
+    {
+        return _entityToBody.at(entity);
+    }
+
+    ecs::Entity Engine::getEntityFromBody(JPH::BodyID body) const
+    {
+        return _bodyToEntity.at(body);
+    }
+
+    void Engine::scale(ecs::Entity entity, JPH::Vec3 scale)
+    {
+        JPH::BodyID bodyId = _entityToBody.at(entity);
+        JPH::BodyInterface &interface = _joltPhysicsSystemWorld.GetBodyInterface();
+        JPH::ShapeRefC shape = interface.GetShape(bodyId);
+        JPH::Ref<JPH::Shape> newShape = common::utils::createShapeWithScale(scale, shape);
+        interface.SetShape(bodyId, newShape, false , JPH::EActivation::Activate);
+    }
+
+    void Engine::applyAngularImpulse(ecs::Entity entity, JPH::Vec3 impulse)
+    {
+        JPH::BodyID bodyId = _entityToBody.at(entity);
+        JPH::BodyInterface &interface = _joltPhysicsSystemWorld.GetBodyInterface();
+        interface.AddAngularImpulse(bodyId, impulse);
+    }
+
+    void Engine::applyForce(ecs::Entity entity, JPH::Vec3 force)
+    {
+        JPH::BodyID bodyId = _entityToBody.at(entity);
+        JPH::BodyInterface &interface = _joltPhysicsSystemWorld.GetBodyInterface();
+        interface.AddForce(bodyId, force);
+    }
+
+    void Engine::applyForceAndTorque(ecs::Entity entity, JPH::Vec3 force, JPH::Vec3 torque)
+    {
+        JPH::BodyID bodyId = _entityToBody.at(entity);
+        JPH::BodyInterface &interface = _joltPhysicsSystemWorld.GetBodyInterface();
+        interface.AddForceAndTorque(bodyId, force, torque);
+    }
+
+    void Engine::applyImpulse(ecs::Entity entity, JPH::Vec3 impulse)
+    {
+        JPH::BodyID bodyId = _entityToBody.at(entity);
+        JPH::BodyInterface &interface = _joltPhysicsSystemWorld.GetBodyInterface();
+        interface.AddImpulse(bodyId, impulse);
+    }
+
+    void Engine::setLinearVelocity(ecs::Entity entity, JPH::Vec3 velocity)
+    {
+        std::cout << "on set la velocité" << std::endl;
+        _coordinator->getComponent<ecs::components::physics::RigidBodyComponent>(entity).velocity += velocity;
+    }
+
     void initEngine(bool disableRender)
     {
         Engine::getInstance()->init(disableRender);
@@ -350,63 +450,78 @@ namespace engine
         float height,
         float length,
         Color color,
+        ecs::components::physics::BodyType bodyType,
         bool toggleWire,
         Color wireColor)
     {
+        bool subjectToGravity = true;
+        JPH::EMotionType motionType = JPH::EMotionType::Dynamic;
+        if (bodyType == ecs::components::physics::BodyType::STATIC) {
+            subjectToGravity = false;
+            motionType = JPH::EMotionType::Static;
+        }
         auto cube = std::make_shared<ecs::components::Cube>(width, height, length, toggleWire, color, wireColor);
-        ecs::components::physics::transform_t transf = {pos, {0}};
-        double now = engine::Engine::getInstance()->getElapsedTime() / 1000;
-        ecs::components::physics::rigidBody_t body = {0.0, {0}, {0}, now};
+        ecs::components::physics::TransformComponent transf(
+            {pos.x, pos.y, pos.z},
+            JPH::Quat::sIdentity(),
+            JPH::Vec3(1, 1, 1)
+        );
+        ecs::components::physics::RigidBodyComponent body(1, {0, 0, 0}, subjectToGravity, bodyType);
+        JPH::Ref<JPH::BoxShape> boxShape = new JPH::BoxShape(JPH::Vec3(width / 2, height / 2, length / 2), 0);
+        boxShape->SetDensity(0.001);
+        JPH::Ref<JPH::Shape> shapeRef = static_cast<JPH::Ref<JPH::Shape>>(boxShape);
+        ecs::components::physics::ColliderComponent collider(shapeRef);
         ecs::components::render::render_t render = {ecs::components::ShapeType::CUBE, true, cube};
-        ecs::components::physics::collider_t collider = {
-            ecs::components::ShapeType::CUBE,
-            ecs::components::physics::CollisionType::COLLIDE,
-            cube,
-            GetModelBoundingBox(cube->getModel()),
-            {0},
-            MatrixIdentity(),
-            MatrixIdentity(),
-            MatrixIdentity()};
-        Matrix matTranslate = MatrixTranslate(pos.x, pos.y, pos.z);
-        collider.matTranslate = MatrixMultiply(collider.matTranslate, matTranslate);
-        ecs::components::health::health_t health = {0};
-        ecs::system::CollisionResponse::updateColliderGlobalVerts(collider);
-        ecs::Entity entity = Engine::getInstance()->addEntity(transf, render);
-        Engine::getInstance()->addComponent<ecs::components::physics::collider_t>(entity, collider);
-        Engine::getInstance()->addComponent<ecs::components::physics::rigidBody_t>(entity, body);
-        Engine::getInstance()->addComponent<ecs::components::health::health_t>(entity, health);
+        JPH::BoxShapeSettings boxShapeSettings(JPH::Vec3(width / 2, height / 2, length / 2));
+        JPH::ShapeSettings::ShapeResult boxShapeResult = boxShapeSettings.Create();
+
+        JPH::BodyCreationSettings boxSettings(boxShape, JPH::Vec3(pos.x, pos.y, pos.z), JPH::Quat::sIdentity(), motionType, ecs::system::Layers::MOVING);
+        ecs::Entity entity = Engine::getInstance()->addPhysicEntity(transf, render, body, boxSettings);
+        Engine::getInstance()->addComponent<ecs::components::physics::ColliderComponent>(entity, collider);
+
         return entity;
     }
 
-    ecs::Entity createModel3D(const char *filename, Vector3 pos, Color color)
+    ecs::Entity createModel3D(const char *filename, Vector3 pos, Color color, ecs::components::physics::BodyType bodyType)
     {
         auto model = std::make_shared<ecs::components::Model3D>(filename, color);
-        ecs::components::physics::transform_t transf = {pos, {0}, {0}};
-        double now = engine::Engine::getInstance()->getElapsedTime() / 1000;
-        ecs::components::physics::rigidBody_t body = {0.0, {0}, {0}, now};
+        bool subjectToGravity = true;
+        JPH::EMotionType motionType = JPH::EMotionType::Dynamic;
+        if (bodyType == ecs::components::physics::BodyType::STATIC) {
+            subjectToGravity = false;
+            motionType = JPH::EMotionType::Static;
+        }
+        ecs::components::physics::TransformComponent transf(
+            {pos.x, pos.y, pos.z},
+            JPH::Quat::sIdentity(),
+            JPH::Vec3(1, 1, 1)
+        );
+        ecs::components::physics::RigidBodyComponent body(1, {0, 0, 0}, subjectToGravity, bodyType);
         ecs::components::render::render_t render = {ecs::components::ShapeType::MODEL, true, model};
-        ecs::components::health::health_t health = {0};
-        ecs::components::physics::collider_t collider = {ecs::components::ShapeType::MODEL, ecs::components::physics::CollisionType::COLLIDE, model};
-        ecs::Entity entity = Engine::getInstance()->addEntity(transf, render);
-        Engine::getInstance()->addComponent<ecs::components::physics::collider_t>(entity, collider);
-        Engine::getInstance()->addComponent<ecs::components::physics::rigidBody_t>(entity, body);
-        Engine::getInstance()->addComponent<ecs::components::health::health_t>(entity, health);
-        Engine::getInstance()->addComponent<ecs::components::direction::direction_t>(entity, {0, 0, 0});
-        Engine::getInstance()->addComponent<ecs::components::metadata::metadata_t>(entity, {server::entities::EntityType::ENTITY_UNDEFINED});
+
+        JPH::Ref<JPH::BoxShape> boxShape = common::utils::convertBoundingBoxToBoxShape(GetModelBoundingBox(model->getModel()));
+        boxShape->SetDensity(0.001);
+        JPH::Ref<JPH::Shape> shapeRef = static_cast<JPH::Ref<JPH::Shape>>(boxShape);
+        ecs::components::physics::ColliderComponent collider(shapeRef);
+        JPH::BoxShapeSettings boxShapeSettings(boxShape->GetHalfExtent());
+        JPH::ShapeSettings::ShapeResult boxShapeResult = boxShapeSettings.Create();
+        JPH::BodyCreationSettings boxSettings(boxShape, JPH::Vec3(pos.x, pos.y, pos.z), JPH::Quat::sIdentity(), motionType, ecs::system::Layers::MOVING);
+
+        ecs::Entity entity = Engine::getInstance()->addPhysicEntity(transf, render, body, boxSettings);
+        Engine::getInstance()->addComponent<ecs::components::physics::ColliderComponent>(entity, collider);
         return entity;
     }
 
     ecs::Entity createSkybox(const char *filename, Vector3 pos, Color color)
     {
         auto model = std::make_shared<ecs::components::Skybox>(filename);
-        ecs::components::physics::transform_t transf = {pos, {0}, {0}};
+        ecs::components::physics::TransformComponent transf(
+            {pos.x, pos.y, pos.z},
+            JPH::Quat::sIdentity(),
+            JPH::Vec3(1, 1, 1)
+        );
         ecs::components::render::render_t render = {ecs::components::ShapeType::MODEL, true, model};
-        double now = engine::Engine::getInstance()->getElapsedTime() / 1000;
-        ecs::components::physics::rigidBody_t body = {0.0, {0}, {0}, now};
-        ecs::components::physics::collider_t collider = {ecs::components::ShapeType::MODEL, ecs::components::physics::CollisionType::NON_COLLIDE, model};
         ecs::Entity entity = Engine::getInstance()->addEntity(transf, render);
-        Engine::getInstance()->addComponent<ecs::components::physics::collider_t>(entity, collider);
-        Engine::getInstance()->addComponent<ecs::components::physics::rigidBody_t>(entity, body);
         return entity;
     }
 
@@ -426,12 +541,12 @@ namespace engine
         Engine::getInstance()->addComponent<ecs::components::animations::animation_t>(entity, anim);
     }
 
-    Matrix transformToMatrix(const ecs::components::physics::transform_t &transform) {
+    Matrix transformToMatrix(const ecs::components::physics::TransformComponent &transform) {
         //Matrix matScale = MatrixScale(1, 1, 1);
         Matrix matRotation = MatrixRotateXYZ(Vector3{0, 0, 0});
-        Matrix matScale = MatrixScale(transform.scale.x, transform.scale.y, transform.scale.z);
+        Matrix matScale = MatrixScale(transform.scale.GetX(), transform.scale.GetY(), transform.scale.GetZ());
         //Matrix matRotation = MatrixRotateXYZ(Vector3{RAD2DEG * transform.rotation.x, RAD2DEG * transform.rotation.y, RAD2DEG * transform.rotation.z});
-        Matrix matTranslation = MatrixTranslate(transform.pos.x, transform.pos.y, transform.pos.z);
+        Matrix matTranslation = MatrixTranslate(transform.position.GetX(), transform.position.GetY(), transform.position.GetZ());
 
         // First scale, then rotate, and finally translate
         Matrix transformMatrix = MatrixMultiply(matScale, matRotation); // Scale, then rotate
@@ -442,27 +557,27 @@ namespace engine
 
     Matrix entity::getTransformMatrix(ecs::Entity entity)
     {
-        const auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
+        const auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::TransformComponent>(entity);
 
         return transformToMatrix(transform);
     }
 
     Transform entity::getTransform(ecs::Entity entity)
     {
-        const auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
+        const auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::TransformComponent>(entity);
 
         return Transform {
-            .translation = transform.pos,
-            .rotation = {transform.rotation.x, transform.rotation.y, transform.rotation.z},
-            .scale = transform.scale
+            .translation = common::utils::joltVectorToRayVector(transform.position),
+            .rotation = {transform.rotation.GetX(), transform.rotation.GetY(), transform.rotation.GetZ(), transform.rotation.GetW()},
+            .scale = common::utils::joltVectorToRayVector(transform.scale)
         };
     }
 
     void entity::setTransform(ecs::Entity entity, const Vector3 &position,
         const Vector3 &rotation, const Vector3 &scale)
     {
-        auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
-        transform.pos = position;
+        auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::TransformComponent>(entity);
+        transform.position = common::utils::rayVectorToJoltVector(position);
         //transform.rotation = rotation;
         engine::rotate(entity, rotation);
         //engine::setScale(entity, scale);
@@ -470,64 +585,44 @@ namespace engine
 
     void rotate(ecs::Entity entity, Vector3 rotation)
     {
-        auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
-        auto &render = Engine::getInstance()->getComponent<ecs::components::render::render_t>(entity);
-        auto &collider = Engine::getInstance()->getComponent<ecs::components::physics::collider_t>(entity);
+        auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::TransformComponent>(entity);
         rotation.x = rotation.x * DEG2RAD;
         rotation.y = rotation.y * DEG2RAD;
         rotation.z = rotation.z * DEG2RAD;
-        transform.rotation = Vector3Add(transform.rotation, rotation);
         Matrix matTemp = MatrixRotateXYZ(rotation);
-        render.data->getModel().transform = MatrixMultiply(render.data->getModel().transform, matTemp);
-        collider.matRotate = MatrixMultiply(collider.matRotate, matTemp);
-        ecs::system::CollisionResponse::updateColliderGlobalVerts(collider);
+        Quaternion quatTemp = QuaternionFromMatrix(matTemp);
+        transform.rotation = common::utils::rayQuatToJoltQuat(quatTemp) * transform.rotation;
     }
 
     void setRotation(ecs::Entity entity, Vector3 rotation)
     {
-        auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
+        auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::TransformComponent>(entity);
         auto &render = Engine::getInstance()->getComponent<ecs::components::render::render_t>(entity);
-        auto &collider = Engine::getInstance()->getComponent<ecs::components::physics::collider_t>(entity);
         rotation.x = rotation.x * DEG2RAD;
         rotation.y = rotation.y * DEG2RAD;
         rotation.z = rotation.z * DEG2RAD;
-        transform.rotation = Vector3Add(transform.rotation, rotation);
-        Matrix matTemp = MatrixRotateXYZ(transform.rotation);
-        render.data->getModel().transform = MatrixMultiply(render.data->getModel().transform, matTemp);
-        collider.matRotate = MatrixMultiply(collider.matRotate, matTemp);
-        ecs::system::CollisionResponse::updateColliderGlobalVerts(collider);
+        Matrix matTemp = MatrixRotateXYZ(rotation);
+        matTemp = MatrixTranspose(matTemp);
+        Quaternion quatTemp = QuaternionFromMatrix(matTemp);
+        transform.rotation = common::utils::rayQuatToJoltQuat(quatTemp);
     }
 
     void scale(ecs::Entity entity, Vector3 scale)
     {
-        auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
-        auto &render = Engine::getInstance()->getComponent<ecs::components::render::render_t>(entity);
-        auto &collider = Engine::getInstance()->getComponent<ecs::components::physics::collider_t>(entity);
-        transform.scale = Vector3Add(transform.scale, scale);
-        Matrix matTemp = MatrixScale(scale.x, scale.y, scale.z);
-        render.data->getModel().transform = MatrixMultiply(render.data->getModel().transform, matTemp);
-        collider.matScale = MatrixMultiply(collider.matScale, matTemp);
-        ecs::system::CollisionResponse::updateColliderGlobalVerts(collider);
+        auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::TransformComponent>(entity);
+        transform.scale = common::utils::rayVectorToJoltVector(scale) * transform.scale;
+        Engine::getInstance()->scale(entity, transform.scale);
     }
 
     void setScale(ecs::Entity entity, Vector3 scale)
     {
-        auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(entity);
+        auto &transform = Engine::getInstance()->getComponent<ecs::components::physics::TransformComponent>(entity);
         auto &render = Engine::getInstance()->getComponent<ecs::components::render::render_t>(entity);
-        auto &collider = Engine::getInstance()->getComponent<ecs::components::physics::collider_t>(entity);
 
         // Set the scale of the transform directly to the new scale value
-        transform.scale = scale;
+        transform.scale = common::utils::rayVectorToJoltVector(scale);
 
         // Create a scaling matrix with the new scale values
-        Matrix matTemp = MatrixScale(scale.x, scale.y, scale.z);
-
-        // Apply the scaling matrix to the transform of the render data and the collider
-        render.data->getModel().transform = matTemp;
-        collider.matScale = matTemp;
-
-        // Update the collider's global vertices
-        ecs::system::CollisionResponse::updateColliderGlobalVerts(collider);
     }
 
     void attachBehavior(
@@ -698,5 +793,46 @@ namespace engine
 
         // Calculating the target position
         target = Vector3Add(position, Vector3Negate(forward));
+    }
+
+    JPH::BodyID physics::getBodyFromEntity(ecs::Entity entity)
+    {
+        return Engine::getInstance()->getBodyFromEntity(entity);
+    }
+
+    ecs::Entity physics::getEntityFromBody(JPH::BodyID body)
+    {
+        return Engine::getInstance()->getEntityFromBody(body);
+    }
+
+    void physics::applyAngularImpulse(ecs::Entity entity, Vector3 impulse)
+    {
+        JPH::Vec3 joltImpulse = common::utils::rayVectorToJoltVector(impulse);
+        Engine::getInstance()->applyAngularImpulse(entity, joltImpulse);
+    }
+
+    void physics::applyForce(ecs::Entity entity, Vector3 force)
+    {
+        JPH::Vec3 joltForce = common::utils::rayVectorToJoltVector(force);
+        Engine::getInstance()->applyForce(entity, joltForce);
+    }
+
+    void physics::applyForceAndTorque(ecs::Entity entity, Vector3 force, Vector3 torque)
+    {
+        JPH::Vec3 joltForce = common::utils::rayVectorToJoltVector(force);
+        JPH::Vec3 joltTorque = common::utils::rayVectorToJoltVector(torque);
+        Engine::getInstance()->applyForceAndTorque(entity, joltForce, joltTorque);
+    }
+
+    void physics::applyImpulse(ecs::Entity entity, Vector3 impulse)
+    {
+        JPH::Vec3 joltImpulse = common::utils::rayVectorToJoltVector(impulse);
+        Engine::getInstance()->applyImpulse(entity, joltImpulse);
+    }
+
+    void physics::setLinearVelocity(ecs::Entity entity, Vector3 velocity)
+    {
+        JPH::Vec3 joltVelocity = common::utils::rayVectorToJoltVector(velocity);
+        Engine::getInstance()->setLinearVelocity(entity, joltVelocity);
     }
 }

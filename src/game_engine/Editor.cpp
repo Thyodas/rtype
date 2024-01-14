@@ -30,7 +30,6 @@
 #include "game_engine/ecs/components/Physics.hpp"
 #include "game_engine/ecs/components/Shapes.hpp"
 #include "game_engine/GameEngine.hpp"
-#include "TestBehaviour.hpp"
 
 #include "game_engine/editor/GameEngineEditor.hpp"
 #include "game_engine/editor/SceneManagerBridge.hpp"
@@ -39,6 +38,8 @@
 #include "raymath.h"
 
 #include <iostream>
+
+#include "common/utils/Math.hpp"
 
 int main(int argc, char* argv[])
 {
@@ -58,6 +59,31 @@ int main(int argc, char* argv[])
 		editor.update();
 		editor.render();
 	}
-
+	// engine::initEngine();
+	// ecs::SceneID scene = engine::createScene();
+	// engine::core::EngineCamera camera = engine::createCamera({-25, 8, 0}, {0, 0, 0}, {0, 1, 0}, CAMERA_PERSPECTIVE);
+	// engine::attachCamera(scene, camera);
+	// ecs::Entity cube = engine::createCube({-5, 20, -5}, 4, 4, 4, RED);
+	// ecs::Entity model3D = engine::createModel3D("./ressources/client/Objects3D/DualStriker/DualStriker.obj", {0, 0, 0});
+	// ecs::Entity floor = engine::createCube({0, -1, 0}, 100, 1, 100, WHITE, ecs::components::physics::BodyType::STATIC);
+	// engine::addEntityToScene(cube, scene);
+	// engine::addEntityToScene(floor, scene);
+	// engine::addEntityToScene(model3D, scene);
+	// engine::activateScene(scene);
+	// engine::setRotation(cube, {40, 0, 0});
+	// //engine::scale(cube, {1, 1, 2});
+	// while (engine::isWindowOpen()) {
+	// 	engine::update(scene);
+	// 	engine::render(scene, camera._id);
+	// 	JPH::Vec3 movementDirection(0, 0, 0);
+	// 	if (IsKeyDown(KEY_D)) movementDirection += JPH::Vec3(0, 0, 1);
+    //     if (IsKeyDown(KEY_A))  movementDirection += JPH::Vec3(0, 0, -1);
+    //     if (IsKeyDown(KEY_W))    movementDirection += JPH::Vec3(1, 0, 0);
+    //     if (IsKeyDown(KEY_S))  movementDirection += JPH::Vec3(-1, 0, 0);
+	// 	float speed = 1.0f;
+	// 	if (!movementDirection.IsNearZero())
+    //         movementDirection = movementDirection.Normalized() * speed;
+	// 	engine::physics::setLinearVelocity(cube, common::utils::joltVectorToRayVector(movementDirection));
+	// }
 	return 0;
 }

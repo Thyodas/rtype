@@ -14,87 +14,117 @@
 
 namespace ecs {
     namespace system {
-        /**
-         * @class PhysicsSystem
-         * @brief System responsible for updating the positions of entities based on their physical properties.
-         *
-         * Inherits from the base System class. This system updates the position of entities in the game world,
-         * taking into account their current velocities, forces, and other physical attributes.
-         */
-        class PhysicsSystem : public System {
-            public:
-            /**
-                 * @brief Updates the position of all entities with physics components.
-                 *
-                 * This method calculates and applies the necessary positional changes to entities based on their
-                 * physics attributes such as velocity and applied forces.
-                 */
-                void updatePosition();
+        static constexpr unsigned int cMaxBodies = 1024;
+        static constexpr unsigned int cNumBodyMutexes = 0;
+        static constexpr unsigned int cMaxBodyPairs = 1024;
+        static constexpr unsigned int cMaxContactConstraints = 1024;
+
+        namespace Layers
+        {
+            static constexpr JPH::ObjectLayer NON_MOVING = 0;
+            static constexpr JPH::ObjectLayer MOVING = 1;
+            static constexpr JPH::ObjectLayer NUM_LAYERS = 2;
         };
 
-        /**
-         * @class CollisionDetectionSystem
-         * @brief System responsible for detecting collisions between entities in the game world.
-         *
-         * Inherits from the base System class. This system checks for and identifies collisions between entities
-         * using their collider components. It is capable of handling different types of collisions like sphere-sphere
-         * and sphere-box collisions.
-         */
-        class ColisionDetectionSystem : public System {
-            public:
-            /**
-                 * @brief Detects collisions between entities and triggers collision events.
-                 *
-                 * This method iterates through entities with collider components and checks for collisions,
-                 * triggering collision events when they occur.
-                 */
-                void detectCollision();
-            private:
-                void detectSphereCollision(ecs::components::physics::collider_t collider1, ecs::components::physics::collider_t collider2);
-                void detectSphereBoxCollision(ecs::components::physics::collider_t collider1, ecs::components::physics::collider_t collider2);
+        namespace BroadPhaseLayers
+        {
+            static constexpr JPH::BroadPhaseLayer NON_MOVING(0);
+            static constexpr JPH::BroadPhaseLayer MOVING(1);
+            static constexpr unsigned int NUM_LAYERS(2);
         };
 
-        /**
-         * @class CollisionResponse
-         * @brief Handles the response to collisions between entities.
-         *
-         * This class is responsible for calculating and applying the appropriate response to collisions detected
-         * by the CollisionDetectionSystem. It includes methods for determining collision responses and updating
-         * collider vertices.
-         */
-        class CollisionResponse {
+        #define JPH_EXTERNAL_PROFILEtween object and broadphase layers.
+        class BPLayerInterfaceImpl final : public JPH::BroadPhaseLayerInterface {
             public:
-                /**
-                 * @brief Constructs a CollisionResponse object with a reference to the ECS coordinator.
-                 * @param coord Reference to the ECS coordinator.
-                 */
-                CollisionResponse(ecs::Coordinator &coord);
-                /**
-                 * @brief Calculates the response to a collision event.
-                 * @param event The collision event to be handled.
-                 * @return The calculated collision response as a Vector3.
-                 */
-                Vector3 getCollisionResponse(const CollisionEvent &event);
+                BPLayerInterfaceImpl() {
+                    // Create a mapping table from object to broad phase layer
+                    mObjectToBroadPhase[Layers::NON_MOVING] = BroadPhaseLayers::NON_MOVING;
+                    mObjectToBroadPhase[Layers::MOVING] = BroadPhaseLayers::MOVING;
+                }
 
-                /**
-                 * @brief Updates the global vertices of a collider.
-                 * @param collider The collider to update.
-                 */
-                static void updateColliderGlobalVerts(ecs::components::physics::collider_t &collider);
+                virtual unsigned int GetNumBroadPhaseLayers() const override {
+                    return BroadPhaseLayers::NUM_LAYERS;
+                }
+
+                virtual JPH::BroadPhaseLayer GetBroadPhaseLayer(JPH::ObjectLayer inLayer) const override {
+                    JPH_ASSERT(inLayer < Layers::NUM_LAYERS);
+                    return mObjectToBroadPhase[inLayer];
+                }
+
+            #if defined(JPH_EXTERNAL_PROFILE) || defined(JPH_PROFILE_ENABLED)
+                virtual const char *GetBroadPhaseLayerName(JPH::BroadPhaseLayer inLayer) const override {
+                    switch ((JPH::BroadPhaseLayer::Type)inLayer) {
+                        case (JPH::BroadPhaseLayer::Type)BroadPhaseLayers::NON_MOVING:	return "NON_MOVING";
+                        case (JPH::BroadPhaseLayer::Type)BroadPhaseLayers::MOVING:		return "MOVING";
+                        default:													JPH_ASSERT(false); return "INVALID";
+                    }
+                }
+            #endif // JPH_EXTERNAL_PROFILE || JPH_PROFILE_ENABLED
 
             private:
-                float getOverlap(Vector2 a, Vector2 b);
-                void getCollisionVectors(
-                    ecs::components::physics::collider_t &collider1,
-                    ecs::components::physics::collider_t &collider2,
-                    Vector3 *vecs
-                );
-                Vector2 getColliderProjectionBounds(
-                    ecs::components::physics::collider_t &collider1,
-                    Vector3 vec
-                );
+                JPH::BroadPhaseLayer					mObjectToBroadPhase[Layers::NUM_LAYERS];
+        };
 
-                ecs::Coordinator& _coord;
+        class ObjectVsBroadPhaseLayerFilterImpl : public JPH::ObjectVsBroadPhaseLayerFilter {
+            public:
+                virtual bool ShouldCollide(JPH::ObjectLayer inLayer1, JPH::BroadPhaseLayer inLayer2) const override {
+                    switch (inLayer1) {
+                        case Layers::NON_MOVING:
+                            return inLayer2 == BroadPhaseLayers::MOVING;
+                        case Layers::MOVING:
+                            return true;
+                        default:
+                            JPH_ASSERT(false);
+                            return false;
+                    }
+                }
+        };
+
+        class ObjectLayerPairFilterImpl : public JPH::ObjectLayerPairFilter {
+            public:
+                virtual bool ShouldCollide(JPH::ObjectLayer inObject1, JPH::ObjectLayer inObject2) const override {
+                    switch (inObject1) {
+                        case Layers::NON_MOVING:
+                            return inObject2 == Layers::MOVING; // Non moving only collides with moving
+                        case Layers::MOVING:
+                            return true; // Moving collides with everything
+                        default:
+                            JPH_ASSERT(false);
+                            return false;
+                    }
+                }
+        };
+
+        class MyContactListener : public JPH::ContactListener {
+            public:
+                // See: ContactListener
+                virtual JPH::ValidateResult	OnContactValidate(const JPH::Body &inBody1, const JPH::Body &inBody2, JPH::RVec3Arg inBaseOffset, const JPH::CollideShapeResult &inCollisionResult) override
+                {
+                    //std::cout << "Contact validate callback" << std::endl;
+
+                    // Allows you to ignore a contact before it is created (using layers to not make objects collide is cheaper!)
+                    return JPH::ValidateResult::AcceptAllContactsForThisBodyPair;
+                }
+
+                virtual void OnContactAdded(const JPH::Body &inBody1, const JPH::Body &inBody2, const JPH::ContactManifold &inManifold, JPH::ContactSettings &ioSettings) override
+                {
+                    //std::cout << "A contact was added" << std::endl;
+                }
+
+                virtual void OnContactPersisted(const JPH::Body &inBody1, const JPH::Body &inBody2, const JPH::ContactManifold &inManifold, JPH::ContactSettings &ioSettings) override
+                {
+                    //std::cout << "A contact was persisted" << std::endl;
+                }
+
+                virtual void OnContactRemoved(const JPH::SubShapeIDPair &inSubShapePair) override
+                {
+                    //std::cout << "A contact was removed" << std::endl;
+                }
+        };
+
+        class JoltPhysicsSystem : public System {
+            public:
+                void update(JPH::PhysicsSystem &joltPhysicsSystem, float timeStep);
         };
     }
 }

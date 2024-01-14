@@ -112,6 +112,10 @@ endif()
 find_package(imguizmo CONFIG QUIET)
 target_link_libraries(game_engine PRIVATE imguizmo)
 
+# Find Jolt package
+find_package(unofficial-joltphysics CONFIG REQUIRED)
+target_link_libraries(game_engine PRIVATE unofficial::joltphysics::Jolt)
+
 # Linking the libraries
 target_link_libraries(game_engine PRIVATE raylib imgui::imgui rlimgui)
 

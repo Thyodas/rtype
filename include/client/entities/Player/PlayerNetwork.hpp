@@ -12,6 +12,8 @@
 // #include "game_engine/GameEngine.hpp"
 #include "common/game/NetworkBody.hpp"
 #include "client/core/NetClient.hpp"
+#include "client/entities/Bullet/BulletNetwork.hpp"
+#include "common/utils/Math.hpp"
 
 namespace client {
 
@@ -57,9 +59,9 @@ namespace client {
                 if (body.entityNetId != getNetId())
                     return;
 
-                auto &playerTransform = _coord->getComponent<ecs::components::physics::transform_t>(_entity);
+                auto &playerTransform = _coord->getComponent<ecs::components::physics::TransformComponent>(_entity);
 
-                playerTransform.pos = body.pos;
+                playerTransform.position = common::utils::rayVectorToJoltVector(body.pos);
             }
 
             void onDamageReceive(rtype::net::Message<common::NetworkMessage>& msg)
@@ -98,14 +100,13 @@ namespace client {
                 common::game::netbody::ClientUpdatePlayerDirection body = {
                     .direction = direction,
                 };
+                std::cout << "on envoie la nouvelle direction" << std::endl;
                 msg << body;
                 _networkManager.send(msg);
             }
 
             void fireBullet()
             {
-                auto &trans = _coord->getComponent<ecs::components::physics::transform_t>(_entity);
-
                 rtype::net::Message<common::NetworkMessage> msg;
                 msg.header.id = common::NetworkMessage::clientPlayerFireBullet;
                 common::game::netbody::ClientPlayerFireBullet body = {
@@ -113,17 +114,6 @@ namespace client {
                 };
                 msg << body;
                 _networkManager.send(msg);
-            }
-
-            Vector3 calculateBulletVelocity(const ecs::components::physics::transform_t& shipTransform, float bulletSpeed)
-            {
-                Vector3 shipForward = shipTransform.rotation;
-
-                shipForward.z = -shipForward.z;
-
-                Vector3 bulletVelocity = Vector3Scale(shipForward, bulletSpeed);
-
-                return bulletVelocity;
             }
 
             void update() override

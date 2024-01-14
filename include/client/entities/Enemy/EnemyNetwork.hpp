@@ -10,6 +10,7 @@
 #include "game_engine/ecs/components/NetworkBehaviour.hpp"
 #include "common/game/NetworkBody.hpp"
 #include "client/core/NetClient.hpp"
+#include "common/utils/Math.hpp"
 
 namespace client {
 
@@ -44,13 +45,13 @@ namespace client {
             void onUpdateVelocity(rtype::net::Message<common::NetworkMessage>& msg)
             {
                 common::game::netbody::ServerUpdateShipPosition body;
-                auto &enemyBody = _coord->getComponent<ecs::components::physics::rigidBody_t>(_entity);
+                auto &enemyBody = _coord->getComponent<ecs::components::physics::RigidBodyComponent>(_entity);
                 msg >> body;
 
                 if (body.entityNetId != getNetId())
                     return;
 
-                enemyBody.velocity = body.pos;
+                enemyBody.velocity = common::utils::rayVectorToJoltVector(body.pos);
             }
 
             void onDamageReceive(rtype::net::Message<common::NetworkMessage>& msg)

@@ -9,9 +9,6 @@
 
 #include "common/game/entities/EntityFactory.hpp"
 
-#include "../MovementBehaviour.hpp"
-#include "../TestBehaviour.hpp"
-
 #include "client/entities/Player/PlayerNetwork.hpp"
 #include "client/entities/Bullet/BulletNetwork.hpp"
 #include "client/entities/Skybox/SkyboxBehavior.hpp"

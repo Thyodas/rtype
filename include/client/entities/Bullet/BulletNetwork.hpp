@@ -10,7 +10,7 @@
 #include "game_engine/ecs/components/NetworkBehaviour.hpp"
 #include "common/game/NetworkBody.hpp"
 #include "client/core/NetClient.hpp"
-#include "game_engine/core/event/BulletShotEvent.hpp"
+#include "common/utils/Math.hpp"
 
 
 namespace client
@@ -59,10 +59,8 @@ namespace client
             std::cout << "try update bullet " << body.entityNetId << std::endl;
             if (body.entityNetId != getNetId())
                 return;
-
-            auto &transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_entity);
-            std::cout << "Updating bullet position" << std::endl;
-            transform.pos = body.pos;
+            auto &transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::TransformComponent>(_entity);
+            transform.position = common::utils::rayVectorToJoltVector(body.pos);
         }
 
         void update() override

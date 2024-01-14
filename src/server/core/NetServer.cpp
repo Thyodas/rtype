@@ -10,6 +10,7 @@
 #include <common/game/entities/EntityFactory.hpp>
 #include <common/game/entities/Objects.hpp>
 #include "server/entities/Player/PlayerNetwork.hpp"
+#include "common/utils/Math.hpp"
 
 namespace server {
     void NetServer::resPingServer(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, const rtype::net::Message<common::NetworkMessage>& msg)
@@ -59,7 +60,7 @@ namespace server {
         rtype::net::Message<common::NetworkMessage> msg;
         msg.header.id = common::NetworkMessage::serverCreatePlayerShip;
 
-        auto &transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(ship);
+        auto &transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::TransformComponent>(ship);
         auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(ship);
 
         metadata.client = client;
@@ -67,7 +68,7 @@ namespace server {
         common::game::netbody::ServerCreatePlayerShip body = {
             .entityNetId = ship,
             .shipName = metadata.skinName,
-            .pos = transform.pos,
+            .pos = common::utils::joltVectorToRayVector(transform.position),
         };
 
         msg << body;
@@ -80,7 +81,7 @@ namespace server {
         rtype::net::Message<common::NetworkMessage> msg;
         msg.header.id = common::NetworkMessage::serverAllyConnect;
 
-        auto &transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(ship);
+        auto &transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::TransformComponent>(ship);
         auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(ship);
 
         //auto &model = engine::Engine::getInstance()->getComponent<ecs::components::Model3D>(ship);
@@ -89,7 +90,7 @@ namespace server {
             .entityNetId = ship,
             .name = "Jean-Michel", // TODO: get name of player
             .shipName = metadata.skinName,
-            .pos = transform.pos,
+            .pos = common::utils::joltVectorToRayVector(transform.position),
         };
 
         msg << body;
@@ -104,9 +105,11 @@ namespace server {
         rtype::net::Message<common::NetworkMessage> msg;
         msg.header.id = common::NetworkMessage::serverUpdateShipPosition;
 
+        auto &transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::TransformComponent>(ship);
+
         common::game::netbody::ServerUpdateShipPosition body = {
             .entityNetId = ship,
-            .pos = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(ship).pos,
+            .pos = common::utils::joltVectorToRayVector(transform.position),
         };
 
         msg << body;
@@ -123,7 +126,7 @@ namespace server {
         common::game::netbody::ServerFireBullet body = {
             .entityNetId = bullet,
             .sender = sender,
-            .pos = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(bullet).pos,
+            .pos = common::utils::joltVectorToRayVector(engine::Engine::getInstance()->getComponent<ecs::components::physics::TransformComponent>(bullet).position),
             .direction = engine::Engine::getInstance()->getComponent<ecs::components::direction::direction_t>(bullet).direction,
             .speed = 0,
             .rotation = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(bullet).rotation,

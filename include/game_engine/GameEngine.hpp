@@ -52,16 +52,32 @@ namespace engine {
             void init(bool disableRender = false);
 
             /**
-             * @brief Adds a new entity to the game with optional physics and render components.
+             * @brief Adds a new physical entity to the game, this entity will be added to the physical system
              * @param transf Physics transformation component.
              * @param render Render component.
              * @return The created entity.
              */
-            ecs::Entity addEntity(ecs::components::physics::transform_t transf = {{0, 1, 0}, {0}, {0}},
-                                    ecs::components::render::render_t render = {ecs::components::ShapeType::CUBE, true, std::make_shared<ecs::components::Cube>()}
+            ecs::Entity addPhysicEntity(
+                ecs::components::physics::TransformComponent transf,
+                ecs::components::render::render_t render,
+                ecs::components::physics::RigidBodyComponent body,
+                const JPH::BodyCreationSettings &creationSettings
             );
 
             ecs::Entity addInvisibleEntity(void);
+
+            /**
+             * @brief Add a new entity to the game, this entity wont be handled by the physic system and
+             * should be handled by a behaviour or manually
+             *
+             * @param transf
+             * @param render
+             * @return ecs::Entity
+             */
+            ecs::Entity addEntity(
+                ecs::components::physics::TransformComponent transf,
+                ecs::components::render::render_t render
+            );
 
             void destroyEntity(ecs::Entity entity);
 
@@ -241,17 +257,42 @@ namespace engine {
             void attachCamera(ecs::SceneID sceneID, engine::core::EngineCamera &camera);
             void detachCamera(ecs::SceneID sceneID, engine::core::EngineCamera &camera);
 
+            /**
+             * @brief Retrives the body id of the entity
+             *
+             * @param entity
+             * @return JPH::BodyID
+             */
+            JPH::BodyID getBodyFromEntity(ecs::Entity entity) const;
+            /**
+             * @brief Retrieves the entity from the body id
+             *
+             * @param body
+             * @return ecs::Entity
+             */
+            ecs::Entity getEntityFromBody(JPH::BodyID body) const;
+
+            void scale(ecs::Entity entity, JPH::Vec3 scale);
+
+            void applyAngularImpulse(ecs::Entity entity, JPH::Vec3 impulse);
+
+            void applyForce(ecs::Entity entity, JPH::Vec3 force);
+
+            void applyForceAndTorque(ecs::Entity entity, JPH::Vec3 force, JPH::Vec3 torque);
+
+            void applyImpulse(ecs::Entity entity, JPH::Vec3 impulse);
+
+            void setLinearVelocity(ecs::Entity entity, JPH::Vec3 velocity);
+
         private:
             std::shared_ptr<ecs::Coordinator> _coordinator;
-            std::shared_ptr<ecs::system::PhysicsSystem> _physicSystem;
             std::shared_ptr<ecs::system::RenderSystem> _renderSystem;
             std::shared_ptr<ecs::system::BehaviourSystem> _behaviourSystem;
             std::shared_ptr<ecs::system::AnimationSystem> _animationSystem;
-            std::shared_ptr<ecs::system::CollisionResponse> _collisionResponseSystem;
-            std::shared_ptr<ecs::system::ColisionDetectionSystem> _collisionDetectionSystem;
             std::shared_ptr<ecs::system::InputSystem> _inputSystem;
             std::shared_ptr<ecs::system::AudioSystem> _audioSystem;
             std::shared_ptr<ecs::system::MusicSystem> _musicSystem;
+            std::shared_ptr<ecs::system::JoltPhysicsSystem> _joltPhysicsSystem;
 
             std::shared_ptr<core::Window> _window;
             bool _disableRender = false;
@@ -262,6 +303,12 @@ namespace engine {
 
             engine::core::CameraID _nextId = 0;
 
+            JPH::PhysicsSystem _joltPhysicsSystemWorld;
+            ecs::system::BPLayerInterfaceImpl _broadPhaseLayerInterface;
+            ecs::system::ObjectVsBroadPhaseLayerFilterImpl _objectVsBroadphaseLayerFilter;
+            ecs::system::ObjectLayerPairFilterImpl _objectVsObjectLayerFilter;
+            std::unordered_map<ecs::Entity, JPH::BodyID> _entityToBody;
+            std::unordered_map<JPH::BodyID, ecs::Entity> _bodyToEntity;
         private:
             static Engine *engine;
             static std::mutex _mutex;
@@ -342,7 +389,7 @@ namespace engine {
      * @param wireColor Color of the wireframe.
      * @return The created cube entity.
      */
-    ecs::Entity createCube(Vector3 pos, float width, float height, float length, Color color = RED, bool toggleWire = false, Color wireColor = BLACK);
+    ecs::Entity createCube(Vector3 pos, float width, float height, float length, Color color = RED, ecs::components::physics::BodyType bodyType = ecs::components::physics::BodyType::DYNAMIC, bool toggleWire = false, Color wireColor = BLACK);
     /**
      * @brief Creates a 3D model entity from a file.
      * @param filename Path to the model file.
@@ -350,7 +397,7 @@ namespace engine {
      * @param color Color to apply to the model.
      * @return The created model entity.
      */
-    ecs::Entity createModel3D(const char *filename, Vector3 pos, Color color = WHITE);
+    ecs::Entity createModel3D(const char *filename, Vector3 pos, Color color = WHITE, ecs::components::physics::BodyType bodyType = ecs::components::physics::BodyType::DYNAMIC);
     /**
      * @brief Creates a skybox entity from a file.
      * @param filename Path to the skybox file.
@@ -632,5 +679,64 @@ namespace engine {
           Matrix matrixFromFloat16(const float16& matrix);
 
           void ExtractCameraViewComponents(Matrix viewMatrix, Vector3& position, Vector3& target, Vector3& up);
+    }
+
+    namespace physics {
+
+        /**
+         * @brief Get the Body id corresponding to the entity
+         *
+         * @param entity
+         * @return JPH::BodyID
+         */
+        JPH::BodyID getBodyFromEntity(ecs::Entity entity);
+
+        /**
+         * @brief Get the entity attached to the body
+         *
+         * @param body
+         * @return ecs::Entity
+         */
+        ecs::Entity getEntityFromBody(JPH::BodyID body);
+
+        /**
+         * @brief Applies an angular impulse to the body linked to the entity
+         *
+         * @param entity
+         */
+        void applyAngularImpulse(ecs::Entity entity, Vector3 impulse);
+
+        /**
+         * @brief Apply a force to the body linked to the entity
+         *
+         * @param entity
+         * @param force
+         */
+        void applyForce(ecs::Entity entity, Vector3 force);
+
+        /**
+         * @brief Applies a force and a torque to the body linked to the entity
+         *
+         * @param entity
+         * @param force
+         * @param torque
+         */
+        void applyForceAndTorque(ecs::Entity entity, Vector3 force, Vector3 torque);
+
+        /**
+         * @brief Applies an impulse to the body of the entity linked
+         *
+         * @param entity
+         * @param impulse
+         */
+        void applyImpulse(ecs::Entity entity, Vector3 impulse);
+
+        /**
+         * @brief Increase the linear velocit
+         *
+         * @param entity
+         * @param velocity
+         */
+        void setLinearVelocity(ecs::Entity entity, Vector3 velocity);
     }
 }

@@ -39,6 +39,7 @@ ecs::Entity common::game::EntityFactory::createCube(
         params.height,
         params.length,
         params.color,
+        params.bodyType,
         params.toggleWire,
         params.wireColor
     );
@@ -86,8 +87,8 @@ ecs::Entity common::game::EntityFactory::createSkybox(
         params.pos,
         params.color
     );
-    engine::rotate(shape, params.rotation);
-    engine::scale(shape, params.scale);
+    // engine::rotate(shape, params.rotation);
+    // engine::scale(shape, params.scale);
 
     return shape;
 }

@@ -14,6 +14,8 @@
 #include "server/entities/Bullet/BulletNetwork.hpp"
 #include "game_engine/core/event/PlayerDestroyEvent.hpp"
 
+#include "common/utils/Math.hpp"
+
 namespace server {
 
     constexpr float PLAYER_SPEED = 10;
@@ -65,16 +67,15 @@ namespace server {
                 rtype::net::Message<common::NetworkMessage> resMsg;
                 resMsg.header.id = common::NetworkMessage::serverAllyConnect;
 
-                auto& transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_entity);
-                auto& metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(_entity);
+                auto& transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::TransformComponent>(_entity);
 
                 //auto &model = engine::Engine::getInstance()->getComponent<ecs::components::Model3D>(ship);
 
                 common::game::netbody::ServerAllyConnect body = {
                     .entityNetId = _entity,
-                    .name = "Jean-Michel",
-                    .shipName = metadata.skinName,
-                    .pos = transform.pos,
+                    .name = "Jean-Michel", // TODO: get name of player
+                    .shipName = common::game::ObjectName::DualStriker, // TODO: get ship name from entity
+                    .pos =  common::utils::joltVectorToRayVector(transform.position),
                 };
 
                 resMsg << body;
@@ -90,11 +91,16 @@ namespace server {
                 if (client->getID() != getConnectionId())
                     return;
 
-                auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(_entity);
+                auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::RigidBodyComponent>(_entity);
 
-                rigidBody.velocity.x = PLAYER_SPEED * std::nearbyintf(std::clamp(body.direction.x, -1.0f, 1.0f));
-                rigidBody.velocity.y = PLAYER_SPEED * std::nearbyintf(std::clamp(body.direction.y, -1.0f, 1.0f));
-                rigidBody.velocity.z = PLAYER_SPEED * std::nearbyintf(std::clamp(body.direction.z, -1.0f, 1.0f));
+                engine::physics::setLinearVelocity(_entity, {
+                    PLAYER_SPEED * std::nearbyintf(std::clamp(body.direction.x, -1.0f, 1.0f)),
+                    PLAYER_SPEED * std::nearbyintf(std::clamp(body.direction.y, -1.0f, 1.0f)),
+                    PLAYER_SPEED * std::nearbyintf(std::clamp(body.direction.z, -1.0f, 1.0f))
+                });
+                // rigidBody.velocity.SetX(PLAYER_SPEED * std::nearbyintf(std::clamp(body.direction.x, -1.0f, 1.0f)));
+                // rigidBody.velocity.SetY(PLAYER_SPEED * std::nearbyintf(std::clamp(body.direction.y, -1.0f, 1.0f)));
+                // rigidBody.velocity.SetZ(PLAYER_SPEED * std::nearbyintf(std::clamp(body.direction.z, -1.0f, 1.0f)));
             }
 
             void onPlayerFireBullet(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, rtype::net::Message<common::NetworkMessage>& msg)
@@ -105,10 +111,9 @@ namespace server {
                 if (client->getID() != getConnectionId())
                     return;
 
-                auto &transf = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_entity);
-                auto &collider = engine::Engine::getInstance()->getComponent<ecs::components::physics::collider_t>(_entity);
+                auto &transf = engine::Engine::getInstance()->getComponent<ecs::components::physics::TransformComponent>(_entity);
 
-                Vector3 newPos = {transf.pos.x, transf.pos.y, transf.pos.z};
+                Vector3 newPos = {transf.position.GetX(), transf.position.GetY(), transf.position.GetZ() + 3};
                 common::game::EntityFactory factory;
                 ecs::Entity gunBullet = factory.createEntity(common::game::ObjectType::Model3D, common::game::ObjectName::GunBullet, {
                     newPos,
@@ -121,11 +126,11 @@ namespace server {
                     {0, 0, 0},
                     {0.025, 0.025, 0.025}
                 }, common::game::ObjectFormat::GLB);
-                auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(gunBullet);
-                rigidBody.velocity = {0, 0, 5};
                 auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(gunBullet);
                 metadata.type = server::entities::EntityType::BULLET;
                 auto behave = engine::createBehavior<server::BulletNetwork>(_networkManager, _entity, gunBullet, client->getID(), _sceneID);
+                auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::RigidBodyComponent>(gunBullet);
+                rigidBody.velocity = {0, 0, 5};
                 engine::attachBehavior(gunBullet, behave);
                 engine::addEntityToScene(gunBullet, _sceneID);
                 _networkManager.allServerFireBullet(gunBullet, _entity);
@@ -133,11 +138,11 @@ namespace server {
 
             void update() override
             {
-                auto &transf = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_entity);
+                auto &transf = engine::Engine::getInstance()->getComponent<ecs::components::physics::TransformComponent>(_entity);
 
-                if (transf.pos.x != _lastPos.x || transf.pos.y != _lastPos.y || transf.pos.z != _lastPos.z) {
+                if (transf.position.GetX() != _lastPos.x || transf.position.GetY() != _lastPos.y || transf.position.GetZ() != _lastPos.z) {
                     _networkManager.allServerUpdateShipPosition(_entity);
-                    _lastPos = transf.pos;
+                    _lastPos = common::utils::joltVectorToRayVector(transf.position);
                 }
             }
 
