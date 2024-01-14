@@ -1,6 +1,6 @@
 var classengine_1_1core_1_1_window =
 [
-    [ "Window", "classengine_1_1core_1_1_window.html#a84f5bbe933634d9b642121cd2d9a0587", null ],
+    [ "Window", "classengine_1_1core_1_1_window.html#a066ea4c30ab216b695b4112fb83bd3ac", null ],
     [ "isOpen", "classengine_1_1core_1_1_window.html#a74bc3a3e04042b42653aaa32f8b2a4f8", null ],
     [ "isFullScreen", "classengine_1_1core_1_1_window.html#a50f6aa1e000bb04e61a90cdd053f5e1c", null ],
     [ "isHidden", "classengine_1_1core_1_1_window.html#a6b45e2ecb51f0dc8f457e9df8713ea25", null ],
@@ -15,14 +15,5 @@ var classengine_1_1core_1_1_window =
     [ "isCursorHidden", "classengine_1_1core_1_1_window.html#aebf1d7526f7e54d405f60bddb1c27b48", null ],
     [ "clear", "classengine_1_1core_1_1_window.html#afe23db9082351e978939e89e52281f24", null ],
     [ "setFPS", "classengine_1_1core_1_1_window.html#a2d143176c34e632a2dfcc8c3cf0e13eb", null ],
-    [ "getFPS", "classengine_1_1core_1_1_window.html#af10597ba5143b3bb73619170fd9c24b4", null ],
-    [ "getCamera", "classengine_1_1core_1_1_window.html#aa2dcabf1b31bebdc7838fca74238674e", null ],
-    [ "setCameraPosition", "classengine_1_1core_1_1_window.html#ae1d6320bacd94d5332658c7f37fdca1d", null ],
-    [ "getCameraPosition", "classengine_1_1core_1_1_window.html#a8596604afffd0c24084ea4ddf68c2ab0", null ],
-    [ "setCameraTarget", "classengine_1_1core_1_1_window.html#a65996fe1fea60b557cd50d8ef1bcdfa0", null ],
-    [ "getCameraTarget", "classengine_1_1core_1_1_window.html#a495632abefd33ae6f40a99b3ab37076f", null ],
-    [ "setCameraFov", "classengine_1_1core_1_1_window.html#adc0b54bdc8ef4ed146d6d543da4d12e3", null ],
-    [ "getCameraFov", "classengine_1_1core_1_1_window.html#a9ca02d2920809304646518ba4881b3bd", null ],
-    [ "getCameraViewMatrix", "classengine_1_1core_1_1_window.html#ac941b7b86848906743c23e5ef71f7817", null ],
-    [ "getProjectionMatrix", "classengine_1_1core_1_1_window.html#ae9601b0d9176debfc5e2305e8cdf7170", null ]
+    [ "getFPS", "classengine_1_1core_1_1_window.html#af10597ba5143b3bb73619170fd9c24b4", null ]
 ];

@@ -100,32 +100,32 @@ $(document).ready(function(){initNavTree('client_2entities_2_ally_2_ally_network
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;game_engine/ecs/components/NetworkBehaviour.hpp&quot;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;common/game/NetworkBody.hpp&quot;</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;client/core/NetClient.hpp&quot;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;common/utils/Math.hpp&quot;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span>client {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="classclient_1_1_ally_network.html">   17</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classclient_1_1_ally_network.html">AllyNetwork</a> : <span class="keyword">public</span> <a class="code hl_class" href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html">ecs::components::behaviour::NetworkBehaviour</a>&lt;client::NetClient&gt; {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>            <span class="keyword">explicit</span> <a class="code hl_class" href="classclient_1_1_ally_network.html">AllyNetwork</a>(<a class="code hl_class" href="classclient_1_1_net_client.html">client::NetClient</a>&amp; networkManager, uint32_t netId = 0)</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>                : NetworkBehaviour(networkManager, netId)</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>            {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>                _networkManager.registerResponse({</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>                    {common::NetworkMessage::serverUpdateShipPosition, [<span class="keyword">this</span>](<a class="code hl_struct" href="structrtype_1_1net_1_1_message.html">rtype::net::Message&lt;common::NetworkMessage&gt;</a> msg) {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>                        onUpdatePosition(msg);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>                    }},</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                });</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                _networkManager.registerResponse({</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                    {common::NetworkMessage::serverAllyTakeDamage, [<span class="keyword">this</span>](<a class="code hl_struct" href="structrtype_1_1net_1_1_message.html">rtype::net::Message&lt;common::NetworkMessage&gt;</a> msg) {</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>                        onDamageReceive(msg);</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span>client {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="classclient_1_1_ally_network.html">   16</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classclient_1_1_ally_network.html">AllyNetwork</a> : <span class="keyword">public</span> <a class="code hl_class" href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html">ecs::components::behaviour::NetworkBehaviour</a>&lt;client::NetClient&gt; {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>            <span class="keyword">explicit</span> <a class="code hl_class" href="classclient_1_1_ally_network.html">AllyNetwork</a>(<a class="code hl_class" href="classclient_1_1_net_client.html">client::NetClient</a>&amp; networkManager, uint32_t netId = 0, ecs::SceneID sceneId = 0)</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>                : NetworkBehaviour(networkManager, netId, 0, sceneId)</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>            {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>            }</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="classclient_1_1_ally_network.html#a44d919456fa3dd7d5c7420539eca0df3">   23</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classclient_1_1_ally_network.html#a44d919456fa3dd7d5c7420539eca0df3">onAttach</a>(ecs::Entity entity)<span class="keyword"> override</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">            </span>{</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>                addResponse({</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                    {common::NetworkMessage::serverUpdateShipPosition,</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                    [<span class="keyword">this</span>](<a class="code hl_struct" href="structrtype_1_1net_1_1_message.html">rtype::net::Message&lt;common::NetworkMessage&gt;</a> msg)</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                    {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>                        onUpdatePosition(msg);</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>                    }},</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                });</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                _networkManager.registerResponse({</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>                    {common::NetworkMessage::serverAllyDestroy, [<span class="keyword">this</span>](<a class="code hl_struct" href="structrtype_1_1net_1_1_message.html">rtype::net::Message&lt;common::NetworkMessage&gt;</a> msg) {</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                        onDestroy(msg);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                    {common::NetworkMessage::serverAllyTakeDamage,</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                    [<span class="keyword">this</span>](<a class="code hl_struct" href="structrtype_1_1net_1_1_message.html">rtype::net::Message&lt;common::NetworkMessage&gt;</a> msg)</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>                    {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                        onDamageReceive(msg);</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>                    }},</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>                });</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                _networkManager.registerResponse({</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>                    {common::NetworkMessage::serverAllyDisconnect, [<span class="keyword">this</span>](<a class="code hl_struct" href="structrtype_1_1net_1_1_message.html">rtype::net::Message&lt;common::NetworkMessage&gt;</a> msg) {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>                    {common::NetworkMessage::serverAllyDestroy,</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                    [<span class="keyword">this</span>](<a class="code hl_struct" href="structrtype_1_1net_1_1_message.html">rtype::net::Message&lt;common::NetworkMessage&gt;</a> msg)</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>                    {</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                        onDestroy(msg);</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                    }},</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                });</div>
@@ -134,13 +134,13 @@ $(document).ready(function(){initNavTree('client_2entities_2_ally_2_ally_network
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            <span class="keywordtype">void</span> onUpdatePosition(<a class="code hl_struct" href="structrtype_1_1net_1_1_message.html">rtype::net::Message&lt;common::NetworkMessage&gt;</a>&amp; msg)</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            {</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                <a class="code hl_struct" href="structcommon_1_1game_1_1netbody_1_1_server_update_ship_position.html">common::game::netbody::ServerUpdateShipPosition</a> body;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                <span class="keyword">auto</span> &amp;allyBody = <a class="code hl_variable" href="classecs_1_1components_1_1behaviour_1_1_behaviour.html#a81dc1d0b88499f5b47d6e04c21cfdea0">_coord</a>-&gt;getComponent&lt;<a class="code hl_struct" href="structecs_1_1components_1_1physics_1_1_transform_component.html">ecs::components::physics::TransformComponent</a>&gt;(_entity);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                <span class="keyword">auto</span> &amp;allyBody = <a class="code hl_variable" href="classecs_1_1components_1_1behaviour_1_1_behaviour.html#a81dc1d0b88499f5b47d6e04c21cfdea0">_coord</a>-&gt;getComponent&lt;<a class="code hl_struct" href="structecs_1_1components_1_1physics_1_1transform__s.html">ecs::components::physics::transform_t</a>&gt;(_entity);</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                msg &gt;&gt; body;</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                <span class="keywordflow">if</span> (body.entityNetId != getNetId())</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                    <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                allyBody.position = common::utils::rayVectorToJoltVector(body.pos);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                allyBody.pos = body.pos;</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            }</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            <span class="keywordtype">void</span> onDamageReceive(<a class="code hl_struct" href="structrtype_1_1net_1_1_message.html">rtype::net::Message&lt;common::NetworkMessage&gt;</a>&amp; msg)</div>
@@ -163,7 +163,7 @@ $(document).ready(function(){initNavTree('client_2entities_2_ally_2_ally_network
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                <span class="keywordflow">if</span> (body.entityNetId != getNetId())</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                    <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                <a class="code hl_variable" href="classecs_1_1components_1_1behaviour_1_1_behaviour.html#a81dc1d0b88499f5b47d6e04c21cfdea0">_coord</a>-&gt;destroyEntity(_entity);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                engine::destroyEntity(_entity);</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            }</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="classclient_1_1_ally_network.html#a86b0f614c6d387343a1b1c82fac4354c">   79</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classclient_1_1_ally_network.html#a86b0f614c6d387343a1b1c82fac4354c">update</a>()<span class="keyword"> override</span></div>
@@ -172,16 +172,17 @@ $(document).ready(function(){initNavTree('client_2entities_2_ally_2_ally_network
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    };</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>}</div>
-<div class="ttc" id="aclassclient_1_1_ally_network_html"><div class="ttname"><a href="classclient_1_1_ally_network.html">client::AllyNetwork</a></div><div class="ttdef"><b>Definition:</b> AllyNetwork.hpp:17</div></div>
+<div class="ttc" id="aclassclient_1_1_ally_network_html"><div class="ttname"><a href="classclient_1_1_ally_network.html">client::AllyNetwork</a></div><div class="ttdef"><b>Definition:</b> AllyNetwork.hpp:16</div></div>
+<div class="ttc" id="aclassclient_1_1_ally_network_html_a44d919456fa3dd7d5c7420539eca0df3"><div class="ttname"><a href="classclient_1_1_ally_network.html#a44d919456fa3dd7d5c7420539eca0df3">client::AllyNetwork::onAttach</a></div><div class="ttdeci">void onAttach(ecs::Entity entity) override</div><div class="ttdoc">Called when the entity is attached to the scene Callback: Function made to be overriden.</div><div class="ttdef"><b>Definition:</b> AllyNetwork.hpp:23</div></div>
 <div class="ttc" id="aclassclient_1_1_ally_network_html_a86b0f614c6d387343a1b1c82fac4354c"><div class="ttname"><a href="classclient_1_1_ally_network.html#a86b0f614c6d387343a1b1c82fac4354c">client::AllyNetwork::update</a></div><div class="ttdeci">void update() override</div><div class="ttdoc">Abstract method to be implemented by derived classes for updating the behaviour.</div><div class="ttdef"><b>Definition:</b> AllyNetwork.hpp:79</div></div>
-<div class="ttc" id="aclassclient_1_1_net_client_html"><div class="ttname"><a href="classclient_1_1_net_client.html">client::NetClient</a></div><div class="ttdef"><b>Definition:</b> NetClient.hpp:23</div></div>
-<div class="ttc" id="aclassecs_1_1components_1_1behaviour_1_1_behaviour_html_a81dc1d0b88499f5b47d6e04c21cfdea0"><div class="ttname"><a href="classecs_1_1components_1_1behaviour_1_1_behaviour.html#a81dc1d0b88499f5b47d6e04c21cfdea0">ecs::components::behaviour::Behaviour::_coord</a></div><div class="ttdeci">static std::shared_ptr&lt; ecs::Coordinator &gt; _coord</div><div class="ttdoc">Shared pointer to the ECS coordinator.</div><div class="ttdef"><b>Definition:</b> Behaviour.hpp:46</div></div>
-<div class="ttc" id="aclassecs_1_1components_1_1behaviour_1_1_network_behaviour_html"><div class="ttname"><a href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html">ecs::components::behaviour::NetworkBehaviour</a></div><div class="ttdef"><b>Definition:</b> NetworkBehaviour.hpp:26</div></div>
-<div class="ttc" id="astructcommon_1_1game_1_1netbody_1_1_server_ally_destroy_html"><div class="ttname"><a href="structcommon_1_1game_1_1netbody_1_1_server_ally_destroy.html">common::game::netbody::ServerAllyDestroy</a></div><div class="ttdef"><b>Definition:</b> NetworkBody.hpp:159</div></div>
-<div class="ttc" id="astructcommon_1_1game_1_1netbody_1_1_server_ally_take_damage_html"><div class="ttname"><a href="structcommon_1_1game_1_1netbody_1_1_server_ally_take_damage.html">common::game::netbody::ServerAllyTakeDamage</a></div><div class="ttdef"><b>Definition:</b> NetworkBody.hpp:148</div></div>
-<div class="ttc" id="astructcommon_1_1game_1_1netbody_1_1_server_update_ship_position_html"><div class="ttname"><a href="structcommon_1_1game_1_1netbody_1_1_server_update_ship_position.html">common::game::netbody::ServerUpdateShipPosition</a></div><div class="ttdef"><b>Definition:</b> NetworkBody.hpp:214</div></div>
+<div class="ttc" id="aclassclient_1_1_net_client_html"><div class="ttname"><a href="classclient_1_1_net_client.html">client::NetClient</a></div><div class="ttdef"><b>Definition:</b> NetClient.hpp:31</div></div>
+<div class="ttc" id="aclassecs_1_1components_1_1behaviour_1_1_behaviour_html_a81dc1d0b88499f5b47d6e04c21cfdea0"><div class="ttname"><a href="classecs_1_1components_1_1behaviour_1_1_behaviour.html#a81dc1d0b88499f5b47d6e04c21cfdea0">ecs::components::behaviour::Behaviour::_coord</a></div><div class="ttdeci">static std::shared_ptr&lt; ecs::Coordinator &gt; _coord</div><div class="ttdoc">Shared pointer to the ECS coordinator.</div><div class="ttdef"><b>Definition:</b> Behaviour.hpp:64</div></div>
+<div class="ttc" id="aclassecs_1_1components_1_1behaviour_1_1_network_behaviour_html"><div class="ttname"><a href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html">ecs::components::behaviour::NetworkBehaviour</a></div><div class="ttdef"><b>Definition:</b> NetworkBehaviour.hpp:25</div></div>
+<div class="ttc" id="astructcommon_1_1game_1_1netbody_1_1_server_ally_destroy_html"><div class="ttname"><a href="structcommon_1_1game_1_1netbody_1_1_server_ally_destroy.html">common::game::netbody::ServerAllyDestroy</a></div><div class="ttdef"><b>Definition:</b> NetworkBody.hpp:163</div></div>
+<div class="ttc" id="astructcommon_1_1game_1_1netbody_1_1_server_ally_take_damage_html"><div class="ttname"><a href="structcommon_1_1game_1_1netbody_1_1_server_ally_take_damage.html">common::game::netbody::ServerAllyTakeDamage</a></div><div class="ttdef"><b>Definition:</b> NetworkBody.hpp:152</div></div>
+<div class="ttc" id="astructcommon_1_1game_1_1netbody_1_1_server_update_ship_position_html"><div class="ttname"><a href="structcommon_1_1game_1_1netbody_1_1_server_update_ship_position.html">common::game::netbody::ServerUpdateShipPosition</a></div><div class="ttdef"><b>Definition:</b> NetworkBody.hpp:221</div></div>
 <div class="ttc" id="astructecs_1_1components_1_1health_1_1health__s_html"><div class="ttname"><a href="structecs_1_1components_1_1health_1_1health__s.html">ecs::components::health::health_s</a></div><div class="ttdef"><b>Definition:</b> Health.hpp:13</div></div>
-<div class="ttc" id="astructecs_1_1components_1_1physics_1_1_transform_component_html"><div class="ttname"><a href="structecs_1_1components_1_1physics_1_1_transform_component.html">ecs::components::physics::TransformComponent</a></div><div class="ttdef"><b>Definition:</b> Physics.hpp:51</div></div>
+<div class="ttc" id="astructecs_1_1components_1_1physics_1_1transform__s_html"><div class="ttname"><a href="structecs_1_1components_1_1physics_1_1transform__s.html">ecs::components::physics::transform_s</a></div><div class="ttdef"><b>Definition:</b> Physics.hpp:27</div></div>
 <div class="ttc" id="astructrtype_1_1net_1_1_message_html"><div class="ttname"><a href="structrtype_1_1net_1_1_message.html">rtype::net::Message</a></div><div class="ttdoc">Message Body contains a header and a std::vector, containing raw bytes of infomation....</div><div class="ttdef"><b>Definition:</b> Message.hpp:33</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

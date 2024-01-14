@@ -98,6 +98,7 @@ Inheritance diagram for input:</div>
   <img src="classinput.png" usemap="#input_map" alt=""/>
   <map id="input_map" name="input_map">
 <area href="classecs_1_1components_1_1behaviour_1_1_behaviour.html" title="Abstract class representing a behaviour component, akin to Unity&#39;s behaviour scripts." alt="ecs::components::behaviour::Behaviour" shape="rect" coords="0,0,232,24"/>
+<area href="classecs_1_1components_1_1behaviour_1_1_behaviour.html" title="Abstract class representing a behaviour component, akin to Unity&#39;s behaviour scripts." alt="ecs::components::behaviour::Behaviour" shape="rect" coords="242,0,474,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -106,10 +107,20 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae0390011ed99089a979a702021ae9900"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinput.html#ae0390011ed99089a979a702021ae9900">update</a> (void) override</td></tr>
 <tr class="memdesc:ae0390011ed99089a979a702021ae9900"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract method to be implemented by derived classes for updating the behaviour.  <a href="classinput.html#ae0390011ed99089a979a702021ae9900">More...</a><br /></td></tr>
 <tr class="separator:ae0390011ed99089a979a702021ae9900"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0390011ed99089a979a702021ae9900"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinput.html#ae0390011ed99089a979a702021ae9900">update</a> (void) override</td></tr>
+<tr class="memdesc:ae0390011ed99089a979a702021ae9900"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract method to be implemented by derived classes for updating the behaviour.  <a href="classinput.html#ae0390011ed99089a979a702021ae9900">More...</a><br /></td></tr>
+<tr class="separator:ae0390011ed99089a979a702021ae9900"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classecs_1_1components_1_1behaviour_1_1_behaviour"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classecs_1_1components_1_1behaviour_1_1_behaviour')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classecs_1_1components_1_1behaviour_1_1_behaviour.html">ecs::components::behaviour::Behaviour</a></td></tr>
 <tr class="memitem:a1a63dbe422786d9f0c2e8759cd852af7 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classecs_1_1components_1_1behaviour_1_1_behaviour.html#a1a63dbe422786d9f0c2e8759cd852af7">setEntity</a> (ecs::Entity entity)</td></tr>
 <tr class="memdesc:a1a63dbe422786d9f0c2e8759cd852af7 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the entity associated with this behaviour.  <a href="classecs_1_1components_1_1behaviour_1_1_behaviour.html#a1a63dbe422786d9f0c2e8759cd852af7">More...</a><br /></td></tr>
 <tr class="separator:a1a63dbe422786d9f0c2e8759cd852af7 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0b80730a25f1e036c9e052a2b2dd664 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memItemLeft" align="right" valign="top">ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classecs_1_1components_1_1behaviour_1_1_behaviour.html#ad0b80730a25f1e036c9e052a2b2dd664">getEntity</a> (void) const</td></tr>
+<tr class="memdesc:ad0b80730a25f1e036c9e052a2b2dd664 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Entity object.  <a href="classecs_1_1components_1_1behaviour_1_1_behaviour.html#ad0b80730a25f1e036c9e052a2b2dd664">More...</a><br /></td></tr>
+<tr class="separator:ad0b80730a25f1e036c9e052a2b2dd664 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61c3aff022cc6935bbdf837dc27472d7 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memTemplParams" colspan="2"><a id="a61c3aff022cc6935bbdf837dc27472d7" name="a61c3aff022cc6935bbdf837dc27472d7"></a>
+template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a61c3aff022cc6935bbdf837dc27472d7 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>addListener</b> (std::function&lt; void(T &amp;)&gt; listener)</td></tr>
+<tr class="separator:a61c3aff022cc6935bbdf837dc27472d7 inherit pub_methods_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -120,12 +131,19 @@ static std::shared_ptr&lt; <a class="el" href="classecs_1_1_coordinator.html">ec
 <tr class="separator:a81dc1d0b88499f5b47d6e04c21cfdea0 inherit pub_static_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classecs_1_1components_1_1behaviour_1_1_behaviour.html">ecs::components::behaviour::Behaviour</a></td></tr>
 <tr class="memitem:a5b9c4e5b0d03fe31e0de0cd6f8f1e3ec inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memItemLeft" align="right" valign="top"><a id="a5b9c4e5b0d03fe31e0de0cd6f8f1e3ec" name="a5b9c4e5b0d03fe31e0de0cd6f8f1e3ec"></a>
-ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><b>_entity</b></td></tr>
+ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><b>_entity</b> = 0</td></tr>
 <tr class="separator:a5b9c4e5b0d03fe31e0de0cd6f8f1e3ec inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d8e1cda99198b16e634f99c8828aefb inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memItemLeft" align="right" valign="top"><a id="a8d8e1cda99198b16e634f99c8828aefb" name="a8d8e1cda99198b16e634f99c8828aefb"></a>
+ecs::SceneID&#160;</td><td class="memItemRight" valign="bottom"><b>_sceneID</b> = 0</td></tr>
+<tr class="separator:a8d8e1cda99198b16e634f99c8828aefb inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba321b8f2392d9206dd83d522e1c4e3c inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memItemLeft" align="right" valign="top"><a id="aba321b8f2392d9206dd83d522e1c4e3c" name="aba321b8f2392d9206dd83d522e1c4e3c"></a>
+std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_listeners</b></td></tr>
+<tr class="memdesc:aba321b8f2392d9206dd83d522e1c4e3c inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map of event types to their listeners. <br /></td></tr>
+<tr class="separator:aba321b8f2392d9206dd83d522e1c4e3c inherit pro_attribs_classecs_1_1components_1_1behaviour_1_1_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="ae0390011ed99089a979a702021ae9900" name="ae0390011ed99089a979a702021ae9900"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0390011ed99089a979a702021ae9900">&#9670;&nbsp;</a></span>update()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0390011ed99089a979a702021ae9900">&#9670;&nbsp;</a></span>update() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -155,8 +173,40 @@ ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><b>_entity</b></t
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/client/<a class="el" href="_test_behaviour_8hpp_source.html">TestBehaviour.hpp</a></li>
+<a id="ae0390011ed99089a979a702021ae9900" name="ae0390011ed99089a979a702021ae9900"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0390011ed99089a979a702021ae9900">&#9670;&nbsp;</a></span>update() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void input::update </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Abstract method to be implemented by derived classes for updating the behaviour. </p>
+<p >This method is called every frame and should contain the logic for the behaviour's action and interaction within the game world. </p>
+
+<p>Implements <a class="el" href="classecs_1_1components_1_1behaviour_1_1_behaviour.html#ae359b1e05d150af59efa298d76bb4759">ecs::components::behaviour::Behaviour</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>src/client/<a class="el" href="client_2_test_behaviour_8hpp_source.html">TestBehaviour.hpp</a></li>
+<li>src/game_engine/<a class="el" href="game__engine_2_test_behaviour_8hpp_source.html">TestBehaviour.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
