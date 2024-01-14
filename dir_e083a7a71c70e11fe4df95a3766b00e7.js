@@ -5,7 +5,6 @@ var dir_e083a7a71c70e11fe4df95a3766b00e7 =
     [ "Components.hpp", "_components_8hpp_source.html", null ],
     [ "Coordinator.hpp", "_coordinator_8hpp_source.html", null ],
     [ "Entity.hpp", "game__engine_2ecs_2_entity_8hpp_source.html", null ],
-    [ "Scene.hpp", "_scene_8hpp_source.html", null ],
     [ "Signature.hpp", "_signature_8hpp_source.html", null ],
     [ "SingletonComponent.hpp", "_singleton_component_8hpp_source.html", null ],
     [ "System.hpp", "_system_8hpp_source.html", null ]
