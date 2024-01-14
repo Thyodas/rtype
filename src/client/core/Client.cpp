@@ -16,6 +16,8 @@
 #include "client/entities/Bullet/BulletNetwork.hpp"
 #include "client/entities/Skybox/SkyboxBehavior.hpp"
 
+#include "client/menu/SkinSelectorBehave.hpp"
+
 #include "raylib.h"
 
 client::Client::Client()
@@ -24,8 +26,27 @@ client::Client::Client()
     SetTraceLogLevel(TraceLogLevel::LOG_ERROR);
 }
 
+void client::Client::menu()
+{
+    ecs::Entity selector = engine::createEntity();
+    auto selectorBehavior = engine::createBehavior<client::SkinSelectorBehave>();
+    engine::attachBehavior(selector, selectorBehavior);
+
+    while (engine::isWindowOpen()) {
+        if (selectorBehavior->isSkinSelected()) {
+            _playerSkin = selectorBehavior->getSelectedSkin();
+            selectorBehavior->onExit();
+            engine::destroyEntity(selector);
+            break;
+        }
+        _netClient.dispatchAllResponses();
+        engine::runEngine();
+    }
+}
+
 void client::Client::run()
 {
+    menu();
     common::game::EntityFactory factory;
 
     auto skyBehavior = engine::createBehavior<client::SkyboxBehavior>();
@@ -46,7 +67,7 @@ void client::Client::run()
     _netClient.connect("127.0.0.1", 5454);
 
     _netClient.reqPingServer();
-    _netClient.reqClientConnect("Jean-Baptiste", common::game::ObjectName::DualStriker);
+    _netClient.reqClientConnect("Jean-Baptiste", _playerSkin);
     _netClient.reqPingServer();
 
     while (engine::isWindowOpen()) {

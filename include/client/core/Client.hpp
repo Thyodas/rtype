@@ -25,10 +25,11 @@ namespace client {
             Client();
             ~Client();
 
+            void menu();
             void run();
         private:
             std::vector<common::game::Entity> _entities;
             NetClient _netClient;
-
+            common::game::ObjectName _playerSkin;
     };
 }

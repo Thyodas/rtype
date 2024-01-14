@@ -18,30 +18,34 @@ namespace client {
             explicit AllyNetwork(client::NetClient& networkManager)
                 : NetworkBehaviour(networkManager)
             {
-                _networkManager.registerResponse({
-                    {common::NetworkMessage::serverUpdateShipPosition, [this](rtype::net::Message<common::NetworkMessage> msg) {
-                        onUpdateVelocity(msg);
-                    }},
-                });
-                _networkManager.registerResponse({
-                    {common::NetworkMessage::serverAllyTakeDamage, [this](rtype::net::Message<common::NetworkMessage> msg) {
-                        onDamageReceive(msg);
-                    }},
-                });
-                _networkManager.registerResponse({
-                    {common::NetworkMessage::serverAllyDestroy, [this](rtype::net::Message<common::NetworkMessage> msg) {
-                        onDestroy(msg);
-                    }},
-                });
-                _networkManager.registerResponse({
-                    {common::NetworkMessage::serverAllyDisconnect, [this](rtype::net::Message<common::NetworkMessage> msg) {
-                        onDestroy(msg);
-                    }},
-                });
+            }
+
+            void onAttach(ecs::Entity entity) override
+            {
+                addResponse(
+                    {
+                        {common::NetworkMessage::serverUpdateShipPosition,
+                        [this](rtype::net::Message<common::NetworkMessage> msg)
+                        {
+                            onUpdateVelocity(msg);
+                        }},
+                        {common::NetworkMessage::serverAllyTakeDamage,
+                        [this](rtype::net::Message<common::NetworkMessage> msg)
+                        {
+                            onDamageReceive(msg);
+                        }},
+                        {common::NetworkMessage::serverAllyDestroy,
+                        [this](rtype::net::Message<common::NetworkMessage> msg)
+                        {
+                            onDestroy(msg);
+                        }},
+                    }
+                );
             }
 
             void onUpdateVelocity(rtype::net::Message<common::NetworkMessage>& msg)
             {
+                std::cout << "onUpdateVelocity" << std::endl;
                 common::game::netbody::ServerUpdateShipPosition body;
                 auto &allyBody = _coord->getComponent<ecs::components::physics::rigidBody_t>(_entity);
                 msg >> body;
@@ -54,6 +58,7 @@ namespace client {
 
             void onDamageReceive(rtype::net::Message<common::NetworkMessage>& msg)
             {
+                std::cout << "onDamageReceive" << std::endl;
                 auto &allyHealth = _coord->getComponent<ecs::components::health::health_t>(_entity);
                 common::game::netbody::ServerAllyTakeDamage body;
                 msg >> body;
@@ -66,13 +71,15 @@ namespace client {
 
             void onDestroy(rtype::net::Message<common::NetworkMessage>& msg)
             {
+                std::cout << "onDestroy" << std::endl;
                 common::game::netbody::ServerAllyDestroy body;
                 msg >> body;
 
                 if (body.entityNetId != getNetId())
                     return;
 
-                _coord->destroyEntity(_entity);
+                engine::destroyEntity(_entity);
+                unregisterResponses();
             }
 
             void update() override

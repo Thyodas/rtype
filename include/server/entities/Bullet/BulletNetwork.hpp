@@ -13,6 +13,7 @@
 #include "game_engine/GameEngine.hpp"
 #include "game_engine/ecs/components/Physics.hpp"
 #include "game_engine/core/event/EnemyDestroyEvent.hpp"
+#include "game_engine/core/event/PlayerDestroyEvent.hpp"
 
 namespace server {
 
@@ -46,15 +47,17 @@ namespace server {
                     destroyBullet(_entity);
 
                     if ((int)life.healthPoints - 30 < 0) {
-                        engine::destroyEntity(event.entity1);
                         auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(event.entity1);
                         if (metadata.type == server::entities::EntityType::ENEMY) {
                             EnemyDestroyEvent evt(event.entity1);
                             engine::emitEvent<EnemyDestroyEvent>(evt);
                             destroyEnemy(event.entity1);
+                            engine::destroyEntity(event.entity1);
                         } else if (metadata.type == server::entities::EntityType::PLAYER) {
                             notifyAlliesDestroy(event.entity1, event.entity1);
-                            notifyPlayerDestroy(event.entity1, event.entity1);
+                            notifyPlayerDestroy(event.entity1);
+                            PlayerDestroyEvent evt(event.entity1);
+                            engine::emitEvent<PlayerDestroyEvent>(evt);
                         }
                         return;
                     }
@@ -78,9 +81,9 @@ namespace server {
                 return false;
             }
 
-            void notifyPlayerDestroy(ecs::Entity id, ecs::Entity playerToDestroy)
+            void notifyPlayerDestroy(ecs::Entity id)
             {
-                auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(playerToDestroy);
+                auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(id);
                 common::game::netbody::ServerPlayerDestroy body = {
                     .entityNetId = id,
                 };
@@ -100,7 +103,7 @@ namespace server {
                 };
 
                 rtype::net::Message<common::NetworkMessage> msg;
-                msg.header.id = common::NetworkMessage::serverDestroyBullet;
+                msg.header.id = common::NetworkMessage::serverAllyDestroy;
                 msg << body;
 
                 _networkManager.messageAllClients(msg, metadata.client);
