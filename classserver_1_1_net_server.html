@@ -115,6 +115,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0acb341b8353ce8959a970fd44938836"><td class="memItemLeft" align="right" valign="top"><a id="a0acb341b8353ce8959a970fd44938836" name="a0acb341b8353ce8959a970fd44938836"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>NetServer</b> (uint16_t nPort)</td></tr>
 <tr class="separator:a0acb341b8353ce8959a970fd44938836"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bca81f4fa5720ee6744698fecba4465"><td class="memItemLeft" align="right" valign="top"><a id="a9bca81f4fa5720ee6744698fecba4465" name="a9bca81f4fa5720ee6744698fecba4465"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setMainSceneID</b> (ecs::SceneID mainSceneID)</td></tr>
+<tr class="separator:a9bca81f4fa5720ee6744698fecba4465"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:addaabd5f958ca875cc80b0d08a41d7e2"><td class="memItemLeft" align="right" valign="top"><a id="addaabd5f958ca875cc80b0d08a41d7e2" name="addaabd5f958ca875cc80b0d08a41d7e2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>resPingServer</b> (std::shared_ptr&lt; <a class="el" href="classrtype_1_1net_1_1_connection.html">rtype::net::Connection</a>&lt; common::NetworkMessage &gt; &gt; &amp;client, const <a class="el" href="structrtype_1_1net_1_1_message.html">rtype::net::Message</a>&lt; common::NetworkMessage &gt; &amp;msg)</td></tr>
 <tr class="separator:addaabd5f958ca875cc80b0d08a41d7e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -186,6 +189,9 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a615bb592798056e0614c17e9043d764f"><td class="memItemLeft" align="right" valign="top"><a id="a615bb592798056e0614c17e9043d764f" name="a615bb592798056e0614c17e9043d764f"></a>
 std::unordered_multimap&lt; common::NetworkMessage, ResponseFunction &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_responses</b></td></tr>
 <tr class="separator:a615bb592798056e0614c17e9043d764f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fa9f0d79b2f297d04ebb5638c9b7090"><td class="memItemLeft" align="right" valign="top"><a id="a7fa9f0d79b2f297d04ebb5638c9b7090" name="a7fa9f0d79b2f297d04ebb5638c9b7090"></a>
+ecs::SceneID&#160;</td><td class="memItemRight" valign="bottom"><b>_mainSceneID</b></td></tr>
+<tr class="separator:a7fa9f0d79b2f297d04ebb5638c9b7090"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classrtype_1_1net_1_1_server_interface"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classrtype_1_1net_1_1_server_interface')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classrtype_1_1net_1_1_server_interface.html">rtype::net::ServerInterface&lt; common::NetworkMessage &gt;</a></td></tr>
 <tr class="memitem:a4c6ce4b9060172ea3c17d1b34396d90e inherit pro_attribs_classrtype_1_1net_1_1_server_interface"><td class="memItemLeft" align="right" valign="top"><a id="a4c6ce4b9060172ea3c17d1b34396d90e" name="a4c6ce4b9060172ea3c17d1b34396d90e"></a>
 <a class="el" href="classrtype_1_1net_1_1_ts_queue.html">TsQueue</a>&lt; <a class="el" href="structrtype_1_1net_1_1_owned_message.html">OwnedMessage</a>&lt; common::NetworkMessage &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_qMessagesIn</b></td></tr>

@@ -111,6 +111,12 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>ResponseFunction</b>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a5a218d7c8cffd66c4d4a793e5ab20d2c"><td class="memItemLeft" align="right" valign="top"><a id="a5a218d7c8cffd66c4d4a793e5ab20d2c" name="a5a218d7c8cffd66c4d4a793e5ab20d2c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setMainSceneID</b> (ecs::SceneID mainSceneID)</td></tr>
+<tr class="separator:a5a218d7c8cffd66c4d4a793e5ab20d2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2eba52d463efb8e82ce78de2862d8f3"><td class="memItemLeft" align="right" valign="top"><a id="af2eba52d463efb8e82ce78de2862d8f3" name="af2eba52d463efb8e82ce78de2862d8f3"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>NetClient</b> (ecs::SceneID mainSceneID=0)</td></tr>
+<tr class="separator:af2eba52d463efb8e82ce78de2862d8f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a435d30d0c921a6a1299937252a16ae1d"><td class="memItemLeft" align="right" valign="top"><a id="a435d30d0c921a6a1299937252a16ae1d" name="a435d30d0c921a6a1299937252a16ae1d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>resPingServer</b> (<a class="el" href="structrtype_1_1net_1_1_message.html">rtype::net::Message</a>&lt; common::NetworkMessage &gt; &amp;msg)</td></tr>
 <tr class="separator:a435d30d0c921a6a1299937252a16ae1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -167,6 +173,9 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:ac50477b0566ab376169bf43bb8952d3a"><td class="memItemLeft" align="right" valign="top"><a id="ac50477b0566ab376169bf43bb8952d3a" name="ac50477b0566ab376169bf43bb8952d3a"></a>
 std::unordered_multimap&lt; common::NetworkMessage, ResponseFunction &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_responses</b></td></tr>
 <tr class="separator:ac50477b0566ab376169bf43bb8952d3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8b7bdf844538f526e99a21b9f33157e"><td class="memItemLeft" align="right" valign="top"><a id="af8b7bdf844538f526e99a21b9f33157e" name="af8b7bdf844538f526e99a21b9f33157e"></a>
+ecs::SceneID&#160;</td><td class="memItemRight" valign="bottom"><b>_mainSceneID</b></td></tr>
+<tr class="separator:af8b7bdf844538f526e99a21b9f33157e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classrtype_1_1net_1_1_client_interface"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classrtype_1_1net_1_1_client_interface')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classrtype_1_1net_1_1_client_interface.html">rtype::net::ClientInterface&lt; common::NetworkMessage &gt;</a></td></tr>
 <tr class="memitem:ac7b7da8bf2fdc7a289004164089d3d10 inherit pro_attribs_classrtype_1_1net_1_1_client_interface"><td class="memItemLeft" align="right" valign="top"><a id="ac7b7da8bf2fdc7a289004164089d3d10" name="ac7b7da8bf2fdc7a289004164089d3d10"></a>
 asio::io_context&#160;</td><td class="memItemRight" valign="bottom"><b>m_context</b></td></tr>

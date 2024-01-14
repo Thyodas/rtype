@@ -116,11 +116,12 @@ $(document).ready(function(){initNavTree('components_2_behaviour_8hpp_source.htm
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="classecs_1_1components_1_1behaviour_1_1_behaviour.html#a81dc1d0b88499f5b47d6e04c21cfdea0">   46</a></span>                    <span class="keyword">static</span> std::shared_ptr&lt;ecs::Coordinator&gt; <a class="code hl_variable" href="classecs_1_1components_1_1behaviour_1_1_behaviour.html#a81dc1d0b88499f5b47d6e04c21cfdea0">_coord</a>; </div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                    ecs::Entity _entity;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            };</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        }</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>}</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                    ecs::Entity _entity = 0;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                    ecs::SceneID _sceneID = 0;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            };</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    }</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
 <div class="ttc" id="aclassecs_1_1components_1_1behaviour_1_1_behaviour_html"><div class="ttname"><a href="classecs_1_1components_1_1behaviour_1_1_behaviour.html">ecs::components::behaviour::Behaviour</a></div><div class="ttdoc">Abstract class representing a behaviour component, akin to Unity's behaviour scripts.</div><div class="ttdef"><b>Definition:</b> Behaviour.hpp:29</div></div>
 <div class="ttc" id="aclassecs_1_1components_1_1behaviour_1_1_behaviour_html_a1a63dbe422786d9f0c2e8759cd852af7"><div class="ttname"><a href="classecs_1_1components_1_1behaviour_1_1_behaviour.html#a1a63dbe422786d9f0c2e8759cd852af7">ecs::components::behaviour::Behaviour::setEntity</a></div><div class="ttdeci">virtual void setEntity(ecs::Entity entity)</div><div class="ttdoc">Sets the entity associated with this behaviour.</div><div class="ttdef"><b>Definition:</b> Behaviour.cpp:14</div></div>
 <div class="ttc" id="aclassecs_1_1components_1_1behaviour_1_1_behaviour_html_a81dc1d0b88499f5b47d6e04c21cfdea0"><div class="ttname"><a href="classecs_1_1components_1_1behaviour_1_1_behaviour.html#a81dc1d0b88499f5b47d6e04c21cfdea0">ecs::components::behaviour::Behaviour::_coord</a></div><div class="ttdeci">static std::shared_ptr&lt; ecs::Coordinator &gt; _coord</div><div class="ttdoc">Shared pointer to the ECS coordinator.</div><div class="ttdef"><b>Definition:</b> Behaviour.hpp:46</div></div>
