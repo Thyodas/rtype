@@ -40,9 +40,9 @@ namespace server {
         auto &health = engine::Engine::getInstance()->getComponent<ecs::components::health::health_t>(playerShip);
         health.healthPoints = 10;
 
-
         auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(playerShip);
         metadata.type = server::entities::EntityType::PLAYER;
+        metadata.skinName = body.shipName;
 
         auto behave = engine::createBehavior<server::PlayerNetwork>(*this, playerShip, client->getID());
         engine::attachBehavior(playerShip, behave);
@@ -65,7 +65,7 @@ namespace server {
 
         common::game::netbody::ServerCreatePlayerShip body = {
             .entityNetId = ship,
-            .shipName = common::game::ObjectName::DualStriker, // TODO: get ship name from entity
+            .shipName = metadata.skinName,
             .pos = transform.pos,
         };
 

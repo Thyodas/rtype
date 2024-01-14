@@ -10,6 +10,7 @@
 #include "server/entities/Enum.hpp"
 #include "common/network/Connection.hpp"
 #include "common/game/NetworkMessage.hpp"
+#include "common/game/entities/Objects.hpp"
 
 namespace ecs {
     namespace components {
@@ -17,6 +18,7 @@ namespace ecs {
             typedef struct metadata_s {
                 server::entities::EntityType type;
                 std::shared_ptr<rtype::net::Connection<common::NetworkMessage>> client;
+                common::game::ObjectName skinName;
             } metadata_t;
         }
     }
