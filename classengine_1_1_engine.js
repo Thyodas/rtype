@@ -12,5 +12,6 @@ var classengine_1_1_engine =
     [ "playMusic", "classengine_1_1_engine.html#a2353ce417243df1ce32b7bf489091f49", null ],
     [ "stopMusic", "classengine_1_1_engine.html#a536d988b0081a93ae1c8d699d55f4e19", null ],
     [ "pauseMusic", "classengine_1_1_engine.html#a6aea571c56cefd256607cfbf024bd9b3", null ],
-    [ "resumeMusic", "classengine_1_1_engine.html#a391b8f25bd79d4da9e07a57bc7978488", null ]
+    [ "resumeMusic", "classengine_1_1_engine.html#a391b8f25bd79d4da9e07a57bc7978488", null ],
+    [ "createLight", "classengine_1_1_engine.html#a661bda99040c9be41f4ea35aab8b6b35", null ]
 ];

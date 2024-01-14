@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Arcade: client::Client Class Reference</title>
+<title>Arcade: ecs::system::LightSystem Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('classclient_1_1_client.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('classecs_1_1system_1_1_light_system.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -87,27 +87,46 @@ $(document).ready(function(){initNavTree('classclient_1_1_client.html',''); init
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="classclient_1_1_client-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">client::Client Class Reference</div></div>
+<a href="classecs_1_1system_1_1_light_system-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">ecs::system::LightSystem Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+<div class="dynheader">
+Inheritance diagram for ecs::system::LightSystem:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classecs_1_1system_1_1_light_system.png" usemap="#ecs::system::LightSystem_map" alt=""/>
+  <map id="ecs::system::LightSystem_map" name="ecs::system::LightSystem_map">
+<area href="classecs_1_1system_1_1_system.html" title="Base class for systems in an ECS (Entity-Component-System) architecture." alt="ecs::system::System" shape="rect" coords="0,0,149,24"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad04ccc73f3596caa5c567e356f5d0f34"><td class="memItemLeft" align="right" valign="top"><a id="ad04ccc73f3596caa5c567e356f5d0f34" name="ad04ccc73f3596caa5c567e356f5d0f34"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>run</b> ()</td></tr>
-<tr class="separator:ad04ccc73f3596caa5c567e356f5d0f34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad066cc8eab6781927145012e7058af24"><td class="memItemLeft" align="right" valign="top"><a id="ad066cc8eab6781927145012e7058af24" name="ad066cc8eab6781927145012e7058af24"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> ()</td></tr>
+<tr class="separator:ad066cc8eab6781927145012e7058af24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_attribs_classecs_1_1system_1_1_system"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classecs_1_1system_1_1_system')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classecs_1_1system_1_1_system.html">ecs::system::System</a></td></tr>
+<tr class="memitem:a5f84447b5e26269657b4be579513f865 inherit pub_attribs_classecs_1_1system_1_1_system"><td class="memItemLeft" align="right" valign="top"><a id="a5f84447b5e26269657b4be579513f865" name="a5f84447b5e26269657b4be579513f865"></a>
+std::set&lt; Entity &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_entities</b></td></tr>
+<tr class="separator:a5f84447b5e26269657b4be579513f865 inherit pub_attribs_classecs_1_1system_1_1_system"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_attribs_classecs_1_1system_1_1_system"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_classecs_1_1system_1_1_system')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="classecs_1_1system_1_1_system.html">ecs::system::System</a></td></tr>
+<tr class="memitem:a09e0c8c339686e2dc4615bee3de2a256 inherit pub_static_attribs_classecs_1_1system_1_1_system"><td class="memItemLeft" align="right" valign="top"><a id="a09e0c8c339686e2dc4615bee3de2a256" name="a09e0c8c339686e2dc4615bee3de2a256"></a>
+static std::shared_ptr&lt; <a class="el" href="classecs_1_1_coordinator.html">ecs::Coordinator</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_coord</b> = nullptr</td></tr>
+<tr class="separator:a09e0c8c339686e2dc4615bee3de2a256 inherit pub_static_attribs_classecs_1_1system_1_1_system"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/client/core/<a class="el" href="client_2core_2_client_8hpp_source.html">Client.hpp</a></li>
-<li>src/client/core/Client.cpp</li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/game_engine/ecs/systems/<a class="el" href="systems_2_lights_8hpp_source.html">Lights.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>client</b></li><li class="navelem"><a class="el" href="classclient_1_1_client.html">Client</a></li>
+    <li class="navelem"><b>ecs</b></li><li class="navelem"><b>system</b></li><li class="navelem"><a class="el" href="classecs_1_1system_1_1_light_system.html">LightSystem</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2 </li>
   </ul>
 </div>
