@@ -18,13 +18,7 @@
 
 client::Client::Client()
 {
-    std::cout << "dans le client" << std::endl;
     engine::initEngine();
-    std::function<bool(BulletShotEvent&)> fct = [](BulletShotEvent &event) {
-        // Checker si il faut tirer ou non
-        return true;
-    };
-    //engine::triggerAudioOnEngine<BulletShotEvent>("../../ressources/audio/shoot.wav", fct);
 }
 
 void client::Client::run()
@@ -44,6 +38,7 @@ void client::Client::run()
         {1, 1, 1}
     }, common::game::ObjectFormat::PNG);
     engine::attachBehavior(skyBox, skyBehavior);
+    engine::playMusic("./ressources/audio/BackgroundMusic.mp3");
 
     _netClient.connect("127.0.0.1", 5454);
 
