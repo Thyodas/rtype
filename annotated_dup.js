@@ -62,9 +62,6 @@ var annotated_dup =
           [ "Input", "structecs_1_1components_1_1input_1_1_input.html", null ],
           [ "keyState", "structecs_1_1components_1_1input_1_1key_state.html", null ]
         ] ],
-        [ "lights", null, [
-          [ "LightSource", "structecs_1_1components_1_1lights_1_1_light_source.html", null ]
-        ] ],
         [ "metadata", null, [
           [ "metadata_s", "structecs_1_1components_1_1metadata_1_1metadata__s.html", null ]
         ] ],
@@ -105,7 +102,6 @@ var annotated_dup =
         [ "ColisionDetectionSystem", "classecs_1_1system_1_1_colision_detection_system.html", "classecs_1_1system_1_1_colision_detection_system" ],
         [ "CollisionResponse", "classecs_1_1system_1_1_collision_response.html", "classecs_1_1system_1_1_collision_response" ],
         [ "InputSystem", "classecs_1_1system_1_1_input_system.html", null ],
-        [ "LightSystem", "classecs_1_1system_1_1_light_system.html", null ],
         [ "MusicSystem", "classecs_1_1system_1_1_music_system.html", null ],
         [ "PhysicsSystem", "classecs_1_1system_1_1_physics_system.html", "classecs_1_1system_1_1_physics_system" ],
         [ "RenderSystem", "classecs_1_1system_1_1_render_system.html", "classecs_1_1system_1_1_render_system" ],

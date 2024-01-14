@@ -85,7 +85,6 @@ var hierarchy =
       [ "ecs::components::input::Input", "structecs_1_1components_1_1input_1_1_input.html", null ]
     ] ],
     [ "ecs::components::input::keyState", "structecs_1_1components_1_1input_1_1key_state.html", null ],
-    [ "ecs::components::lights::LightSource", "structecs_1_1components_1_1lights_1_1_light_source.html", null ],
     [ "ecs::event::ListenerRecord", "structecs_1_1event_1_1_listener_record.html", null ],
     [ "rtype::net::Message< T >", "structrtype_1_1net_1_1_message.html", null ],
     [ "client::NetClient::message_type", "structclient_1_1_net_client_1_1message__type.html", null ],
@@ -131,7 +130,6 @@ var hierarchy =
       [ "ecs::system::BehaviourSystem", "classecs_1_1system_1_1_behaviour_system.html", null ],
       [ "ecs::system::ColisionDetectionSystem", "classecs_1_1system_1_1_colision_detection_system.html", null ],
       [ "ecs::system::InputSystem", "classecs_1_1system_1_1_input_system.html", null ],
-      [ "ecs::system::LightSystem", "classecs_1_1system_1_1_light_system.html", null ],
       [ "ecs::system::MusicSystem", "classecs_1_1system_1_1_music_system.html", null ],
       [ "ecs::system::PhysicsSystem", "classecs_1_1system_1_1_physics_system.html", null ],
       [ "ecs::system::RenderSystem", "classecs_1_1system_1_1_render_system.html", null ]

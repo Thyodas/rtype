@@ -7,7 +7,6 @@ var dir_7e38db40a2573d559a77998a2c093627 =
     [ "EnemySpawner.hpp", "_enemy_spawner_8hpp_source.html", null ],
     [ "Health.hpp", "_health_8hpp_source.html", null ],
     [ "Input.hpp", "components_2_input_8hpp_source.html", null ],
-    [ "Lights.hpp", "components_2_lights_8hpp_source.html", null ],
     [ "Metadata.hpp", "_metadata_8hpp_source.html", null ],
     [ "Network.hpp", "game__engine_2ecs_2components_2network_8hpp_source.html", null ],
     [ "NetworkBehaviour.hpp", "_network_behaviour_8hpp_source.html", null ],
