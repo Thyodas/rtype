@@ -79,7 +79,7 @@ namespace client {
                 WHITE,
                 false,
                 WHITE,
-                {0, 0, 0},
+                body.rotation,
                 {1, 1, 1}
             });
             auto behave = engine::createBehavior<client::EnemyNetwork>(*this, body.entityNetId);
@@ -90,7 +90,6 @@ namespace client {
 
         void NetClient::resServerFireBullet(rtype::net::Message<common::NetworkMessage>& msg)
         {
-                std::cout << "received fire bullet from server" << std::endl;
                 common::game::netbody::ServerFireBullet body;
                 msg >> body;
 
@@ -103,19 +102,16 @@ namespace client {
                     WHITE,
                     false,
                     WHITE,
-                    {0, 0, 0},
+                    body.rotation,
                     {0.025, 0.025, 0.025}
                 }, common::game::ObjectFormat::GLB);
 
                 auto &direction = engine::Engine::getInstance()->getComponent<ecs::components::direction::direction_t>(gunBullet);
                 direction.direction = body.direction;
                 auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(gunBullet);
-                // rigidBody.velocity = {0, 0, static_cast<float>(body.speed)};
-                rigidBody.velocity = { 0, 0, 0 };
+                rigidBody.velocity = {0, 0, static_cast<float>(body.speed)};
 
                 auto behave = engine::createBehavior<client::BulletNetwork>(*this, body.entityNetId);
                 engine::attachBehavior(gunBullet, behave);
-                // BulletShotEvent eventShot;
-                // engine::emitEvent<BulletShotEvent>(eventShot);
         }
 }

@@ -41,32 +41,22 @@ namespace server {
                     WHITE,
                     false,
                     WHITE,
-                    {0, 0, 0},
+                    {0, 135, 0},
                     {0.025, 0.025, 0.025}
                 }, common::game::ObjectFormat::GLB);
                 auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(bullet);
                 rigidBody.velocity = {0, 0, -2};
+                auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(bullet);
+                metadata.type = server::entities::EntityType::BULLET;
                 auto bulletBehave = engine::createBehavior<server::BulletNetwork>(_networkManager, _entity, bullet);
                 engine::attachBehavior(bullet, bulletBehave);
 
-
-                common::game::netbody::ServerFireBullet body = {
-                    .entityNetId = _entity,
-                    .pos = transform.pos,
-                    .direction = {0, 0, -5},
-                    .speed = 10,
-                };
-
-                rtype::net::Message<common::NetworkMessage> msg;
-                msg.header.id = common::NetworkMessage::serverFireBullet;
-                msg << body;
-
-                _networkManager.messageAllClients(msg);
+                _networkManager.allServerFireBullet(bullet, _entity);
             }
 
             void update() override
             {
-                // this->shoot();
+                this->shoot();
             }
 
         private:

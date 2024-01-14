@@ -7,6 +7,8 @@
 
 #include "game_engine/ecs/Entity.hpp"
 
+#include <iostream>
+
 namespace ecs {
     EntityManager::EntityManager() {
         for (Entity entity = 0; entity < MAX_ENTITIES; entity++)
@@ -29,7 +31,8 @@ namespace ecs {
         _signatures[entity].reset();
 
         _availableEntities.push(entity);
-        --_livingEntityCount;
+        if (_livingEntityCount > 0)
+            --_livingEntityCount;
     }
 
     void EntityManager::setSignature(Entity entity, Signature signature) {

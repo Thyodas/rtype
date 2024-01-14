@@ -42,6 +42,7 @@ namespace engine
         _coordinator->registerComponent<ecs::components::direction::direction_t>();
         _coordinator->registerComponent<ecs::components::sound::AudioSource>();
         _coordinator->registerComponent<ecs::components::sound::MusicSource>();
+        _coordinator->registerComponent<ecs::components::metadata::metadata_t>();
         ecs::components::input::Input input;
         _coordinator->registerSingletonComponent<ecs::components::input::Input>(input);
 
@@ -261,6 +262,7 @@ namespace engine
         Engine::getInstance()->addComponent<ecs::components::physics::rigidBody_t>(entity, body);
         Engine::getInstance()->addComponent<ecs::components::health::health_t>(entity, health);
         Engine::getInstance()->addComponent<ecs::components::direction::direction_t>(entity, {0, 0, 0});
+        Engine::getInstance()->addComponent<ecs::components::metadata::metadata_t>(entity, {server::entities::EntityType::ENTITY_UNDEFINED});
         return entity;
     }
 

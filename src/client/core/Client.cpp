@@ -16,9 +16,12 @@
 #include "client/entities/Bullet/BulletNetwork.hpp"
 #include "client/entities/Skybox/SkyboxBehavior.hpp"
 
+#include "raylib.h"
+
 client::Client::Client()
 {
     engine::initEngine();
+    SetTraceLogLevel(TraceLogLevel::LOG_ERROR);
 }
 
 void client::Client::run()

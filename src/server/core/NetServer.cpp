@@ -22,7 +22,6 @@ namespace server {
 
     void NetServer::resClientConnect(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, rtype::net::Message<common::NetworkMessage>& msg)
     {
-        std::cout << "resClientConnect" << std::endl;
         common::game::netbody::ClientConnect body;
         msg >> body;
 
@@ -38,7 +37,13 @@ namespace server {
             {0, 0, 0},
             {1, 1, 1}
         });
-        std::cout << playerShip << std::endl;
+        auto &health = engine::Engine::getInstance()->getComponent<ecs::components::health::health_t>(playerShip);
+        health.healthPoints = 10;
+
+
+        auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(playerShip);
+        metadata.type = server::entities::EntityType::PLAYER;
+
         auto behave = engine::createBehavior<server::PlayerNetwork>(*this, playerShip, client->getID());
         engine::attachBehavior(playerShip, behave);
 
@@ -54,8 +59,9 @@ namespace server {
         msg.header.id = common::NetworkMessage::serverCreatePlayerShip;
 
         auto &transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(ship);
+        auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(ship);
 
-        //auto &model = engine::Engine::getInstance()->getComponent<ecs::components::Model3D>(ship);
+        metadata.client = client;
 
         common::game::netbody::ServerCreatePlayerShip body = {
             .entityNetId = ship,
@@ -118,6 +124,7 @@ namespace server {
             .pos = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(bullet).pos,
             .direction = engine::Engine::getInstance()->getComponent<ecs::components::direction::direction_t>(bullet).direction,
             .speed = 0,
+            .rotation = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(bullet).rotation,
         };
 
         msg << body;

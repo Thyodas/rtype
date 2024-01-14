@@ -115,9 +115,11 @@ namespace common::game::netbody {
     };
 
     struct ServerPlayerDestroy {
+        uint32_t entityNetId;
+
         template<class Archive>
         void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
-            // Empty since there are no members
+            ar & entityNetId;
         }
     };
 
@@ -171,6 +173,7 @@ namespace common::game::netbody {
         Vector3 pos;
         Vector3 direction;
         double speed;
+        Vector3 rotation;
 
         template<class Archive>
         void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
@@ -178,6 +181,7 @@ namespace common::game::netbody {
             ar & pos;
             ar & direction;
             ar & speed;
+            ar & rotation;
         }
     };
 
@@ -228,6 +232,7 @@ namespace common::game::netbody {
         std::string name;
         common::game::ObjectName shipName;
         Vector3 pos;
+        Vector3 rotation;
 
         template<class Archive>
         void serialize(Archive & ar, [[maybe_unused]] const unsigned int version) {
@@ -235,6 +240,7 @@ namespace common::game::netbody {
             ar & name;
             ar & shipName;
             ar & pos;
+            ar & rotation;
         }
     };
 
