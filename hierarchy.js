@@ -3,7 +3,8 @@ var hierarchy =
     [ "ecs::event::AEvent", "classecs_1_1event_1_1_a_event.html", [
       [ "BulletShotEvent", "class_bullet_shot_event.html", null ],
       [ "CollisionEvent", "class_collision_event.html", null ],
-      [ "EnemyDestroyEvent", "class_enemy_destroy_event.html", null ]
+      [ "EnemyDestroyEvent", "class_enemy_destroy_event.html", null ],
+      [ "PlayerDestroyEvent", "class_player_destroy_event.html", null ]
     ] ],
     [ "ecs::components::animations::animation_s", "structecs_1_1components_1_1animations_1_1animation__s.html", null ],
     [ "animation_t", "structanimation__t.html", null ],
@@ -22,19 +23,13 @@ var hierarchy =
         [ "server::EnemyNetwork", "classserver_1_1_enemy_network.html", null ],
         [ "server::PlayerNetwork", "classserver_1_1_player_network.html", null ]
       ] ],
+      [ "client::SkinSelectorBehave", "classclient_1_1_skin_selector_behave.html", null ],
       [ "client::SkyboxBehavior", "classclient_1_1_skybox_behavior.html", null ],
       [ "ecs::components::behaviour::NetworkBehaviour< NetworkManager >", "classecs_1_1components_1_1behaviour_1_1_network_behaviour.html", null ],
       [ "input", "classinput.html", null ],
       [ "input", "classinput.html", null ],
       [ "movement", "classmovement.html", null ]
     ] ],
-    [ "BodyActivationListener", null, [
-      [ "MyBodyActivationListener", "class_my_body_activation_listener.html", null ]
-    ] ],
-    [ "BroadPhaseLayerInterface", null, [
-      [ "BPLayerInterfaceImpl", "class_b_p_layer_interface_impl.html", null ]
-    ] ],
-    [ "Camera", "class_camera.html", null ],
     [ "client::Client", "classclient_1_1_client.html", null ],
     [ "common::game::netbody::ClientConnect", "structcommon_1_1game_1_1netbody_1_1_client_connect.html", null ],
     [ "rtype::net::ClientInterface< T >", "classrtype_1_1net_1_1_client_interface.html", null ],
@@ -49,17 +44,16 @@ var hierarchy =
     [ "ecs::system::CollisionResponse", "classecs_1_1system_1_1_collision_response.html", null ],
     [ "ComponentArray< T >", "class_component_array_3_01_t_01_4.html", null ],
     [ "ecs::components::ComponentManager", "classecs_1_1components_1_1_component_manager.html", null ],
-    [ "ContactListener", null, [
-      [ "MyContactListener", "class_my_contact_listener.html", null ]
-    ] ],
     [ "ecs::Coordinator", "classecs_1_1_coordinator.html", null ],
     [ "ecs::components::direction::direction_s", "structecs_1_1components_1_1direction_1_1direction__s.html", null ],
     [ "std::enable_shared_from_this", null, [
+      [ "ecs::components::behaviour::NetworkBehaviour< client::NetClient >", "classecs_1_1components_1_1behaviour_1_1_network_behaviour.html", null ],
+      [ "ecs::components::behaviour::NetworkBehaviour< server::NetServer >", "classecs_1_1components_1_1behaviour_1_1_network_behaviour.html", null ],
+      [ "ecs::components::behaviour::NetworkBehaviour< NetworkManager >", "classecs_1_1components_1_1behaviour_1_1_network_behaviour.html", null ],
       [ "rtype::net::Connection< T >", "classrtype_1_1net_1_1_connection.html", null ]
     ] ],
     [ "ecs::components::behaviour::EnemySpawner::enemy_spawn_point_s", "structecs_1_1components_1_1behaviour_1_1_enemy_spawner_1_1enemy__spawn__point__s.html", null ],
     [ "engine::Engine", "classengine_1_1_engine.html", null ],
-    [ "engine::core::EngineCamera", "classengine_1_1core_1_1_engine_camera.html", null ],
     [ "common::game::Entity", "classcommon_1_1game_1_1_entity.html", null ],
     [ "common::game::EntityFactory", "classcommon_1_1game_1_1_entity_factory.html", null ],
     [ "ecs::EntityManager", "classecs_1_1_entity_manager.html", null ],
@@ -78,17 +72,9 @@ var hierarchy =
     [ "server::NetServer::id", "structserver_1_1_net_server_1_1id.html", null ],
     [ "engine::editor::IDocumentWindow", "classengine_1_1editor_1_1_i_document_window.html", [
       [ "engine::editor::ADocumentWindow", "classengine_1_1editor_1_1_a_document_window.html", [
-        [ "engine::editor::ConsoleWindow", "classengine_1_1editor_1_1_console_window.html", null ],
         [ "engine::editor::EntityPropertiesWindow", "classengine_1_1editor_1_1_entity_properties_window.html", null ],
         [ "engine::editor::Main3DScene", "classengine_1_1editor_1_1_main3_d_scene.html", null ],
-        [ "engine::editor::ModelViewerWindow", "classengine_1_1editor_1_1_model_viewer_window.html", null ],
         [ "engine::editor::SceneTreeWindow", "classengine_1_1editor_1_1_scene_tree_window.html", null ]
-      ] ]
-    ] ],
-    [ "engine::editor::IEntityProperty", "classengine_1_1editor_1_1_i_entity_property.html", [
-      [ "engine::editor::AEntityProperty", "classengine_1_1editor_1_1_a_entity_property.html", [
-        [ "engine::editor::RenderProperty", "classengine_1_1editor_1_1_render_property.html", null ],
-        [ "engine::editor::TransformProperty", "classengine_1_1editor_1_1_transform_property.html", null ]
       ] ]
     ] ],
     [ "ecs::components::IShape", "classecs_1_1components_1_1_i_shape.html", [
@@ -102,7 +88,6 @@ var hierarchy =
     ] ],
     [ "ecs::components::input::keyState", "structecs_1_1components_1_1input_1_1key_state.html", null ],
     [ "ecs::event::ListenerRecord", "structecs_1_1event_1_1_listener_record.html", null ],
-    [ "engine::editor::LogMessage", "structengine_1_1editor_1_1_log_message.html", null ],
     [ "rtype::net::Message< T >", "structrtype_1_1net_1_1_message.html", null ],
     [ "client::NetClient::message_type", "structclient_1_1_net_client_1_1message__type.html", null ],
     [ "server::NetServer::message_type", "structserver_1_1_net_server_1_1message__type.html", null ],
@@ -110,13 +95,7 @@ var hierarchy =
     [ "ecs::components::metadata::metadata_s", "structecs_1_1components_1_1metadata_1_1metadata__s.html", null ],
     [ "ecs::components::sound::MusicSource", "structecs_1_1components_1_1sound_1_1_music_source.html", null ],
     [ "ecs::components::network::network_s", "structecs_1_1components_1_1network_1_1network__s.html", null ],
-    [ "ObjectLayerPairFilter", null, [
-      [ "ObjectLayerPairFilterImpl", "class_object_layer_pair_filter_impl.html", null ]
-    ] ],
     [ "common::game::ObjectParams", "structcommon_1_1game_1_1_object_params.html", null ],
-    [ "ObjectVsBroadPhaseLayerFilter", null, [
-      [ "ObjectVsBroadPhaseLayerFilterImpl", "class_object_vs_broad_phase_layer_filter_impl.html", null ]
-    ] ],
     [ "rtype::net::OwnedMessage< T >", "structrtype_1_1net_1_1_owned_message.html", null ],
     [ "common::game::netbody::PingServer", "structcommon_1_1game_1_1netbody_1_1_ping_server.html", null ],
     [ "ecs::components::render::render_s", "structecs_1_1components_1_1render_1_1render__s.html", null ],
@@ -125,9 +104,6 @@ var hierarchy =
     [ "server::NetServer::ResponseRecord", "structserver_1_1_net_server_1_1_response_record.html", null ],
     [ "ecs::components::physics::rigidBody_s", "structecs_1_1components_1_1physics_1_1rigid_body__s.html", null ],
     [ "rigidBody_t", "structrigid_body__t.html", null ],
-    [ "ecs::Scene", "classecs_1_1_scene.html", null ],
-    [ "ecs::SceneManager", "classecs_1_1_scene_manager.html", null ],
-    [ "engine::editor::SceneManagerBridge", "classengine_1_1editor_1_1_scene_manager_bridge.html", null ],
     [ "server::Server", "classserver_1_1_server.html", null ],
     [ "common::game::netbody::ServerAllyConnect", "structcommon_1_1game_1_1netbody_1_1_server_ally_connect.html", null ],
     [ "common::game::netbody::ServerAllyDestroy", "structcommon_1_1game_1_1netbody_1_1_server_ally_destroy.html", null ],

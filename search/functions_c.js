@@ -8,5 +8,6 @@ var searchData=
   ['removedata_5',['removeData',['../classecs_1_1components_1_1_component_array.html#a45c34d28d02745989e46d72476a4989d',1,'ecs::components::ComponentArray']]],
   ['removesingletoncomponent_6',['removeSingletonComponent',['../classecs_1_1_coordinator.html#ad944fbd0b826be86889c5efa71f28aca',1,'ecs::Coordinator']]],
   ['render_7',['render',['../classecs_1_1system_1_1_render_system.html#a2ada55714c05e0222efbac87646a3604',1,'ecs::system::RenderSystem']]],
-  ['resumemusic_8',['resumeMusic',['../classengine_1_1_engine.html#a391b8f25bd79d4da9e07a57bc7978488',1,'engine::Engine']]]
+  ['resumemusic_8',['resumeMusic',['../classengine_1_1_engine.html#a391b8f25bd79d4da9e07a57bc7978488',1,'engine::Engine']]],
+  ['run_9',['run',['../classengine_1_1_engine.html#a26915cb758c2ef7ed6c96d1dfb1e3136',1,'engine::Engine']]]
 ];
