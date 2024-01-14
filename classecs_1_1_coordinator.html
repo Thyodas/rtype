@@ -101,7 +101,7 @@ $(document).ready(function(){initNavTree('classecs_1_1_coordinator.html',''); in
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab46a8bb85ea4051ec691ec5cd707cd95"><td class="memItemLeft" align="right" valign="top"><a id="ab46a8bb85ea4051ec691ec5cd707cd95" name="ab46a8bb85ea4051ec691ec5cd707cd95"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> ()</td></tr>
-<tr class="memdesc:ab46a8bb85ea4051ec691ec5cd707cd95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the <a class="el" href="classecs_1_1_coordinator.html" title="Central orchestrator for the Entity-Component-System (ECS) architecture.">Coordinator</a>, creating instances of <a class="el" href="classecs_1_1_entity_manager.html" title="Manages entities in an ECS (Entity-Component-System) architecture.">EntityManager</a>, ComponentManager, and SystemManager. <br /></td></tr>
+<tr class="memdesc:ab46a8bb85ea4051ec691ec5cd707cd95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the <a class="el" href="classecs_1_1_coordinator.html" title="Central orchestrator for the Entity-Component-System (ECS) architecture.">Coordinator</a>, creating instances of <a class="el" href="classecs_1_1_entity_manager.html" title="Manages entities in an ECS (Entity-Component-System) architecture.">EntityManager</a>, ComponentManager, SystemManager, EventManager, <a class="el" href="classecs_1_1_singleton_component_manager.html">SingletonComponentManager</a> and <a class="el" href="classecs_1_1_scene_manager.html">SceneManager</a>. <br /></td></tr>
 <tr class="separator:ab46a8bb85ea4051ec691ec5cd707cd95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac56a323413251472037bf5a85e79410"><td class="memItemLeft" align="right" valign="top">Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classecs_1_1_coordinator.html#aac56a323413251472037bf5a85e79410">createEntity</a> ()</td></tr>
 <tr class="memdesc:aac56a323413251472037bf5a85e79410"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new entity.  <a href="classecs_1_1_coordinator.html#aac56a323413251472037bf5a85e79410">More...</a><br /></td></tr>
@@ -138,6 +138,9 @@ template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a9e0f4b9d5b32186cea15014ae65bc6aa"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classecs_1_1_coordinator.html#a9e0f4b9d5b32186cea15014ae65bc6aa">getSingletonComponent</a> (void)</td></tr>
 <tr class="memdesc:a9e0f4b9d5b32186cea15014ae65bc6aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Singleton Component object.  <a href="classecs_1_1_coordinator.html#a9e0f4b9d5b32186cea15014ae65bc6aa">More...</a><br /></td></tr>
 <tr class="separator:a9e0f4b9d5b32186cea15014ae65bc6aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12e4d6c67dbfc06349c6f356a0da88a2"><td class="memItemLeft" align="right" valign="top"><a id="a12e4d6c67dbfc06349c6f356a0da88a2" name="a12e4d6c67dbfc06349c6f356a0da88a2"></a>
+std::vector&lt; std::pair&lt; std::type_index, std::any &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getAllComponents</b> (Entity entity)</td></tr>
+<tr class="separator:a12e4d6c67dbfc06349c6f356a0da88a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e3419f884cef2c133a173640a9868c2"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a8e3419f884cef2c133a173640a9868c2"><td class="memTemplItemLeft" align="right" valign="top">components::ComponentType&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classecs_1_1_coordinator.html#a8e3419f884cef2c133a173640a9868c2">getComponentType</a> ()</td></tr>
 <tr class="memdesc:a8e3419f884cef2c133a173640a9868c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the component type ID for a specific component type.  <a href="classecs_1_1_coordinator.html#a8e3419f884cef2c133a173640a9868c2">More...</a><br /></td></tr>
@@ -150,20 +153,60 @@ template&lt;typename T &gt; </td></tr>
 <tr class="memitem:abfa8b26113c1fdab820d730bc884cd61"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classecs_1_1_coordinator.html#abfa8b26113c1fdab820d730bc884cd61">setSystemSignature</a> (Signature signature)</td></tr>
 <tr class="memdesc:abfa8b26113c1fdab820d730bc884cd61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the signature for a system, defining which entities it will process.  <a href="classecs_1_1_coordinator.html#abfa8b26113c1fdab820d730bc884cd61">More...</a><br /></td></tr>
 <tr class="separator:abfa8b26113c1fdab820d730bc884cd61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af60a4aee475c7912da2ef6773ac39671"><td class="memTemplParams" colspan="2"><a id="af60a4aee475c7912da2ef6773ac39671" name="af60a4aee475c7912da2ef6773ac39671"></a>
-template&lt;typename T , typename ClosureWeakPtr  = std::shared_ptr&lt;int&gt;&gt; </td></tr>
-<tr class="memitem:af60a4aee475c7912da2ef6773ac39671"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><b>registerListener</b> (std::shared_ptr&lt; std::function&lt; void(T &amp;)&gt; &gt; listener, std::shared_ptr&lt; ClosureWeakPtr &gt; closure=nullptr)</td></tr>
-<tr class="separator:af60a4aee475c7912da2ef6773ac39671"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cad96498d7b0377646eddb9f55c4a12"><td class="memItemLeft" align="right" valign="top"><a id="a9cad96498d7b0377646eddb9f55c4a12" name="a9cad96498d7b0377646eddb9f55c4a12"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>unregisterListener</b> (int listenerId)</td></tr>
-<tr class="separator:a9cad96498d7b0377646eddb9f55c4a12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add3f064691d1332df18b4d738298c40a"><td class="memTemplParams" colspan="2"><a id="add3f064691d1332df18b4d738298c40a" name="add3f064691d1332df18b4d738298c40a"></a>
-template&lt;typename T &gt; </td></tr>
-<tr class="memitem:add3f064691d1332df18b4d738298c40a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>emitEvent</b> (T &amp;event)</td></tr>
-<tr class="separator:add3f064691d1332df18b4d738298c40a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44d2a012f8cd6b5bee3c735d67d0aaa0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a44d2a012f8cd6b5bee3c735d67d0aaa0"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classecs_1_1_coordinator.html#a44d2a012f8cd6b5bee3c735d67d0aaa0">registerListener</a> (std::function&lt; void(const T &amp;)&gt; listener)</td></tr>
+<tr class="memdesc:a44d2a012f8cd6b5bee3c735d67d0aaa0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a new listener for a specific event.  <a href="classecs_1_1_coordinator.html#a44d2a012f8cd6b5bee3c735d67d0aaa0">More...</a><br /></td></tr>
+<tr class="separator:a44d2a012f8cd6b5bee3c735d67d0aaa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5d239dbde39738ffb8f8d611d896dc9"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aa5d239dbde39738ffb8f8d611d896dc9"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classecs_1_1_coordinator.html#aa5d239dbde39738ffb8f8d611d896dc9">emitEvent</a> (const T &amp;event)</td></tr>
+<tr class="memdesc:aa5d239dbde39738ffb8f8d611d896dc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emit a specific event.  <a href="classecs_1_1_coordinator.html#aa5d239dbde39738ffb8f8d611d896dc9">More...</a><br /></td></tr>
+<tr class="separator:aa5d239dbde39738ffb8f8d611d896dc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abcb0ee373e21be2dd4c6e1d388005a1d"><td class="memItemLeft" align="right" valign="top"><a id="abcb0ee373e21be2dd4c6e1d388005a1d" name="abcb0ee373e21be2dd4c6e1d388005a1d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>dispatchEvents</b> ()</td></tr>
+<tr class="memdesc:abcb0ee373e21be2dd4c6e1d388005a1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispatch the event to the listeners. <br /></td></tr>
 <tr class="separator:abcb0ee373e21be2dd4c6e1d388005a1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc1c77621f3466ca28703d8a5baffbdc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classecs_1_1_coordinator.html#abc1c77621f3466ca28703d8a5baffbdc">createScene</a> (ecs::SceneID id)</td></tr>
+<tr class="memdesc:abc1c77621f3466ca28703d8a5baffbdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a <a class="el" href="classecs_1_1_scene.html">Scene</a> object.  <a href="classecs_1_1_coordinator.html#abc1c77621f3466ca28703d8a5baffbdc">More...</a><br /></td></tr>
+<tr class="separator:abc1c77621f3466ca28703d8a5baffbdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50950d6830fb8ded80e040f35092eacf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classecs_1_1_coordinator.html#a50950d6830fb8ded80e040f35092eacf">deleteScene</a> (ecs::SceneID id)</td></tr>
+<tr class="memdesc:a50950d6830fb8ded80e040f35092eacf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a scene object.  <a href="classecs_1_1_coordinator.html#a50950d6830fb8ded80e040f35092eacf">More...</a><br /></td></tr>
+<tr class="separator:a50950d6830fb8ded80e040f35092eacf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e46fc71ecd315401da3bb1f0e1cfedf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classecs_1_1_coordinator.html#a7e46fc71ecd315401da3bb1f0e1cfedf">activateScene</a> (ecs::SceneID id)</td></tr>
+<tr class="memdesc:a7e46fc71ecd315401da3bb1f0e1cfedf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activate a scene.  <a href="classecs_1_1_coordinator.html#a7e46fc71ecd315401da3bb1f0e1cfedf">More...</a><br /></td></tr>
+<tr class="separator:a7e46fc71ecd315401da3bb1f0e1cfedf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab03f8cb8e5432c55820f4996cb5f53be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classecs_1_1_coordinator.html#ab03f8cb8e5432c55820f4996cb5f53be">deactivateScene</a> (ecs::SceneID id)</td></tr>
+<tr class="memdesc:ab03f8cb8e5432c55820f4996cb5f53be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deactivate a scene.  <a href="classecs_1_1_coordinator.html#ab03f8cb8e5432c55820f4996cb5f53be">More...</a><br /></td></tr>
+<tr class="separator:ab03f8cb8e5432c55820f4996cb5f53be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1445731bf7dad0eb5a347ee0b5484632"><td class="memItemLeft" align="right" valign="top"><a id="a1445731bf7dad0eb5a347ee0b5484632" name="a1445731bf7dad0eb5a347ee0b5484632"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isSceneActive</b> (ecs::SceneID id)</td></tr>
+<tr class="separator:a1445731bf7dad0eb5a347ee0b5484632"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af122b5c2fc1598d9f58aef6efea750d6"><td class="memItemLeft" align="right" valign="top"><a id="af122b5c2fc1598d9f58aef6efea750d6" name="af122b5c2fc1598d9f58aef6efea750d6"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isScenePaused</b> (ecs::SceneID sceneID)</td></tr>
+<tr class="separator:af122b5c2fc1598d9f58aef6efea750d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b31a5b1549083434217b3946b4ca129"><td class="memItemLeft" align="right" valign="top"><a id="a8b31a5b1549083434217b3946b4ca129" name="a8b31a5b1549083434217b3946b4ca129"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>pauseScene</b> (ecs::SceneID sceneID)</td></tr>
+<tr class="separator:a8b31a5b1549083434217b3946b4ca129"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9656a6e8c4d76506b453d0eed6bbfc8b"><td class="memItemLeft" align="right" valign="top"><a id="a9656a6e8c4d76506b453d0eed6bbfc8b" name="a9656a6e8c4d76506b453d0eed6bbfc8b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>resumeScene</b> (ecs::SceneID sceneID)</td></tr>
+<tr class="separator:a9656a6e8c4d76506b453d0eed6bbfc8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9456739b567fd45f28a77a2b74b92593"><td class="memItemLeft" align="right" valign="top"><a id="a9456739b567fd45f28a77a2b74b92593" name="a9456739b567fd45f28a77a2b74b92593"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addEntityToScene</b> (ecs::Entity entity, ecs::SceneID sceneID)</td></tr>
+<tr class="separator:a9456739b567fd45f28a77a2b74b92593"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6174aacc397f6f206d720c0f51f0ddde"><td class="memItemLeft" align="right" valign="top"><a id="a6174aacc397f6f206d720c0f51f0ddde" name="a6174aacc397f6f206d720c0f51f0ddde"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>removeEntityFromScene</b> (ecs::Entity entity, ecs::SceneID sceneID)</td></tr>
+<tr class="separator:a6174aacc397f6f206d720c0f51f0ddde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad283246fd11de9083ebb14df1a7bca78"><td class="memItemLeft" align="right" valign="top"><a id="ad283246fd11de9083ebb14df1a7bca78" name="ad283246fd11de9083ebb14df1a7bca78"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>attachCamera</b> (ecs::SceneID id, <a class="el" href="classengine_1_1core_1_1_engine_camera.html">engine::core::EngineCamera</a> &amp;camera)</td></tr>
+<tr class="separator:ad283246fd11de9083ebb14df1a7bca78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac22d03371eea97df53f80eeff4072525"><td class="memItemLeft" align="right" valign="top"><a id="ac22d03371eea97df53f80eeff4072525" name="ac22d03371eea97df53f80eeff4072525"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>detachCamera</b> (ecs::SceneID id, <a class="el" href="classengine_1_1core_1_1_engine_camera.html">engine::core::EngineCamera</a> &amp;camera)</td></tr>
+<tr class="separator:ac22d03371eea97df53f80eeff4072525"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa66c8a3ea99c05c258be60f8e9034e0c"><td class="memItemLeft" align="right" valign="top"><a id="aa66c8a3ea99c05c258be60f8e9034e0c" name="aa66c8a3ea99c05c258be60f8e9034e0c"></a>
+<a class="el" href="classengine_1_1core_1_1_engine_camera.html">engine::core::EngineCamera</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getCamera</b> (ecs::SceneID id, engine::core::CameraID idCamera)</td></tr>
+<tr class="separator:aa66c8a3ea99c05c258be60f8e9034e0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d7a57df371749978c8706e241058dde"><td class="memItemLeft" align="right" valign="top"><a id="a4d7a57df371749978c8706e241058dde" name="a4d7a57df371749978c8706e241058dde"></a>
+<a class="el" href="classecs_1_1_scene_manager.html">SceneManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getSceneManager</b> () const</td></tr>
+<tr class="separator:a4d7a57df371749978c8706e241058dde"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Central orchestrator for the Entity-Component-System (ECS) architecture. </p>
@@ -556,6 +599,226 @@ template&lt;typename T &gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">signature</td><td>- The signature to associate with the system. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a44d2a012f8cd6b5bee3c735d67d0aaa0" name="a44d2a012f8cd6b5bee3c735d67d0aaa0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44d2a012f8cd6b5bee3c735d67d0aaa0">&#9670;&nbsp;</a></span>registerListener()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ecs::Coordinator::registerListener </td>
+          <td>(</td>
+          <td class="paramtype">std::function&lt; void(const T &amp;)&gt;&#160;</td>
+          <td class="paramname"><em>listener</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Register a new listener for a specific event. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The event to be listened to </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">listener</td><td>The callback function triggered when the event occurs </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa5d239dbde39738ffb8f8d611d896dc9" name="aa5d239dbde39738ffb8f8d611d896dc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5d239dbde39738ffb8f8d611d896dc9">&#9670;&nbsp;</a></span>emitEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ecs::Coordinator::emitEvent </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Emit a specific event. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The vent to be emitted </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>The event class </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="abc1c77621f3466ca28703d8a5baffbdc" name="abc1c77621f3466ca28703d8a5baffbdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc1c77621f3466ca28703d8a5baffbdc">&#9670;&nbsp;</a></span>createScene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ecs::Coordinator::createScene </td>
+          <td>(</td>
+          <td class="paramtype">ecs::SceneID&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a <a class="el" href="classecs_1_1_scene.html">Scene</a> object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The id of the scene to be created </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a50950d6830fb8ded80e040f35092eacf" name="a50950d6830fb8ded80e040f35092eacf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50950d6830fb8ded80e040f35092eacf">&#9670;&nbsp;</a></span>deleteScene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ecs::Coordinator::deleteScene </td>
+          <td>(</td>
+          <td class="paramtype">ecs::SceneID&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Delete a scene object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The id of the scene to be deleted </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7e46fc71ecd315401da3bb1f0e1cfedf" name="a7e46fc71ecd315401da3bb1f0e1cfedf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e46fc71ecd315401da3bb1f0e1cfedf">&#9670;&nbsp;</a></span>activateScene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ecs::Coordinator::activateScene </td>
+          <td>(</td>
+          <td class="paramtype">ecs::SceneID&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Activate a scene. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The id of the scene </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab03f8cb8e5432c55820f4996cb5f53be" name="ab03f8cb8e5432c55820f4996cb5f53be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab03f8cb8e5432c55820f4996cb5f53be">&#9670;&nbsp;</a></span>deactivateScene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ecs::Coordinator::deactivateScene </td>
+          <td>(</td>
+          <td class="paramtype">ecs::SceneID&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Deactivate a scene. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The id of the scene </td></tr>
   </table>
   </dd>
 </dl>
