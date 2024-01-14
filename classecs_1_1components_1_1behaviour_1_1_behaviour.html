@@ -104,14 +104,19 @@ Inheritance diagram for ecs::components::behaviour::Behaviour:</div>
  <div class="center">
   <img src="classecs_1_1components_1_1behaviour_1_1_behaviour.png" usemap="#ecs::components::behaviour::Behaviour_map" alt=""/>
   <map id="ecs::components::behaviour::Behaviour_map" name="ecs::components::behaviour::Behaviour_map">
-<area href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html" alt="ecs::components::behaviour::NetworkBehaviour&lt; client::NetClient &gt;" shape="rect" coords="413,56,816,80"/>
-<area href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html" alt="ecs::components::behaviour::NetworkBehaviour&lt; server::NetServer &gt;" shape="rect" coords="413,112,816,136"/>
-<area href="classclient_1_1_skin_selector_behave.html" alt="client::SkinSelectorBehave" shape="rect" coords="413,168,816,192"/>
-<area href="classclient_1_1_skybox_behavior.html" alt="client::SkyboxBehavior" shape="rect" coords="413,224,816,248"/>
-<area href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html" alt="ecs::components::behaviour::NetworkBehaviour&lt; NetworkManager &gt;" shape="rect" coords="413,280,816,304"/>
-<area href="classinput.html" alt="input" shape="rect" coords="413,336,816,360"/>
-<area href="classinput.html" alt="input" shape="rect" coords="413,392,816,416"/>
-<area href="classmovement.html" alt="movement" shape="rect" coords="413,448,816,472"/>
+<area href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html" alt="ecs::components::behaviour::NetworkBehaviour&lt; client::NetClient &gt;" shape="rect" coords="0,56,403,80"/>
+<area href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html" alt="ecs::components::behaviour::NetworkBehaviour&lt; server::NetServer &gt;" shape="rect" coords="826,56,1229,80"/>
+<area href="classclient_1_1_skybox_behavior.html" alt="client::SkyboxBehavior" shape="rect" coords="1239,56,1642,80"/>
+<area href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html" alt="ecs::components::behaviour::NetworkBehaviour&lt; NetworkManager &gt;" shape="rect" coords="1652,56,2055,80"/>
+<area href="classinput.html" alt="input" shape="rect" coords="2065,56,2468,80"/>
+<area href="classclient_1_1_ally_network.html" alt="client::AllyNetwork" shape="rect" coords="413,112,816,136"/>
+<area href="classclient_1_1_ally_network.html" alt="client::AllyNetwork" shape="rect" coords="413,168,816,192"/>
+<area href="classclient_1_1_bullet_network.html" alt="client::BulletNetwork" shape="rect" coords="413,224,816,248"/>
+<area href="classclient_1_1_enemy_network.html" alt="client::EnemyNetwork" shape="rect" coords="413,280,816,304"/>
+<area href="classclient_1_1_enemy_network.html" alt="client::EnemyNetwork" shape="rect" coords="413,336,816,360"/>
+<area href="classclient_1_1_player_network.html" alt="client::PlayerNetwork" shape="rect" coords="413,392,816,416"/>
+<area href="classserver_1_1_bullet_network.html" alt="server::BulletNetwork" shape="rect" coords="1239,112,1642,136"/>
+<area href="classserver_1_1_player_network.html" alt="server::PlayerNetwork" shape="rect" coords="1239,168,1642,192"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -123,13 +128,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1a63dbe422786d9f0c2e8759cd852af7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classecs_1_1components_1_1behaviour_1_1_behaviour.html#a1a63dbe422786d9f0c2e8759cd852af7">setEntity</a> (ecs::Entity entity)</td></tr>
 <tr class="memdesc:a1a63dbe422786d9f0c2e8759cd852af7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the entity associated with this behaviour.  <a href="classecs_1_1components_1_1behaviour_1_1_behaviour.html#a1a63dbe422786d9f0c2e8759cd852af7">More...</a><br /></td></tr>
 <tr class="separator:a1a63dbe422786d9f0c2e8759cd852af7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0b80730a25f1e036c9e052a2b2dd664"><td class="memItemLeft" align="right" valign="top">ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classecs_1_1components_1_1behaviour_1_1_behaviour.html#ad0b80730a25f1e036c9e052a2b2dd664">getEntity</a> (void) const</td></tr>
-<tr class="memdesc:ad0b80730a25f1e036c9e052a2b2dd664"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Entity object.  <a href="classecs_1_1components_1_1behaviour_1_1_behaviour.html#ad0b80730a25f1e036c9e052a2b2dd664">More...</a><br /></td></tr>
-<tr class="separator:ad0b80730a25f1e036c9e052a2b2dd664"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61c3aff022cc6935bbdf837dc27472d7"><td class="memTemplParams" colspan="2"><a id="a61c3aff022cc6935bbdf837dc27472d7" name="a61c3aff022cc6935bbdf837dc27472d7"></a>
-template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a61c3aff022cc6935bbdf837dc27472d7"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>addListener</b> (std::function&lt; void(T &amp;)&gt; listener)</td></tr>
-<tr class="separator:a61c3aff022cc6935bbdf837dc27472d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -141,15 +139,8 @@ static std::shared_ptr&lt; <a class="el" href="classecs_1_1_coordinator.html">ec
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a5b9c4e5b0d03fe31e0de0cd6f8f1e3ec"><td class="memItemLeft" align="right" valign="top"><a id="a5b9c4e5b0d03fe31e0de0cd6f8f1e3ec" name="a5b9c4e5b0d03fe31e0de0cd6f8f1e3ec"></a>
-ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><b>_entity</b> = 0</td></tr>
+ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><b>_entity</b></td></tr>
 <tr class="separator:a5b9c4e5b0d03fe31e0de0cd6f8f1e3ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d8e1cda99198b16e634f99c8828aefb"><td class="memItemLeft" align="right" valign="top"><a id="a8d8e1cda99198b16e634f99c8828aefb" name="a8d8e1cda99198b16e634f99c8828aefb"></a>
-ecs::SceneID&#160;</td><td class="memItemRight" valign="bottom"><b>_sceneID</b> = 0</td></tr>
-<tr class="separator:a8d8e1cda99198b16e634f99c8828aefb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba321b8f2392d9206dd83d522e1c4e3c"><td class="memItemLeft" align="right" valign="top"><a id="aba321b8f2392d9206dd83d522e1c4e3c" name="aba321b8f2392d9206dd83d522e1c4e3c"></a>
-std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_listeners</b></td></tr>
-<tr class="memdesc:aba321b8f2392d9206dd83d522e1c4e3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map of event types to their listeners. <br /></td></tr>
-<tr class="separator:aba321b8f2392d9206dd83d522e1c4e3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Abstract class representing a behaviour component, akin to Unity's behaviour scripts. </p>
@@ -182,7 +173,7 @@ std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_
 <p>Abstract method to be implemented by derived classes for updating the behaviour. </p>
 <p >This method is called every frame and should contain the logic for the behaviour's action and interaction within the game world. </p>
 
-<p>Implemented in <a class="el" href="classclient_1_1_ally_network.html#a86b0f614c6d387343a1b1c82fac4354c">client::AllyNetwork</a>, <a class="el" href="classclient_1_1_bullet_network.html#a6bfb2637f820e1f9c45da667c661b30e">client::BulletNetwork</a>, <a class="el" href="classclient_1_1_enemy_network.html#a6bd01039887601c0564f0b78e59725d9">client::EnemyNetwork</a>, <a class="el" href="classclient_1_1_player_network.html#a5d36126991e65a9d92079082ea0e2bed">client::PlayerNetwork</a>, <a class="el" href="classclient_1_1_skybox_behavior.html#aebf68349fc68d6bc81c56ed3ad6ee8ad">client::SkyboxBehavior</a>, <a class="el" href="classclient_1_1_skin_selector_behave.html#a2275fa58cdd0c6a19801e97543a453ee">client::SkinSelectorBehave</a>, <a class="el" href="classecs_1_1components_1_1behaviour_1_1_enemy_spawner.html#a159056c4145d1cdeea80fe5db0eed7a4">ecs::components::behaviour::EnemySpawner</a>, <a class="el" href="classclient_1_1_ally_network.html#a86b0f614c6d387343a1b1c82fac4354c">client::AllyNetwork</a>, <a class="el" href="classserver_1_1_bullet_network.html#a2dadd84b8f6c4e1f0695f639aa0f3b58">server::BulletNetwork</a>, <a class="el" href="classserver_1_1_enemy_network.html#a6a3b64fbb7910fb8f4b8bc7bd0c0968d">server::EnemyNetwork</a>, <a class="el" href="classserver_1_1_player_network.html#aa359c78b82337c7d8f08fd83c0e621f8">server::PlayerNetwork</a>, <a class="el" href="classmovement.html#a44d9f870c8ffdd2a5b21afe268104ae0">movement</a>, <a class="el" href="classinput.html#ae0390011ed99089a979a702021ae9900">input</a>, and <a class="el" href="classinput.html#ae0390011ed99089a979a702021ae9900">input</a>.</p>
+<p>Implemented in <a class="el" href="classclient_1_1_ally_network.html#a86b0f614c6d387343a1b1c82fac4354c">client::AllyNetwork</a>, <a class="el" href="classclient_1_1_bullet_network.html#a6bfb2637f820e1f9c45da667c661b30e">client::BulletNetwork</a>, <a class="el" href="classclient_1_1_enemy_network.html#a6bd01039887601c0564f0b78e59725d9">client::EnemyNetwork</a>, <a class="el" href="classclient_1_1_player_network.html#a5d36126991e65a9d92079082ea0e2bed">client::PlayerNetwork</a>, <a class="el" href="classclient_1_1_skybox_behavior.html#aebf68349fc68d6bc81c56ed3ad6ee8ad">client::SkyboxBehavior</a>, <a class="el" href="classclient_1_1_ally_network.html#a86b0f614c6d387343a1b1c82fac4354c">client::AllyNetwork</a>, <a class="el" href="classserver_1_1_bullet_network.html#a2dadd84b8f6c4e1f0695f639aa0f3b58">server::BulletNetwork</a>, <a class="el" href="classclient_1_1_enemy_network.html#a6bd01039887601c0564f0b78e59725d9">client::EnemyNetwork</a>, <a class="el" href="classserver_1_1_player_network.html#aa359c78b82337c7d8f08fd83c0e621f8">server::PlayerNetwork</a>, and <a class="el" href="classinput.html#ae0390011ed99089a979a702021ae9900">input</a>.</p>
 
 </div>
 </div>
@@ -219,27 +210,6 @@ std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_
 </dl>
 
 <p>Reimplemented in <a class="el" href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html#a709b7c313e03c61e21788a39fd7d2279">ecs::components::behaviour::NetworkBehaviour&lt; NetworkManager &gt;</a>, <a class="el" href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html#a709b7c313e03c61e21788a39fd7d2279">ecs::components::behaviour::NetworkBehaviour&lt; client::NetClient &gt;</a>, and <a class="el" href="classecs_1_1components_1_1behaviour_1_1_network_behaviour.html#a709b7c313e03c61e21788a39fd7d2279">ecs::components::behaviour::NetworkBehaviour&lt; server::NetServer &gt;</a>.</p>
-
-</div>
-</div>
-<a id="ad0b80730a25f1e036c9e052a2b2dd664" name="ad0b80730a25f1e036c9e052a2b2dd664"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0b80730a25f1e036c9e052a2b2dd664">&#9670;&nbsp;</a></span>getEntity()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">ecs::Entity ecs::components::behaviour::Behaviour::getEntity </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get the Entity object. </p>
-<dl class="section return"><dt>Returns</dt><dd>ecs::Entity The entity associated with this behaviour. </dd></dl>
 
 </div>
 </div>

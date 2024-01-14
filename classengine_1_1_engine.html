@@ -103,12 +103,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a05152770c0742ec74bc36dda04d0503c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#a05152770c0742ec74bc36dda04d0503c">init</a> (bool disableRender=false)</td></tr>
 <tr class="memdesc:a05152770c0742ec74bc36dda04d0503c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the engine, setting up necessary components and systems.  <a href="classengine_1_1_engine.html#a05152770c0742ec74bc36dda04d0503c">More...</a><br /></td></tr>
 <tr class="separator:a05152770c0742ec74bc36dda04d0503c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b925280e91e1e0789f25058c1eb62d0"><td class="memItemLeft" align="right" valign="top">ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#a9b925280e91e1e0789f25058c1eb62d0">addEntity</a> (<a class="el" href="structecs_1_1components_1_1physics_1_1transform__s.html">ecs::components::physics::transform_t</a> transf={{0, 1, 0}, {0}, {0}}, <a class="el" href="structecs_1_1components_1_1render_1_1render__s.html">ecs::components::render::render_t</a> render={ecs::components::ShapeType::CUBE, true, std::make_shared&lt; <a class="el" href="classecs_1_1components_1_1_cube.html">ecs::components::Cube</a> &gt;()})</td></tr>
-<tr class="memdesc:a9b925280e91e1e0789f25058c1eb62d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new entity to the game with optional physics and render components.  <a href="classengine_1_1_engine.html#a9b925280e91e1e0789f25058c1eb62d0">More...</a><br /></td></tr>
-<tr class="separator:a9b925280e91e1e0789f25058c1eb62d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e26d630a89f89b0cc1c37c19bf8b671"><td class="memItemLeft" align="right" valign="top"><a id="a9e26d630a89f89b0cc1c37c19bf8b671" name="a9e26d630a89f89b0cc1c37c19bf8b671"></a>
-ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><b>addInvisibleEntity</b> (void)</td></tr>
-<tr class="separator:a9e26d630a89f89b0cc1c37c19bf8b671"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae041c72b9ddad1345032d2866d4c706c"><td class="memItemLeft" align="right" valign="top">ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#ae041c72b9ddad1345032d2866d4c706c">addPhysicEntity</a> (<a class="el" href="structecs_1_1components_1_1physics_1_1_transform_component.html">ecs::components::physics::TransformComponent</a> transf, <a class="el" href="structecs_1_1components_1_1render_1_1render__s.html">ecs::components::render::render_t</a> render, <a class="el" href="structecs_1_1components_1_1physics_1_1_rigid_body_component.html">ecs::components::physics::RigidBodyComponent</a> body, const JPH::BodyCreationSettings &amp;creationSettings)</td></tr>
+<tr class="memdesc:ae041c72b9ddad1345032d2866d4c706c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new physical entity to the game, this entity will be added to the physical system.  <a href="classengine_1_1_engine.html#ae041c72b9ddad1345032d2866d4c706c">More...</a><br /></td></tr>
+<tr class="separator:ae041c72b9ddad1345032d2866d4c706c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d38c0d986b298b783a2adb3d4f4c89a"><td class="memItemLeft" align="right" valign="top">ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#a4d38c0d986b298b783a2adb3d4f4c89a">addEntity</a> (<a class="el" href="structecs_1_1components_1_1physics_1_1_transform_component.html">ecs::components::physics::TransformComponent</a> transf, <a class="el" href="structecs_1_1components_1_1render_1_1render__s.html">ecs::components::render::render_t</a> render)</td></tr>
+<tr class="memdesc:a4d38c0d986b298b783a2adb3d4f4c89a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new entity to the game, this entity wont be handled by the physic system and should be handled by a behaviour or manually.  <a href="classengine_1_1_engine.html#a4d38c0d986b298b783a2adb3d4f4c89a">More...</a><br /></td></tr>
+<tr class="separator:a4d38c0d986b298b783a2adb3d4f4c89a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46b9396aada6d7c7e8d76d1218a17843"><td class="memItemLeft" align="right" valign="top"><a id="a46b9396aada6d7c7e8d76d1218a17843" name="a46b9396aada6d7c7e8d76d1218a17843"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>destroyEntity</b> (ecs::Entity entity)</td></tr>
 <tr class="separator:a46b9396aada6d7c7e8d76d1218a17843"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -127,13 +127,10 @@ template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a076a5d456a8619a41b8c3faf657a5645"><td class="memItemLeft" align="right" valign="top"><a id="a076a5d456a8619a41b8c3faf657a5645" name="a076a5d456a8619a41b8c3faf657a5645"></a>
 std::vector&lt; std::pair&lt; std::type_index, std::any &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getAllComponents</b> (ecs::Entity entity)</td></tr>
 <tr class="separator:a076a5d456a8619a41b8c3faf657a5645"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2761afac2517fb26ec4e6383cd862cfe"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a2761afac2517fb26ec4e6383cd862cfe"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#a2761afac2517fb26ec4e6383cd862cfe">registerListener</a> (std::function&lt; void(T &amp;)&gt; listener)</td></tr>
-<tr class="memdesc:a2761afac2517fb26ec4e6383cd862cfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers an event listener.  <a href="classengine_1_1_engine.html#a2761afac2517fb26ec4e6383cd862cfe">More...</a><br /></td></tr>
-<tr class="separator:a2761afac2517fb26ec4e6383cd862cfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae42676286c3503afef12f90616170620"><td class="memItemLeft" align="right" valign="top"><a id="ae42676286c3503afef12f90616170620" name="ae42676286c3503afef12f90616170620"></a>
-<a class="el" href="classecs_1_1_scene_manager.html">ecs::SceneManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getSceneManager</b> () const</td></tr>
-<tr class="separator:ae42676286c3503afef12f90616170620"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac614e22b9ce2e97f9b5b3fdeb82a5d03"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ac614e22b9ce2e97f9b5b3fdeb82a5d03"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#ac614e22b9ce2e97f9b5b3fdeb82a5d03">registerListener</a> (std::function&lt; void(const T &amp;)&gt; listener)</td></tr>
+<tr class="memdesc:ac614e22b9ce2e97f9b5b3fdeb82a5d03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers an event listener.  <a href="classengine_1_1_engine.html#ac614e22b9ce2e97f9b5b3fdeb82a5d03">More...</a><br /></td></tr>
+<tr class="separator:ac614e22b9ce2e97f9b5b3fdeb82a5d03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa011aff7a9a0d6a65373330aa7526712"><td class="memItemLeft" align="right" valign="top"><a id="aa011aff7a9a0d6a65373330aa7526712" name="aa011aff7a9a0d6a65373330aa7526712"></a>
 std::shared_ptr&lt; <a class="el" href="classengine_1_1core_1_1_window.html">engine::core::Window</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getWindow</b> () const</td></tr>
 <tr class="memdesc:aa011aff7a9a0d6a65373330aa7526712"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the window object. <br /></td></tr>
@@ -141,37 +138,22 @@ std::shared_ptr&lt; <a class="el" href="classengine_1_1core_1_1_window.html">eng
 <tr class="memitem:a0399eb84d58a5b6a151065bd27c9165e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#a0399eb84d58a5b6a151065bd27c9165e">isWindowOpen</a> (void)</td></tr>
 <tr class="memdesc:a0399eb84d58a5b6a151065bd27c9165e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the window of the game engine is open.  <a href="classengine_1_1_engine.html#a0399eb84d58a5b6a151065bd27c9165e">More...</a><br /></td></tr>
 <tr class="separator:a0399eb84d58a5b6a151065bd27c9165e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26915cb758c2ef7ed6c96d1dfb1e3136"><td class="memItemLeft" align="right" valign="top"><a id="a26915cb758c2ef7ed6c96d1dfb1e3136" name="a26915cb758c2ef7ed6c96d1dfb1e3136"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>run</b> ()</td></tr>
+<tr class="memdesc:a26915cb758c2ef7ed6c96d1dfb1e3136"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts and runs the game engine. <br /></td></tr>
+<tr class="separator:a26915cb758c2ef7ed6c96d1dfb1e3136"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac169ee175bfcd5bd12ff247fdb9d2d9d"><td class="memItemLeft" align="right" valign="top"><a id="ac169ee175bfcd5bd12ff247fdb9d2d9d" name="ac169ee175bfcd5bd12ff247fdb9d2d9d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (ecs::SceneID id)</td></tr>
 <tr class="separator:ac169ee175bfcd5bd12ff247fdb9d2d9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf03f0d5f6b6de584aa6d114d36f842a"><td class="memItemLeft" align="right" valign="top"><a id="acf03f0d5f6b6de584aa6d114d36f842a" name="acf03f0d5f6b6de584aa6d114d36f842a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>render</b> (ecs::SceneID sceneId, engine::core::CameraID cameraId)</td></tr>
 <tr class="separator:acf03f0d5f6b6de584aa6d114d36f842a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2ffd20790c5da93864d3267a5d18fb5"><td class="memItemLeft" align="right" valign="top"><a id="ab2ffd20790c5da93864d3267a5d18fb5" name="ab2ffd20790c5da93864d3267a5d18fb5"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>renderTextureMode</b> (ecs::SceneID sceneId, engine::core::CameraID cameraId)</td></tr>
-<tr class="separator:ab2ffd20790c5da93864d3267a5d18fb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab20e13cf6acf5193f3f6282929249324"><td class="memItemLeft" align="right" valign="top"><a id="ab20e13cf6acf5193f3f6282929249324" name="ab20e13cf6acf5193f3f6282929249324"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>runTextureMode</b> (RenderTexture &amp;ViewTexture)</td></tr>
+<tr class="separator:ab20e13cf6acf5193f3f6282929249324"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeef234f6dc764a620ebbeb57924be12a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#aeef234f6dc764a620ebbeb57924be12a">getElapsedTime</a> () const</td></tr>
 <tr class="memdesc:aeef234f6dc764a620ebbeb57924be12a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the elapsed time since the engine started.  <a href="classengine_1_1_engine.html#aeef234f6dc764a620ebbeb57924be12a">More...</a><br /></td></tr>
 <tr class="separator:aeef234f6dc764a620ebbeb57924be12a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a056c77722227c8de3c79b887b0cca1a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#a056c77722227c8de3c79b887b0cca1a6">triggerAudio</a> (Sound sound)</td></tr>
-<tr class="memdesc:a056c77722227c8de3c79b887b0cca1a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows to trigger an audio sound, creates a new audioEntity and adds it to the ecs.  <a href="classengine_1_1_engine.html#a056c77722227c8de3c79b887b0cca1a6">More...</a><br /></td></tr>
-<tr class="separator:a056c77722227c8de3c79b887b0cca1a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2353ce417243df1ce32b7bf489091f49"><td class="memItemLeft" align="right" valign="top">ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#a2353ce417243df1ce32b7bf489091f49">playMusic</a> (const std::string &amp;audioPath, bool looping=false)</td></tr>
-<tr class="memdesc:a2353ce417243df1ce32b7bf489091f49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new audio that plays a music.  <a href="classengine_1_1_engine.html#a2353ce417243df1ce32b7bf489091f49">More...</a><br /></td></tr>
-<tr class="separator:a2353ce417243df1ce32b7bf489091f49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a536d988b0081a93ae1c8d699d55f4e19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#a536d988b0081a93ae1c8d699d55f4e19">stopMusic</a> (ecs::Entity musicSource)</td></tr>
-<tr class="memdesc:a536d988b0081a93ae1c8d699d55f4e19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops a music.  <a href="classengine_1_1_engine.html#a536d988b0081a93ae1c8d699d55f4e19">More...</a><br /></td></tr>
-<tr class="separator:a536d988b0081a93ae1c8d699d55f4e19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6aea571c56cefd256607cfbf024bd9b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#a6aea571c56cefd256607cfbf024bd9b3">pauseMusic</a> (ecs::Entity musicSource)</td></tr>
-<tr class="memdesc:a6aea571c56cefd256607cfbf024bd9b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pause a music.  <a href="classengine_1_1_engine.html#a6aea571c56cefd256607cfbf024bd9b3">More...</a><br /></td></tr>
-<tr class="separator:a6aea571c56cefd256607cfbf024bd9b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a391b8f25bd79d4da9e07a57bc7978488"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#a391b8f25bd79d4da9e07a57bc7978488">resumeMusic</a> (ecs::Entity musicSource)</td></tr>
-<tr class="memdesc:a391b8f25bd79d4da9e07a57bc7978488"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resume a music.  <a href="classengine_1_1_engine.html#a391b8f25bd79d4da9e07a57bc7978488">More...</a><br /></td></tr>
-<tr class="separator:a391b8f25bd79d4da9e07a57bc7978488"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af242d6f7362865538669466080ac7f37"><td class="memTemplParams" colspan="2"><a id="af242d6f7362865538669466080ac7f37" name="af242d6f7362865538669466080ac7f37"></a>
-template&lt;typename T &gt; </td></tr>
-<tr class="memitem:af242d6f7362865538669466080ac7f37"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>emitEvent</b> (T &amp;event)</td></tr>
-<tr class="separator:af242d6f7362865538669466080ac7f37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b01783391f0d0a3142a15b15d1fa8de"><td class="memItemLeft" align="right" valign="top">ecs::SceneID&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#a1b01783391f0d0a3142a15b15d1fa8de">createScene</a> ()</td></tr>
 <tr class="memdesc:a1b01783391f0d0a3142a15b15d1fa8de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a Scene object.  <a href="classengine_1_1_engine.html#a1b01783391f0d0a3142a15b15d1fa8de">More...</a><br /></td></tr>
 <tr class="separator:a1b01783391f0d0a3142a15b15d1fa8de"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -208,6 +190,30 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>attachCamera</b> (ecs
 <tr class="memitem:a3f23bf06616d386b7c40fa7d15daa88e"><td class="memItemLeft" align="right" valign="top"><a id="a3f23bf06616d386b7c40fa7d15daa88e" name="a3f23bf06616d386b7c40fa7d15daa88e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>detachCamera</b> (ecs::SceneID sceneID, <a class="el" href="classengine_1_1core_1_1_engine_camera.html">engine::core::EngineCamera</a> &amp;camera)</td></tr>
 <tr class="separator:a3f23bf06616d386b7c40fa7d15daa88e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18c72a8ad08770f5859e19020a7ba470"><td class="memItemLeft" align="right" valign="top">JPH::BodyID&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#a18c72a8ad08770f5859e19020a7ba470">getBodyFromEntity</a> (ecs::Entity entity) const</td></tr>
+<tr class="memdesc:a18c72a8ad08770f5859e19020a7ba470"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrives the body id of the entity.  <a href="classengine_1_1_engine.html#a18c72a8ad08770f5859e19020a7ba470">More...</a><br /></td></tr>
+<tr class="separator:a18c72a8ad08770f5859e19020a7ba470"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acab185c2c2f69053822e49032d0daf0c"><td class="memItemLeft" align="right" valign="top">ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1_engine.html#acab185c2c2f69053822e49032d0daf0c">getEntityFromBody</a> (JPH::BodyID body) const</td></tr>
+<tr class="memdesc:acab185c2c2f69053822e49032d0daf0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the entity from the body id.  <a href="classengine_1_1_engine.html#acab185c2c2f69053822e49032d0daf0c">More...</a><br /></td></tr>
+<tr class="separator:acab185c2c2f69053822e49032d0daf0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a741fc1ea8b29e95dd069c5ff8ae45c92"><td class="memItemLeft" align="right" valign="top"><a id="a741fc1ea8b29e95dd069c5ff8ae45c92" name="a741fc1ea8b29e95dd069c5ff8ae45c92"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>scale</b> (ecs::Entity entity, JPH::Vec3 scale)</td></tr>
+<tr class="separator:a741fc1ea8b29e95dd069c5ff8ae45c92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2644b85dd54782ce3310c9b16e55b250"><td class="memItemLeft" align="right" valign="top"><a id="a2644b85dd54782ce3310c9b16e55b250" name="a2644b85dd54782ce3310c9b16e55b250"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>applyAngularImpulse</b> (ecs::Entity entity, JPH::Vec3 impulse)</td></tr>
+<tr class="separator:a2644b85dd54782ce3310c9b16e55b250"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac717dc9326b3d6770a8e3c9c34a86469"><td class="memItemLeft" align="right" valign="top"><a id="ac717dc9326b3d6770a8e3c9c34a86469" name="ac717dc9326b3d6770a8e3c9c34a86469"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>applyForce</b> (ecs::Entity entity, JPH::Vec3 force)</td></tr>
+<tr class="separator:ac717dc9326b3d6770a8e3c9c34a86469"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a779e5d032b180f6a0646d7693d67782e"><td class="memItemLeft" align="right" valign="top"><a id="a779e5d032b180f6a0646d7693d67782e" name="a779e5d032b180f6a0646d7693d67782e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>applyForceAndTorque</b> (ecs::Entity entity, JPH::Vec3 force, JPH::Vec3 torque)</td></tr>
+<tr class="separator:a779e5d032b180f6a0646d7693d67782e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83d42cebfa92256679be74b95d342ef8"><td class="memItemLeft" align="right" valign="top"><a id="a83d42cebfa92256679be74b95d342ef8" name="a83d42cebfa92256679be74b95d342ef8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>applyImpulse</b> (ecs::Entity entity, JPH::Vec3 impulse)</td></tr>
+<tr class="separator:a83d42cebfa92256679be74b95d342ef8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21639e927802c370bb08b856332945d6"><td class="memItemLeft" align="right" valign="top"><a id="a21639e927802c370bb08b856332945d6" name="a21639e927802c370bb08b856332945d6"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setLinearVelocity</b> (ecs::Entity entity, JPH::Vec3 velocity)</td></tr>
+<tr class="separator:a21639e927802c370bb08b856332945d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2067f5ea2c7936c09770610e85c6b02"><td class="memItemLeft" align="right" valign="top"><a id="af2067f5ea2c7936c09770610e85c6b02" name="af2067f5ea2c7936c09770610e85c6b02"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Engine</b> (<a class="el" href="classengine_1_1_engine.html">Engine</a> &amp;other)=delete</td></tr>
 <tr class="separator:af2067f5ea2c7936c09770610e85c6b02"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -251,23 +257,35 @@ static <a class="el" href="classengine_1_1_engine.html">Engine</a> *&#160;</td><
 
 </div>
 </div>
-<a id="a9b925280e91e1e0789f25058c1eb62d0" name="a9b925280e91e1e0789f25058c1eb62d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b925280e91e1e0789f25058c1eb62d0">&#9670;&nbsp;</a></span>addEntity()</h2>
+<a id="ae041c72b9ddad1345032d2866d4c706c" name="ae041c72b9ddad1345032d2866d4c706c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae041c72b9ddad1345032d2866d4c706c">&#9670;&nbsp;</a></span>addPhysicEntity()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">ecs::Entity engine::Engine::addEntity </td>
+          <td class="memname">ecs::Entity engine::Engine::addPhysicEntity </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structecs_1_1components_1_1physics_1_1transform__s.html">ecs::components::physics::transform_t</a>&#160;</td>
-          <td class="paramname"><em>transf</em> = <code>{{0,&#160;1,&#160;0},&#160;{0},&#160;{0}}</code>, </td>
+          <td class="paramtype"><a class="el" href="structecs_1_1components_1_1physics_1_1_transform_component.html">ecs::components::physics::TransformComponent</a>&#160;</td>
+          <td class="paramname"><em>transf</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="structecs_1_1components_1_1render_1_1render__s.html">ecs::components::render::render_t</a>&#160;</td>
-          <td class="paramname"><em>render</em> = <code>{ecs::components::ShapeType::CUBE,&#160;true,&#160;std::make_shared&lt;<a class="el" href="classecs_1_1components_1_1_cube.html">ecs::components::Cube</a>&gt;()}</code>&#160;</td>
+          <td class="paramname"><em>render</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structecs_1_1components_1_1physics_1_1_rigid_body_component.html">ecs::components::physics::RigidBodyComponent</a>&#160;</td>
+          <td class="paramname"><em>body</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const JPH::BodyCreationSettings &amp;&#160;</td>
+          <td class="paramname"><em>creationSettings</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -277,7 +295,7 @@ static <a class="el" href="classengine_1_1_engine.html">Engine</a> *&#160;</td><
       </table>
 </div><div class="memdoc">
 
-<p>Adds a new entity to the game with optional physics and render components. </p>
+<p>Adds a new physical entity to the game, this entity will be added to the physical system. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">transf</td><td>Physics transformation component. </td></tr>
@@ -286,6 +304,44 @@ static <a class="el" href="classengine_1_1_engine.html">Engine</a> *&#160;</td><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The created entity. </dd></dl>
+
+</div>
+</div>
+<a id="a4d38c0d986b298b783a2adb3d4f4c89a" name="a4d38c0d986b298b783a2adb3d4f4c89a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d38c0d986b298b783a2adb3d4f4c89a">&#9670;&nbsp;</a></span>addEntity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ecs::Entity engine::Engine::addEntity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structecs_1_1components_1_1physics_1_1_transform_component.html">ecs::components::physics::TransformComponent</a>&#160;</td>
+          <td class="paramname"><em>transf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structecs_1_1components_1_1render_1_1render__s.html">ecs::components::render::render_t</a>&#160;</td>
+          <td class="paramname"><em>render</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add a new entity to the game, this entity wont be handled by the physic system and should be handled by a behaviour or manually. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">transf</td><td></td></tr>
+    <tr><td class="paramname">render</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ecs::Entity </dd></dl>
 
 </div>
 </div>
@@ -385,8 +441,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a2761afac2517fb26ec4e6383cd862cfe" name="a2761afac2517fb26ec4e6383cd862cfe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2761afac2517fb26ec4e6383cd862cfe">&#9670;&nbsp;</a></span>registerListener()</h2>
+<a id="ac614e22b9ce2e97f9b5b3fdeb82a5d03" name="ac614e22b9ce2e97f9b5b3fdeb82a5d03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac614e22b9ce2e97f9b5b3fdeb82a5d03">&#9670;&nbsp;</a></span>registerListener()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -399,7 +455,7 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="memname">void engine::Engine::registerListener </td>
           <td>(</td>
-          <td class="paramtype">std::function&lt; void(T &amp;)&gt;&#160;</td>
+          <td class="paramtype">std::function&lt; void(const T &amp;)&gt;&#160;</td>
           <td class="paramname"><em>listener</em></td><td>)</td>
           <td></td>
         </tr>
@@ -481,147 +537,6 @@ template&lt;typename T &gt; </div>
 
 <p>Gets the elapsed time since the engine started. </p>
 <dl class="section return"><dt>Returns</dt><dd>Elapsed time in seconds. </dd></dl>
-
-</div>
-</div>
-<a id="a056c77722227c8de3c79b887b0cca1a6" name="a056c77722227c8de3c79b887b0cca1a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a056c77722227c8de3c79b887b0cca1a6">&#9670;&nbsp;</a></span>triggerAudio()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void engine::Engine::triggerAudio </td>
-          <td>(</td>
-          <td class="paramtype">Sound&#160;</td>
-          <td class="paramname"><em>sound</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Allows to trigger an audio sound, creates a new audioEntity and adds it to the ecs. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">sound</td><td>The sound to play </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a2353ce417243df1ce32b7bf489091f49" name="a2353ce417243df1ce32b7bf489091f49"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2353ce417243df1ce32b7bf489091f49">&#9670;&nbsp;</a></span>playMusic()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">ecs::Entity engine::Engine::playMusic </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>audioPath</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>looping</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Add a new audio that plays a music. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">audioPath</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>ecs::Entity </dd></dl>
-
-</div>
-</div>
-<a id="a536d988b0081a93ae1c8d699d55f4e19" name="a536d988b0081a93ae1c8d699d55f4e19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a536d988b0081a93ae1c8d699d55f4e19">&#9670;&nbsp;</a></span>stopMusic()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void engine::Engine::stopMusic </td>
-          <td>(</td>
-          <td class="paramtype">ecs::Entity&#160;</td>
-          <td class="paramname"><em>musicSource</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Stops a music. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">audioSource</td><td>The entity corresponding to the music source </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a6aea571c56cefd256607cfbf024bd9b3" name="a6aea571c56cefd256607cfbf024bd9b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6aea571c56cefd256607cfbf024bd9b3">&#9670;&nbsp;</a></span>pauseMusic()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void engine::Engine::pauseMusic </td>
-          <td>(</td>
-          <td class="paramtype">ecs::Entity&#160;</td>
-          <td class="paramname"><em>musicSource</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Pause a music. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">musicSource</td><td>The entity corresponding to the music source </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a391b8f25bd79d4da9e07a57bc7978488" name="a391b8f25bd79d4da9e07a57bc7978488"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a391b8f25bd79d4da9e07a57bc7978488">&#9670;&nbsp;</a></span>resumeMusic()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void engine::Engine::resumeMusic </td>
-          <td>(</td>
-          <td class="paramtype">ecs::Entity&#160;</td>
-          <td class="paramname"><em>musicSource</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Resume a music. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">musicSource</td><td>The entity corresponding to the music source that has been paused </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
@@ -720,6 +635,60 @@ template&lt;typename T &gt; </div>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a18c72a8ad08770f5859e19020a7ba470" name="a18c72a8ad08770f5859e19020a7ba470"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18c72a8ad08770f5859e19020a7ba470">&#9670;&nbsp;</a></span>getBodyFromEntity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">JPH::BodyID engine::Engine::getBodyFromEntity </td>
+          <td>(</td>
+          <td class="paramtype">ecs::Entity&#160;</td>
+          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrives the body id of the entity. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>JPH::BodyID </dd></dl>
+
+</div>
+</div>
+<a id="acab185c2c2f69053822e49032d0daf0c" name="acab185c2c2f69053822e49032d0daf0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acab185c2c2f69053822e49032d0daf0c">&#9670;&nbsp;</a></span>getEntityFromBody()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ecs::Entity engine::Engine::getEntityFromBody </td>
+          <td>(</td>
+          <td class="paramtype">JPH::BodyID&#160;</td>
+          <td class="paramname"><em>body</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves the entity from the body id. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">body</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ecs::Entity </dd></dl>
 
 </div>
 </div>
