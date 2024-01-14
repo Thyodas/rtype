@@ -85,6 +85,8 @@ void engine::editor::Main3DScene::update()
 
     if (elapsedTime < frameTimeMs)
         return;
+    _sceneManagerBridge.deactivateAllScenes();
+    engine::activateScene(_sceneID);
     engine::update(_sceneID);
     engine::renderTextureMode(_sceneID, _camera.getCameraID());
     lastTime = currentTime;

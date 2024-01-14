@@ -32,6 +32,13 @@ bool engine::editor::SceneManagerBridge::isEntitySelected() const
     return _isEntitySelected;
 }
 
+void engine::editor::SceneManagerBridge::deactivateAllScenes()
+{
+    for (auto sceneID : _sceneManager.getSceneIDs()) {
+        _sceneManager.deactivateScene(sceneID);
+    }
+}
+
 void engine::editor::SceneManagerBridge::setSelectedEntity(ecs::Entity entity)
 {
     _isEntitySelected = true;

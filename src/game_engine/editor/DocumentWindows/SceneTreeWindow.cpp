@@ -49,11 +49,15 @@ namespace engine::editor {
         if (leaf) {
             base_flags |= ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen; // ImGuiTreeNodeFlags_Bullet
         }
+        if (_sceneManagerBridge.isEntitySelected() && object.id == _sceneManagerBridge.getSelectedEntity()) {
+            base_flags |= ImGuiTreeNodeFlags_Selected;
+        }
 
         // Node
         // increase font size
 
-        bool node_open = ImGui::TreeNodeEx(object.name.c_str(), base_flags);
+        bool node_open = ImGui::TreeNodeEx(object.name.c_str(),
+            base_flags);
         if (ImGui::IsItemClicked()) {
             if (object.type == SCENE_OBJECT_TYPE_ENTITY)
                 _sceneManagerBridge.setSelectedEntity(object.id);

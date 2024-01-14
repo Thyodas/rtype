@@ -28,6 +28,10 @@ namespace engine::editor {
             [[nodiscard]] ecs::Entity getSelectedEntity() const;
             [[nodiscard]] bool isEntitySelected() const;
 
+            void deactivateAllScenes();
+
+
+
             void setSelectedEntity(ecs::Entity entity);
             void unselectEntity();
 
