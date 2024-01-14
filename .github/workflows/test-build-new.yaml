@@ -14,7 +14,38 @@ env:
   VCPKG_DISABLE_METRICS: true
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the code
+      - uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
+
+      # Install clang-tidy
+      - name: Install clang-tidy
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install clang-tidy -y
+
+      # Run clang-tidy
+      - name: Run clang-tidy
+        run: |
+          #!/bin/bash
+          set -o pipefail
+          EXIT_STATUS=0
+          for file in $(find src -name '*.cpp' -o -name '*.h')
+          do
+            clang-tidy "$file" -- -Iinclude || EXIT_STATUS=$?
+          done
+          if [ $EXIT_STATUS -ne 0 ]; then
+            echo "Clang-tidy reported issues"
+            exit $EXIT_STATUS
+          fi
+        shell: bash
+
   build:
+    needs: lint
     timeout-minutes: 30
     strategy:
       fail-fast: false

@@ -14,9 +14,12 @@ namespace ecs {
         {
             while (!_eventQueue.empty()) {
                 auto& event = _eventQueue.front();
-                auto& handlers = _listeners[typeid(*event)];
-                for (auto &handler : handlers) {
-                    handler(*event);
+                auto& type_index = _listeners.get<type>();
+                auto range = type_index.equal_range(typeid(*event));
+                for (auto it = range.first; it != range.second; ++it) {
+                    if (it->listener) {
+                        (*(it->listener))(*event);
+                    }
                 }
                 _eventQueue.pop();
             }

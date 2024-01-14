@@ -25,9 +25,9 @@ namespace ecs {
              * manipulation of its physical attributes in the game world.
              */
             typedef struct transform_s {
-                Vector3 pos; ///< Position of the entity in 3D space.
-                Vector3 rotation; ///< Rotation of the entity around the x, y, and z axes.
-                Vector3 scale; ///< Scale of the entity in 3D space.
+                Vector3 pos{}; ///< Position of the entity in 3D space.
+                Vector3 rotation{}; ///< Rotation of the entity around the x, y, and z axes.
+                Vector3 scale = {1, 1 ,1}; ///< Scale of the entity in 3D space.
             } transform_t;
 
             /**
@@ -51,6 +51,7 @@ namespace ecs {
             enum class CollisionType {
                 COLLIDE, ///< Standard collision.
                 LOOTABLE, ///< Item can be collected or interacted with.
+                NON_COLLIDE ///< Item does not collide with other entities.
             };
 
             /**
@@ -61,7 +62,7 @@ namespace ecs {
              * data describing the shape. It also includes matrices for rotation, scaling, and translation,
              * along with a bounding box and global vertices for collision detection.
              */
-            typedef struct collider_s {
+            typedef struct  collider_s {
                 ShapeType shapeType; ///< Type of the shape used for collision.
                 CollisionType collisionType; ///< Type of collision interaction.
                 std::shared_ptr<IShape> data; ///< Shared pointer to the shape data.

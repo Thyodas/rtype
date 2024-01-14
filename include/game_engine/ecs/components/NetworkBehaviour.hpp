@@ -14,7 +14,6 @@
 
 #include <type_traits>
 
-
 namespace ecs::components::behaviour
 {
     /*template <typename T>
@@ -25,24 +24,27 @@ namespace ecs::components::behaviour
     template<typename NetworkManager>
     class NetworkBehaviour : public Behaviour {
         public:
-        explicit NetworkBehaviour(NetworkManager& networkManager, uint32_t entityNetId = 0, uint32_t connectionId = 0)
+        explicit NetworkBehaviour(NetworkManager& networkManager, uint32_t entityNetId = 0, uint32_t connectionId = 0, ecs::SceneID sceneID = 0)
         : _networkManager(networkManager), _entityNetId(entityNetId), _connectionId(connectionId)
         {
-            /*auto &networkManager = reinterpret_cast<rtype::net::ClientInterface<std::any>&>(_networkManager);
-            networkManager.*/
+            _sceneID = sceneID;
+        }
 
+        ~NetworkBehaviour()
+        {
+            unregisterResponses();
         }
 
         void setEntity(ecs::Entity entity) override
         {
-            ecs::components::network::network_t network = {0};
+            ecs::components::network::network_t network = {
+                .entityNetId = _entityNetId,
+                .connectionId = _connectionId,
+            };
             engine::Engine::getInstance()->addComponent<ecs::components::network::network_t>(entity, network);
             Behaviour::setEntity(entity);
-            auto &net = _coord->getComponent<ecs::components::network::network_t>(_entity);
-            net.entityNetId = _entityNetId;
-            net.connectionId = _connectionId;
+            onAttach(entity);
         }
-
 
         [[nodiscard]] uint32_t getNetId() const
         {
@@ -56,28 +58,41 @@ namespace ecs::components::behaviour
             return netData.connectionId;
         }
 
-        /*template<typename TEvent>
-        using ResponseFunction = std::function<void(TEvent &event)>;
-
-        template<typename TEvent>
-        void registerResponse(ResponseFunction<TEvent>)
+        /**
+         * @brief Called when the entity is attached to the scene
+         * Callback: Function made to be overriden
+         * @note You can for example register the network responses here
+         */
+        virtual void onAttach([[maybe_unused]] Entity entity)
         {
+        };
 
-        }*/
+        using ResponseFunction = std::function<void(rtype::net::Message<common::NetworkMessage> msg)>;
 
-        /*
-        using ResponseFunction = std::function<void(rtype::net::Message<>)>;
+        void addResponse(const std::vector<std::pair<common::NetworkMessage, ResponseFunction>>& responses)
+        {
+            auto responseIds = _networkManager.registerResponse(responses);
+            _responses.insert(_responses.end(), responseIds.begin(), responseIds.end());
+        }
 
-        void registerResponse(const std::string& name, ResponseFunction func) {
-            responses[name] = func;
-        }*/
+        void addResponse(common::NetworkMessage messageType, const ResponseFunction& func)
+        {
+            _responses.push_back(_networkManager.registerResponse(messageType, func));
+        }
 
-        protected:
-            //std::map<std::string, ResponseFunction> responses;
-            NetworkManager& _networkManager;
+        void unregisterResponses(void)
+        {
+            for (auto id : _responses)
+                _networkManager.unregisterResponse(id);
+        }
 
-        private:
-            uint32_t _entityNetId;
-            uint32_t _connectionId;
+    protected:
+        NetworkManager &_networkManager;
+
+    private:
+        uint32_t _entityNetId;
+        uint32_t _connectionId;
+
+        std::vector<int> _responses;
     };
-} // namespace ecs::components::behaviour
+}

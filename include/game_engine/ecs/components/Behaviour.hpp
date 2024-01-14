@@ -10,6 +10,7 @@
 #include "./Physics.hpp"
 #include "../Coordinator.hpp"
 #include "../Entity.hpp"
+#include "../../core/event/Event.hpp"
 #include <iostream>
 #include <functional>
 #include <memory>
@@ -28,7 +29,11 @@ namespace ecs {
              */
             class Behaviour {
                 public:
-                    virtual ~Behaviour() = default;
+                    virtual ~Behaviour()
+                    {
+                        for (auto listenerId : _listeners)
+                            _coord->unregisterListener(listenerId);
+                    };
 
                     /**
                      * @brief Abstract method to be implemented by derived classes for updating the behaviour.
@@ -43,9 +48,24 @@ namespace ecs {
                      */
                     virtual void setEntity(ecs::Entity entity);
 
+                    /**
+                     * @brief Get the Entity object
+                     * @return ecs::Entity The entity associated with this behaviour.
+                     */
+                    ecs::Entity getEntity(void) const;
+
+                    template<typename T>
+                    void addListener(std::function<void(T&)> listener)
+                    {
+                        auto shared = std::make_shared<std::function<void(T&)>>(listener);
+                        _listeners.push_back(_coord->registerListener<T>(shared));
+                    }
+
                     static std::shared_ptr<ecs::Coordinator> _coord; ///< Shared pointer to the ECS coordinator.
                 protected:
-                    ecs::Entity _entity;
+                    ecs::Entity _entity = 0;
+                    ecs::SceneID _sceneID = 0;
+                    std::vector<int> _listeners; ///< Map of event types to their listeners.
             };
         }
     }

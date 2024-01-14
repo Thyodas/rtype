@@ -5,7 +5,7 @@
 ## Makefile
 ##
 
-CXXFLAGS = -std=c++17 -I ../../include/
+CXXFLAGS = -std=c++17 -I ../../include/ -I ../../include/common -I ../../include/game_engine
 LDFLAGS = -lraylib
 
 NAME = example_game_engine
@@ -22,6 +22,7 @@ SRC = main.cpp \
 	  $(SRC_DIR)/ecs/systems/Physics.cpp \
 	  $(SRC_DIR)/ecs/systems/Behaviour.cpp \
 	  $(SRC_DIR)/ecs/systems/Animations.cpp \
+	  $(SRC_DIR)/ecs/systems/Input.cpp \
 	  $(SRC_DIR)/ecs/Entity.cpp \
 
 OBJ = $(SRC:.cpp=.o)

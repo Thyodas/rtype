@@ -25,10 +25,11 @@ namespace client {
             Client();
             ~Client();
 
+            void menu(ecs::SceneID sceneID, engine::core::EngineCamera& camera);
             void run();
         private:
             std::vector<common::game::Entity> _entities;
             NetClient _netClient;
-
+            common::game::ObjectName _playerSkin;
     };
 }

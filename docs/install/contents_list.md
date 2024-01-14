@@ -1,7 +1,6 @@
-\page network_parent_page Network Documentation
+\page install_parent_page Install Documentation
 
-This is the main page for all network-related documentation.
+This is the main page for all installation-related documentation.
 
 Subpages:
-- \subpage network_readme
-- \subpage rfc0001
+- \subpage install_readme

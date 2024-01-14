@@ -8,9 +8,12 @@
 #pragma once
 
 #include <memory>
+#include <any>
 
 #include "System.hpp"
 #include "../core/event/Event.hpp"
+#include "SingletonComponent.hpp"
+#include "Scene.hpp"
 
 namespace ecs {
     /**
@@ -26,13 +29,16 @@ namespace ecs {
         public:
             /**
             * @brief Initializes the Coordinator, creating instances of EntityManager,
-            * ComponentManager, and SystemManager.
+            * ComponentManager, SystemManager, EventManager, SingletonComponentManager
+            * and SceneManager.
             */
             void init() {
                 _componentManager = std::make_shared<components::ComponentManager>();
                 _entityManager = std::make_shared<EntityManager>();
                 _systemManager = std::make_shared<system::SystemManager>();
                 _eventManager = std::make_shared<ecs::event::EventManager>();
+                _singletonComponentManager = std::make_shared<ecs::SingletonComponentManager>();
+                _sceneManager = std::make_shared<ecs::SceneManager>();
             }
 
             /**
@@ -53,6 +59,8 @@ namespace ecs {
                 _entityManager->destroyEntity(entity);
                 _componentManager->entityDestroyed(entity);
                 _systemManager->entityDestroyed(entity);
+                _sceneManager->entityDestroyed(entity);
+                updateSystemEntities();
             }
 
             /**
@@ -61,6 +69,24 @@ namespace ecs {
             template <typename T>
             void registerComponent() {
                 _componentManager->registerComponent<T>();
+                _hasComponentFunctions[typeid(T)] = [this](Entity entity) -> bool {
+                    return this->entityHasComponent<T>(entity);
+                };
+
+                _getComponentFunctions[typeid(T)] = [this](Entity entity) -> std::any {
+                    return std::any(this->getComponent<T>(entity));
+                };
+            }
+
+            /**
+             * @brief Registers a new singleton component
+             *
+             * @tparam T Class that should inherit from SingletonComponent class
+             * @param component
+             */
+            template <typename T>
+            void registerSingletonComponent(T component) {
+                _singletonComponentManager->registerSingletonComponent<T>(component);
             }
 
             /**
@@ -78,6 +104,7 @@ namespace ecs {
                 _entityManager->setSignature(entity, signature);
 
                 _systemManager->entitySignatureChanged(entity, signature);
+                updateSystemEntities();
             }
 
             /**
@@ -94,6 +121,17 @@ namespace ecs {
                 _entityManager->setSignature(entity, signature);
 
                 _systemManager->entitySignatureChanged(entity, signature);
+                updateSystemEntities();
+            }
+
+            /**
+             * @brief Remove a singleton component
+             *
+             * @tparam T Class that should inherit from the SingletonComponent class
+             */
+            template <typename T>
+            void removeSingletonComponent(void) {
+                _singletonComponentManager->unregisterSingletonComponent<T>();
             }
 
             /**
@@ -105,6 +143,29 @@ namespace ecs {
             template <typename T>
             T &getComponent(Entity entity) {
                 return _componentManager->getComponent<T>(entity);
+            }
+
+            /**
+             * @brief Get the Singleton Component object
+             *
+             * @tparam T Class that should inherit from the SingletonComponent class
+             * @return T& The instance of the desired singleton component
+             */
+            template <typename T>
+            T &getSingletonComponent(void) {
+                return _singletonComponentManager->getSingletonComponent<T>();
+            }
+
+            std::vector<std::pair<std::type_index, std::any>> getAllComponents(Entity entity) {
+                std::vector<std::pair<std::type_index, std::any>> components;
+
+                for (auto& [type, func] : _hasComponentFunctions) {
+                    if (func(entity)) {
+                        components.emplace_back(type, _getComponentFunctions[type](entity));
+                    }
+                }
+
+                return components;
             }
 
             /**
@@ -137,27 +198,160 @@ namespace ecs {
                 _systemManager->setSignature<T>(signature);
             }
 
-            template<typename T>
-            void registerListener(std::function<void(const T&)> listener)
+            template<typename T, typename ClosureWeakPtr = std::shared_ptr<int>>
+            int registerListener(std::shared_ptr<std::function<void(T&)>> listener, std::shared_ptr<ClosureWeakPtr> closure = nullptr)
             {
-                _eventManager->registerListener<T>(listener);
+                return _eventManager->registerListener<T, ClosureWeakPtr>(listener, closure);
+            }
+
+            void unregisterListener(int listenerId)
+            {
+                _eventManager->unregisterListener(listenerId);
             }
 
             template <typename T>
-            void emitEvent(const T& event)
+            void emitEvent(T& event)
             {
                 _eventManager->emitEvent<T>(event);
             }
 
+            /**
+             * @brief Dispatch the event to the listeners
+             *
+             */
             void dispatchEvents()
             {
                 _eventManager->dispatchEvents();
             }
 
+            /**
+             * @brief Create a Scene object
+             *
+             * @param id The id of the scene to be created
+             */
+            void createScene(ecs::SceneID id)
+            {
+                _sceneManager->createScene(id);
+            }
+
+            /**
+             * @brief Delete a scene object
+             *
+             * @param id The id of the scene to be deleted
+             */
+            void deleteScene(ecs::SceneID id)
+            {
+                _sceneManager->deleteScene(id);
+            }
+
+            /**
+             * @brief Activate a scene
+             *
+             * @param id The id of the scene
+             */
+            void activateScene(ecs::SceneID id)
+            {
+                _sceneManager->activateScene(id);
+                updateSystemEntities();
+                for (const auto& entity : _sceneManager->getActiveEntities()) {
+                    auto signature = _entityManager->getSignature(entity);
+                    _systemManager->entitySignatureChanged(entity, signature);
+                }
+            }
+
+            /**
+             * @brief Deactivate a scene
+             *
+             * @param id The id of the scene
+             */
+            void deactivateScene(ecs::SceneID id)
+            {
+                _sceneManager->deactivateScene(id);
+                updateSystemEntities();
+                for (const auto& entity : _sceneManager->getActiveEntities()) {
+                    auto signature = _entityManager->getSignature(entity);
+                    _systemManager->entitySignatureChanged(entity, signature);
+                }
+            }
+
+            bool isSceneActive(ecs::SceneID id)
+            {
+                return _sceneManager->isSceneActive(id);
+            }
+
+            bool isScenePaused(ecs::SceneID sceneID)
+            {
+                return _sceneManager->isScenePaused(sceneID);
+            }
+
+            void pauseScene(ecs::SceneID sceneID)
+            {
+                _sceneManager->pauseScene(sceneID);
+            }
+
+            void resumeScene(ecs::SceneID sceneID)
+            {
+                _sceneManager->resumeScene(sceneID);
+            }
+
+            void addEntityToScene(ecs::Entity entity, ecs::SceneID sceneID)
+            {
+                _sceneManager->addEntityToScene(entity, sceneID);
+                auto signature = _entityManager->getSignature(entity);
+                _systemManager->entitySignatureChanged(entity, signature);
+                updateSystemEntities();
+            }
+
+            void removeEntityFromScene(ecs::Entity entity, ecs::SceneID sceneID)
+            {
+                _sceneManager->removeEntityFromScene(entity, sceneID);
+                updateSystemEntities();
+            }
+
+            void attachCamera(ecs::SceneID id, engine::core::EngineCamera &camera)
+            {
+                _sceneManager->attachCamera(id, camera);
+            }
+
+            void detachCamera(ecs::SceneID id, engine::core::EngineCamera &camera)
+            {
+                _sceneManager->detachCamera(id, camera);
+            }
+
+            engine::core::EngineCamera &getCamera(ecs::SceneID id, engine::core::CameraID idCamera)
+            {
+                return _sceneManager->getCamera(id, idCamera);
+            }
+
+            [[nodiscard]] SceneManager& getSceneManager() const
+            {
+                return *_sceneManager;
+            }
+
         private:
+            void updateSystemEntities(void)
+            {
+                _systemManager->updateSystemEntities(*_sceneManager);
+            }
+
+            template<typename T>
+            bool entityHasComponent(Entity entity) {
+                auto signature = _entityManager->getSignature(entity);
+                ecs::components::ComponentType componentType = _componentManager->getComponentType<T>();
+                return signature.test(componentType);
+            }
+
             std::shared_ptr<components::ComponentManager> _componentManager;
             std::shared_ptr<EntityManager> _entityManager;
             std::shared_ptr<system::SystemManager> _systemManager;
             std::shared_ptr<ecs::event::EventManager> _eventManager;
+            std::shared_ptr<ecs::SingletonComponentManager> _singletonComponentManager;
+            std::shared_ptr<ecs::SceneManager> _sceneManager;
+
+            std::unordered_map<std::type_index, std::function<bool(Entity)>> _hasComponentFunctions;
+            std::unordered_map<std::type_index, std::function<std::any(Entity)>> _getComponentFunctions;
     };
 }
+
+
+

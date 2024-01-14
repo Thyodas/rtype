@@ -15,21 +15,27 @@ namespace client {
 
     class EnemyNetwork : public ecs::components::behaviour::NetworkBehaviour<client::NetClient> {
         public:
-            explicit EnemyNetwork(client::NetClient& networkManager)
-                : NetworkBehaviour(networkManager)
+            explicit EnemyNetwork(client::NetClient& networkManager, uint32_t netId, ecs::SceneID sceneId)
+                : NetworkBehaviour(networkManager, netId, 0, sceneId)
             {
-                _networkManager.registerResponse({
-                    {common::NetworkMessage::serverUpdateEnemyVelocity, [this](rtype::net::Message<common::NetworkMessage> msg) {
+            }
+
+            void onAttach(ecs::Entity entity) override
+            {
+                addResponse({
+                    {common::NetworkMessage::serverUpdateEnemyVelocity,
+                    [this](rtype::net::Message<common::NetworkMessage> msg)
+                    {
                         onUpdateVelocity(msg);
                     }},
-                });
-                _networkManager.registerResponse({
-                    {common::NetworkMessage::serverEnemyTakeDamage, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                    {common::NetworkMessage::serverEnemyTakeDamage,
+                    [this](rtype::net::Message<common::NetworkMessage> msg)
+                    {
                         onDamageReceive(msg);
                     }},
-                });
-                _networkManager.registerResponse({
-                    {common::NetworkMessage::serverDestroyEnemy, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                    {common::NetworkMessage::serverDestroyEnemy,
+                    [this](rtype::net::Message<common::NetworkMessage> msg)
+                    {
                         onDestroy(msg);
                     }},
                 });
@@ -67,12 +73,12 @@ namespace client {
                 if (body.entityNetId != getNetId())
                     return;
 
-                _coord->destroyEntity(_entity);
+                engine::destroyEntity(_entity);
+                unregisterResponses();
             }
 
             void update() override
             {
             }
     };
-
 }

@@ -18,6 +18,8 @@ set(SRCS
     src/game_engine/ecs/systems/Physics.cpp
     src/game_engine/ecs/systems/Behaviour.cpp
     src/game_engine/ecs/systems/Animations.cpp
+    src/game_engine/ecs/systems/Input.cpp
+    src/game_engine/ecs/systems/Audio.cpp
     src/game_engine/ecs/Entity.cpp
 )
 
@@ -27,14 +29,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 add_executable(server ${SRCS} ${HEADERS})
 
 if(WIN32)
-    include_directories("${CMAKE_CURRENT_BINARY_DIR}/raylib/Debug")
-    include_directories("${CMAKE_CURRENT_BINARY_DIR}/raylib/include")
+    include_directories("${CMAKE_CURRENT_SOURCE_DIR}/vcpkg_installed/x64-windows/include")
+    include_directories("${CMAKE_CURRENT_SOURCE_DIR}/vcpkg_installed/x64-windows/bin")
     include_directories("${CMAKE_CURRENT_BINARY_DIR}/vcpkg_installed/x64-windows/include")
-    include_directories("${CMAKE_CURRENT_BINARY_DIR}/vcpkg_installed/x64-windows/bin")
-else()
+elseif(UNIX AND NOT APPLE)
     include_directories("${CMAKE_CURRENT_BINARY_DIR}/_deps/raylib-subbuild")
     include_directories("${CMAKE_CURRENT_BINARY_DIR}/_deps/raylib-build/raylib/include")
     include_directories("${CMAKE_CURRENT_BINARY_DIR}/vcpkg_installed/x64-linux/include")
+elseif(APPLE)
+    include_directories("${CMAKE_CURRENT_BINARY_DIR}/_deps/raylib-subbuild")
+    include_directories("${CMAKE_CURRENT_BINARY_DIR}/_deps/raylib-build/raylib/include")
+    include_directories("${CMAKE_CURRENT_BINARY_DIR}/vcpkg_installed/x64-osx/include")
 endif()
 
 find_package(Boost REQUIRED COMPONENTS serialization system)

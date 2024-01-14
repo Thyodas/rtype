@@ -7,17 +7,15 @@
 
 #include "game_engine/core/Window.hpp"
 
+#include <raymath.h>
+#include <raylib.h>
+
 namespace engine {
     namespace core {
         Window::Window(int width, int height, std::string name)
         {
             _width = width;
             _height = height;
-            _camera.position = Vector3{ -25.0f, 1.0f, 0.0f };
-            _camera.target = Vector3{ 0.0f, 0.0f, 0.0f };
-            _camera.up = Vector3{ 0.0f, 1.0f, 0.0f };
-            _camera.fovy = 45.0f;
-            _camera.projection = CAMERA_PERSPECTIVE;
 
 
             InitWindow(width, height, name.c_str());
@@ -104,39 +102,5 @@ namespace engine {
             return _fps;
         }
 
-        Camera &Window::getCamera(void)
-        {
-            return _camera;
-        }
-
-        void Window::setCameraPosition(Vector3 pos)
-        {
-            _camera.position = pos;
-        }
-
-        Vector3 Window::getCameraPosition() const
-        {
-            return _camera.position;
-        }
-
-        void Window::setCameraTarget(Vector3 pos)
-        {
-            _camera.target = pos;
-        }
-
-        Vector3 Window::getCameraTarget() const
-        {
-            return _camera.target;
-        }
-
-        void Window::setCameraFov(float fov)
-        {
-            _camera.fovy = fov;
-        }
-
-        float Window::getCameraFov(void) const
-        {
-            return _camera.fovy;
-        }
     }
 }

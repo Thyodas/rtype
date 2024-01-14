@@ -1,4 +1,4 @@
-\page github_parent_page Network Documentation
+\page github_parent_page GitHub Documentation
 
 This is the main page for all GitHub-related documentation.
 

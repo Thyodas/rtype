@@ -22,7 +22,7 @@ ecs::Entity common::game::EntityFactory::createEntity(
         case common::game::ObjectType::Model3D:
             return createObject3D(name, params, format, path);
         case common::game::ObjectType::SkyBox:
-            return createSkybox(name, params, format);
+            return createSkybox(name, params, format, path);
         default:
             throw std::invalid_argument("Invalid entity type");
     }
@@ -57,9 +57,6 @@ ecs::Entity common::game::EntityFactory::createObject3D(
 {
     std::string objectName = this->objectNameToString(name);
     std::string objectFormat = this->objectFormatToString(format);
-    // TO USE USING CMAKE (Depending on the path of the executable)
-    // std::string path = "./ressources/client/Objects3D/" + objectName + "/" + objectName + objectFormat;
-    // TO USE IF USING LOCAL MAKEFILE
     std::string assetPath = path + "ressources/client/Objects3D/" + objectName + "/" + objectName + objectFormat;
 
     auto shape = engine::createModel3D(
@@ -76,18 +73,16 @@ ecs::Entity common::game::EntityFactory::createObject3D(
 ecs::Entity common::game::EntityFactory::createSkybox(
     common::game::ObjectName name,
     common::game::ObjectParams params,
-    common::game::ObjectFormat format
+    common::game::ObjectFormat format,
+    std::string path
 )
 {
     std::string objectName = this->objectNameToString(name);
     std::string objectFormat = this->objectFormatToString(format);
-    // TO USE USING CMAKE (Depending on the path of the executable)
-    // std::string path = "./ressources/client/Skybox/" + objectName + "/" + objectName + objectFormat;
-    // TO USE IF USING LOCAL MAKEFILE
-    std::string path = "../../ressources/client/Skybox/" + objectName + "/" + objectName + objectFormat;
+    std::string assetPath = path + "ressources/client/Skybox/" + objectName + "/" + objectName + objectFormat;
 
     auto shape = engine::createSkybox(
-        path.c_str(),
+        assetPath.c_str(),
         params.pos,
         params.color
     );

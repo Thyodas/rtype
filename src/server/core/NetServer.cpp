@@ -22,7 +22,6 @@ namespace server {
 
     void NetServer::resClientConnect(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, rtype::net::Message<common::NetworkMessage>& msg)
     {
-        std::cout << "resClientConnect" << std::endl;
         common::game::netbody::ClientConnect body;
         msg >> body;
 
@@ -38,8 +37,16 @@ namespace server {
             {0, 0, 0},
             {1, 1, 1}
         });
-        auto behave = engine::createBehavior<server::PlayerNetwork>(*this, playerShip, client->getID());
+        auto &health = engine::Engine::getInstance()->getComponent<ecs::components::health::health_t>(playerShip);
+        health.healthPoints = 10;
+
+        auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(playerShip);
+        metadata.type = server::entities::EntityType::PLAYER;
+        metadata.skinName = body.shipName;
+
+        auto behave = engine::createBehavior<server::PlayerNetwork>(*this, playerShip, client->getID(), _mainSceneID);
         engine::attachBehavior(playerShip, behave);
+        engine::addEntityToScene(playerShip, _mainSceneID);
 
         std::cout << "[" << client->getID() << "]: Client Connect " << body.name << std::endl;
         reqServerCreatePlayerShip(client, playerShip);
@@ -53,12 +60,13 @@ namespace server {
         msg.header.id = common::NetworkMessage::serverCreatePlayerShip;
 
         auto &transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(ship);
+        auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(ship);
 
-        //auto &model = engine::Engine::getInstance()->getComponent<ecs::components::Model3D>(ship);
+        metadata.client = client;
 
         common::game::netbody::ServerCreatePlayerShip body = {
             .entityNetId = ship,
-            .shipName = common::game::ObjectName::DualStriker, // TODO: get ship name from entity
+            .shipName = metadata.skinName,
             .pos = transform.pos,
         };
 
@@ -73,13 +81,14 @@ namespace server {
         msg.header.id = common::NetworkMessage::serverAllyConnect;
 
         auto &transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(ship);
+        auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(ship);
 
         //auto &model = engine::Engine::getInstance()->getComponent<ecs::components::Model3D>(ship);
 
         common::game::netbody::ServerAllyConnect body = {
             .entityNetId = ship,
             .name = "Jean-Michel", // TODO: get name of player
-            .shipName = common::game::ObjectName::DualStriker, // TODO: get ship name from entity
+            .shipName = metadata.skinName,
             .pos = transform.pos,
         };
 
@@ -105,17 +114,18 @@ namespace server {
         messageAllClients(msg);
     }
 
-    void NetServer::allServerFireBullet(ecs::Entity bullet)
+    void NetServer::allServerFireBullet(ecs::Entity bullet, ecs::Entity sender)
     {
-        std::cout << "allServerFireBullet" << std::endl;
         rtype::net::Message<common::NetworkMessage> msg;
         msg.header.id = common::NetworkMessage::serverFireBullet;
 
         common::game::netbody::ServerFireBullet body = {
             .entityNetId = bullet,
+            .sender = sender,
             .pos = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(bullet).pos,
             .direction = engine::Engine::getInstance()->getComponent<ecs::components::direction::direction_t>(bullet).direction,
             .speed = 0,
+            .rotation = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(bullet).rotation,
         };
 
         msg << body;

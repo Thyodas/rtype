@@ -152,7 +152,7 @@ vcpkg*/
 
 _deps/
 
-client
+./client
 
 CPackConfig.cmake
 
@@ -160,6 +160,12 @@ CPackSourceConfig.cmake
 
 Makefile
 
-server
+./server
 
 .vs/
+
+.DS_Store
+
+.clangd
+
+*.tar

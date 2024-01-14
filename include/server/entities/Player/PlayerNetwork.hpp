@@ -12,6 +12,7 @@
 #include "server/core/NetServer.hpp"
 #include "common/game/entities/EntityFactory.hpp"
 #include "server/entities/Bullet/BulletNetwork.hpp"
+#include "game_engine/core/event/PlayerDestroyEvent.hpp"
 
 namespace server {
 
@@ -19,8 +20,12 @@ namespace server {
 
     class PlayerNetwork : public ecs::components::behaviour::NetworkBehaviour<server::NetServer> {
         public:
-            PlayerNetwork(server::NetServer& networkManager, uint32_t entityNetId = 0, uint32_t connectionId = 0)
-                : NetworkBehaviour(networkManager, entityNetId, connectionId)
+            PlayerNetwork(server::NetServer& networkManager, uint32_t entityNetId = 0, uint32_t connectionId = 0, ecs::SceneID sceneId = 0)
+                : NetworkBehaviour(networkManager, entityNetId, connectionId, sceneId)
+            {
+            }
+
+            void onAttach(ecs::Entity entity) override
             {
                 _networkManager.registerResponse({
                     {
@@ -42,6 +47,16 @@ namespace server {
                         }
                     },
                 });
+
+                addListener<PlayerDestroyEvent>(
+                    [this](PlayerDestroyEvent& event) {
+                    auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(event.entity);
+                    if (metadata.type != server::entities::EntityType::PLAYER)
+                        return;
+
+                    engine::destroyEntity(event.entity);
+                    unregisterResponses();
+                });
             }
 
             // Inform new players of this player's position
@@ -51,18 +66,18 @@ namespace server {
                 resMsg.header.id = common::NetworkMessage::serverAllyConnect;
 
                 auto& transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_entity);
+                auto& metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(_entity);
 
                 //auto &model = engine::Engine::getInstance()->getComponent<ecs::components::Model3D>(ship);
 
                 common::game::netbody::ServerAllyConnect body = {
                     .entityNetId = _entity,
-                    .name = "Jean-Michel", // TODO: get name of player
-                    .shipName = common::game::ObjectName::DualStriker, // TODO: get ship name from entity
+                    .name = "Jean-Michel",
+                    .shipName = metadata.skinName,
                     .pos = transform.pos,
                 };
 
                 resMsg << body;
-
 
                 _networkManager.messageClient(client, resMsg);
             }
@@ -84,7 +99,6 @@ namespace server {
 
             void onPlayerFireBullet(std::shared_ptr<rtype::net::Connection<common::NetworkMessage>>& client, rtype::net::Message<common::NetworkMessage>& msg)
             {
-                std::cout << "received fire bullet from client" << std::endl;
                 common::game::netbody::ClientPlayerFireBullet body;
                 msg >> body;
 
@@ -94,7 +108,7 @@ namespace server {
                 auto &transf = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_entity);
                 auto &collider = engine::Engine::getInstance()->getComponent<ecs::components::physics::collider_t>(_entity);
 
-                Vector3 newPos = {transf.pos.x, transf.pos.y, transf.pos.z + 3};
+                Vector3 newPos = {transf.pos.x, transf.pos.y, transf.pos.z};
                 common::game::EntityFactory factory;
                 ecs::Entity gunBullet = factory.createEntity(common::game::ObjectType::Model3D, common::game::ObjectName::GunBullet, {
                     newPos,
@@ -107,13 +121,14 @@ namespace server {
                     {0, 0, 0},
                     {0.025, 0.025, 0.025}
                 }, common::game::ObjectFormat::GLB);
-                /*auto &direction = engine::Engine::getInstance()->getComponent<ecs::components::direction::direction_t>(gunBullet);
-                direction.direction = body.direction;*/
                 auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(gunBullet);
-                rigidBody.velocity = {0, 0, 1};
-                auto behave = engine::createBehavior<server::BulletNetwork>(_networkManager, gunBullet, client->getID());
+                rigidBody.velocity = {0, 0, 5};
+                auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(gunBullet);
+                metadata.type = server::entities::EntityType::BULLET;
+                auto behave = engine::createBehavior<server::BulletNetwork>(_networkManager, _entity, gunBullet, client->getID(), _sceneID);
                 engine::attachBehavior(gunBullet, behave);
-                _networkManager.allServerFireBullet(gunBullet);
+                engine::addEntityToScene(gunBullet, _sceneID);
+                _networkManager.allServerFireBullet(gunBullet, _entity);
             }
 
             void update() override

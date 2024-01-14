@@ -16,6 +16,10 @@ namespace ecs {
                 _entity = entity;
             }
 
+            ecs::Entity Behaviour::getEntity() const
+            {
+                return _entity;
+            }
         }
     }
 }

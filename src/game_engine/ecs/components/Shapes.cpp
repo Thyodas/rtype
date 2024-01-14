@@ -8,6 +8,7 @@
 #include "game_engine/ecs/components/Shapes.hpp"
 #include "game_engine/ecs/components/Physics.hpp"
 #include "rlgl.h"
+#include "raymath.h"
 
 namespace ecs {
     namespace components {
@@ -18,7 +19,9 @@ namespace ecs {
 
         BoundingBox IShape::getBoundingBox(physics::collider_t &collider) const
         {
+            return collider.box;
             BoundingBox aabb = collider.box;
+            // BoundingBox aabb = GetMeshBoundingBox(_model.meshes[0]);
             Vector3 corners[8] = {
                 aabb.min,
                 {aabb.max.x, aabb.min.y, aabb.min.z},
@@ -29,7 +32,6 @@ namespace ecs {
                 {aabb.max.x, aabb.max.y, aabb.min.z},
                 aabb.max
             };
-
             Matrix transformMatrix = MatrixMultiply(MatrixMultiply(collider.matScale, collider.matRotate), collider.matTranslate);
             for (int i = 0; i < 8; i++) {
                 corners[i] = Vector3Transform(corners[i], transformMatrix);

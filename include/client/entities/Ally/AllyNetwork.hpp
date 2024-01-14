@@ -15,26 +15,27 @@ namespace client {
 
     class AllyNetwork : public ecs::components::behaviour::NetworkBehaviour<client::NetClient> {
         public:
-            explicit AllyNetwork(client::NetClient& networkManager, uint32_t netId = 0)
-                : NetworkBehaviour(networkManager, netId)
+            explicit AllyNetwork(client::NetClient& networkManager, uint32_t netId = 0, ecs::SceneID sceneId = 0)
+                : NetworkBehaviour(networkManager, netId, 0, sceneId)
             {
-                _networkManager.registerResponse({
-                    {common::NetworkMessage::serverUpdateShipPosition, [this](rtype::net::Message<common::NetworkMessage> msg) {
+            }
+
+            void onAttach(ecs::Entity entity) override
+            {
+                addResponse({
+                    {common::NetworkMessage::serverUpdateShipPosition,
+                    [this](rtype::net::Message<common::NetworkMessage> msg)
+                    {
                         onUpdatePosition(msg);
                     }},
-                });
-                _networkManager.registerResponse({
-                    {common::NetworkMessage::serverAllyTakeDamage, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                    {common::NetworkMessage::serverAllyTakeDamage,
+                    [this](rtype::net::Message<common::NetworkMessage> msg)
+                    {
                         onDamageReceive(msg);
                     }},
-                });
-                _networkManager.registerResponse({
-                    {common::NetworkMessage::serverAllyDestroy, [this](rtype::net::Message<common::NetworkMessage> msg) {
-                        onDestroy(msg);
-                    }},
-                });
-                _networkManager.registerResponse({
-                    {common::NetworkMessage::serverAllyDisconnect, [this](rtype::net::Message<common::NetworkMessage> msg) {
+                    {common::NetworkMessage::serverAllyDestroy,
+                    [this](rtype::net::Message<common::NetworkMessage> msg)
+                    {
                         onDestroy(msg);
                     }},
                 });
@@ -72,7 +73,7 @@ namespace client {
                 if (body.entityNetId != getNetId())
                     return;
 
-                _coord->destroyEntity(_entity);
+                engine::destroyEntity(_entity);
             }
 
             void update() override

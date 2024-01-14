@@ -9,70 +9,62 @@
 
 #include "game_engine/ecs/components/NetworkBehaviour.hpp"
 #include "common/game/NetworkBody.hpp"
-#include "client/core/NetClient.hpp"
+#include "server/core/NetServer.hpp"
+#include "server/entities/Bullet/BulletNetwork.hpp"
 
-namespace client {
+namespace server {
 
-    class EnemyNetwork : public ecs::components::behaviour::NetworkBehaviour<client::NetClient> {
+    class EnemyNetwork : public ecs::components::behaviour::NetworkBehaviour<server::NetServer> {
         public:
-            explicit EnemyNetwork(client::NetClient& networkManager)
-                : NetworkBehaviour(networkManager)
+            EnemyNetwork(server::NetServer& networkManager, uint32_t entityNetId = 0, uint32_t connectionId = 0, ecs::SceneID sceneId = 0)
+                : NetworkBehaviour(networkManager, entityNetId, connectionId, sceneId)
             {
-                _networkManager.registerResponse({
-                    {common::NetworkMessage::serverUpdateEnemyVelocity, [this](rtype::net::Message<common::NetworkMessage> msg) {
-                        onUpdateVelocity(msg);
-                    }},
-                });
-                _networkManager.registerResponse({
-                    {common::NetworkMessage::serverEnemyTakeDamage, [this](rtype::net::Message<common::NetworkMessage> msg) {
-                        onDamageReceive(msg);
-                    }},
-                });
-                _networkManager.registerResponse({
-                    {common::NetworkMessage::serverDestroyEnemy, [this](rtype::net::Message<common::NetworkMessage> msg) {
-                        onDestroy(msg);
-                    }},
-                });
+                _lastShot = engine::Engine::getInstance()->getElapsedTime() / 1000;
             }
 
-            void onUpdateVelocity(rtype::net::Message<common::NetworkMessage>& msg)
+            void shoot()
             {
-                common::game::netbody::ServerUpdateShipPosition body;
-                auto &enemyBody = _coord->getComponent<ecs::components::physics::rigidBody_t>(_entity);
-                msg >> body;
+                double now = engine::Engine::getInstance()->getElapsedTime() / 1000;
 
-                if (body.entityNetId != getNetId())
+                if (now - _lastShot < 5) {
                     return;
+                }
 
-                enemyBody.velocity = body.pos;
-            }
+                _lastShot = now;
 
-            void onDamageReceive(rtype::net::Message<common::NetworkMessage>& msg)
-            {
-                auto &allyHealth = _coord->getComponent<ecs::components::health::health_t>(_entity);
-                common::game::netbody::ServerEnemyTakeDamage body;
-                msg >> body;
+                std::cout << "shooting" << std::endl;
 
-                if (body.entityNetId != getNetId())
-                    return;
+                auto &transform = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_entity);
+                common::game::EntityFactory factory;
+                ecs::Entity bullet = factory.createEntity(common::game::ObjectType::Model3D, common::game::ObjectName::GunBullet, {
+                    {transform.pos.x, transform.pos.y, transform.pos.z},
+                    0,
+                    0,
+                    0,
+                    WHITE,
+                    false,
+                    WHITE,
+                    {0, 135, 0},
+                    {0.025, 0.025, 0.025}
+                }, common::game::ObjectFormat::GLB);
+                auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(bullet);
+                rigidBody.velocity = {0, 0, -2};
+                auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(bullet);
+                metadata.type = server::entities::EntityType::BULLET;
+                auto bulletBehave = engine::createBehavior<server::BulletNetwork>(_networkManager, _entity, bullet, 0, _sceneID);
+                engine::attachBehavior(bullet, bulletBehave);
+                engine::addEntityToScene(bullet, _sceneID);
 
-                allyHealth.healthPoints -= body.damage;
-            }
-
-            void onDestroy(rtype::net::Message<common::NetworkMessage>& msg)
-            {
-                common::game::netbody::ServerDestroyEnemy body;
-                msg >> body;
-
-                if (body.entityNetId != getNetId())
-                    return;
-
-                _coord->destroyEntity(_entity);
+                _networkManager.allServerFireBullet(bullet, _entity);
             }
 
             void update() override
             {
+                // this->shoot();
             }
+
+        private:
+            double _lastShot = 0;
     };
 
 }
