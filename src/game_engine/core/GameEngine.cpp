@@ -375,6 +375,7 @@ namespace engine
         Engine::getInstance()->addComponent<ecs::components::physics::collider_t>(entity, collider);
         Engine::getInstance()->addComponent<ecs::components::physics::rigidBody_t>(entity, body);
         Engine::getInstance()->addComponent<ecs::components::health::health_t>(entity, health);
+        Engine::getInstance()->addComponent<ecs::components::metadata::metadata_t>(entity, {server::entities::EntityType::ENTITY_UNDEFINED});
         return entity;
     }
 
@@ -407,6 +408,8 @@ namespace engine
         ecs::Entity entity = Engine::getInstance()->addEntity(transf, render);
         Engine::getInstance()->addComponent<ecs::components::physics::collider_t>(entity, collider);
         Engine::getInstance()->addComponent<ecs::components::physics::rigidBody_t>(entity, body);
+        Engine::getInstance()->addComponent<ecs::components::metadata::metadata_t>(entity, {server::entities::EntityType::ENTITY_UNDEFINED});
+
         return entity;
     }
 

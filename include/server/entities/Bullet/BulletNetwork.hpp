@@ -40,6 +40,10 @@ namespace server {
                     if (event.entity1 != _entity && event.entity2 != _entity)
                         return;
 
+                    auto &metadata1 = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(event.entity2);
+                    if (metadata1.type != server::entities::EntityType::BULLET)
+                        return;
+
                     auto &life = engine::Engine::getInstance()->getComponent<ecs::components::health::health_t>(event.entity1);
                     if (verifyBulletCollision(event.entity1, event.entity2)) return;
 

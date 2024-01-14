@@ -60,7 +60,7 @@ namespace server {
 
             void update() override
             {
-                this->shoot();
+                // this->shoot();
             }
 
         private:
