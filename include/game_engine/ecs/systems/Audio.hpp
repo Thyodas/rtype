@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include "../Coordinator.hpp"
 #include "my_raylib.h"
 #include "../System.hpp"
 #include "../components/Audio.hpp"
@@ -14,25 +15,14 @@
 #include <vector>
 #include <string>
 
-// struct PlayerActionEvent {
-//     bool spacePressed;
-// };
-
 namespace ecs {
     namespace system {
-
         class AudioSystem : public System {
-            private:
-                std::vector<ecs::components::sound::SoundData> _sounds;
-
             public:
-                AudioSystem();
-                ~AudioSystem();
-
-                void initialize();
-                void addSound(const std::string& soundFile, const std::string& name);
-                void playSound(const std::string& name, bool loop = false);
-                void playSoundFromPath(const std::string& path);
+                void update();
+        };
+        class MusicSystem : public System {
+            public:
                 void update();
         };
     }

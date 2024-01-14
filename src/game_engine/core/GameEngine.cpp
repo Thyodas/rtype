@@ -40,6 +40,8 @@ namespace engine
         _coordinator->registerComponent<ecs::components::network::network_t>();
         _coordinator->registerComponent<ecs::components::health::health_t>();
         _coordinator->registerComponent<ecs::components::direction::direction_t>();
+        _coordinator->registerComponent<ecs::components::sound::AudioSource>();
+        _coordinator->registerComponent<ecs::components::sound::MusicSource>();
         ecs::components::input::Input input;
         _coordinator->registerSingletonComponent<ecs::components::input::Input>(input);
 
@@ -59,6 +61,10 @@ namespace engine
         signatureCollider.set(_coordinator->getComponentType<ecs::components::physics::collider_t>());
         ecs::Signature signatureAnimations;
         signatureAnimations.set(_coordinator->getComponentType<ecs::components::animations::animation_t>());
+        ecs::Signature signatureAudioSystem;
+        signatureAudioSystem.set(_coordinator->getComponentType<ecs::components::sound::AudioSource>());
+        ecs::Signature signatureMusicSystem;
+        signatureMusicSystem.set(_coordinator->getComponentType<ecs::components::sound::MusicSource>());
 
         _physicSystem = _coordinator->registerSystem<ecs::system::PhysicsSystem>();
         _coordinator->setSystemSignature<ecs::system::PhysicsSystem>(signaturePhysics);
@@ -80,9 +86,11 @@ namespace engine
 
         _inputSystem = _coordinator->registerSystem<ecs::system::InputSystem>();
 
+        InitAudioDevice();
         _audioSystem = _coordinator->registerSystem<ecs::system::AudioSystem>();
-        _coordinator->registerComponent<ecs::components::sound::AudioSource>();
-        _audioSystem->initialize();
+        _coordinator->setSystemSignature<ecs::system::AudioSystem>(signatureAudioSystem);
+        _musicSystem = _coordinator->registerSystem<ecs::system::MusicSystem>();
+        _coordinator->setSystemSignature<ecs::system::MusicSystem>(signatureMusicSystem);
     }
 
     ecs::Entity Engine::addEntity(ecs::components::physics::transform_t transf, ecs::components::render::render_t render)
@@ -109,6 +117,8 @@ namespace engine
         _physicSystem->updatePosition();
         _animationSystem->handleAnimations();
         _collisionDetectionSystem->detectCollision();
+        _audioSystem->update();
+        _musicSystem->update();
         _coordinator->dispatchEvents();
         if (_disableRender)
             return;
@@ -140,6 +150,47 @@ namespace engine
         DrawGrid(10000, 1.0f);
         EndMode3D();
         EndTextureMode();
+    }
+
+    ecs::Entity Engine::playMusic(const std::string &musicPath, bool looping)
+    {
+        ecs::Entity entity = _coordinator->createEntity();
+        ecs::components::sound::MusicSource musicSource;
+        musicSource.music = LoadMusicStream(musicPath.c_str());
+        musicSource.isLooping = looping;
+        musicSource.isPaused = false;
+        musicSource.resume = false;
+        musicSource.stop = false;
+        _coordinator->addComponent<ecs::components::sound::MusicSource>(entity, musicSource);
+        PlayMusicStream(musicSource.music);
+        return entity;
+    }
+
+    void Engine::stopMusic(ecs::Entity musicSource)
+    {
+        auto &music = _coordinator->getComponent<ecs::components::sound::MusicSource>(musicSource);
+        music.stop = true;
+    }
+
+    void Engine::pauseMusic(ecs::Entity musicSource)
+    {
+        auto &music = _coordinator->getComponent<ecs::components::sound::MusicSource>(musicSource);
+        music.isPaused = true;
+    }
+
+    void Engine::resumeMusic(ecs::Entity musicSource)
+    {
+        auto &music = _coordinator->getComponent<ecs::components::sound::MusicSource>(musicSource);
+        music.resume = true;
+        music.isPaused = false;
+    }
+
+    void Engine::triggerAudio(Sound sound)
+    {
+        auto audioEntity = this->_coordinator->createEntity();
+        ecs::components::sound::AudioSource audioSrc{sound, false};
+        this->_coordinator->addComponent(audioEntity, audioSrc);
+        PlaySound(sound);
     }
 
     void initEngine(bool disableRender)
@@ -302,5 +353,30 @@ namespace engine
     {
         auto &input = Engine::getInstance()->getSingletonComponent<ecs::components::input::Input>();
         return input.keys[static_cast<size_t>(key)].keyUp;
+    }
+
+    void triggerAudio(Sound sound)
+    {
+        Engine::getInstance()->triggerAudio(sound);
+    }
+
+    ecs::Entity playMusic(const std::string &audioPath, bool looping)
+    {
+        return Engine::getInstance()->playMusic(audioPath, looping);
+    }
+
+    void stopMusic(ecs::Entity musicSource)
+    {
+        Engine::getInstance()->stopMusic(musicSource);
+    }
+
+    void pauseMusic(ecs::Entity musicSource)
+    {
+        Engine::getInstance()->pauseMusic(musicSource);
+    }
+
+    void resumeMusic(ecs::Entity musicSource)
+    {
+        Engine::getInstance()->resumeMusic(musicSource);
     }
 }

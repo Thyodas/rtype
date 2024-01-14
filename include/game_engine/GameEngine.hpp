@@ -129,28 +129,40 @@ namespace engine {
             }
 
             /**
-             * @brief Triggers audio playback based on specific game events.
-             *
-             * This template function registers a listener for a given event type. When the event occurs,
-             * it checks a provided condition. If the condition is met, an entity with an AudioSource
-             * component is created, which can be used to play audio.
-             *
-             * @tparam T The type of event to listen for.
-             * @param audioPath The file path of the audio to be played.
-             * @param condition A function that takes an event of type T and returns a boolean.
-             *                  If this function returns true, the audio is triggered.
+             * @brief Allows to trigger an audio sound, creates a new audioEntity and adds
+             * it to the ecs
+             * @param sound The sound to play
              */
-            template<typename T>
-            void triggerAudioOn(const std::string& audioPath, std::function<bool(T&)> condition) {
-                registerListener<T>([this, audioPath, condition](T& event) {
-                    if (condition(event)) {
-                        auto audioEntity = this->_coordinator->createEntity();
-                        ecs::components::sound::AudioSource audioSrc{audioPath};
-                        this->_coordinator->addComponent(audioEntity, audioSrc);
-                        _audioSystem->playSoundFromPath(audioPath);
-                    }
-                });
-            }
+            void triggerAudio(Sound sound);
+
+            /**
+             * @brief Add a new audio that plays a music
+             *
+             * @param audioPath
+             * @return ecs::Entity
+             */
+            ecs::Entity playMusic(const std::string &audioPath, bool looping = false);
+
+            /**
+             * @brief Stops a music
+             *
+             * @param audioSource The entity corresponding to the music source
+             */
+            void stopMusic(ecs::Entity musicSource);
+
+            /**
+             * @brief Pause a music
+             *
+             * @param musicSource The entity corresponding to the music source
+             */
+            void pauseMusic(ecs::Entity musicSource);
+
+            /**
+             * @brief Resume a music
+             *
+             * @param musicSource The entity corresponding to the music source that has been paused
+             */
+            void resumeMusic(ecs::Entity musicSource);
 
             template<typename T>
             void emitEvent(T &event)
@@ -168,6 +180,7 @@ namespace engine {
             std::shared_ptr<ecs::system::ColisionDetectionSystem> _collisionDetectionSystem;
             std::shared_ptr<ecs::system::InputSystem> _inputSystem;
             std::shared_ptr<ecs::system::AudioSystem> _audioSystem;
+            std::shared_ptr<ecs::system::MusicSystem> _musicSystem;
 
             std::shared_ptr<core::Window> _window;
             bool _disableRender = false;
@@ -209,6 +222,12 @@ namespace engine {
 
     void runEngineTextureMode(RenderTexture& ViewTexture);
 
+    /**
+     * @brief Creates an entity without transform or render component
+     * (useful for entites that should have a behavior but not physical existence
+     * like enemy spawner etc...)
+     *
+     */
     ecs::Entity createEntity(void);
 
     /**
@@ -335,22 +354,40 @@ namespace engine {
     }
 
     /**
-     * @brief Triggers audio playback based on specific game events.
+     * @brief Triggers an audio sound
      *
-     * This template function registers a listener for a given event type. When the event occurs,
-     * it checks a provided condition. If the condition is met, an entity with an AudioSource
-     * component is created, which can be used to play audio.
-     *
-     * @tparam T The type of event to listen for.
-     * @param audioPath The file path of the audio to be played.
-     * @param condition A function that takes an event of type T and returns a boolean.
-     *                  If this function returns true, the audio is triggered.
+     * @param sound The sound to play
      */
-    template<typename T>
-    void triggerAudioOnEngine(const std::string& audioPath, std::function<bool(T&)> condition)
-    {
-        Engine::getInstance()->triggerAudioOn<T>(audioPath, condition);
-    }
+    void triggerAudio(Sound sound);
+
+    /**
+     * @brief Plays a music
+     *
+     * @param audioPath the path to the music file
+     * @return ecs::Entity
+     */
+    ecs::Entity playMusic(const std::string &audioPath, bool looping = false);
+
+    /**
+     * @brief Stops a music
+     *
+     * @param musicSource The music source entity to which the music is attached
+     */
+    void stopMusic(ecs::Entity musicSource);
+
+    /**
+     * @brief Pauses a music
+     *
+     * @param musicSource The music source entity to which the music is attached
+     */
+    void pauseMusic(ecs::Entity musicSource);
+
+    /**
+     * @brief Resumes a paused music
+     *
+     * @param musicSource The music source entity to which the paused music is attached
+     */
+    void resumeMusic(ecs::Entity musicSource);
 
     template<typename T>
     void emitEvent(T &event)
