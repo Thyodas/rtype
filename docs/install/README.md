@@ -1,19 +1,22 @@
-\page install_readme Install
+\page install_readme Installation
 # Install
 
 This document provides an overview of the project and instructions on how to build and use it.
 
 ## Table of Contents
 
-- [Project Overview](#project-overview)
-- [Building the Project](#building-the-project)
-  - [Dependencies](#dependencies)
-  - [Building on Windows](#building-on-windows)
-    - [Installing CMake on Windows](#installing-cmake-on-windows)
-  - [Building on Unix-like Systems](#building-on-unix-like-systems)
-- [Running the Project](#running-the-project)
-  - [Server](#server)
-  - [Client](#client)
+- [Install](#install)
+  - [Table of Contents](#table-of-contents)
+  - [Project Overview](#project-overview)
+  - [Building the Project](#building-the-project)
+    - [Dependencies](#dependencies)
+    - [Building on Windows](#building-on-windows)
+      - [Installing CMake on Windows](#installing-cmake-on-windows)
+    - [Building on Unix-like Systems](#building-on-unix-like-systems)
+  - [Running the Project](#running-the-project)
+    - [Server](#server)
+    - [Client](#client)
+    - [Game Engine](#game-engine)
 
 ## Project Overview
 
@@ -67,12 +70,11 @@ After installing CMake, you can proceed with building the project.
 1. After building, navigate to the build directory.
 2. Run the server executable:
     ```bash
-    cd src/server
-    ../../build/server
+    ./build/server
     ```
 
 > [!NOTE]
-> On Windows change '/' to '\'.
+> On Windows change '/' to '\' and add '.exe' to the end of the executable name.
 
 ### Client
 
@@ -84,4 +86,7 @@ After installing CMake, you can proceed with building the project.
     ```
 
 > [!NOTE]
-> On Windows change '/' to '\'.
+>  On Windows change '/' to '\' and add '.exe' to the end of the executable name.
+
+
+### Game Engine

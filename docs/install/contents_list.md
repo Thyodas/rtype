@@ -1,6 +1,6 @@
-\page install_parent_page Install Documentation
+\page install_parent_page Installation
 
-This is the main page for all installation-related documentation.
+This is the main page for all Installation related pages.
 
 Subpages:
 - \subpage install_readme

@@ -1,9 +1,29 @@
 \page network_readme Network
 # R-TYPE Network Documentation
 
-## Overview
+## Table of Contents
 
-This documentation provides an overview of the network components used in the R-TYPE server, focusing on the key aspects of message handling, client-server interaction, and network communication.
+- [R-TYPE Network Documentation](#r-type-network-documentation)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Components](#components)
+    - [Network Messages](#network-messages)
+    - [Client-Server Interaction](#client-server-interaction)
+      - [Client.hpp (ClientInterface)](#clienthpp-clientinterface)
+      - [Server.hpp (ServerInterface)](#serverhpp-serverinterface)
+    - [Connection Management (Connection.hpp)](#connection-management-connectionhpp)
+    - [Message Handling (Message.hpp)](#message-handling-messagehpp)
+    - [Thread-Safe Queues (TsQueue.hpp)](#thread-safe-queues-tsqueuehpp)
+    - [Main Server Logic](#main-server-logic)
+  - [Key Concepts](#key-concepts)
+      - [Serialization with Boost](#serialization-with-boost)
+      - [Asynchronous Communication](#asynchronous-communication)
+      - [Client-Server Model](#client-server-model)
+      - [Concurrency and Thread Safety](#concurrency-and-thread-safety)
+
+## Introduction
+
+This documentation provides an overview of the network architecture of the R-TYPE server, including the key components, concepts, and functionalities. It's intended to help you understand the network design and implementation of the server, as well as the role of each component in the overall architecture.
 
 ## Components
 

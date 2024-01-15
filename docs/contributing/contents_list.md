@@ -1,4 +1,4 @@
-\page github_parent_page GitHub Documentation
+\page contributing_parent_page Contributing
 
 This is the main page for all GitHub-related documentation.
 

@@ -1,6 +1,37 @@
 \page ecs_readme ECS
 # ECS Design
 
+## Table of Contents
+
+- [ECS Design](#ecs-design)
+  - [Table of Contents](#table-of-contents)
+  - [What is ECS ?](#what-is-ecs-)
+    - [Why use ECS ?](#why-use-ecs-)
+  - [Core concepts](#core-concepts)
+  - [How does it work ?](#how-does-it-work-)
+    - [But first, the signatures...](#but-first-the-signatures)
+  - [Now we can talk...](#now-we-can-talk)
+    - [First of the all, the **EntityManager**:](#first-of-the-all-the-entitymanager)
+    - [Second, the **ComponentManager**:](#second-the-componentmanager)
+      - [**ComponentArray**](#componentarray)
+      - [**ComponentManager**](#componentmanager)
+    - [Finally, the SystemManager:](#finally-the-systemmanager)
+      - [SystemManager](#systemmanager)
+  - [A global overview of the workflow](#a-global-overview-of-the-workflow)
+    - [Initialization](#initialization)
+    - [Entity Management](#entity-management)
+    - [Component Management](#component-management)
+    - [System Management](#system-management)
+    - [Workflow Summary](#workflow-summary)
+
+## What is ECS ?
+
+ECS stands for Entity-Component-System. It's a design pattern that is used to decouple data from logic.
+
+### Why use ECS ?
+
+ECS is a very powerful design pattern. It allows you to decouple data from logic, which means that you can easily add new features to your game without having to change the existing code.
+
 ## Core concepts
 - **Entity:** A general-purpose object identified by a unique ID. Entities are lightweight and don't contain data or behavior themselves.  
 - **Component:** Raw data for one aspect of an entity, like position, health, etc. Components are simple structs or classes containing only data.  
@@ -86,9 +117,9 @@ The Coordinator class serves as the central orchestrator for the ECS, tying toge
 ### Component Management
 **Registering Components:** Components are registered (registerComponent) with the ComponentManager, allowing for the creation and tracking of different component types.
 
-**Adding Components:** When a component is added to an entity (addComponent), it is stored in the ComponentManager, and the entity’s signature in the EntityManager is updated. The SystemManager is also notified to update the entity lists in relevant systems.
+**Adding Components:** When a component is added to an entity (addComponent), it is stored in the ComponentManager, and the entity's signature in the EntityManager is updated. The SystemManager is also notified to update the entity lists in relevant systems.
 
-**Removing Components:** Removing a component from an entity (removeComponent) follows a similar process but in reverse, updating the entity’s signature to no longer include the component type.
+**Removing Components:** Removing a component from an entity (removeComponent) follows a similar process but in reverse, updating the entity's signature to no longer include the component type.
 
 ### System Management
 **Registering Systems:** Systems are registered (registerSystem) with the SystemManager. Each system is responsible for processing entities with specific components.
