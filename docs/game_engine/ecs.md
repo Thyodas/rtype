@@ -23,6 +23,7 @@
     - [Component Management](#component-management)
     - [System Management](#system-management)
     - [Workflow Summary](#workflow-summary)
+    - [EC Systems UML Diagram](#ec-systems-uml-diagram)
 
 ## What is ECS ?
 
@@ -130,3 +131,7 @@ When a game object is created, an entity ID is generated.
 As components are added to or removed from this entity, the Coordinator updates the entity's signature to reflect its current component makeup.  
 The SystemManager uses these signatures to maintain an up-to-date list of entities for each system.  
 Each system processes its specific subset of entities, based on the components they possess.
+
+### EC Systems UML Diagram
+
+![ECS Systems UML Diagram](ecs_systems_uml.png)

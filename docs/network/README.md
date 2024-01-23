@@ -20,6 +20,7 @@
       - [Asynchronous Communication](#asynchronous-communication)
       - [Client-Server Model](#client-server-model)
       - [Concurrency and Thread Safety](#concurrency-and-thread-safety)
+      - [Network Implementation UML Diagram](#network-implementation-uml-diagram)
 
 ## Introduction
 
@@ -134,3 +135,7 @@ These components collectively form the backbone of the server, ensuring that it 
     Managing the execution of several sequences of operations simultaneously without causing conflicts or data corruption. Thread-safe queues and synchronization mechanisms are used to ensure safe access to shared resources in a multi-threaded environment.
 
 These concepts are foundational to the network architecture of the R-TYPE server, ensuring efficient, reliable, and concurrent operations.
+
+#### Network Implementation UML Diagram
+
+![Network UML](network_uml.png)

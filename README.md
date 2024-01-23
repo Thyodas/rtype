@@ -2,6 +2,25 @@
 
 Welcome to R-Type Remastered, an exciting reimagination of the classic arcade shooter. This project is a testament to modern C++ capabilities, featuring a multithreaded server and dynamic client for an immersive multiplayer experience.
 
+> [!NOTE]  
+> Find the whole documentation on our [website](https://rtype.guillaume-hein.fr/).
+
+## Project Overview
+
+### Game Engine
+
+Quick video of the game engine in action with Jolt Physics:
+
+<video src="docs/fall.mp4" controls title="Title"></video>
+
+Interface screenshot
+
+![Editor interface](docs/game_engine/editor_interface.png)
+
+### Client
+
+
+
 ## Documentation Quick Links
 
 - **Game Engine Architecture**: Detailed design principles of our engine [Game Engine Documentation](docs/ecs/README.md).

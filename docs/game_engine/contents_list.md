@@ -4,3 +4,4 @@ This is the main page for all game_engine-related documentation.
 
 Subpages:
 - \subpage ecs_readme
+- \subpage editor_readme

@@ -16,11 +16,13 @@ This document provides an overview of the project and instructions on how to bui
   - [Running the Project](#running-the-project)
     - [Server](#server)
     - [Client](#client)
-    - [Game Engine](#game-engine)
+    - [Game Engine GUI](#game-engine-gui)
 
 ## Project Overview
 
 The project consists of a server and a client component. The server handles some functionality, and the client interacts with it.
+
+There is also a game engine GUI that allows you to create and edit game objects and scenes.
 
 ## Building the Project
 
@@ -68,7 +70,7 @@ After installing CMake, you can proceed with building the project.
 ### Server
 
 1. After building, navigate to the build directory.
-2. Run the server executable:
+2. Run the server executable at root:
     ```bash
     ./build/server
     ```
@@ -79,14 +81,22 @@ After installing CMake, you can proceed with building the project.
 ### Client
 
 1. After building, navigate to the build directory.
-2. Run the client executable:
+2. Run the client executable at root:
     ```bash
-    cd src/client
-    ../../build/client
+    ./build/client
     ```
 
 > [!NOTE]
 >  On Windows change '/' to '\' and add '.exe' to the end of the executable name.
 
 
-### Game Engine
+### Game Engine GUI
+
+1. After building, navigate to the build directory.
+2. Run the client executable at root:
+    ```bash
+    ./build/game_engine
+    ```
+
+> [!NOTE]
+>  On Windows change '/' to '\' and add '.exe' to the end of the executable name.
