@@ -9,9 +9,10 @@ Welcome to R-Type Remastered, an exciting reimagination of the classic arcade sh
 
 ### Game Engine
 
-Quick video of the game engine in action with Jolt Physics:
+Quick video of the game engine in action with Jolt Physics
 
-<video src="docs/fall.mp4" controls title="Title"></video>
+https://github.com/Thyodas/rtype/assets/53176398/425d7935-3e52-4b3d-b9bd-701120994e2d
+
 
 Interface screenshot
 
