@@ -55,6 +55,6 @@ namespace client {
             }
         private:
             double _lastTime = 0;
-            float rotationSpeed = 1.0f;
+            float rotationSpeed = 100.0f;
     };
 }

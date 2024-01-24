@@ -16,7 +16,7 @@
 
 namespace server {
 
-    constexpr float PLAYER_SPEED = 10;
+    constexpr float PLAYER_SPEED = 13;
 
     class PlayerNetwork : public ecs::components::behaviour::NetworkBehaviour<server::NetServer> {
         public:
@@ -53,8 +53,10 @@ namespace server {
                     auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(event.entity);
                     if (metadata.type != server::entities::EntityType::PLAYER)
                         return;
-
-                    engine::destroyEntity(event.entity);
+                    if (event.entity != _entity)
+                        return;
+                    return; // TODO: fix crash when destroying another player
+                    engine::destroyEntity(_entity);
                     unregisterResponses();
                 });
             }
@@ -108,7 +110,9 @@ namespace server {
                 auto &transf = engine::Engine::getInstance()->getComponent<ecs::components::physics::transform_t>(_entity);
                 auto &collider = engine::Engine::getInstance()->getComponent<ecs::components::physics::collider_t>(_entity);
 
-                Vector3 newPos = {transf.pos.x, transf.pos.y, transf.pos.z};
+                auto boxHeight = collider.box.max.y - collider.box.min.y;
+
+                Vector3 newPos = {transf.pos.x, transf.pos.y + boxHeight / 2, transf.pos.z};
                 common::game::EntityFactory factory;
                 ecs::Entity gunBullet = factory.createEntity(common::game::ObjectType::Model3D, common::game::ObjectName::GunBullet, {
                     newPos,
@@ -122,7 +126,7 @@ namespace server {
                     {0.025, 0.025, 0.025}
                 }, common::game::ObjectFormat::GLB);
                 auto &rigidBody = engine::Engine::getInstance()->getComponent<ecs::components::physics::rigidBody_t>(gunBullet);
-                rigidBody.velocity = {0, 0, 5};
+                rigidBody.velocity = {0, 0, 20};
                 auto &metadata = engine::Engine::getInstance()->getComponent<ecs::components::metadata::metadata_t>(gunBullet);
                 metadata.type = server::entities::EntityType::BULLET;
                 auto behave = engine::createBehavior<server::BulletNetwork>(_networkManager, _entity, gunBullet, client->getID(), _sceneID);

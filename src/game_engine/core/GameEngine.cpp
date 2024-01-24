@@ -400,7 +400,7 @@ namespace engine
     ecs::Entity createSkybox(const char *filename, Vector3 pos, Color color)
     {
         auto model = std::make_shared<ecs::components::Skybox>(filename);
-        ecs::components::physics::transform_t transf = {pos, {0}, {0}};
+        ecs::components::physics::transform_t transf = {pos, {0}, {1,1,1}};
         ecs::components::render::render_t render = {ecs::components::ShapeType::MODEL, true, model};
         double now = engine::Engine::getInstance()->getElapsedTime() / 1000;
         ecs::components::physics::rigidBody_t body = {0.0, {0}, {0}, now};

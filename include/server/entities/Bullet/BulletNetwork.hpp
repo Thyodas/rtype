@@ -46,7 +46,6 @@ namespace server {
 
                     auto &life = engine::Engine::getInstance()->getComponent<ecs::components::health::health_t>(event.entity1);
                     if (verifyBulletCollision(event.entity1, event.entity2)) return;
-
                     engine::destroyEntity(_entity);
                     destroyBullet(_entity);
 
