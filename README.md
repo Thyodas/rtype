@@ -20,7 +20,7 @@ Interface screenshot
 
 ### Client
 
-
+https://github.com/Thyodas/rtype/assets/53176398/2d6a7a5f-9ad2-435a-88c5-36cfdcd72b80
 
 ## Documentation Quick Links
 
